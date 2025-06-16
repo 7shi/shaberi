@@ -39,10 +39,9 @@ def get_response_from_openai(messages: list, model_name: str) -> str:
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
-    evaluation_temperature = 0
-    evaluation_max_tokens = 1024
-
+def get_response_from_litellm_gemini(messages: list, model_name: str,
+                                     evaluation_temperature: float = 0,
+                                     evaluation_max_tokens: int = 1024) -> str:
     add_messages = [
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
         ]
@@ -50,7 +49,7 @@ def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
 
     try:
         response = completion(
-            model="gemini/gemini-1.5-flash",
+            model=f"gemini/{model_name}",
             messages=add_messages,
             safety_settings=[
                 {
@@ -83,11 +82,31 @@ def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
             raise e
 
 
+def get_response_from_litellm_gemini_extended(messages: list, model_name: str) -> str:
+    """
+    温度調整リトライ機能付きGemini API呼び出し
+    """
+    evaluation_max_tokens = 131072
+
+    for t in range(0, 101, 5):
+        temperature = t / 100
+        print(f"temperature: {temperature:.2f}")
+        try:
+            content = get_response_from_litellm_gemini(messages, model_name, temperature, evaluation_max_tokens)
+            if content and content != "No response received":
+                return content
+        except Exception:
+            pass  # 次の温度で試行を続ける
+
+    # 最大温度に達しても有効なコンテンツが得られなかった場合
+    return "No response received"
+
+
 def get_response_func(model_name: str) -> callable:
     if "gpt" in model_name:
         return get_response_from_openai
     elif "gemini" in model_name:
-        return get_response_from_litellm_gemini
+        return get_response_from_litellm_gemini_extended
     else:
         """
         他のモデルで評価する場合は関数、分岐をここに追加
