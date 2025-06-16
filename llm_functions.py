@@ -11,12 +11,15 @@ litellm._logging._turn_on_debug()
 # Global
 fp = 0.0
 
+# Constants
+NO_RESPONSE = "No response received"
+
 os.environ["OPENAI_API_KEY"] = "NONE"
 
 def backoff_handler(details):
     print(f"Backing off {details['wait']:0.1f} seconds after {details['tries']} tries. Error: {details['exception']}")
     # エラーメッセージに "No response received" が含まれている場合はリトライを中止(モデレーションによるブロックでのエラー)
-    if "No response received" in str(details['exception']):
+    if NO_RESPONSE in str(details['exception']):
         raise backoff.Backoff.Stop
 
 # === 評価生成関数群 ===
@@ -76,8 +79,8 @@ def get_response_from_litellm_gemini(messages: list, model_name: str,
         return response.choices[0].message.content
     except Exception as e:
         print(e)
-        if "No response received" in str(e):
-            return "No response received"
+        if NO_RESPONSE in str(e):
+            return NO_RESPONSE
         else:
             raise e
 
@@ -93,13 +96,13 @@ def get_response_from_litellm_gemini_extended(messages: list, model_name: str) -
         print(f"temperature: {temperature:.2f}")
         try:
             content = get_response_from_litellm_gemini(messages, model_name, temperature, evaluation_max_tokens)
-            if content and content != "No response received":
+            if content and content != NO_RESPONSE:
                 return content
         except Exception:
             pass  # 次の温度で試行を続ける
 
     # 最大温度に達しても有効なコンテンツが得られなかった場合
-    return "No response received"
+    return NO_RESPONSE
 
 
 def get_response_func(model_name: str) -> callable:
