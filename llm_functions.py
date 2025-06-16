@@ -6,7 +6,8 @@ from datasets import Dataset
 from litellm import completion
 from openai import OpenAI
 
-litellm._logging._turn_on_debug()
+# 必要な場合はオンにする
+#litellm._logging._turn_on_debug()
 
 # Global
 fp = 0.0
