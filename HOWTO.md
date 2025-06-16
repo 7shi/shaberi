@@ -285,6 +285,21 @@ ls data/judgements/              # 生データ確認
 - **ELYZA-tasks-100**: 2倍の重み付け
 - 最終スコア = (各ベンチマーク × 重み) / 総重み
 
+### 評価失敗の確認方法
+
+評価に失敗すると、scoreフィールドがnullになることがあります。以下のコマンドで確認できます：
+
+```bash
+# 評価失敗（score:null）を検索
+grep -r ',"score":null' data/judgements/
+
+# 特定の評価モデルのみ確認
+grep -r ',"score":null' data/judgements/judge_gemini-1.5-flash/
+
+# ファイル名と該当箇所を表示
+grep -r ',"score":null' data/judgements/ --include="*.json"
+```
+
 ### 完全な評価フロー例
 ```bash
 # 1. 回答生成
@@ -298,4 +313,7 @@ uv run results_vizualization.py
 
 # 4. 結果確認
 cat output.csv
+
+# 5. 評価失敗の確認（オプション）
+grep -r ',"score":null' data/judgements/judge_gemini-1.5-flash/
 ```
