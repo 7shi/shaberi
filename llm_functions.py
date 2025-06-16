@@ -3,11 +3,10 @@ import litellm
 import os
 
 from datasets import Dataset
-import litellm
 from litellm import completion
 from openai import OpenAI
 
-litellm.set_verbose=True
+litellm._logging._turn_on_debug()
 
 # Global
 fp = 0.0
@@ -41,8 +40,6 @@ def get_response_from_openai(messages: list, model_name: str) -> str:
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
 def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
-    litellm.set_verbose=True
-
     evaluation_temperature = 0
     evaluation_max_tokens = 1024
 
