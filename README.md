@@ -8,9 +8,7 @@ git clone https://github.com/shisa-ai/shaberi
 cd shaberi
 
 # Create Environment, Install requirements
-mamba create -n shaberi python=3.11
-mamba activate shaberi
-pip install -r requirement.txt
+uv sync
 
 # In one terminal, run vLLM OpenAI API, eg: 
 python -m vllm.entrypoints.openai.api_server --model shisa-ai/shisa-v1-llama3-70b -tp 8
@@ -18,19 +16,18 @@ python -m vllm.entrypoints.openai.api_server --model shisa-ai/shisa-v1-llama3-70
 ./server -ngl 99 -c 8192 -m shisa-v1-llama3-70b.Q4_K_M.gguf --chat-template llama3 --host 0.0.0.0 --port 8000 -a shisa-v1-llama3-70b.q4_k_m
 
 # In a separate terminal, generate answers:
-mamba activate shaberi
 # Match model name to what vLLM is serving
 # We run frequency_penalty=0.5 for all our runs, probably generally the best
-python generate_answers.py --model_name 'shisa-ai/shisa-v1-llama3-8b' -fp 0.5
+uv run generate_answers.py --model_name 'shisa-ai/shisa-v1-llama3-8b' -fp 0.5
 
 # Then run the judge (assumes your OPENAI_API_KEY is in the env already):
-python judge_answers.py -m shisa-ai/shisa-v1-llama3-8b
+uv run judge_answers.py -m shisa-ai/shisa-v1-llama3-8b
 
 # Make sure you have new answers and judgements
 git status
 
 # To generate updated results
-python results_vizualization.py
+uv run results_vizualization.py
 cat output.csv
 ```
 
@@ -58,7 +55,7 @@ If we were making our own:
 ## 実行方法
 ### 1. 評価用データセットごとのモデルの回答生成用関数
 ```
-OPENAI_API_KEY=[自分のOpenAIのAPIキー] python generate_answer.py \ 
+OPENAI_API_KEY=[自分のOpenAIのAPIキー] uv run generate_answer.py \ 
     --model_name [評価したいLLMのモデル名] \
     --eval_dataset_name [評価用データセット名] \
     --num_proc [並列処理数]
@@ -71,7 +68,7 @@ OPENAI_API_KEY=[自分のOpenAIのAPIキー] python generate_answer.py \
 
 ### 2. モデルの回答の評価用関数
 ```
-OPENAI_API_KEY=[自分のOpenAIのAPIキー] python judge_answers.py \ 
+OPENAI_API_KEY=[自分のOpenAIのAPIキー] uv run judge_answers.py \ 
     --model_name [評価したいLLMのモデル名] \
     --eval_dataset_name [評価用データセット名] \
     --evaluation_model [評価用のLLMモデル名] \
