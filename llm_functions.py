@@ -147,10 +147,18 @@ def get_answer(question: str, model_name: str):
         max_tokens=generation_max_tokens,
         min_p = 0.1
     )
-    '''
+
+    return response.choices[0].message.content
+
+
+@backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
+def get_answer_from_litellm_gemini(question: str, model_name: str):
+    generation_temperature = 0.2
+    generation_max_tokens = 131072
+
     # Gemini
     response = completion(
-        model="gemini/gemini-1.5-flash", 
+        model=f"gemini/{model_name}",
         messages=[
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
             {"role": "user", "content": question},
@@ -177,14 +185,14 @@ def get_answer(question: str, model_name: str):
         top_p=0.95,
         max_tokens=generation_max_tokens,
     )
-    '''
-
 
     return response.choices[0].message.content
 
 
 def get_answerer(model_name: str) -> callable:
     """OpenAIとvLLM以外のモデルを使う場合はここに追加する"""
+    if "gemini" in model_name:
+        return get_answer_from_litellm_gemini
     return get_answer
 
 
