@@ -49,7 +49,15 @@ def evaluate(model_name: str, eval_dataset_name: str, evaluation_model: str, num
 
     
 def run_judgement(model_name: str, eval_dataset_name: str = "all", evaluation_model: str = "gpt-4-turbo-preview", num_proc: int = 8):
-    eval_dataset_names = EVAL_MODEL_CONFIGS.keys() if eval_dataset_name == "all" else [eval_dataset_name]
+    # "shaberi3"の場合、3つのデータセットを指定
+    if eval_dataset_name == "shaberi3":
+        eval_dataset_names = [
+            "lightblue/tengu_bench",
+            "elyza/ELYZA-tasks-100",
+            "shisa-ai/ja-mt-bench-1shot"
+        ]
+    else:
+        eval_dataset_names = EVAL_MODEL_CONFIGS.keys() if eval_dataset_name == "all" else [eval_dataset_name]
     
     logger = logging.getLogger()  # 既存のロガーを取得
     for eval_dataset_name in eval_dataset_names:
