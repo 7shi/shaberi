@@ -161,3 +161,7 @@ cython_debug/
 
 # Results directory
 results/
+
+# Log files
+answer_log_*.txt
+judgement_log_*.txt
