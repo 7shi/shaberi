@@ -90,10 +90,24 @@ OpenAI社のモデルおよび、vLLM等のopenaiモジュール形式のサー�
 1. `gpt-4-turbo-preview`
 
 ## 評価用データセット名
-1. `lightblue/tengu_bench`: Tengu-Bench
-2. `elyza/ELYZA-tasks-100`: Elyza-tasks-100
-3. `lightblue/japanes-mt-bench-oneshot`: MT-Bench
-4. `yuzuai/rakuda-questions`: Rakuda
+1. `lightblue/tengu_bench`: 総合的な日本語能力
+2. `elyza/ELYZA-tasks-100`: タスク特化型評価
+3. `shisa-ai/ja-mt-bench-1shot`: マルチターン会話
+4. `kunishou/do-not-answer-120-ja`: 安全性評価
+5. `umiyuki/do-not-answer-ja-creative-150`: 創作系安全性
+
+※ 1〜3をまとめて「shaberi3」と称する
+
+## 実行時間の参考
+
+- 対象データセット: shaberi3
+- 評価者: gemini-2.5-flash-preview-05-20
+
+| Revision | answer | judge |
+|----------|--------|--------|
+| gemini-2.5-pro-preview-03-25 | 27m37s | 4m45s |
+| gemini-2.5-pro-preview-05-06 | 41m37s | 4m58s |
+| gemini-2.5-pro-preview-06-05 | 22m19s | 5m17s |
 
 ## 結果
 |                                            |   ELYZA-tasks-100 |   Rakuda |   Tengu-Bench |   MT-Bench |   mean |
