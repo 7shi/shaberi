@@ -21,7 +21,7 @@ judge:
 	uv run judge_answers.py -m $(GEMINI) --evaluation_model gemini-2.5-flash-preview-05-20 -d shaberi3 $(OPTIONS)
 
 archive:
-	tar cvzf $(PREFIX).tar.gz `find data -name "$(PREFIX)*.json"`
+	tar cvzf $(PREFIX).tar.gz `find data results -name "$(PREFIX)*"`
 
 clean:
 	find . -name "*$(PREFIX)*"
