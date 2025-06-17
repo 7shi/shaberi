@@ -93,14 +93,8 @@ def get_tengu_eval_score(eval_text: str) -> int:
         score = re.search(r"\d{1,2}", score_text).group()
         return int(score)
     except (ValueError, AttributeError):
-        try:
-            logger.info('Parse error, trying again...')
-            score_text = re.search(r"\[点数\]\n\d{1,2}点?", eval_text).group()
-            score = re.search(r"\d{1,2}", score_text).group()
-            return int(score)
-        except (ValueError, AttributeError):
-            logger.info(f"Unable to parse Tengu score from {eval_text}")
-            return None
+        logger.info(f"Unable to parse Tengu score from {eval_text}")
+        return None
         
 # Takes a dict and outputs a score for each
 def tengu_bench_evaluator(data:dict, model_name:str) -> int|None:
