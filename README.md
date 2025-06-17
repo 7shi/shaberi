@@ -88,6 +88,7 @@ OpenAI社のモデルおよび、vLLM等のopenaiモジュール形式のサー�
 
 ## 評価に利用できるモデル
 1. `gpt-4-turbo-preview`
+2. `gemini-2.5-flash-preview-05-20`
 
 ## 評価用データセット名
 1. `lightblue/tengu_bench`: 総合的な日本語能力
