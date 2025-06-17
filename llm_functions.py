@@ -1,10 +1,13 @@
 import backoff
 import litellm
 import os
+import logging
 
 from datasets import Dataset
 from litellm import completion
 from openai import OpenAI
+
+logger = logging.getLogger()
 
 # 必要な場合はオンにする
 #litellm._logging._turn_on_debug()
@@ -25,12 +28,11 @@ def backoff_handler(details):
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_openai(messages: list, model_name: str) -> str:
+def get_response_from_openai(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     client = OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY")
     )
 
-    evaluation_temperature = 0
     evaluation_max_tokens = 1024
 
     response = client.chat.completions.create(
@@ -86,31 +88,11 @@ def get_response_from_litellm_gemini(messages: list, model_name: str,
             raise e
 
 
-def get_response_from_litellm_gemini_extended(messages: list, model_name: str) -> str:
-    """
-    温度調整リトライ機能付きGemini API呼び出し
-    """
-    evaluation_max_tokens = 131072
-
-    for t in range(0, 101, 5):
-        temperature = t / 100
-        print(f"temperature: {temperature:.2f}")
-        try:
-            content = get_response_from_litellm_gemini(messages, model_name, temperature, evaluation_max_tokens)
-            if content and content != NO_RESPONSE:
-                return content
-        except Exception:
-            pass  # 次の温度で試行を続ける
-
-    # 最大温度に達しても有効なコンテンツが得られなかった場合
-    return NO_RESPONSE
-
-
 def get_response_func(model_name: str) -> callable:
     if "gpt" in model_name:
         return get_response_from_openai
     elif "gemini" in model_name:
-        return get_response_from_litellm_gemini_extended
+        return get_response_from_litellm_gemini
     else:
         """
         他のモデルで評価する場合は関数、分岐をここに追加
@@ -118,9 +100,45 @@ def get_response_func(model_name: str) -> callable:
         raise NotImplementedError(f"Model {model_name} is not supported")
 
 
-def get_model_response(messages: list, model_name: str) -> str:
+def get_model_response(messages: list, model_name: str, parser_func):
+    """
+    モデルの応答を取得し、パーサー関数で処理する
+    パース成功まで温度を上げながらリトライ
+    
+    Args:
+        messages: プロンプトメッセージ
+        model_name: モデル名
+        parser_func: 応答をパースする関数（必須）
+    
+    Returns:
+        パース結果（失敗時はNone）
+    """
     answer_function = get_response_func(model_name)
-    return answer_function(messages, model_name)
+    
+    # 温度を段階的に上げながらリトライ
+    for t in range(0, 101, 5):
+        evaluation_temperature = t / 100
+        logger.info(f"temperature: {evaluation_temperature:.2f}")
+
+        # 関数に温度パラメータを渡す
+        response = answer_function(messages, model_name, evaluation_temperature)
+        if not response or response == NO_RESPONSE:
+            continue
+
+        try:
+            # パース試行
+            result = parser_func(response)
+            if result:
+                return result
+        except Exception as e:
+            # 次の温度で試行を続ける
+            pass
+
+        if t < 100:
+            logger.info(f"Parse error, trying again...")
+
+    # 最大温度に達しても有効なコンテンツが得られなかった場合
+    return None
 
 
 # === 回答生成関数群 ===
