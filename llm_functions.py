@@ -1,6 +1,11 @@
+import os
+os.environ["LITELLM_LOG"] = "WARNING"
+
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
+
 import backoff
 import litellm
-import os
 import logging
 
 from datasets import Dataset
@@ -144,7 +149,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
 
 # === 回答生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
-def get_answer(question: str, model_name: str):
+def get_answer_from_openai(question: str, model_name: str):
     api_key = os.environ.get("OPENAI_API_KEY", "EMPTY")
     if api_key == "EMPTY":
         base_url = "http://127.0.0.1:8000/v1"
@@ -226,20 +231,20 @@ def get_answer_from_litellm_gemini(question: str, model_name: str):
     return response.choices[0].message.content
 
 
-def get_answerer(model_name: str) -> callable:
+def get_answer(question: str, model_name: str) -> str | None:
     """OpenAIとvLLM以外のモデルを使う場合はここに追加する"""
     if "gemini" in model_name:
-        return get_answer_from_litellm_gemini
-    return get_answer
+        content = get_answer_from_litellm_gemini(question, model_name)
+    else:
+        content = get_answer_from_openai(question, model_name)
+    return content
 
 
 def get_model_answer(dataset: Dataset,
                      model_name: str,
                      batch_size: int) -> Dataset:
-    answer_function = get_answerer(model_name)
-
     dataset = dataset.map(
-        lambda x: {"ModelAnswer": answer_function(x['Question'], model_name)},
+        lambda x: {"ModelAnswer": get_answer(x['Question'], model_name)},
         num_proc=batch_size
     )
     return dataset

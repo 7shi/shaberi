@@ -9,7 +9,7 @@ from evaluation_datasets_config import EVAL_MODEL_CONFIGS, get_ans_path
 # ロギングの設定を関数化
 def setup_logging(model_name: str):
     logger = logging.getLogger()  # デフォルトのロガーを取得
-    logger.setLevel(logging.INFO)  # ログレベルを設定
+    logger.setLevel(logging.DEBUG)  # ログレベルを設定
     
     # 既存のハンドラをクリア（重複防止）
     if logger.handlers:
@@ -20,11 +20,13 @@ def setup_logging(model_name: str):
     
     # ファイルハンドラ（model_nameを含む）
     file_handler = logging.FileHandler(f"judgement_log_{model_name.replace('/', '__')}.txt", encoding="utf-8")
+    file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
     
     # コンソールハンドラ
     console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
     

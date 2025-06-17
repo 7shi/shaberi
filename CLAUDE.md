@@ -118,6 +118,29 @@ cat output.csv
    - 評価結果のパース失敗時に温度を段階的に上げて再試行
    - 詳細は[EVAL.md](EVAL.md)を参照
 
+5. **コード構造の整理（2025年6月17日追加）**
+   - `get_answer`関数を`get_answer_from_openai`にリネーム
+   - 新しい`get_answer`関数でモデル判定を統合
+   - `get_answerer`関数を削除し、`get_model_answer`でシンプルに`get_answer`を直接呼び出し
+
+6. **ロギング・警告の最適化（2025年6月17日追加）**
+   - LiteLLMのログレベルを環境変数`LITELLM_LOG="WARNING"`で制御
+   - Pydanticシリアライゼーション警告を抑制（`dataset.map`のマルチプロセス処理で発生）
+   - warningsモジュールでPydantic警告をフィルタリング
+
+### generate_answers.py の変更点
+1. **ロギング機能の追加（2025年6月17日追加）**
+   - 独自の`setup_logging`関数を実装
+   - `answer_log_{model_name}.txt`ファイルに回答生成の進行状況を記録
+   - 評価用の`judgement_log_`と分離して管理
+   - ファイルハンドラ：DEBUGレベル、コンソールハンドラ：WARNINGレベル
+
+### judge_answers.py の変更点
+1. **ロギングレベルの調整（2025年6月17日追加）**
+   - ロガーレベルをINFOからDEBUGに変更
+   - ハンドラーごとに明示的なレベル設定を追加
+   - ファイルハンドラ：DEBUGレベル、コンソールハンドラ：INFOレベル
+
 ### 新規追加ファイル
 - [HOWTO.md](HOWTO.md): よくある質問と詳細な使い方ガイド（キャッシュ問題の解決方法を含む）
 - [EVAL.md](EVAL.md): 評価システムのリファクタリング詳細（温度調整リトライ機能の実装について）

@@ -1,10 +1,37 @@
 import argparse
+import logging
 
 from datasets import Dataset, load_dataset
 
 from evaluation_datasets_config import EVAL_MODEL_CONFIGS, get_ans_path
 import llm_functions
 from llm_functions import get_model_answer
+
+
+def setup_logging(model_name: str):
+    logger = logging.getLogger()  # デフォルトのロガーを取得
+    logger.setLevel(logging.DEBUG)  # ログレベルを設定
+    
+    # 既存のハンドラをクリア（重複防止）
+    if logger.handlers:
+        logger.handlers.clear()
+    
+    # フォーマットの設定
+    formatter = logging.Formatter("%(asctime)s - %(message)s")
+    
+    # ファイルハンドラ（model_nameを含む）
+    file_handler = logging.FileHandler(f"answer_log_{model_name.replace('/', '__')}.txt", encoding="utf-8")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    
+    # コンソールハンドラ
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+    
+    return logger
 
 
 def load_model_dataset(evaluation_dataset_name: str) -> Dataset:
@@ -37,7 +64,9 @@ def run_generate(model_name: str, eval_dataset_name: str = "all", num_proc: int 
     else:
         eval_dataset_names = list(EVAL_MODEL_CONFIGS.keys()) if eval_dataset_name == "all" else [eval_dataset_name]
     
+    logger = logging.getLogger()  # 既存のロガーを取得
     for dataset_name in eval_dataset_names:
+        logger.info(f"Generating answers for {model_name} on {dataset_name} ({num_proc} proc)")
         # 1. テストデータセットの読み込み
         dataset = load_model_dataset(dataset_name)
         # 2. モデルの回答の取得
@@ -54,6 +83,9 @@ def main():
     parser.add_argument('-fp', '--frequency_penalty', type=float, default=1.0)
 
     args = parser.parse_args()
+
+    # 引数が確定した後にロギングを設定
+    setup_logging(args.model_name)
 
     # hack
     llm_functions.fp = args.frequency_penalty
