@@ -6,16 +6,19 @@ $(error DATE is not defined. Please run with: make DATE=MM-DD)
 endif
 endif
 
-GEMINI := $(PREFIX)-$(DATE)
+GEMINI  := $(PREFIX)-$(DATE)
+
+# for Free Tier
+OPTIONS := #-n 1
 
 all:
 	@echo "targets: answer, judge, archive"
 
 answer:
-	uv run generate_answers.py -m $(GEMINI) -d shaberi3
+	uv run generate_answers.py -m $(GEMINI) -d shaberi3 $(OPTIONS)
 
 judge:
-	uv run judge_answers.py -m $(GEMINI) --evaluation_model gemini-2.5-flash-preview-05-20 -d shaberi3
+	uv run judge_answers.py -m $(GEMINI) --evaluation_model gemini-2.5-flash-preview-05-20 -d shaberi3 $(OPTIONS)
 
 archive:
 	tar cvzf $(PREFIX).tar.gz `find data -name "$(PREFIX)*.json"`
