@@ -1,6 +1,6 @@
 PREFIX := gemini-2.5-pro-preview
 
-ifneq ($(filter answer judge archive,$(MAKECMDGOALS)),)
+ifneq ($(filter answer judge ,$(MAKECMDGOALS)),)
 ifndef DATE
 $(error DATE is not defined. Please run with: make DATE=MM-DD)
 endif
@@ -18,7 +18,7 @@ judge:
 	uv run judge_answers.py -m $(GEMINI) --evaluation_model gemini-2.5-flash-preview-05-20 -d shaberi3
 
 archive:
-	tar cvzf $(GEMINI).tar.gz `find data -name $(GEMINI).json`
+	tar cvzf $(PREFIX).tar.gz `find data -name "$(PREFIX)*.json"`
 
 clean:
 	find . -name "*$(PREFIX)*"
