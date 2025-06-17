@@ -128,16 +128,23 @@ cat output.csv
    - Pydanticシリアライゼーション警告を抑制（`dataset.map`のマルチプロセス処理で発生）
    - warningsモジュールでPydantic警告をフィルタリング
 
+7. **ロギング機能の統合（2025年6月17日追加）**
+   - `setup_logging`関数を`llm_functions.py`に集約
+   - `log_prefix`パラメータで"answer_log"/"judgement_log"を指定
+   - `console_level`パラメータでコンソール出力レベルを制御（デフォルト：`default_console_level = logging.WARNING`）
+   - ロギングレベルを一箇所で管理し、必要に応じてオーバーライド可能
+   - generate_answers.py、judge_answers.pyから重複コードを削除
+
 ### generate_answers.py の変更点
 1. **ロギング機能の追加（2025年6月17日追加）**
-   - 独自の`setup_logging`関数を実装
+   - `llm_functions.setup_logging`を使用してロギングを設定
    - `answer_log_{model_name}.txt`ファイルに回答生成の進行状況を記録
    - 評価用の`judgement_log_`と分離して管理
    - ファイルハンドラ：DEBUGレベル、コンソールハンドラ：WARNINGレベル
 
 ### judge_answers.py の変更点
 1. **ロギングレベルの調整（2025年6月17日追加）**
-   - ロガーレベルをINFOからDEBUGに変更
+   - `llm_functions.setup_logging`を使用してロギングを設定
    - ハンドラーごとに明示的なレベル設定を追加
    - ファイルハンドラ：DEBUGレベル、コンソールハンドラ：INFOレベル
 

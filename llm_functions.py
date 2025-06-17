@@ -12,11 +12,6 @@ from datasets import Dataset
 from litellm import completion
 from openai import OpenAI
 
-logger = logging.getLogger()
-
-# 必要な場合はオンにする
-#litellm._logging._turn_on_debug()
-
 # Global
 fp = 0.0
 generation_max_tokens = 131072 #1500
@@ -26,6 +21,40 @@ evaluation_max_tokens = 131072 #1024
 NO_RESPONSE = "No response received"
 
 os.environ["OPENAI_API_KEY"] = "NONE"
+
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)  # ログレベルを設定
+default_console_level = logging.WARNING  # 必要に応じて変更 (INFO/DEBUG)
+
+def setup_logging(model_name: str, log_prefix: str = "log", console_level: int = default_console_level):
+    """
+    ロギングの設定を行う
+    
+    Args:
+        model_name: モデル名（ログファイル名に使用）
+        log_prefix: ログファイルのプレフィックス ("answer_log" or "judgement_log")
+        console_level: コンソールハンドラのログレベル (logging.INFO, logging.WARNING等)
+    """
+    # 既存のハンドラをクリア（重複防止）
+    if logger.handlers:
+        logger.handlers.clear()
+    
+    # フォーマットの設定
+    formatter = logging.Formatter("%(asctime)s - %(message)s")
+    
+    # ファイルハンドラ（model_nameを含む）
+    file_handler = logging.FileHandler(f"{log_prefix}_{model_name.replace('/', '__')}.txt", encoding="utf-8")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    
+    # コンソールハンドラ
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(console_level)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
 
 def backoff_handler(details):
     print(f"Backing off {details['wait']:0.1f} seconds after {details['tries']} tries. Error: {details['exception']}")

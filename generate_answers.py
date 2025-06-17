@@ -5,33 +5,7 @@ from datasets import Dataset, load_dataset
 
 from evaluation_datasets_config import EVAL_MODEL_CONFIGS, get_ans_path
 import llm_functions
-from llm_functions import get_model_answer
-
-
-def setup_logging(model_name: str):
-    logger = logging.getLogger()  # デフォルトのロガーを取得
-    logger.setLevel(logging.DEBUG)  # ログレベルを設定
-    
-    # 既存のハンドラをクリア（重複防止）
-    if logger.handlers:
-        logger.handlers.clear()
-    
-    # フォーマットの設定
-    formatter = logging.Formatter("%(asctime)s - %(message)s")
-    
-    # ファイルハンドラ（model_nameを含む）
-    file_handler = logging.FileHandler(f"answer_log_{model_name.replace('/', '__')}.txt", encoding="utf-8")
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-    
-    # コンソールハンドラ
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.WARNING)
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-    
-    return logger
+from llm_functions import get_model_answer, setup_logging
 
 
 def load_model_dataset(evaluation_dataset_name: str) -> Dataset:
@@ -85,7 +59,7 @@ def main():
     args = parser.parse_args()
 
     # 引数が確定した後にロギングを設定
-    setup_logging(args.model_name)
+    setup_logging(args.model_name, log_prefix="answer_log")
 
     # hack
     llm_functions.fp = args.frequency_penalty
