@@ -14,6 +14,8 @@ logger = logging.getLogger()
 
 # Global
 fp = 0.0
+generation_max_tokens = 131072 #1500
+evaluation_max_tokens = 131072 #1024
 
 # Constants
 NO_RESPONSE = "No response received"
@@ -28,12 +30,11 @@ def backoff_handler(details):
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_openai(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
+def get_response_from_openai(messages: list, model_name: str,
+                             evaluation_temperature: float = 0) -> str:
     client = OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY")
     )
-
-    evaluation_max_tokens = 1024
 
     response = client.chat.completions.create(
         messages=messages,
@@ -46,8 +47,7 @@ def get_response_from_openai(messages: list, model_name: str, evaluation_tempera
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
 def get_response_from_litellm_gemini(messages: list, model_name: str,
-                                     evaluation_temperature: float = 0,
-                                     evaluation_max_tokens: int = 1024) -> str:
+                                     evaluation_temperature: float = 0) -> str:
     add_messages = [
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
         ]
@@ -123,6 +123,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
         # 関数に温度パラメータを渡す
         response = answer_function(messages, model_name, evaluation_temperature)
         if not response or response == NO_RESPONSE:
+            logger.info(response)
             continue
 
         try:
@@ -135,7 +136,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
             pass
 
         if t < 100:
-            logger.info(f"Parse error, trying again...")
+            logger.info("Parse error, trying again...")
 
     # 最大温度に達しても有効なコンテンツが得られなかった場合
     return None
@@ -156,7 +157,6 @@ def get_answer(question: str, model_name: str):
     )
 
     generation_temperature = 0.2
-    generation_max_tokens = 1500
 
     '''
     # Anthropic / OpenAI
@@ -192,7 +192,6 @@ def get_answer(question: str, model_name: str):
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
 def get_answer_from_litellm_gemini(question: str, model_name: str):
     generation_temperature = 0.2
-    generation_max_tokens = 131072
 
     # Gemini
     response = completion(

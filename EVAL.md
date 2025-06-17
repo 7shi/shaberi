@@ -25,7 +25,17 @@ except ValueError:
 
 ### 1. llm_functions.pyの変更
 
-#### 1.1 OpenAI関数の温度パラメータ対応
+#### 1.1 トークン制限のグローバル化
+```python
+# 新規追加
+# Global
+fp = 0.0
+generation_max_tokens = 131072 #1500
+evaluation_max_tokens = 131072 #1024
+```
+思考モデルの思考プロセスで大量のトークンを消費するため、制限を大幅拡張しグローバル変数として統一管理。
+
+#### 1.2 OpenAI関数の温度パラメータ対応
 ```python
 # 旧
 def get_response_from_openai(messages: list, model_name: str) -> str:
@@ -36,7 +46,7 @@ def get_response_from_openai(messages: list, model_name: str, evaluation_tempera
     # 温度パラメータを引数として受け取れるように変更
 ```
 
-#### 1.2 get_model_response関数の拡張
+#### 1.3 get_model_response関数の拡張
 ```python
 # 旧
 def get_model_response(messages: list, model_name: str) -> str:
@@ -71,7 +81,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
             pass
         
         if t < 100:
-            logger.info(f"Parse error, trying again...")
+            logger.info("Parse error, trying again...")
     
     return None
 ```
