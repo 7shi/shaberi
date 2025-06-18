@@ -14,22 +14,23 @@ fp = 0.0
 generation_max_tokens = 1500
 evaluation_max_tokens = 1024
 
+# Constants
+NO_RESPONSE = "No response received"
+
 os.environ["OPENAI_API_KEY"] = "NONE"
 
 def backoff_handler(details):
     print(f"Backing off {details['wait']:0.1f} seconds after {details['tries']} tries. Error: {details['exception']}")
     # エラーメッセージに "No response received" が含まれている場合はリトライを中止(モデレーションによるブロックでのエラー)
-    if "No response received" in str(details['exception']):
+    if NO_RESPONSE in str(details['exception']):
         raise backoff.Backoff.Stop
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_openai(messages: list, model_name: str) -> str:
+def get_response_from_openai(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     client = OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY")
     )
-
-    evaluation_temperature = 0
 
     response = client.chat.completions.create(
         messages=messages,
@@ -41,10 +42,8 @@ def get_response_from_openai(messages: list, model_name: str) -> str:
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
+def get_response_from_litellm_gemini(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     litellm.set_verbose=True
-
-    evaluation_temperature = 0
 
     add_messages = [
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
@@ -80,8 +79,8 @@ def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
         return response.choices[0].message.content
     except Exception as e:
         print(e)
-        if "No response received" in str(e):
-            return "No response received"
+        if NO_RESPONSE in str(e):
+            return NO_RESPONSE
         else:
             raise e
 
@@ -98,9 +97,49 @@ def get_response_func(model_name: str) -> callable:
         raise NotImplementedError(f"Model {model_name} is not supported")
 
 
-def get_model_response(messages: list, model_name: str) -> str:
+def get_model_response(messages: list, model_name: str, parser_func):
+    """
+    モデルの応答を取得し、パーサー関数で処理する
+    パース成功まで温度を上げながらリトライ
+    
+    Args:
+        messages: プロンプトメッセージ
+        model_name: モデル名
+        parser_func: 応答をパースする関数（必須）
+    
+    Returns:
+        パース結果（失敗時はNone）
+    """
+    import logging
+    logger = logging.getLogger()
+    
     answer_function = get_response_func(model_name)
-    return answer_function(messages, model_name)
+    
+    # 温度を段階的に上げながらリトライ
+    for t in range(0, 101, 5):
+        evaluation_temperature = t / 100
+        logger.info(f"temperature: {evaluation_temperature:.2f}")
+
+        # 関数に温度パラメータを渡す
+        response = answer_function(messages, model_name, evaluation_temperature)
+        if not response or response == NO_RESPONSE:
+            logger.info(response)
+            continue
+
+        try:
+            # パース試行
+            result = parser_func(response)
+            if result:
+                return result
+        except Exception as e:
+            # 次の温度で試行を続ける
+            pass
+
+        if t < 100:
+            logger.info("Parse error, trying again...")
+
+    # 最大温度に達しても有効なコンテンツが得られなかった場合
+    return None
 
 
 # === 回答生成関数群 ===

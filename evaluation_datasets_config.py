@@ -93,20 +93,13 @@ def get_tengu_eval_score(eval_text: str) -> int:
         score = re.search(r"\d{1,2}", score_text).group()
         return int(score)
     except (ValueError, AttributeError):
-        try:
-            logger.info('Parse error, trying again...')
-            score_text = re.search(r"\[点数\]\n\d{1,2}点?", eval_text).group()
-            score = re.search(r"\d{1,2}", score_text).group()
-            return int(score)
-        except (ValueError, AttributeError):
-            logger.info(f"Unable to parse Tengu score from {eval_text}")
-            return None
+        logger.info(f"Unable to parse Tengu score from {eval_text}")
+        return None
         
 # Takes a dict and outputs a score for each
 def tengu_bench_evaluator(data:dict, model_name:str) -> int|None:
     messages = make_tengu_conversation(data)
-    evaluation = get_model_response(messages, model_name)
-    return get_tengu_eval_score(evaluation)
+    return get_model_response(messages, model_name, get_tengu_eval_score)
 
 ######### ELYZA ##########
 
@@ -150,18 +143,16 @@ def get_elyza_prompt(row: dict):
 def elyza_evaluator(data: dict, model_name:str) -> int|None:
     prompt = get_elyza_prompt(data)
     messages = [{"role": "user", "content": prompt}]
-    evaluation = get_model_response(messages, model_name)
-    logger.info(evaluation)
-    try:
-        gpt4score = int(evaluation)
-    except ValueError:
-        try:
-            logger.info('Parse error, trying again...')
-            gpt4score = int(evaluation)
-        except ValueError:
-            logger.info(f"Int parse error.\n\nOutput was {evaluation}.\n\nInput was {data}.")
-            gpt4score = None
-    return gpt4score
+    
+    # intパーサーを使うが、ログ出力のためにラムダ関数でラップ
+    def parse_int_with_log(evaluation):
+        logger.info(evaluation)
+        return int(evaluation)
+    
+    result = get_model_response(messages, model_name, parse_int_with_log)
+    if result is None:
+        logger.info(f"Int parse error.\n\nInput was {data}.")
+    return result
 
 ######### MT-Bench ##########
 
@@ -182,16 +173,21 @@ def get_mt_prompt(row: dict):
 def mt_evaluator(data: dict, model_name:str) -> int|None:
     prompt = get_mt_prompt(data)
     messages = [{"role": "user", "content": prompt}]
-    evaluation = get_model_response(messages, model_name)
-    logger.info(evaluation)
-    try:
-        score_text = re.search(r"評価：\[\[\d{1,2}\]\]", evaluation).group()
-        score = re.search(r"\d{1,2}", score_text).group()
-        return int(score)
-    except (ValueError, AttributeError):
-        logger.info(f"Int parse error.\n\nOutput was {evaluation}.\n\nInput was {data}.")
-        gpt4score = None
-    return gpt4score
+    
+    def parse_mt_score(evaluation: str) -> int|None:
+        """MT-Benchの評価結果をパースしてスコアを抽出"""
+        logger.info(evaluation)
+        try:
+            score_text = re.search(r"評価：\[\[\d{1,2}\]\]", evaluation).group()
+            score = re.search(r"\d{1,2}", score_text).group()
+            return int(score)
+        except (ValueError, AttributeError):
+            return None
+    
+    result = get_model_response(messages, model_name, parse_mt_score)
+    if result is None:
+        logger.info(f"Int parse error.\n\nInput was {data}.")
+    return result
 
 ######### Rakuda Benchmark ##########
 
@@ -212,15 +208,21 @@ def get_rakuda_prompt(row: dict):
 def rakuda_evaluator(data: dict, model_name:str) -> int|None:
     prompt = get_rakuda_prompt(data)
     messages = [{"role": "user", "content": prompt}]
-    evaluation = get_model_response(messages, model_name)
-    try:
-        score_text = re.search(r"評価：(\[\[|\[|【)\d{1,2}(\]\]|\]|】)", evaluation).group()
-        score = re.search(r"\d{1,2}", score_text).group()
-        return int(score)
-    except (ValueError, AttributeError):
-        logger.info(f"Int parse error.\n\nOutput was {evaluation}.\n\nInput was {data}.")
-        gpt4score = None
-    return gpt4score
+    
+    def parse_rakuda_score(evaluation: str) -> int|None:
+        """Rakudaの評価結果をパースしてスコアを抽出"""
+        logger.info(evaluation)
+        try:
+            score_text = re.search(r"評価：(\[\[|\[|【)\d{1,2}(\]\]|\]|】)", evaluation).group()
+            score = re.search(r"\d{1,2}", score_text).group()
+            return int(score)
+        except (ValueError, AttributeError):
+            return None
+    
+    result = get_model_response(messages, model_name, parse_rakuda_score)
+    if result is None:
+        logger.info(f"Int parse error.\n\nInput was {data}.")
+    return result
 
 # do-not-answer-120-ja用のプロンプト生成関数
 def get_do_not_answer_prompt(data: dict) -> str:
@@ -249,14 +251,21 @@ def get_do_not_answer_prompt(data: dict) -> str:
 def do_not_answer_evaluator(data: dict, model_name: str) -> int | None:
     prompt = get_do_not_answer_prompt(data)
     messages = [{"role": "user", "content": prompt}]
-    evaluation = get_model_response(messages, model_name)
-    try:
-        score_text = re.search(r"\[点数\]\n\d", evaluation).group()
-        score = re.search(r"\d", score_text).group()
-        return int(score)
-    except (ValueError, AttributeError):
-        print(f"Unable to parse do-not-answer score from {evaluation}")
-        return None
+    
+    def parse_do_not_answer_score(evaluation: str) -> int|None:
+        """do-not-answerの評価結果をパースしてスコアを抽出"""
+        logger.info(evaluation)
+        try:
+            score_text = re.search(r"\[点数\]\n\d", evaluation).group()
+            score = re.search(r"\d", score_text).group()
+            return int(score)
+        except (ValueError, AttributeError):
+            return None
+    
+    result = get_model_response(messages, model_name, parse_do_not_answer_score)
+    if result is None:
+        logger.info(f"Unable to parse do-not-answer score.\n\nInput was {data}.")
+    return result
 
 #### ALL EVAL DATASETS ####
 
