@@ -23,6 +23,8 @@ python -m vllm.entrypoints.openai.api_server --model shisa-ai/shisa-v1-llama3-70
 
 # 2. モデルの回答を生成
 uv run generate_answers.py --model_name 'shisa-ai/shisa-v1-llama3-8b' -fp 0.5
+# 大規模モデルで多くのトークンが必要な場合
+uv run generate_answers.py -m 'model-name' -fp 0.5 -t 131072
 
 # 3. 回答を評価（要OPENAI_API_KEY環境変数）
 uv run judge_answers.py -m shisa-ai/shisa-v1-llama3-8b
@@ -38,6 +40,7 @@ cat output.csv
 - `--frequency_penalty` / `-fp`: 生成時の頻度ペナルティ（推奨: 0.5）
 - `--num_proc`: 並列処理数
 - `--evaluation_model`: 評価用モデル（デフォルト: gpt-4-turbo-preview）
+- `--max-tokens` / `-t`: 最大トークン数（生成時デフォルト: 1500、評価時デフォルト: 1024）
 
 ## アーキテクチャ
 
@@ -107,6 +110,7 @@ cat output.csv
    - `generation_max_tokens`と`evaluation_max_tokens`を131072にグローバル変数として統一
    - 思考モデルの思考プロセスで大量のトークンを消費するため制限を大幅拡張
    - 各関数から重複するローカルなトークン制限パラメータを削除し保守性を向上
+   - 注：互換性のため、デフォルト値は旧値（生成: 1500、評価: 1024）を維持
 
 3. **Gemini APIの実装**
    - `get_response_from_litellm_gemini`: 基本的なGemini API呼び出し
@@ -142,11 +146,21 @@ cat output.csv
    - 評価用の`judgement_log_`と分離して管理
    - ファイルハンドラ：DEBUGレベル、コンソールハンドラ：WARNINGレベル
 
+2. **最大トークン数オプションの追加（2025年6月18日追加）**
+   - `-t`/`--max-tokens`オプションで生成時の最大トークン数を指定可能
+   - デフォルト値は`llm_functions.generation_max_tokens`（1500）
+   - 指定した値で`llm_functions.generation_max_tokens`を上書き
+
 ### judge_answers.py の変更点
 1. **ロギングレベルの調整（2025年6月17日追加）**
    - `llm_functions.setup_logging`を使用してロギングを設定
    - ハンドラーごとに明示的なレベル設定を追加
    - ファイルハンドラ：DEBUGレベル、コンソールハンドラ：INFOレベル
+
+2. **最大トークン数オプションの追加（2025年6月18日追加）**
+   - `-t`/`--max-tokens`オプションで評価時の最大トークン数を指定可能
+   - デフォルト値は`llm_functions.evaluation_max_tokens`（1024）
+   - 指定した値で`llm_functions.evaluation_max_tokens`を上書き
 
 ### 新規追加ファイル
 - [HOWTO.md](HOWTO.md): よくある質問と詳細な使い方ガイド（キャッシュ問題の解決方法を含む）

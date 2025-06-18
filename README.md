@@ -19,9 +19,13 @@ python -m vllm.entrypoints.openai.api_server --model shisa-ai/shisa-v1-llama3-70
 # Match model name to what vLLM is serving
 # We run frequency_penalty=0.5 for all our runs, probably generally the best
 uv run generate_answers.py --model_name 'shisa-ai/shisa-v1-llama3-8b' -fp 0.5
+# For large models that need more tokens (e.g. reasoning models):
+# uv run generate_answers.py --model_name 'model-name' -fp 0.5 -t 131072
 
 # Then run the judge (assumes your OPENAI_API_KEY is in the env already):
 uv run judge_answers.py -m shisa-ai/shisa-v1-llama3-8b
+# For evaluations that need more tokens:
+# uv run judge_answers.py -m model-name -t 131072
 
 # Make sure you have new answers and judgements
 git status
@@ -60,11 +64,15 @@ OPENAI_API_KEY=[自分のOpenAIのAPIキー] uv run generate_answer.py \
     --eval_dataset_name [評価用データセット名] \
     --num_proc [並列処理数]
 ```
-`--model_name`（required）：評価したいLLMのモデル名。
+`--model_name` / `-m`（required）：評価したいLLMのモデル名。
 
-`--eval_dataset_name`（`default="all"`）：評価用データセット名。設定しない場合対応している全ての評価用データセットについて実行します。
+`--eval_dataset_name` / `-d`（`default="all"`）：評価用データセット名。設定しない場合対応している全ての評価用データセットについて実行します。
 
-`--num_proc`（`default=8`）：並列処理数。実行環境に合わせて設定してください。設定しない場合の並列処理数は 8 です。
+`--num_proc` / `-n`（`default=8`）：並列処理数。実行環境に合わせて設定してください。設定しない場合の並列処理数は 8 です。
+
+`--frequency_penalty` / `-fp`（`default=1.0`）：頻度ペナルティ。推奨値は 0.5 です。
+
+`--max-tokens` / `-t`（`default=1500`）：生成時の最大トークン数。思考モデルなど大量のトークンが必要な場合は 131072 まで指定可能。
 
 ### 2. モデルの回答の評価用関数
 ```
@@ -74,13 +82,15 @@ OPENAI_API_KEY=[自分のOpenAIのAPIキー] uv run judge_answers.py \
     --evaluation_model [評価用のLLMモデル名] \
     --num_proc [並列処理数]
 ```
-`--model_name`（required）：評価したいLLMのモデル名。
+`--model_name` / `-m`（required）：評価したいLLMのモデル名。
 
-`--eval_dataset_name`（`default="all"`）：評価用データセット名。設定しない場合対応している全ての評価用データセットについて実行します。
+`--eval_dataset_name` / `-d`（`default="all"`）：評価用データセット名。設定しない場合対応している全ての評価用データセットについて実行します。
 
-`--evaluation_model`（`default="gpt-4-turbo-preview"`）：評価用のLLMモデル名。設定しない場合`gpt-4-turbo-preview`を用いて評価します。
+`--evaluation_model` / `-e`（`default="gpt-4-turbo-preview"`）：評価用のLLMモデル名。設定しない場合`gpt-4-turbo-preview`を用いて評価します。
 
-`--num_proc`（`default=8`）：並列処理数。実行環境に合わせて設定してください。設定しない場合の並列処理数は 8 です。
+`--num_proc` / `-n`（`default=8`）：並列処理数。実行環境に合わせて設定してください。設定しない場合の並列処理数は 8 です。
+
+`--max-tokens` / `-t`（`default=1024`）：評価時の最大トークン数。大規模な評価が必要な場合は 131072 まで指定可能。
 
 ## 評価することができるLLMのモデル
 OpenAI社のモデルおよび、vLLM等のopenaiモジュール形式のサーバーを立てることができるツールが対応しているモデル

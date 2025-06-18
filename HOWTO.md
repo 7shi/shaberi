@@ -85,6 +85,35 @@ A: `--frequency_penalty`（`-fp`）は、テキスト生成時の繰り返しを
 - 効果: 正の値で繰り返しを抑制し、多様な回答を生成
 - 注意: 現在アクティブなGemini APIでは使用されず、OpenAI互換API（vLLM/llama.cpp）用のコードはコメントアウトされている（llm_functions.py:175-187）
 
+### Q: -t/--max-tokensオプションの使い方は？
+
+A: `--max-tokens`（`-t`）は、生成・評価時の最大トークン数を指定するオプションです。思考モデルなど大量のトークンを必要とする場合に使用します。
+
+**generate_answers.pyでの使用：**
+```bash
+# デフォルト（1500トークン）
+uv run generate_answers.py -m model_name -fp 0.5
+
+# 大規模モデル用に拡張（131072トークン）
+uv run generate_answers.py -m model_name -fp 0.5 -t 131072
+```
+
+**judge_answers.pyでの使用：**
+```bash
+# デフォルト（1024トークン）
+uv run judge_answers.py -m model_name -e gemini-1.5-flash
+
+# 大規模評価用に拡張（131072トークン）
+uv run judge_answers.py -m model_name -e gemini-1.5-flash -t 131072
+```
+
+**詳細：**
+- generate_answers.pyのデフォルト: 1500トークン（互換性のため）
+- judge_answers.pyのデフォルト: 1024トークン（互換性のため）
+- 推奨最大値: 131072トークン（思考モデル対応）
+- 効果: 指定した値で`llm_functions.generation_max_tokens`または`llm_functions.evaluation_max_tokens`を上書き
+- 背景: 思考モデル（o1など）では従来想定を大幅に超えるトークン数が必要なため追加
+
 ### Q: ベンチマークの質問はどのような形式で格納されていますか？
 
 A: HuggingFaceのデータセットとして公開されており、`datasets`ライブラリを使ってアクセスします。
@@ -153,7 +182,7 @@ uv run judge_answers.py -m モデル名 -d shaberi3 -e gemini-1.5-flash
 ### Gemini評価の特徴
 - **温度調整リトライ機能**: 評価結果のパース失敗時に温度を0.0から1.0まで段階的に上昇
 - **安全性フィルタ無効化**: すべてのハームカテゴリーで`BLOCK_NONE`を設定
-- **大容量対応**: 最大131,072トークンまで対応
+- **大容量対応**: 最大131,072トークンまで対応（`-t`オプションで指定）
 - **統一された評価パターン**: 全ての評価関数で`get_model_response`を使用
 
 ### 温度調整リトライの詳細
@@ -304,9 +333,13 @@ grep -r ',"score":null' data/judgements/ --include="*.json"
 ```bash
 # 1. 回答生成
 uv run generate_answers.py -m shisa-ai/shisa-v1-llama3-8b -d shaberi3 -fp 0.5
+# 思考モデルなど大量トークンが必要な場合
+uv run generate_answers.py -m o1-model -d shaberi3 -fp 0.5 -t 131072
 
 # 2. 採点
 uv run judge_answers.py -m shisa-ai/shisa-v1-llama3-8b -d shaberi3 -e gemini-1.5-flash
+# 大規模評価が必要な場合
+uv run judge_answers.py -m o1-model -d shaberi3 -e gemini-1.5-flash -t 131072
 
 # 3. 結果集計
 uv run results_vizualization.py

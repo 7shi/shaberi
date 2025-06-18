@@ -55,6 +55,8 @@ def main():
     parser.add_argument('-d', '--eval_dataset_name', type=str, default='all')
     parser.add_argument('-n', '--num_proc', type=int, default=8)
     parser.add_argument('-fp', '--frequency_penalty', type=float, default=1.0)
+    parser.add_argument('-t', '--max-tokens', type=int, default=llm_functions.generation_max_tokens,
+                        help=f'Maximum tokens for generation (default: {llm_functions.generation_max_tokens})')
 
     args = parser.parse_args()
 
@@ -63,6 +65,7 @@ def main():
 
     # hack
     llm_functions.fp = args.frequency_penalty
+    llm_functions.generation_max_tokens = args.max_tokens
 
     run_generate(args.model_name, args.eval_dataset_name, args.num_proc)
     

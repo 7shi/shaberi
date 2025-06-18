@@ -14,8 +14,8 @@ from openai import OpenAI
 
 # Global
 fp = 0.0
-generation_max_tokens = 131072 #1500
-evaluation_max_tokens = 131072 #1024
+generation_max_tokens = 1500
+evaluation_max_tokens = 1024
 
 # Constants
 NO_RESPONSE = "No response received"
