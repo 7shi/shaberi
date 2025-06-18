@@ -11,6 +11,7 @@ litellm.set_verbose=True
 
 # Global
 fp = 0.0
+generation_max_tokens = 1500
 
 os.environ["OPENAI_API_KEY"] = "NONE"
 
@@ -105,7 +106,7 @@ def get_model_response(messages: list, model_name: str) -> str:
 
 # === 回答生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
-def get_answer(question: str, model_name: str):
+def get_answer_from_openai(question: str, model_name: str):
     api_key = os.environ.get("OPENAI_API_KEY", "EMPTY")
     if api_key == "EMPTY":
         base_url = "http://127.0.0.1:8000/v1"
@@ -118,7 +119,6 @@ def get_answer(question: str, model_name: str):
     )
 
     generation_temperature = 0.2
-    generation_max_tokens = 1500
 
     '''
     # Anthropic / OpenAI
@@ -147,10 +147,17 @@ def get_answer(question: str, model_name: str):
         max_tokens=generation_max_tokens,
         min_p = 0.1
     )
-    '''
+
+    return response.choices[0].message.content
+
+
+@backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
+def get_answer_from_litellm_gemini(question: str, model_name: str):
+    generation_temperature = 0.2
+
     # Gemini
     response = completion(
-        model="gemini/gemini-1.5-flash", 
+        model=f"gemini/{model_name}",
         messages=[
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
             {"role": "user", "content": question},
@@ -177,24 +184,24 @@ def get_answer(question: str, model_name: str):
         top_p=0.95,
         max_tokens=generation_max_tokens,
     )
-    '''
-
 
     return response.choices[0].message.content
 
 
-def get_answerer(model_name: str) -> callable:
+def get_answer(question: str, model_name: str) -> str | None:
     """OpenAIとvLLM以外のモデルを使う場合はここに追加する"""
-    return get_answer
+    if "gemini" in model_name:
+        content = get_answer_from_litellm_gemini(question, model_name)
+    else:
+        content = get_answer_from_openai(question, model_name)
+    return content
 
 
 def get_model_answer(dataset: Dataset,
                      model_name: str,
                      batch_size: int) -> Dataset:
-    answer_function = get_answerer(model_name)
-
     dataset = dataset.map(
-        lambda x: {"ModelAnswer": answer_function(x['Question'], model_name)},
+        lambda x: {"ModelAnswer": get_answer(x['Question'], model_name)},
         num_proc=batch_size
     )
     return dataset
