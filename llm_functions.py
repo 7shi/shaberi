@@ -64,8 +64,7 @@ def backoff_handler(details):
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_openai(messages: list, model_name: str,
-                             evaluation_temperature: float = 0) -> str:
+def get_response_from_openai(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     client = OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY")
     )
@@ -80,8 +79,7 @@ def get_response_from_openai(messages: list, model_name: str,
 
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
-def get_response_from_litellm_gemini(messages: list, model_name: str,
-                                     evaluation_temperature: float = 0) -> str:
+def get_response_from_litellm_gemini(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     add_messages = [
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
         ]
