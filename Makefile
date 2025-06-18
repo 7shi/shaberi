@@ -1,4 +1,4 @@
-PREFIX := gemini-2.5-pro-preview
+PREFIX := gemini-2.5-pro
 
 ifneq ($(filter answer judge ,$(MAKECMDGOALS)),)
 ifndef DATE
@@ -6,7 +6,7 @@ $(error DATE is not defined. Please run with: make DATE=MM-DD)
 endif
 endif
 
-GEMINI := $(PREFIX)-$(DATE)
+GEMINI := $(PREFIX)-preview-$(DATE)
 
 # For Free Tier usage, uncomment "-n 1" to limit parallel processing
 OPTIONS := -m $(GEMINI) -d shaberi3 -t 131072 #-n 1
@@ -24,7 +24,11 @@ archive:
 	tar cvzf $(PREFIX).tar.gz `find data results -name "$(PREFIX)*"`
 
 clean:
-	find . -name "*$(PREFIX)*"
-	find . -name "*$(PREFIX)*" -delete
+	#find . -name "*$(PREFIX)*"
+	#find . -name "*$(PREFIX)*" -delete
 	find ~/.cache/huggingface/datasets/ -name "cache-*.arrow"
 	find ~/.cache/huggingface/datasets/ -name "cache-*.arrow" -delete
+
+check:
+	find data/model_answers -name "$(PREFIX)*.json" | xargs grep '"ModelAnswer":null' | wc -l
+	find data/judgements -name "$(PREFIX)*.json" | xargs grep ',"score":null' | wc -l

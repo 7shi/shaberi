@@ -119,6 +119,7 @@ OpenAI社のモデルおよび、vLLM等のopenaiモジュール形式のサー�
 | gemini-2.5-pro-preview-03-25 | 27m37s | 4m45s |
 | gemini-2.5-pro-preview-05-06 | 41m37s | 4m58s |
 | gemini-2.5-pro-preview-06-05 | 22m19s | 5m17s |
+| gemini-2.5-pro               | 25m57s | 5m27s |
 
 ## 結果
 |                                            |   ELYZA-tasks-100 |   Rakuda |   Tengu-Bench |   MT-Bench |   mean |
