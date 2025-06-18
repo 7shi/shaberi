@@ -5,31 +5,8 @@ import logging
 from datasets import load_dataset
 
 from evaluation_datasets_config import EVAL_MODEL_CONFIGS, get_ans_path
+from llm_functions import setup_logging
 import llm_functions
-
-# ロギングの設定を関数化
-def setup_logging(model_name: str):
-    logger = logging.getLogger()  # デフォルトのロガーを取得
-    logger.setLevel(logging.INFO)  # ログレベルを設定
-    
-    # 既存のハンドラをクリア（重複防止）
-    if logger.handlers:
-        logger.handlers.clear()
-    
-    # フォーマットの設定
-    formatter = logging.Formatter("%(asctime)s - %(message)s")
-    
-    # ファイルハンドラ（model_nameを含む）
-    file_handler = logging.FileHandler(f"judgement_log_{model_name.replace('/', '__')}.txt", encoding="utf-8")
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-    
-    # コンソールハンドラ
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-    
-    return logger
 
 
 def evaluate(model_name: str, eval_dataset_name: str, evaluation_model: str, num_proc: int):
@@ -77,7 +54,7 @@ def main():
     args = parser.parse_args()
 
     # 引数が確定した後にロギングを設定
-    setup_logging(args.model_name)
+    setup_logging(args.model_name, log_prefix="judgement_log")
     
     # max_tokensの設定
     llm_functions.evaluation_max_tokens = args.max_tokens

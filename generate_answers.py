@@ -1,10 +1,11 @@
 import argparse
+import logging
 
 from datasets import Dataset, load_dataset
 
 from evaluation_datasets_config import EVAL_MODEL_CONFIGS, get_ans_path
 import llm_functions
-from llm_functions import get_model_answer
+from llm_functions import get_model_answer, setup_logging
 
 
 def load_model_dataset(evaluation_dataset_name: str) -> Dataset:
@@ -37,7 +38,9 @@ def run_generate(model_name: str, eval_dataset_name: str = "all", num_proc: int 
     else:
         eval_dataset_names = list(EVAL_MODEL_CONFIGS.keys()) if eval_dataset_name == "all" else [eval_dataset_name]
     
+    logger = logging.getLogger()  # 既存のロガーを取得
     for dataset_name in eval_dataset_names:
+        logger.info(f"Generating answers for {model_name} on {dataset_name} ({num_proc} proc)")
         # 1. テストデータセットの読み込み
         dataset = load_model_dataset(dataset_name)
         # 2. モデルの回答の取得
@@ -55,6 +58,9 @@ def main():
     parser.add_argument('-t', '--max-tokens', type=int, default=llm_functions.generation_max_tokens)
 
     args = parser.parse_args()
+
+    # 引数が確定した後にロギングを設定
+    setup_logging(args.model_name, log_prefix="answer_log")
 
     # hack
     llm_functions.fp = args.frequency_penalty

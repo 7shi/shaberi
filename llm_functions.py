@@ -1,13 +1,16 @@
+import os
+os.environ["LITELLM_LOG"] = "WARNING"
+
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
+
 import backoff
 import litellm
-import os
+import logging
 
 from datasets import Dataset
-import litellm
 from litellm import completion
 from openai import OpenAI
-
-litellm.set_verbose=True
 
 # Global
 fp = 0.0
@@ -18,6 +21,40 @@ evaluation_max_tokens = 1024
 NO_RESPONSE = "No response received"
 
 os.environ["OPENAI_API_KEY"] = "NONE"
+
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)  # ログレベルを設定
+default_console_level = logging.WARNING  # 必要に応じて変更 (INFO/DEBUG)
+
+def setup_logging(model_name: str, log_prefix: str = "log", console_level: int = default_console_level):
+    """
+    ロギングの設定を行う
+    
+    Args:
+        model_name: モデル名（ログファイル名に使用）
+        log_prefix: ログファイルのプレフィックス ("answer_log" or "judgement_log")
+        console_level: コンソールハンドラのログレベル (logging.INFO, logging.WARNING等)
+    """
+    # 既存のハンドラをクリア（重複防止）
+    if logger.handlers:
+        logger.handlers.clear()
+    
+    # フォーマットの設定
+    formatter = logging.Formatter("%(asctime)s - %(message)s")
+    
+    # ファイルハンドラ（model_nameを含む）
+    file_handler = logging.FileHandler(f"{log_prefix}_{model_name.replace('/', '__')}.txt", encoding="utf-8")
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    
+    # コンソールハンドラ
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(console_level)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
 
 def backoff_handler(details):
     print(f"Backing off {details['wait']:0.1f} seconds after {details['tries']} tries. Error: {details['exception']}")
@@ -43,8 +80,6 @@ def get_response_from_openai(messages: list, model_name: str, evaluation_tempera
 # === 評価生成関数群 ===
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
 def get_response_from_litellm_gemini(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
-    litellm.set_verbose=True
-
     add_messages = [
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
         ]
@@ -110,9 +145,6 @@ def get_model_response(messages: list, model_name: str, parser_func):
     Returns:
         パース結果（失敗時はNone）
     """
-    import logging
-    logger = logging.getLogger()
-    
     answer_function = get_response_func(model_name)
     
     # 温度を段階的に上げながらリトライ
