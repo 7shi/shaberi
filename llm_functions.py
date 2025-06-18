@@ -12,6 +12,7 @@ litellm.set_verbose=True
 # Global
 fp = 0.0
 generation_max_tokens = 1500
+evaluation_max_tokens = 1024
 
 os.environ["OPENAI_API_KEY"] = "NONE"
 
@@ -29,7 +30,6 @@ def get_response_from_openai(messages: list, model_name: str) -> str:
     )
 
     evaluation_temperature = 0
-    evaluation_max_tokens = 1024
 
     response = client.chat.completions.create(
         messages=messages,
@@ -45,7 +45,6 @@ def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
     litellm.set_verbose=True
 
     evaluation_temperature = 0
-    evaluation_max_tokens = 1024
 
     add_messages = [
             {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
@@ -54,7 +53,7 @@ def get_response_from_litellm_gemini(messages: list, model_name: str) -> str:
 
     try:
         response = completion(
-            model="gemini/gemini-1.5-flash",
+            model=f"gemini/{model_name}",
             messages=add_messages,
             safety_settings=[
                 {

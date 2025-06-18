@@ -5,6 +5,7 @@ import logging
 from datasets import load_dataset
 
 from evaluation_datasets_config import EVAL_MODEL_CONFIGS, get_ans_path
+import llm_functions
 
 # ロギングの設定を関数化
 def setup_logging(model_name: str):
@@ -49,7 +50,15 @@ def evaluate(model_name: str, eval_dataset_name: str, evaluation_model: str, num
 
     
 def run_judgement(model_name: str, eval_dataset_name: str = "all", evaluation_model: str = "gpt-4-turbo-preview", num_proc: int = 8):
-    eval_dataset_names = EVAL_MODEL_CONFIGS.keys() if eval_dataset_name == "all" else [eval_dataset_name]
+    # "shaberi3"の場合、3つのデータセットを指定
+    if eval_dataset_name == "shaberi3":
+        eval_dataset_names = [
+            "lightblue/tengu_bench",
+            "elyza/ELYZA-tasks-100",
+            "shisa-ai/ja-mt-bench-1shot"
+        ]
+    else:
+        eval_dataset_names = EVAL_MODEL_CONFIGS.keys() if eval_dataset_name == "all" else [eval_dataset_name]
     
     logger = logging.getLogger()  # 既存のロガーを取得
     for eval_dataset_name in eval_dataset_names:
@@ -63,11 +72,15 @@ def main():
     parser.add_argument('-d', '--eval_dataset_name', type=str, default='all')
     parser.add_argument('-e', '--evaluation_model', type=str, default='gpt-4-turbo-preview')
     parser.add_argument('-n', '--num_proc', type=int, default=8)
+    parser.add_argument('-t', '--max-tokens', type=int, default=llm_functions.evaluation_max_tokens)
 
     args = parser.parse_args()
 
     # 引数が確定した後にロギングを設定
     setup_logging(args.model_name)
+    
+    # max_tokensの設定
+    llm_functions.evaluation_max_tokens = args.max_tokens
     
     run_judgement(args.model_name, args.eval_dataset_name, args.evaluation_model, args.num_proc)
     
