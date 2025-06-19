@@ -10,6 +10,8 @@ def remove_think_tag(text: str) -> str:
     </think>タグとそれ以前の文字列を除外する関数。
     </think>が見つからない場合は元の文字列をそのまま返す。
     """
+    if text is None:
+        return "未回答"
     match = re.search(r'</think>(.*)', text, re.DOTALL)
     if match:
         logger.info('thinkタグを除外しました')
