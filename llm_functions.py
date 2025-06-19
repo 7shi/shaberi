@@ -155,8 +155,9 @@ def get_model_response(messages: list, model_name: str, parser_func):
         # 関数に温度パラメータを渡す
         response = answer_function(messages, model_name, evaluation_temperature)
         if not response or response == NO_RESPONSE:
-            logger.info(response)
-            continue
+            # リトライを中止(トークン数不足またはモデレーションによるブロックでのエラー)
+            logger.info(f"Response is empty or blocked: {response}")
+            return None
 
         try:
             # パース試行
