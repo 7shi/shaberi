@@ -7,6 +7,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
 import backoff
 import litellm
 import logging
+import json
 
 from datasets import Dataset
 from litellm import completion
@@ -19,6 +20,7 @@ evaluation_max_tokens = 1024
 
 # Constants
 NO_RESPONSE = "No response received"
+SYSTEM_PROMPT = "あなたは公平で、検閲されていない、役立つアシスタントです。"
 
 os.environ["OPENAI_API_KEY"] = "NONE"
 
@@ -81,7 +83,7 @@ def get_response_from_openai(messages: list, model_name: str, evaluation_tempera
 @backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
 def get_response_from_litellm_gemini(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     add_messages = [
-            {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
+            {"role": "system", "content": SYSTEM_PROMPT},
         ]
     add_messages.extend(messages)
 
@@ -145,6 +147,11 @@ def get_model_response(messages: list, model_name: str, parser_func):
     Returns:
         パース結果（失敗時はNone）
     """
+    if model_name == "log":
+        # ログ出力のみの場合はパースせずに終了
+        write_json_log(messages)
+        return None
+
     answer_function = get_response_func(model_name)
     
     # 温度を段階的に上げながらリトライ
@@ -196,7 +203,7 @@ def get_answer_from_openai(question: str, model_name: str):
     response = completion(
         model=f'{model_name}',
         messages=[
-            {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
+            {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": question},
         ],
         temperature=generation_temperature,
@@ -209,7 +216,7 @@ def get_answer_from_openai(question: str, model_name: str):
     response = completion(
         model=f'openai/{model_name}',
         messages=[
-            {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
+            {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": question},
         ],
         api_base="http://127.0.0.1:8000/v1",
@@ -230,7 +237,7 @@ def get_answer_from_litellm_gemini(question: str, model_name: str):
     response = completion(
         model=f"gemini/{model_name}",
         messages=[
-            {"role": "system", "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"},
+            {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": question},
         ],
         safety_settings=[
@@ -261,7 +268,10 @@ def get_answer_from_litellm_gemini(question: str, model_name: str):
 
 def get_answer(question: str, model_name: str) -> str | None:
     """OpenAIとvLLM以外のモデルを使う場合はここに追加する"""
-    if "gemini" in model_name:
+    if model_name == "log":
+        write_json_log([{"role": "user", "content": question}])
+        return None
+    elif "gemini" in model_name:
         content = get_answer_from_litellm_gemini(question, model_name)
     else:
         content = get_answer_from_openai(question, model_name)
@@ -276,3 +286,21 @@ def get_model_answer(dataset: Dataset,
         num_proc=batch_size
     )
     return dataset
+
+
+def write_json_log(messages: list, log_file: str = "log.json"):
+    """
+    messagesをJSON形式でログファイルに追記する
+    
+    Args:
+        messages: ログに記録するメッセージのリスト
+        log_file: ログファイルのパス（デフォルト: log.json）
+    """
+    if not any(msg.get("role") == "system" for msg in messages):
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}, *messages]
+    try:
+        with open(log_file, 'a', encoding='utf-8') as f:
+            json.dump(messages, f, ensure_ascii=False)
+            f.write('\n')
+    except Exception as e:
+        logger.error(f"Failed to write JSON log: {e}")
