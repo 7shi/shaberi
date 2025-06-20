@@ -1,0 +1,177 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "栽培の成功に向けて十分な数の工程を示している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "正しい順番で工程ごとの内容を示している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "日本の産地の綺麗な水を生かしたわさび栽培という前提を踏まえている": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "土地の選び方を示している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "説明が具体的でわかりやすい": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "実現性の高い提案である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "自然な日本語である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        }
+      },
+      "required": [
+        "栽培の成功に向けて十分な数の工程を示している",
+        "正しい順番で工程ごとの内容を示している",
+        "日本の産地の綺麗な水を生かしたわさび栽培という前提を踏まえている",
+        "土地の選び方を示している",
+        "説明が具体的でわかりやすい",
+        "実現性の高い提案である",
+        "自然な日本語である"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Overall assessment summary in Japanese of the model's answer"
+    }
+  },
+  "required": [
+    "evaluation",
+    "summary"
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "全ての文がです・ます調の丁寧な表現に変換されている": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "「ございます」のような丁寧すぎる表現を使用していない": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章の意味内容に変更が内容に変換されている": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中にない表現を加えていない": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "正しい敬語の用法である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "自然な日本語である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        }
+      },
+      "required": [
+        "全ての文がです・ます調の丁寧な表現に変換されている",
+        "「ございます」のような丁寧すぎる表現を使用していない",
+        "文章の意味内容に変更が内容に変換されている",
+        "文章中にない表現を加えていない",
+        "正しい敬語の用法である",
+        "自然な日本語である"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Overall assessment summary in Japanese of the model's answer"
+    }
+  },
+  "required": [
+    "evaluation",
+    "summary"
+  ]
+}

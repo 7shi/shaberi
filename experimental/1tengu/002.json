@@ -1,0 +1,135 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "答えが8804個である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2",
+                "3"
+              ],
+              "description": "Points assigned (0-3 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "9月の最高値と1月の最低値の差から答えを求めている": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "表の値を正しく読み取れている": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "説明が具体的でわかりやすい": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "自然な日本語である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        }
+      },
+      "required": [
+        "答えが8804個である",
+        "9月の最高値と1月の最低値の差から答えを求めている",
+        "表の値を正しく読み取れている",
+        "説明が具体的でわかりやすい",
+        "自然な日本語である"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Overall assessment summary in Japanese of the model's answer"
+    }
+  },
+  "required": [
+    "evaluation",
+    "summary"
+  ]
+}

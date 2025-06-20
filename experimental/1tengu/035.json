@@ -1,0 +1,156 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "文章中の以下の情報を含んでいる：1930年代のパリで生まれた文学運動である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中の以下の情報を含んでいる：黒人あるいはアフリカ人としての「国民/民族」形成を目指す文学的ナショナリズムである": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中の以下の情報を含んでいる：フランス人としての「国民/民族」に統合されることを拒む運動である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中の以下の情報を含んでいる：西欧国民国家の文学を通じて黒人あるいはアフリカ人としての「国民/民族」への動員を試みた": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "自然な日本語である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "要約として適切な短さである": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        }
+      },
+      "required": [
+        "文章中の以下の情報を含んでいる：1930年代のパリで生まれた文学運動である",
+        "文章中の以下の情報を含んでいる：黒人あるいはアフリカ人としての「国民/民族」形成を目指す文学的ナショナリズムである",
+        "文章中の以下の情報を含んでいる：フランス人としての「国民/民族」に統合されることを拒む運動である",
+        "文章中の以下の情報を含んでいる：西欧国民国家の文学を通じて黒人あるいはアフリカ人としての「国民/民族」への動員を試みた",
+        "自然な日本語である",
+        "要約として適切な短さである"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Overall assessment summary in Japanese of the model's answer"
+    }
+  },
+  "required": [
+    "evaluation",
+    "summary"
+  ]
+}

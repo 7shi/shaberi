@@ -1,0 +1,156 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "文章中の以下の情報を含んでいる：なぜ死亡(生命)保険の支払いを約束できるのかについての文章である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中の以下の情報を含んでいる：死亡(生命)保険は一定数の被保険者の集団が存在することが前提である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中の以下の情報を含んでいる：死亡(生命)保険は死亡率についての大数の法則に基づく": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "文章中の論理関係を保存している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "自然な日本語である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        },
+        "要約として適切な短さである": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": [
+                "0",
+                "1"
+              ],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": [
+            "points",
+            "reasoning"
+          ]
+        }
+      },
+      "required": [
+        "文章中の以下の情報を含んでいる：なぜ死亡(生命)保険の支払いを約束できるのかについての文章である",
+        "文章中の以下の情報を含んでいる：死亡(生命)保険は一定数の被保険者の集団が存在することが前提である",
+        "文章中の以下の情報を含んでいる：死亡(生命)保険は死亡率についての大数の法則に基づく",
+        "文章中の論理関係を保存している",
+        "自然な日本語である",
+        "要約として適切な短さである"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "description": "Overall assessment summary in Japanese of the model's answer"
+    }
+  },
+  "required": [
+    "evaluation",
+    "summary"
+  ]
+}
