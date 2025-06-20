@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。\n以下に、丁寧さの度合いに応じていくつかの英語翻訳案を提示します。状況に合わせて使い分けてください。\n\n---\n\n### パターン1（標準的・フォーマル）\n\n最も一般的で、どのような相手にも使える丁寧な表現です。\n\n**Subject: Investigation Report on a Customer Claim**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the results of our investigation into the claimed product returned by the customer. The details are as follows.\n\nPlease review the findings.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン2（少し簡潔な表現）\n\n社内のやり取りで、より簡潔に伝えたい場合に適しています。\n\n**Subject: Report on Returned Product Claim**\n\nHi Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nPlease find the investigation results for the customer's claim product below.\n\nWe would appreciate your confirmation.\n\nRegards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン3（より丁寧な表現）\n\n特に丁寧さが求められる場合や、フォーマルな報告書として送る場合に適しています。\n\n**Subject: Formal Report: Investigation of the Customer Claim Product**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nThis email is to formally report the findings of our investigation concerning the product that was returned by a customer under a claim. The results are detailed below.\n\nYour review and confirmation of this report would be highly appreciated.\n\nSincerely,\n\nSuzuki\nAdministration Department\n\n---\n\n### ポイント\n\n*   **件名 (Subject):** `Investigation Report` (調査報告), `Customer Claim` (顧客クレーム) などのキーワードを入れると内容が分かりやすくなります。\n*   **お疲れ様です:** 英語のビジネスメールでは、`Hi` や `Dear` の後、すぐに本題に入ることが一般的です。\n*   **ご検収のほど:** `Please review` (内容をご確認ください), `Please check` (ご確認ください), `We would appreciate your confirmation` (ご確認いただけますと幸いです) などが使えます。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "「お疲れ様です」や「ご検収のほどよろしくお願い申し上げます」といった日本語特有の表現について、英語での一般的なビジネスメールの慣習に沿った適切な置き換え方を提案し、その違いを明確に説明しています。複数の丁寧度合いのパターンを提示している点も評価できます。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "原文の「営業部 田中さん」「管理部の鈴木です」「クレーム品の調査結果をご報告」「ご検収のほど」という全ての情報を、提示された複数のパターンで過不足なく網羅して翻訳できています。情報が欠落したり、余計な情報が追加されたりすることはありません。"
+    },
+    "自然な英語である": {
+      "points": "1",
+      "reasoning": "全体的には自然な英語ですが、いくつかの表現で改善の余地があります。例えば、「claimed product」や「customer's claim product」といった表現は、「product returned due to a customer complaint」などの方がより自然です。また、パターン2の「Hi Tanaka-san」は、社内とはいえビジネスメールとしてはカジュアルすぎる場合があります。"
+    }
+  },
+  "summary": "モデルの回答は、日本語圏と英語圏のメール文化の違いをよく理解しており、その点を考慮した複数の翻訳案を提示している点が非常に優れています。原文の内容も正確に翻訳できていますが、一部の英語表現において、さらに自然さを追求できる箇所が見受けられます。",
+  "score": 9
+}

@@ -1,0 +1,15 @@
+{
+  "answer": "はい、承知いたしました。以下のように英訳できます。\n\n**Tanaka Building, 1-2-3 Kanda Ogawamachi, Chiyoda-ku, Tokyo**\n\n各部分の詳細は以下の通りです。\n\n*   **Tanaka Building**: 田中ビル\n*   **1-2-3**: 1丁目2番3号 (番地)\n*   **Kanda Ogawamachi**: 神田小川町 (町名)\n*   **Chiyoda-ku**: 千代田区 (区)\n*   **Tokyo**: 東京都 (都道府県)\n\n国際郵便などで使用する場合は、最後に国名「Japan」と郵便番号を加えるのが一般的です。\n例: Tanaka Building, 1-2-3 Kanda Ogawamachi, Chiyoda-ku, Tokyo [郵便番号], Japan",
+  "evaluation": {
+    "住所の表記の順序は適切か：全て日本語と逆順である(正解例)": {
+      "points": "6",
+      "reasoning": "モデルの回答は「Tanaka Building, 1-2-3 Kanda Ogawamachi, Chiyoda-ku, Tokyo」と、正解例と同じく日本語の住所表記の順序を完全に逆にした英語の一般的な順序で記述されています。これは非常に適切です。"
+    },
+    "住所の表記の順序は適切か：日本語と同じ順序である": {
+      "points": "0",
+      "reasoning": "モデルの回答は日本語と同じ順序ではなく、英語の慣習に沿った逆順で表記されています。したがって、この評価項目では0点となります。"
+    }
+  },
+  "summary": "モデルは質問された住所の英訳を正確に行い、英語における住所表記の適切な順序（日本語と逆順）を完全に適用しています。また、詳細な内訳と国際郵便での追加情報も提示されており、非常に質の高い回答です。",
+  "score": 6
+}
