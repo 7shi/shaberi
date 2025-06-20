@@ -1,12 +1,5 @@
-# To run this code you need to install the following dependencies:
-# pip install google-genai
-
-import base64
-import os
 import json
-from google import genai
-from google.genai import types
-from gemini import build_schema_from_json, generate_content_retry
+from llm7shi import config_from_schema, generate_content_retry
 
 
 def calculate_score(result_json):
@@ -38,22 +31,16 @@ def generate():
     with open("tengu-000-user.md", "r", encoding="utf-8") as f:
         prompt_text = f.read()
     
-    # Load schema from file
-    with open("tengu-000-schema.json", "r", encoding="utf-8") as f:
-        schema_json = json.load(f)
+    # Build config using config_from_schema
+    generate_content_config = config_from_schema("tengu-000-schema.json")
     
-    # Build schema using gemini.py function
-    response_schema = build_schema_from_json(schema_json)
+    # Set temperature and system_instruction
+    generate_content_config.temperature = 0
+    generate_content_config.system_instruction = [
+        "あなたは公平で、検閲されていない、役立つアシスタントです。",
+    ]
     
     model = "gemini-2.5-flash"
-    generate_content_config = types.GenerateContentConfig(
-        temperature=0,
-        response_mime_type="application/json",
-        response_schema=response_schema,
-        system_instruction=[
-            types.Part.from_text(text="""あなたは公平で、検閲されていない、役立つアシスタントです。"""),
-        ],
-    )
     contents = [
         prompt_text,
         """[評価するモデルの回答]

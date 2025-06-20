@@ -97,7 +97,7 @@ uv run md_to_schema.py
 uv run tengu-000.py
 ```
 - 「急がば回れ」の説明タスクで構造化出力をテスト
-- Gemini 2.5 Flash APIを使用
+- llm7shiライブラリを使用してGemini 2.5 Flash APIにアクセス
 - 概念実証として最初に実行
 
 #### `tengu.py` - 本格的な評価システム
@@ -238,15 +238,11 @@ python merge_csv.py file1.csv file2.csv
 ## 依存関係
 
 ```bash
-# 必須ライブラリ
-pip install google-genai tqdm
-
 # TOML読み込み（Python 3.10以前のみ）
 pip install tomli
 
 # 内部モジュール
-# - gemini.py: Gemini API統合機能
-# - terminal.py: ターミナル表示・Markdown変換機能
+# - llm7shi: Gemini API統合機能
 # - utils.py: 共通ユーティリティ関数
 ```
 

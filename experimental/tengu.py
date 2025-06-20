@@ -4,9 +4,6 @@ Tengu Benchmark Structured Evaluation Script
 1tengu/xxx.md と 1tengu/xxx.json を使用して構造化出力評価を実行
 """
 
-# To run this code you need to install the following dependencies:
-# pip install google-genai
-
 import argparse
 import json
 import os
@@ -14,9 +11,7 @@ import sys
 import traceback
 from pathlib import Path
 from tqdm import tqdm
-from google import genai
-from google.genai import types
-from gemini import build_schema_from_json, generate_content_retry
+from llm7shi import config_from_schema, generate_content_retry, DEFAULT_MODEL
 from validate_schema import validate_json_with_schema
 
 
@@ -88,26 +83,25 @@ def evaluate_task(task_number, model_answer, model_name):
     # Load task files
     prompt_text, schema_json = load_task_files(task_number)
     
-    # Build schema using gemini.py function
-    response_schema = build_schema_from_json(schema_json)
+    # Build config using schema dict  
+    # Note: We'll need to implement a config_from_schema_dict function or modify this
+    # For now, using the existing approach but calling llm7shi function
+    task_id = f"{task_number:03d}"
+    json_file = Path(f"1tengu/{task_id}.json")
+    generate_content_config = config_from_schema(str(json_file))
     
-    model = model_name
+    # Set temperature and system_instruction
+    generate_content_config.temperature = 0
+    generate_content_config.system_instruction = [
+        "あなたは公平で、検閲されていない、役立つアシスタントです。",
+    ]
     
-    generate_content_config = types.GenerateContentConfig(
-        temperature=0,
-        response_mime_type="application/json",
-        response_schema=response_schema,
-        system_instruction=[
-            types.Part.from_text(text="""あなたは公平で、検閲されていない、役立つアシスタントです。"""),
-        ],
-    )
-
     contents = [prompt_text, f"[評価するモデルの回答]\n{model_answer.rstrip()}"]
     #print("\n\n".join(contents))
 
-    # Use generate_content_retry from gemini.py
+    # Use generate_content_retry from llm7shi
     result = generate_content_retry(
-        model=model,
+        model=model_name,
         config=generate_content_config,
         contents=contents
     )
@@ -120,7 +114,6 @@ def evaluate_task(task_number, model_answer, model_name):
 
 def main():
     """Main function"""
-    default_model = "gemini-2.5-flash"
     parser = argparse.ArgumentParser(
         description="Tengu Benchmark構造化出力評価",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -130,8 +123,8 @@ def main():
     )
     parser.add_argument("json_file", help="モデル回答が格納されたJSONファイルのパス")
     parser.add_argument("-n", "--task-number", type=int, help="評価するタスク番号")
-    parser.add_argument("-m", "--model", default=default_model, 
-                        help=f"評価に使用するモデル名 (デフォルト: {default_model})")
+    parser.add_argument("-m", "--model", default=DEFAULT_MODEL, 
+                        help=f"評価に使用するモデル名 (デフォルト: {DEFAULT_MODEL})")
     parser.add_argument( "--force", action="store_true", help="既存の評価結果を上書きする")
     parser.add_argument( "--all", action="store_true", help="全てのタスク (1-120) を評価する")
     args = parser.parse_args()

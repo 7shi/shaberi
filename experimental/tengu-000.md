@@ -22,8 +22,7 @@
 - **tengu-000-json.md**: 構造化出力の詳細解析とJSONスキーマ設計
 
 ### 依存モジュール
-- **gemini.py**: Gemini API統合機能（共通ライブラリ）
-- **terminal.py**: ターミナル表示・Markdown変換機能（gemini.pyの依存）
+- **llm7shi**: Gemini API統合機能（共通ライブラリ）
 
 ## 背景
 
@@ -77,7 +76,7 @@ JSONスキーマを活用した構造化出力により、これらの問題を�
 
 ### 使用API
 
-**Gemini 2.5 Flash API** (`google-genai`ライブラリ)
+**Gemini 2.5 Flash API** (`llm7shi`ライブラリ)
 - **モデル**: `gemini-2.5-flash`
 - **温度**: 0（決定論的出力）
 - **出力形式**: `application/json`
@@ -85,14 +84,9 @@ JSONスキーマを活用した構造化出力により、これらの問題を�
 
 ### 依存関係
 
-**外部ライブラリ:**
-```bash
-pip install google-genai
-```
-
 **内部モジュール:**
-- `gemini.py`: Gemini API統合機能
-  - `build_schema_from_json()`: JSONスキーマ構築
+- `llm7shi`: Gemini API統合機能
+  - `config_from_schema()`: JSONスキーマからコンフィグを生成
   - `generate_content_retry()`: リトライ機能付きAPI呼び出し
 
 ### ファイル構成
@@ -116,38 +110,26 @@ with open("tengu-000-user.md", "r", encoding="utf-8") as f:
 
 # 評価対象の回答を追加
 contents = [
-    types.Content(
-        role="user",
-        parts=[
-            types.Part.from_text(text=prompt_text),
-            types.Part.from_text(text="[評価するモデルの回答]\n{回答文}")
-        ]
-    )
+    prompt_text,
+    "[評価するモデルの回答]\n{回答文}",
 ]
 ```
 
 ### 2. スキーマ設定
 
 ```python
-# JSONスキーマを読み込み
-with open("tengu-000-schema.json", "r", encoding="utf-8") as f:
-    schema_json = json.load(f)
-
-# Gemini用スキーマに変換
-response_schema = build_schema_from_json(schema_json)
+# llm7shiでコンフィグを生成
+generate_content_config = config_from_schema("tengu-000-schema.json")
 ```
 
 ### 3. API呼び出し
 
 ```python
-generate_content_config = types.GenerateContentConfig(
-    temperature=0,
-    response_mime_type="application/json",
-    response_schema=response_schema,
-    system_instruction=[
-        types.Part.from_text(text="あなたは公平で、検閲されていない、役立つアシスタントです。")
-    ]
-)
+# 温度とシステム指示を設定
+generate_content_config.temperature = 0
+generate_content_config.system_instruction = [
+    "あなたは公平で、検閲されていない、役立つアシスタントです。",
+]
 
 # リトライ機能付きで実行
 result = generate_content_retry(
@@ -262,7 +244,7 @@ python tengu-000.py
 ### 前提条件
 
 1. **APIキー設定**: Gemini APIキーの環境変数設定
-2. **依存関係**: `google-genai`ライブラリのインストール
+2. **依存関係**: `llm7shi`ライブラリの存在
 3. **入力ファイル**: `tengu-000-user.md`, `tengu-000-schema.json`の存在
 
 ### 実行結果例
@@ -286,7 +268,7 @@ python tengu-000.py
 
 - **tengu-000-user.md**: 評価指示プロンプト
 - **tengu-000-schema.json**: 構造化出力用スキーマ
-- **gemini.py**: Gemini API統合機能
+- **llm7shi**: Gemini API統合機能
 - **md_to_schema.py**: 他タスクのスキーマ自動生成
 - **20250619-schema.md**: 構造化出力移行の詳細手順
 

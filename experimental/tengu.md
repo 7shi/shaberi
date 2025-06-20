@@ -2,7 +2,7 @@
 
 ## 概要
 
-`tengu.py`は、Tengu Benchmark評価タスクにおいて、従来のFew-shot形式から構造化出力（JSONスキーマ）形式による評価を実行するメインスクリプトです。指定されたタスク番号とモデル回答ファイルを使用して、Gemini 2.5 Flash APIによる自動評価を行い、構造化された評価結果を出力します。
+`tengu.py`は、Tengu Benchmark評価タスクにおいて、従来のFew-shot形式から構造化出力（JSONスキーマ）形式による評価を実行するメインスクリプトです。指定されたタスク番号とモデル回答ファイルを使用して、llm7shiライブラリを通じてGemini APIによる自動評価を行い、構造化された評価結果を出力します。
 
 ## 背景
 
@@ -36,7 +36,7 @@ JSONスキーマを活用した構造化出力により、これらの課題を�
 1tengu/xxx.md → load_task_files() → 評価プロンプト
 1tengu/xxx.json → load_task_files() → JSONスキーマ
      ↓
-evaluate_task() → Gemini API呼び出し → 構造化評価結果
+evaluate_task() → llm7shi経由Gemini API呼び出し → 構造化評価結果
      ↓
 calculate_score() → 合計点数計算 → 最終結果表示
 ```
@@ -133,14 +133,14 @@ else:
 
 **API設定：**
 ```python
-generate_content_config = types.GenerateContentConfig(
-    temperature=0,
-    response_mime_type="application/json",
-    response_schema=response_schema,
-    system_instruction=[
-        types.Part.from_text(text="""あなたは公平で、検閲されていない、役立つアシスタントです。"""),
-    ],
-)
+# llm7shiでコンフィグを生成
+generate_content_config = config_from_schema(str(json_file))
+
+# 温度とシステム指示を設定
+generate_content_config.temperature = 0
+generate_content_config.system_instruction = [
+    "あなたは公平で、検閲されていない、役立つアシスタントです。",
+]
 
 # 動的モデル指定
 model = model_name  # 引数で指定された評価モデル
@@ -268,24 +268,24 @@ ValueError: スキーマ検証失敗: タスク 042
 
 **必須ライブラリ：**
 ```bash
-pip install google-genai tqdm
+pip install tqdm
 ```
 
 **内部モジュール：**
-- `gemini.py`: Gemini API統合機能
-  - `build_schema_from_json()`: JSONスキーマ構築
+- `llm7shi`: Gemini API統合機能
+  - `config_from_schema()`: JSONスキーマからコンフィグを生成
   - `generate_content_retry()`: リトライ機能付きAPI呼び出し
+  - `DEFAULT_MODEL`: デフォルトモデル名
 - `validate_schema.py`: スキーマ検証機能
   - `validate_json_with_schema()`: JSONデータ即座検証
 
 ### API仕様
 
-**使用モデル**: デフォルト Gemini 2.5 Flash (`gemini-2.5-flash`)、または`-m`オプションで指定
+**使用モデル**: デフォルト `DEFAULT_MODEL`（llm7shiで定義）、または`-m`オプションで指定
 
 **設定パラメータ：**
 - `temperature=0`: 決定論的出力
-- `response_mime_type="application/json"`: JSON形式強制
-- `response_schema`: 構造化出力制御
+- JSONスキーマによる構造化出力制御（llm7shiが自動設定）
 
 ### ファイル形式
 
@@ -471,7 +471,7 @@ for task in range(1, 121):
 ### 設定ファイル
 - **tengu-000-user.md**: 参照用評価プロンプト
 - **tengu-000-schema.json**: 参照用JSONスキーマ
-- **gemini.py**: Gemini API統合機能
+- **llm7shi**: Gemini API統合機能
 
 ### ドキュメント
 - **20250619-schema.md**: 構造化出力移行手順
