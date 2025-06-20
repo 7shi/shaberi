@@ -87,7 +87,20 @@ def config_from_schema(schema_filename):
     
     return config_from_schema_string(schema_content)
 
-def generate_content_retry(model, config, contents, include_thoughts=True, thinking_budget=None):
+def generate_content_retry_with_thoughts(model, config, contents, include_thoughts=True, thinking_budget=None, file=sys.stdout):
+    """Generate content with retry logic and return both thoughts and text as a tuple.
+    
+    Args:
+        model: The model to use
+        config: GenerateContentConfig object
+        contents: The content to send
+        include_thoughts: Whether to include thoughts in the response
+        thinking_budget: Optional thinking budget
+        file: Output file for streaming content (default: sys.stdout, None to disable)
+    
+    Returns:
+        tuple: (thoughts, text) where thoughts is the thinking process and text is the final answer
+    """
     # Add thinking configuration to config if requested
     if include_thoughts or thinking_budget is not None:
         thinking_config = types.ThinkingConfig(include_thoughts=include_thoughts)
@@ -126,33 +139,37 @@ def generate_content_retry(model, config, contents, include_thoughts=True, think
                             continue
                         elif include_thoughts and part.thought:
                             if not thoughts_shown:
-                                print(converter.feed("\n🤔 **Thinking...**\n"))
+                                if file:
+                                    print(converter.feed("\n🤔 **Thinking...**\n"), file=file)
                                 thoughts_shown = True
                             thoughts += part.text
                         else:
                             if thoughts_shown and not answer_shown:
-                                print(converter.feed("💡 **Answer:**\n"))
+                                if file:
+                                    print(converter.feed("💡 **Answer:**\n"), file=file)
                                 answer_shown = True
                             text += part.text
                         # Convert markdown formatting for output
-                        print(converter.feed(part.text), end="", flush=True)
+                        if file:
+                            print(converter.feed(part.text), end="", flush=True, file=file)
                 else:
                     # Fallback for older API responses
                     if hasattr(chunk, "text") and chunk.text:
                         text += chunk.text
                         # Convert markdown formatting for output
-                        print(converter.feed(chunk.text), end="", flush=True)
+                        if file:
+                            print(converter.feed(chunk.text), end="", flush=True, file=file)
             
             # Flush any remaining content
             remaining = converter.flush()
-            if remaining:
-                print(remaining, end="", flush=True)
+            if remaining and file:
+                print(remaining, end="", flush=True, file=file)
             
-            if not text.endswith("\n"):
-                print(flush=True)  # Final newline
-            return text
+            if file and not text.endswith("\n"):
+                print(flush=True, file=file)  # Final newline
+            return (thoughts, text)
         except genai.errors.APIError as e:
-            if hasattr(e, "code") and e.code in [429, 500, 503]:
+            if hasattr(e, "code") and e.code in [429, 500, 502, 503]:
                 print(e, file=sys.stderr)
                 # Skip waiting for the last attempt
                 if attempt == 1:
@@ -171,6 +188,33 @@ def generate_content_retry(model, config, contents, include_thoughts=True, think
             else:
                 raise
     raise RuntimeError("Max retries exceeded.")
+
+
+def generate_content_retry(model, config, contents, include_thoughts=True, thinking_budget=None, file=sys.stdout):
+    """Compatibility wrapper for generate_content_retry_with_thoughts.
+    
+    This function maintains backward compatibility by returning only the text portion.
+    
+    Args:
+        model: The model to use
+        config: GenerateContentConfig object
+        contents: The content to send
+        include_thoughts: Whether to include thoughts in the response
+        thinking_budget: Optional thinking budget
+        file: Output file for streaming content (default: sys.stdout, None to disable)
+    
+    Returns:
+        str: The generated text (without thoughts)
+    """
+    _, text = generate_content_retry_with_thoughts(
+        model=model,
+        config=config,
+        contents=contents,
+        include_thoughts=include_thoughts,
+        thinking_budget=thinking_budget,
+        file=file
+    )
+    return text
 
 def show_params(f, model, uri, prompt):
     print("- model:", model, file=f)
