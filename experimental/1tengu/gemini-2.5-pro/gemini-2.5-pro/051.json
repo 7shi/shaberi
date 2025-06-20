@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。\n以下に、丁寧さや状況に応じて使い分けられるよう、複数のパターンで翻訳します。\n\n---\n\n### パターン1：標準的で丁寧な表現\n\n**Subject:** Investigation Report on Customer Claim\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the results of our investigation into the product returned by the customer under a claim. Please find the details below.\n\n(ここに調査結果を記載)\n\nWe would appreciate it if you could review the report.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン2：よりシンプルで直接的な表現\n\n**Subject:** Report on the Claimed Product\n\nHi Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nPlease see below for the investigation results of the claimed product returned from the customer.\n\n(ここに調査結果を記載)\n\nPlease review the details.\n\nThank you,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン3：よりフォーマルな表現\n\n**Subject:** Findings of Investigation Regarding the Returned Product\n\nTo: Mr. Tanaka, Sales Department\nFrom: Suzuki, Administration Department\n\nDear Mr. Tanaka,\n\nThis message is to formally report the findings of our investigation concerning the product that was returned due to a customer complaint. The results are provided as follows.\n\n(ここに調査結果を記載)\n\nYour review and confirmation of this report would be greatly appreciated.\n\nSincerely,\n\nSuzuki\nAdministration Department\n\n---\n\n### 【表現のポイント】\n\n*   **件名 (Subject):** 英語のビジネスメールでは、内容がひと目でわかる件名が非常に重要です。「Investigation Report on Customer Claim」（顧客クレームに関する調査報告）などが一般的です。\n*   **お疲れ様です:** 英語に直訳できる表現はないため、社内メールでは省略するか、`Hope you are doing well.` のような簡単な挨拶を添えます。\n*   **クレーム品:** `claimed product` / `product returned under a claim` / `product under complaint` などと表現できます。\n*   **ご検収のほど:** `Please review...`（ご確認ください）が最もシンプルです。より丁寧に伝えたい場合は `We would appreciate it if you could review...`（ご確認いただけますと幸いです）などが使えます。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "モデルは「お疲れ様です」や「ご検収のほど」といった日本語特有の表現を、英語のビジネスメールの慣習に合わせて適切に意訳・翻訳しています。また、件名（Subject）の重要性に言及し、具体的な例を提示するなど、両言語圏のメール文化の違いを深く理解し、回答に反映させています。複数のパターンを提示することで、状況に応じた使い分けも可能にしており、非常に配慮が行き届いています。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "宛先（田中さん）、差出人（鈴木）、要件（クレーム品の調査結果報告）、依頼（検収のお願い）といった原文の要素が、提示された全ての翻訳パターンにおいて過不足なく正確に訳出されています。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "提示された3つのパターンは、それぞれ「標準的」「シンプル」「フォーマル」という設定に応じた、非常に自然で流暢な英語で書かれています。語彙の選択や文法に不自然な点は見られません。"
+    }
+  },
+  "summary": "モデルは単に日本語を英語に翻訳するだけでなく、丁寧さの度合いに応じた3つの翻訳パターンを提示し、さらに「表現のポイント」として文化的背景や慣習の違いを解説している点が非常に優れています。原文の内容を過不足なく伝えつつ、各パターンで自然な英語表現が用いられており、完成度の高い回答です。",
+  "score": 10
+}
