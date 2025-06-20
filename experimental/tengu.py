@@ -10,13 +10,14 @@ Tengu Benchmark Structured Evaluation Script
 import argparse
 import json
 import os
+import sys
+import traceback
 from pathlib import Path
 from tqdm import tqdm
 from google import genai
 from google.genai import types
 from gemini import build_schema_from_json, generate_content_retry
 from validate_schema import validate_json_with_schema
-from utils import print_error_with_line
 
 
 def calculate_score(result_json):
@@ -230,7 +231,8 @@ def main():
             
         except Exception as e:
             if args.all:
-                print_error_with_line(f"タスク {task_num:03d}: エラー", e)
+                print(f"タスク {task_num:03d}: エラー", file=sys.stderr)
+                traceback.print_exc()
             else:
                 raise
     
