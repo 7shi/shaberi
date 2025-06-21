@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"search_company\",\n    \"properties\": {\n      \"keyword\": \"医療関係の会社\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "1",
+      "reasoning": "search_companyのみが選択されており、get_stock_symbolとget_stock_priceが選択されていないため、全てのツールを選択しているとは言えません。"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "1",
+      "reasoning": "search_companyのみが選択されているため、ツールの順番に関する評価はできません。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "search_companyのkeyword引数に「医療関係の会社」と指定されており、これは質問の意図を汲み取った適切な説明であると考えられます。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "search_companyの引数キーが「keyword」となっており、これは正しいです。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "提供された回答は有効なJSON形式です。"
+    }
+  },
+  "summary": "評価するモデルの回答は、search_companyツールのみを使用しており、get_stock_symbolおよびget_stock_priceツールが欠落しています。しかし、search_companyの引数指定は適切であり、JSON形式も正しいです。全てのツールを使用していない点が減点対象となります。",
+  "score": 6
+}
