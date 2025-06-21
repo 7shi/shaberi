@@ -32,7 +32,8 @@ def generate():
         prompt_text = f.read()
     
     # Build config using config_from_schema
-    generate_content_config = config_from_schema("tengu-000-schema.json")
+    with open("tengu-000-schema.json", "r", encoding="utf-8") as f:
+        generate_content_config = config_from_schema(json.load(f))
     
     # Set temperature and system_instruction
     generate_content_config.temperature = 0
@@ -55,7 +56,7 @@ def generate():
     )
     
     # Convert result string to JSON
-    result_json = json.loads(result)
+    result_json = json.loads(result.text)
     
     return result_json
 
