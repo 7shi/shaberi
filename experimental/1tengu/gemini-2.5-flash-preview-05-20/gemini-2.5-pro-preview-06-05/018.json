@@ -3,25 +3,25 @@
   "evaluation": {
     "'auto_message'のツールを選択している": {
       "points": "3",
-      "reasoning": "モデルは'auto_message'ツールを正しく選択しています。"
+      "reasoning": "auto_messageツールが正しく選択されています。"
     },
     "propertiesの中の'address'の値が'xxxooo@example.com'": {
       "points": "2",
-      "reasoning": "'address'の値が'xxxooo@example.com'と正確に出力されています。"
+      "reasoning": "addressの値がxxxooo@example.comと正しく設定されています。"
     },
     "propertiesの中の'situation'の値が'新しい製品紹介のメール'に類するもの": {
       "points": "2",
-      "reasoning": "'situation'の値が'新しい製品紹介'となっており、指示内容の'新しい製品紹介のメール'に非常に類似しています。"
+      "reasoning": "situationの値は「新しい製品紹介」となっており、「新しい製品紹介のメール」に類するものとして適切です。"
     },
     "properities内の引数のキーの名称が正しい": {
       "points": "2",
-      "reasoning": "'address'と'situation'というキー名がツールの定義と一致しており、正しく使用されています。"
+      "reasoning": "properties内の引数キー（address, situation）がツール定義と一致しており、正しいです。"
     },
     "正確なJSON形式である": {
       "points": "1",
-      "reasoning": "出力された形式は有効なJSONです。"
+      "reasoning": "出力は有効なJSON形式です。"
     }
   },
-  "summary": "モデルの回答は、指定されたツールと引数を正確に特定しており、JSON形式も正しく、非常に高い精度で指示を遵守しています。'situation'の値も指示内容に非常に近い表現でした。",
+  "summary": "モデルの回答は、指定されたツールと引数を正確に選択し、JSON形式も正しく、非常に高い精度で質問に答えています。situationの値も「新しい製品紹介のメール」に類するものとして適切です。",
   "score": 10
 }

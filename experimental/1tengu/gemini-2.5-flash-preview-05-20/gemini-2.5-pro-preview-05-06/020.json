@@ -3,25 +3,25 @@
   "evaluation": {
     "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
       "points": "3",
-      "reasoning": "提示された3つのツール（search_company, get_stock_symbol, get_stock_price）すべてが正しく選択されています。"
+      "reasoning": "モデルは'search_company'、'get_stock_symbol'、'get_stock_price'の全てのツールを正しく選択しています。"
     },
     "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
       "points": "3",
-      "reasoning": "ツールがsearch_company、get_stock_symbol、get_stock_priceの順で選択されており、正解例と一致しています。"
+      "reasoning": "モデルはツールを'search_company'、'get_stock_symbol'、'get_stock_price'の正しい順序で選択しています。"
     },
     "propertiesの中の引数の説明が正しい": {
       "points": "2",
-      "reasoning": "各ツールの引数に指定されている説明が、前のツールの出力に依存していることを適切に示しており、意図が正しく伝わります。（「（search_companyの結果から得られた会社名）」など）"
+      "reasoning": "各ツールの引数（keyword, company_name, symbol）は正しく設定されており、特に後続のツールへの引き継ぎが適切に示されています。正解例と表現は異なりますが、意味は同じです。"
     },
     "properities内の引数のキーの名称が正しい": {
       "points": "1",
-      "reasoning": "各関数の引数のキー名称（keyword, company_name, symbol）が、定義されているものと完全に一致しています。"
+      "reasoning": "properties内の引数のキー名称（keyword, company_name, symbol）は全て正しく指定されています。"
     },
     "正確なJSON形式である": {
       "points": "1",
-      "reasoning": "出力された形式は、完全に有効なJSON構造です。"
+      "reasoning": "出力は正確なJSON形式であり、パース可能です。"
     }
   },
-  "summary": "モデルの回答は、必要な全てのツールを正しい順序で選択し、引数のキー名称も正確です。引数の値についても、前のステップからの情報を適切に参照する形式で表現されており、非常に高い精度で正解例と一致しています。完全に正確なJSON形式であり、指示に完全に合致しています。",
+  "summary": "モデルの回答は、必要な全てのツールを正しい順序で選択し、引数のキー名称も正確でした。引数の説明も正解例とは表現が異なるものの、意味は正しく伝わっており、全体として非常に良い回答です。JSON形式も正確でした。",
   "score": 10
 }

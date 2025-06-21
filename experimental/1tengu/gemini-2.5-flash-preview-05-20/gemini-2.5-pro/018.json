@@ -3,25 +3,25 @@
   "evaluation": {
     "'auto_message'のツールを選択している": {
       "points": "3",
-      "reasoning": "モデルは正しく'auto_message'ツールを選択しています。"
+      "reasoning": "モデルは正しくauto_messageツールを選択しています。"
     },
     "propertiesの中の'address'の値が'xxxooo@example.com'": {
       "points": "2",
-      "reasoning": "'address'の値は正解例と一致しており、正しく指定されています。"
+      "reasoning": "addressの値が正しくxxxooo@example.comになっています。"
     },
     "propertiesの中の'situation'の値が'新しい製品紹介のメール'に類するもの": {
       "points": "2",
-      "reasoning": "'situation'の値は「新しい製品紹介」となっており、「新しい製品紹介のメール」に類するものとして適切です。"
+      "reasoning": "situationの値が「新しい製品紹介」となっており、指示された「新しい製品紹介のメール」に類する内容です。"
     },
     "properities内の引数のキーの名称が正しい": {
       "points": "0",
-      "reasoning": "引数を格納するキーが、正解例の「properties」ではなく「arguments」となっており、キーの名称が誤っています。"
+      "reasoning": "引数を格納するキーが'properties'ではなく'arguments'となっており、正解例および指示と異なります。"
     },
     "正確なJSON形式である": {
       "points": "1",
-      "reasoning": "出力は有効なJSON形式です。"
+      "reasoning": "出力されたJSONは文法的に正しく、パース可能です。"
     }
   },
-  "summary": "モデルは指示に従い'auto_message'ツールを選択し、必要な引数の値も概ね正しく設定できています。しかし、引数を格納するキーの名称が正解例の「properties」ではなく「arguments」となっていた点が正確性に欠けていました。また、正解例と異なり「type」や「function」でラップされている点も、厳密には正解例のフォーマットとは異なります。",
+  "summary": "モデルは適切なツールを選択し、引数の値も概ね正しく設定できていますが、引数を格納するキーの名称が'properties'ではなく'arguments'となっている点が不正確です。JSON形式自体は正しいです。",
   "score": 8
 }
