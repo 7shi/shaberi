@@ -69,6 +69,37 @@ def load_task_files(task_number):
     return prompt_text, schema_json
 
 
+def generate_with_temperature_retry(model, config, contents):
+    """Generate content with temperature retry mechanism
+    
+    Args:
+        model: Model name
+        config: Generation config object
+        contents: Contents to generate from
+        
+    Returns:
+        Result object with text property
+    """
+    # Temperature values to try (0.0 to 1.0 in 0.05 steps)
+    for t in range(0, 101, 5):
+        config.temperature = t / 100
+        if t > 0:
+            print(f"温度: {config.temperature:.2f}", file=sys.stderr)
+        
+        try:
+            return generate_content_retry(
+                model=model,
+                config=config,
+                contents=contents,
+                show_params=False,
+            )
+        except Exception:
+            traceback.print_exc()
+    
+    # If we get here, parsing failed at all temperatures
+    raise ValueError("全ての温度設定でJSONパースに失敗しました")
+
+
 def evaluate_task(task_number, model_answer, model_name):
     """Evaluate a specific Tengu Benchmark task using structured output
     
@@ -88,7 +119,8 @@ def evaluate_task(task_number, model_answer, model_name):
     # For now, using the existing approach but calling llm7shi function
     task_id = f"{task_number:03d}"
     json_file = Path(f"1tengu/{task_id}.json")
-    generate_content_config = config_from_schema(str(json_file))
+    with open(str(json_file), "r", encoding="utf-8") as f:
+        generate_content_config = config_from_schema(json.load(f))
     
     # Set temperature and system_instruction
     generate_content_config.temperature = 0
@@ -99,15 +131,15 @@ def evaluate_task(task_number, model_answer, model_name):
     contents = [prompt_text, f"[評価するモデルの回答]\n{model_answer.rstrip()}"]
     #print("\n\n".join(contents))
 
-    # Use generate_content_retry from llm7shi
-    result = generate_content_retry(
+    # Use generate_with_temperature_retry
+    result = generate_with_temperature_retry(
         model=model_name,
         config=generate_content_config,
-        contents=contents
+        contents=contents,
     )
     
     # Convert result string to JSON
-    result_json = json.loads(result)
+    result_json = json.loads(result.text)
     
     return result_json
 
