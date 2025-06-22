@@ -162,7 +162,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
         try:
             # パース試行
             result = parser_func(response)
-            if result:
+            if result is not None:
                 return result
         except Exception as e:
             # 次の温度で試行を続ける
