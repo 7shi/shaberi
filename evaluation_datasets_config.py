@@ -89,7 +89,7 @@ def make_tengu_conversation(data: dict) -> list:
 def get_tengu_eval_score(eval_text: str) -> int:
     logger.info(eval_text)
     try:
-        score_text = re.search(r"\[点数\]\n\d{1,2}点?", eval_text).group()
+        score_text = re.search(r"\[点数\] *\n\d{1,2}点?", eval_text).group()
         score = re.search(r"\d{1,2}", score_text).group()
         return int(score)
     except (ValueError, AttributeError):
