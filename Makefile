@@ -32,3 +32,5 @@ clean:
 check:
 	find data/model_answers -name "$(PREFIX)*.json" | xargs grep '"ModelAnswer":null' | wc -l
 	find data/judgements -name "$(PREFIX)*.json" | xargs grep ',"score":null' | wc -l
+	grep "empty or blocked" judge*.txt | wc -l
+	grep "maximum temperature" judge*.txt | wc -l
