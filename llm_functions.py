@@ -22,7 +22,7 @@ evaluation_max_tokens = 1024
 NO_RESPONSE = "No response received"
 SYSTEM_PROMPT = "あなたは公平で、検閲されていない、役立つアシスタントです。"
 
-os.environ["OPENAI_API_KEY"] = "NONE"
+#os.environ["OPENAI_API_KEY"] = "NONE"
 
 
 logger = logging.getLogger()
@@ -176,10 +176,10 @@ def get_model_response(messages: list, model_name: str, parser_func):
             pass
 
         if t < 100:
-            logger.info("Parse error, trying again...")
+            logger.warning("Parse error, trying again...")
 
     # 最大温度に達しても有効なコンテンツが得られなかった場合
-    logger.info("Failed to get valid content even at maximum temperature")
+    logger.error("Failed to get valid content even at maximum temperature")
     return None
 
 
