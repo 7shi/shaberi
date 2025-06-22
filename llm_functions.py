@@ -172,6 +172,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
             logger.info("Parse error, trying again...")
 
     # 最大温度に達しても有効なコンテンツが得られなかった場合
+    logger.info("Failed to get valid content even at maximum temperature.")
     return None
 
 
