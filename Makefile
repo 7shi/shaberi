@@ -1,4 +1,4 @@
-PREFIX := gemini-2.5-pro
+PREFIX := gemini-2.5
 
 ifneq ($(filter answer judge ,$(MAKECMDGOALS)),)
 ifndef DATE
@@ -6,7 +6,7 @@ $(error DATE is not defined. Please run with: make DATE=MM-DD)
 endif
 endif
 
-GEMINI := $(PREFIX)-preview-$(DATE)
+GEMINI := $(PREFIX)-pro-preview-$(DATE)
 
 # For Free Tier usage, uncomment "-n 1" to limit parallel processing
 OPTIONS := -m $(GEMINI) -d shaberi3 -t 131072 #-n 1
@@ -34,3 +34,6 @@ check:
 	find data/judgements -name "$(PREFIX)*.json" | xargs grep ',"score":null' | wc -l
 	grep "empty or blocked" judge*.txt | wc -l
 	grep "maximum temperature" judge*.txt | wc -l
+
+openai:
+	uv run judge_answers.py -d shaberi3 -t 32768 -e gpt-4.1-mini -m gemini-2.5-pro -n 1
