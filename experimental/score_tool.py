@@ -134,6 +134,19 @@ def extract_scores_from_jsonl_file(file_path):
         return results
     
     if scores:
+        # Noneチェック
+        none_indices = []
+        for i, score in enumerate(scores):
+            if score is None:
+                none_indices.append(i + 1)  # 行番号は1始まり
+        
+        if none_indices:
+            print(f"Error: {file_path} に以下の行でscoreがNoneです:")
+            for line_num in none_indices:
+                print(f"  - 行 {line_num}")
+            print("処理を中止します")
+            return results
+        
         results[dir_name] = {
             'total': sum(scores),
             'scores': scores
