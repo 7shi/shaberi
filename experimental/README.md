@@ -24,11 +24,13 @@ experimental/
 - **dump_questions.py** - shaberi3-evaluations.jsonから3つのベンチマークデータを分類・抽出
 
 **Tengu Benchmark 関連**
-- **conv_tengu.py** - JSONデータを個別Markdownファイルに変換
-- **check_criteria.py** - 評価項目形式を検証（単層/階層構造の判定）
-- **md_to_schema.py** - MarkdownファイルからJSONスキーマを自動生成
-- **tengu-000.py** - 構造化出力の概念実証（単一タスクテスト）
-- **tengu.py** - 本格的な評価システム（スキーマ検証統合済み）
+- **1tengu/conv_tengu.py** - JSONデータを個別Markdownファイルに変換
+- **1tengu/check_criteria.py** - 評価項目形式を検証（単層/階層構造の判定）
+- **1tengu/md_to_schema.py** - MarkdownファイルからJSONスキーマを自動生成
+- **1tengu/tengu-000.py** - 構造化出力の概念実証（単一タスクテスト）
+- **1tengu/tengu.py** - 本格的な評価システム（スキーマ検証統合済み）
+  - **1tengu/validate_schema.py** - 評価結果がJSONスキーマに適合しているか検証
+  - **1tengu/add_scores.py** - 過去の評価結果にscoreフィールドを追加
 
 **ELYZA-tasks-100 関連**
 - （今後実装予定）
@@ -40,10 +42,6 @@ experimental/
 - **score_tool.py** - 評価結果からスコア統計を集計しTOML形式で出力
 - **totals_to_csv.py** - 複数の評価結果を集計してCSVファイルに出力（改修版）
 - **merge_csv.py** - 異なる列順序を持つCSVファイルをマージ（列名ベース統合）
-
-**過去データ調整**
-- **validate_schema.py** - 評価結果がJSONスキーマに適合しているか検証
-- **add_scores.py** - 過去の評価結果にscoreフィールドを追加
 
 ## 使用順序
 

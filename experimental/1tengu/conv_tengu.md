@@ -2,7 +2,7 @@
 
 ## 概要
 
-`conv_tengu.py`は、Shaberi評価フレームワークの`1tengu.json`ファイルから、個別のMarkdownファイルに変換するスクリプトです。構造化出力（JSONスキーマ）による評価システムへの移行を支援するため、各評価タスクを独立したファイルとして管理できるようにします。
+`conv_tengu.py`は、Shaberi評価フレームワークの`../1tengu.json`ファイルから、個別のMarkdownファイルに変換するスクリプトです。構造化出力（JSONスキーマ）による評価システムへの移行を支援するため、各評価タスクを独立したファイルとして管理できるようにします。
 
 ## 背景
 
@@ -22,7 +22,7 @@
 
 ## 入力データ
 
-### ソースファイル: 1tengu.json
+### ソースファイル: ../1tengu.json
 
 - **形式**: JSONL（JSON Lines）
 - **件数**: 120件のtengu_bench評価タスク
@@ -34,7 +34,7 @@
 
 ### データの由来
 
-`1tengu.json`は`dump_questions.py`により`shaberi3-evaluations.json`から抽出されたtengu_bench専用データです。元データは以下の構造を持つFew-shot形式の評価タスクです：
+`../1tengu.json`は`dump_questions.py`により`shaberi3-evaluations.json`から抽出されたtengu_bench専用データです。元データは以下の構造を持つFew-shot形式の評価タスクです：
 
 ```json
 [
@@ -48,11 +48,11 @@
 ## 処理フロー
 
 ### 1. ファイル読み込み
-- `1tengu.json`の存在確認
+- `../1tengu.json`の存在確認
 - UTF-8エンコーディングでの読み込み
 
 ### 2. 出力準備
-- `1tengu/`ディレクトリの作成（存在しない場合）
+- `data/`ディレクトリの作成（存在しない場合）
 
 ### 3. 変換処理
 ```python
@@ -71,7 +71,7 @@ for i, line in enumerate(lines, 1):
 
 ### ディレクトリ構造
 ```
-1tengu/
+data/
 ├── 001.md
 ├── 002.md
 ├── ...
@@ -110,7 +110,7 @@ python conv_tengu.py
 ```
 
 ### 前提条件
-- `1tengu.json`が同じディレクトリに存在すること
+- `1tengu.json`が親ディレクトリに存在すること
 - Python 3.6以上
 - 必要な権限（ディレクトリ作成・ファイル書き込み）
 
@@ -121,7 +121,7 @@ python conv_tengu.py
 変換完了:
   成功: 120件
   エラー: 0件
-  出力ディレクトリ: 1tengu
+  出力ディレクトリ: data
 ```
 
 ## 技術仕様

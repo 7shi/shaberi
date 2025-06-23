@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 JSON to MD Converter for Tengu Benchmark
-1tengu.json から各質問を個別のMDファイルに変換するスクリプト
+../1tengu.json から各質問を個別のMDファイルに変換するスクリプト
 """
 import json
 import re
@@ -13,13 +13,13 @@ def main():
     """メイン処理"""
     
     # 入力ファイルの確認
-    input_file = Path("1tengu.json")
+    input_file = Path("../1tengu.json")
     if not input_file.exists():
         print(f"エラー: {input_file} が見つかりません")
         return
     
     # 出力ディレクトリの作成
-    output_dir = Path("1tengu")
+    output_dir = Path("data")
     output_dir.mkdir(exist_ok=True)
     
     # JSONファイルを読み込み

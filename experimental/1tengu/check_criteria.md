@@ -2,7 +2,7 @@
 
 ## 概要
 
-`check_criteria.py`は、Tengu Benchmark評価タスクの評価項目形式を自動検証するスクリプトです。1tengu/ディレクトリ内の各Markdownファイルについて、評価項目が期待する形式に適合しているかをチェックします。
+`check_criteria.py`は、Tengu Benchmark評価タスクの評価項目形式を自動検証するスクリプトです。data/ディレクトリ内の各Markdownファイルについて、評価項目が期待する形式に適合しているかをチェックします。
 
 ## 背景
 
@@ -39,7 +39,7 @@ Shaberi評価フレームワークでFew-shot形式から構造化出力（JSON�
 
 ### データセット概要
 
-Tengu Benchmark（1tengu/）の120件すべてのファイルを調査した結果、評価項目は以下の2つの形式パターンに分類されることが判明しました。
+Tengu Benchmark（data/）の120件すべてのファイルを調査した結果、評価項目は以下の2つの形式パターンに分類されることが判明しました。
 
 ### 形式1: 単層構造（97件）
 
@@ -179,7 +179,7 @@ python check_criteria.py
 ```
 
 ### 前提条件
-- `1tengu/`ディレクトリが存在すること
+- `data/`ディレクトリが存在すること
 - ディレクトリ内に`.md`ファイルが存在すること
 - Python 3.6以上
 
@@ -263,7 +263,7 @@ python check_criteria.py
 ## 関連ファイル
 
 - **conv_tengu.py**: JSONからMDファイルへの変換スクリプト
-- **1tengu/*.md**: 検証対象のMarkdownファイル
+- **data/*.md**: 検証対象のMarkdownファイル
 - **20250619-schema.md**: 構造化出力への移行手順
 
 ## 今後の拡張

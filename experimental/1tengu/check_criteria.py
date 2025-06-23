@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Criteria Format Checker for Tengu Benchmark
-1tengu/の各ファイルで評価項目の形式をチェックするスクリプト
+data/の各ファイルで評価項目の形式をチェックするスクリプト
 """
 import re
 from pathlib import Path
@@ -59,8 +59,8 @@ def check_criteria_format(content, filename):
 def main():
     """メイン処理"""
     
-    # 1tenguディレクトリの確認
-    tengu_dir = Path("1tengu")
+    # dataディレクトリの確認
+    tengu_dir = Path("data")
     if not tengu_dir.exists():
         print(f"エラー: {tengu_dir} ディレクトリが見つかりません")
         return

@@ -73,11 +73,11 @@ if "reasoning" not in criterion_data:
 **スキーマファイルの自動検索:**
 ```python
 def get_schema_file_path(evaluation_file: Path) -> Path:
-    schema_path = Path("1tengu") / evaluation_file.name
+    schema_path = Path("data") / evaluation_file.name
     return schema_path
 ```
 
-評価結果ファイル（例：`gemini-2.5-pro/001.json`）に対応するスキーマファイル（`1tengu/001.json`）を自動的に特定します。
+評価結果ファイル（例：`gemini-2.5-pro/001.json`）に対応するスキーマファイル（`data/001.json`）を自動的に特定します。
 
 ## 使用方法
 
@@ -91,7 +91,7 @@ uv run validate_schema.py <評価結果ディレクトリ>
 
 ```bash
 # Gemini 2.5 Proの評価結果を検証
-uv run validate_schema.py 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
+uv run validate_schema.py judge/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
 ```
 
 ### 出力例
@@ -99,7 +99,7 @@ uv run validate_schema.py 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
 #### 正常時
 ```
 検証開始: 120 ファイル
-対象ディレクトリ: 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
+対象ディレクトリ: judge/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
 
 検証中: 001.json
 ✓ 001.json: OK
@@ -140,7 +140,7 @@ uv run validate_schema.py 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
 
 1. **スキーマファイル未存在**
    ```
-   対応するスキーマファイルが見つかりません: 1tengu/999.json
+   対応するスキーマファイルが見つかりません: data/999.json
    ```
 
 2. **JSONパースエラー**
@@ -163,7 +163,7 @@ uv run validate_schema.py 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
 ### Gemini 2.5 Pro評価結果の検証
 
 **実行日**: 2025年6月19日
-**対象**: `1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro/`
+**対象**: `judge/gemini-2.5-flash-preview-05-20/gemini-2.5-pro/`
 **結果**: 120/120ファイルが完全適合
 
 ```
@@ -207,7 +207,7 @@ ELYZA-tasks-100、ja-mt-benchなど、他の評価データセットへの適用
 
 ```python
 # スキーマディレクトリの動的指定
-def get_schema_file_path(evaluation_file: Path, schema_dir: str = "1tengu") -> Path:
+def get_schema_file_path(evaluation_file: Path, schema_dir: str = "data") -> Path:
     schema_path = Path(schema_dir) / evaluation_file.name
     return schema_path
 ```
@@ -285,8 +285,8 @@ ValueError: スキーマ検証失敗: タスク 042
 
 - **tengu.py**: 構造化出力評価スクリプト（スキーマ検証統合済み）
 - **md_to_schema.py**: Markdown→JSONスキーマ変換（前段階）
-- **1tengu/*.json**: JSONスキーマ定義ファイル（120件）
-- **1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro/*.json**: 検証対象の評価結果
+- **data/*.json**: JSONスキーマ定義ファイル（120件）
+- **judge/gemini-2.5-flash-preview-05-20/gemini-2.5-pro/*.json**: 検証対象の評価結果
 - **md_to_schema.md**: スキーマ生成プロセスの詳細説明
 
 ## まとめ

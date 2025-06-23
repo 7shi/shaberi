@@ -2,7 +2,7 @@
 
 ## 概要
 
-`md_to_schema.py`は、Tengu Benchmark評価タスクのMarkdownファイル（1tengu/*.md）から、構造化出力用のJSONスキーマファイル（1tengu/*.json）を自動生成するスクリプトです。Few-shot形式からJSONスキーマベースの評価システムへの移行を自動化します。
+`md_to_schema.py`は、Tengu Benchmark評価タスクのMarkdownファイル（data/*.md）から、構造化出力用のJSONスキーマファイル（data/*.json）を自動生成するスクリプトです。Few-shot形式からJSONスキーマベースの評価システムへの移行を自動化します。
 
 ## 背景
 
@@ -134,7 +134,7 @@ JSONスキーマを使用した構造化出力により、これらの問題を�
 
 ### 変換統計
 
-**処理対象**: 1tengu/ディレクトリの120件のMarkdownファイル
+**処理対象**: data/ディレクトリの120件のMarkdownファイル
 
 **成功率**: 100%（120/120件）
 
@@ -231,7 +231,7 @@ python md_to_schema.py
 ```
 
 ### 前提条件
-- `1tengu/`ディレクトリが存在すること
+- `data/`ディレクトリが存在すること
 - ディレクトリ内に`.md`ファイルが存在すること
 - Python 3.6以上
 

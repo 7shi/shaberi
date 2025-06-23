@@ -33,8 +33,8 @@ JSONスキーマを活用した構造化出力により、これらの課題を�
 ```
 モデル回答JSON → load_model_answer() → 指定タスクの回答抽出
      ↓
-1tengu/xxx.md → load_task_files() → 評価プロンプト
-1tengu/xxx.json → load_task_files() → JSONスキーマ
+data/xxx.md → load_task_files() → 評価プロンプト
+data/xxx.json → load_task_files() → JSONスキーマ
      ↓
 evaluate_task() → llm7shi経由Gemini API呼び出し → 構造化評価結果
      ↓
@@ -44,8 +44,8 @@ calculate_score() → 合計点数計算 → 最終結果表示
 ### ファイル構成
 
 **入力ファイル：**
-- `1tengu/xxx.md`: 評価指示プロンプト（120件）
-- `1tengu/xxx.json`: 構造化出力用JSONスキーマ（120件）
+- `data/xxx.md`: 評価指示プロンプト（120件）
+- `data/xxx.json`: 構造化出力用JSONスキーマ（120件）
 - `../data/model_answers/.../model.json`: モデル回答データ
 
 **出力：**
@@ -84,8 +84,8 @@ if args.task_number is not None and not (1 <= args.task_number <= len(answers)):
 # Format task number with zero padding
 task_id = f"{task_number:03d}"
 
-md_file = Path(f"1tengu/{task_id}.md")
-json_file = Path(f"1tengu/{task_id}.json")
+md_file = Path(f"data/{task_id}.md")
+json_file = Path(f"data/{task_id}.json")
 
 # Load prompt text and cut at "[評価するモデルの回答]"
 with open(md_file, "r", encoding="utf-8") as f:
@@ -226,7 +226,7 @@ uv run tengu.py -h
 
 ✓ スキーマ検証: OK
 タスク 001: 完了 (10/10点)
-評価結果を 1tengu/gemini-2.5-flash/gemini-2.5-pro/001.json に保存しました
+評価結果を judge/gemini-2.5-flash/gemini-2.5-pro/001.json に保存しました
 ```
 
 **スキーマ検証エラー時：**
@@ -297,8 +297,8 @@ pip install tqdm
 ```
 
 **評価結果ファイル（JSON）：**
-- **保存先**: `1tengu/{評価者モデル}/{回答者モデル}/{タスク番号:003}.json`
-- **例**: `1tengu/gemini-2.5-flash/claude-3-5-sonnet/001.json`
+- **保存先**: `judge/{評価者モデル}/{回答者モデル}/{タスク番号:003}.json`
+- **例**: `judge/gemini-2.5-flash/claude-3-5-sonnet/001.json`
 
 **評価プロンプト（Markdown）：**
 ```markdown
@@ -493,7 +493,7 @@ for task in range(1, 121):
 **新機能（v2）：**
 - **動的モデル選択**: `-m`オプションで評価モデルを指定
 - **全タスク評価**: `--all`オプションで全タスクを一括処理
-- **スマート保存**: `1tengu/{評価者}/{回答者}/{タスク}.json`の階層構造
+- **スマート保存**: `judge/{評価者}/{回答者}/{タスク}.json`の階層構造
 - **重複防止**: 既存評価のスキップと`--force`による上書き
 - **回答保存**: 評価結果に回答者の実際の回答を含める
 - **進捗表示**: tqdmによる全タスク評価時の進捗バー表示

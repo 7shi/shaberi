@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Tengu Benchmark Structured Evaluation Script - OpenAI Version
-1tengu/xxx.md と 1tengu/xxx.json を使用して構造化出力評価を実行
+data/xxx.md と data/xxx.json を使用して構造化出力評価を実行
 """
 
 import argparse
@@ -51,8 +51,8 @@ def load_task_files(task_number):
     # Format task number with zero padding
     task_id = f"{task_number:03d}"
     
-    md_file = Path(f"1tengu/{task_id}.md")
-    json_file = Path(f"1tengu/{task_id}.json")
+    md_file = Path(f"data/{task_id}.md")
+    json_file = Path(f"data/{task_id}.json")
     
     # Load prompt text and cut at "[評価するモデルの回答]"
     with open(md_file, "r", encoding="utf-8") as f:
@@ -244,7 +244,7 @@ def main():
     if args.all and not args.force:
         tasks_to_process = []
         for task_num in targets:
-            output_dir = Path(f"1tengu/{args.model}/{model_name_from_file}")
+            output_dir = Path(f"judge/{args.model}/{model_name_from_file}")
             output_file = output_dir / f"{task_num:03d}.json"
             if not output_file.exists():
                 tasks_to_process.append(task_num)
@@ -261,7 +261,7 @@ def main():
     iterator = tqdm(tasks_to_process, desc="評価進捗") if args.all else tasks_to_process
     
     for task_num in iterator:
-        output_dir = Path(f"1tengu/{args.model}/{model_name_from_file}")
+        output_dir = Path(f"judge/{args.model}/{model_name_from_file}")
         output_file = output_dir / f"{task_num:03d}.json"
         
         # This should only trigger in single task mode since we pre-filtered for --all

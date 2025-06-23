@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 MD to JSON Schema Converter for Tengu Benchmark
-1tengu/xxx.md から 1tengu/xxx.json へJSONスキーマを生成するスクリプト
+data/xxx.md から data/xxx.json へJSONスキーマを生成するスクリプト
 """
 import json
 import re
@@ -131,8 +131,8 @@ def generate_json_schema(criteria):
 def main():
     """メイン処理"""
     
-    # 1tenguディレクトリの確認
-    input_dir = Path("1tengu")
+    # dataディレクトリの確認
+    input_dir = Path("data")
     if not input_dir.exists():
         print(f"エラー: {input_dir} ディレクトリが見つかりません")
         return

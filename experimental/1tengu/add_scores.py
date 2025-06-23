@@ -72,13 +72,13 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""例:
   # 特定のディレクトリ内の全JSONファイルを処理
-  uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
+  uv run add_scores.py judge/gemini-2.5-flash/gemini-2.5-pro
   
   # ドライラン（実際には変更しない）
-  uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro --dry-run
+  uv run add_scores.py judge/gemini-2.5-flash/gemini-2.5-pro --dry-run
   
   # 再帰的に全サブディレクトリを処理
-  uv run add_scores.py 1tengu --recursive"""
+  uv run add_scores.py judge --recursive"""
     )
     parser.add_argument("directory", help="処理対象のディレクトリパス")
     parser.add_argument("--dry-run", action="store_true", 

@@ -69,7 +69,7 @@ def calculate_score(result_json):
 
 ```bash
 # 特定の評価結果ディレクトリを処理
-uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
+uv run add_scores.py judge/gemini-2.5-flash/gemini-2.5-pro
 
 # 処理結果の例
 対象ファイル数: 120
@@ -85,14 +85,14 @@ uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
 実際の変更なしに処理内容を確認：
 
 ```bash
-uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro --dry-run
+uv run add_scores.py judge/gemini-2.5-flash/gemini-2.5-pro --dry-run
 
 # 出力例
 対象ファイル数: 120
 ドライランモード: ファイルは変更されません
 
-追加予定: 1tengu/gemini-2.5-flash/gemini-2.5-pro/001.json (score=10)
-追加予定: 1tengu/gemini-2.5-flash/gemini-2.5-pro/002.json (score=8)
+追加予定: judge/gemini-2.5-flash/gemini-2.5-pro/001.json (score=10)
+追加予定: judge/gemini-2.5-flash/gemini-2.5-pro/002.json (score=8)
 ...
 
 処理完了:
@@ -107,11 +107,11 @@ uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro --dry-run
 サブディレクトリも含めて処理：
 
 ```bash
-# 1tengu以下の全評価結果を一括処理
-uv run add_scores.py 1tengu --recursive
+# judge以下の全評価結果を一括処理
+uv run add_scores.py judge --recursive
 
 # 処理対象の例
-1tengu/
+judge/
 ├── gemini-2.5-flash/
 │   ├── claude-3-5-sonnet/
 │   │   ├── 001.json
@@ -149,7 +149,7 @@ uv run add_scores.py 1tengu --recursive
 
 ```bash
 # 特定モデルの評価結果のみ更新
-uv run add_scores.py 1tengu/gemini-2.5-flash/claude-3-5-sonnet
+uv run add_scores.py judge/gemini-2.5-flash/claude-3-5-sonnet
 
 処理完了:
   - 変更済み: 120件
@@ -160,7 +160,7 @@ uv run add_scores.py 1tengu/gemini-2.5-flash/claude-3-5-sonnet
 
 ```bash
 # 新旧混在ディレクトリの処理
-uv run add_scores.py 1tengu/gemini-2.5-flash/mixed-results
+uv run add_scores.py judge/gemini-2.5-flash/mixed-results
 
 処理完了:
   - 変更済み: 45件
@@ -171,9 +171,9 @@ uv run add_scores.py 1tengu/gemini-2.5-flash/mixed-results
 
 ```bash
 # 破損ファイルを含むディレクトリ
-uv run add_scores.py 1tengu/corrupted-data
+uv run add_scores.py judge/corrupted-data
 
-Error processing 1tengu/corrupted-data/broken.json: Expecting value: line 1 column 1 (char 0)
+Error processing judge/corrupted-data/broken.json: Expecting value: line 1 column 1 (char 0)
 
 処理完了:
   - 変更済み: 98件
@@ -202,7 +202,7 @@ Error processing 1tengu/corrupted-data/broken.json: Expecting value: line 1 colu
 
 - `tengu.py`: 評価実行スクリプト（score計算ロジックの参照元）
 - `tengu.md`: Tengu Benchmark評価システムのドキュメント
-- `1tengu/`: 評価結果の保存ディレクトリ
+- `judge/`: 評価結果の保存ディレクトリ
 
 ## まとめ
 

@@ -6,7 +6,7 @@
 python validate_schema.py <評価結果ディレクトリ>
 
 例:
-python validate_schema.py 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
+python validate_schema.py judge/gemini-2.5-flash-preview-05-20/gemini-2.5-pro
 """
 
 import json
@@ -32,7 +32,7 @@ def load_json_data(data: Dict[str, Any]) -> Dict[str, Any]:
 
 def get_schema_file_path(evaluation_file: Path) -> Path:
     """評価結果ファイルに対応するスキーマファイルのパスを取得"""
-    schema_path = Path("1tengu") / evaluation_file.name
+    schema_path = Path("data") / evaluation_file.name
     return schema_path
 
 
@@ -137,7 +137,7 @@ def validate_json_with_schema(evaluation_data: Dict[str, Any], task_number: int)
     """
     # スキーマファイルのパスを取得
     task_id = f"{task_number:03d}"
-    schema_file = Path(f"1tengu/{task_id}.json")
+    schema_file = Path(f"data/{task_id}.json")
     
     if not schema_file.exists():
         return False, [f"対応するスキーマファイルが見つかりません: {schema_file}"]
@@ -226,7 +226,7 @@ def validate_directory(directory_path: str) -> None:
 def main():
     if len(sys.argv) != 2:
         print("使用方法: python validate_schema.py <評価結果ディレクトリ>")
-        print("例: python validate_schema.py 1tengu/gemini-2.5-flash-preview-05-20/gemini-2.5-pro")
+        print("例: python validate_schema.py judge/gemini-2.5-flash-preview-05-20/gemini-2.5-pro")
         sys.exit(1)
     
     directory_path = sys.argv[1]
