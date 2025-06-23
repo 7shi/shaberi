@@ -24,13 +24,7 @@ experimental/
 - **dump_questions.py** - shaberi3-evaluations.jsonから3つのベンチマークデータを分類・抽出
 
 **Tengu Benchmark 関連**
-- **1tengu/conv_tengu.py** - JSONデータを個別Markdownファイルに変換
-- **1tengu/check_criteria.py** - 評価項目形式を検証（単層/階層構造の判定）
-- **1tengu/md_to_schema.py** - MarkdownファイルからJSONスキーマを自動生成
-- **1tengu/tengu-000.py** - 構造化出力の概念実証（単一タスクテスト）
-- **1tengu/tengu.py** - 本格的な評価システム（スキーマ検証統合済み）
-  - **1tengu/validate_schema.py** - 評価結果がJSONスキーマに適合しているか検証
-  - **1tengu/add_scores.py** - 過去の評価結果にscoreフィールドを追加
+- [1tengu/](1tengu/) - Tengu Benchmark構造化出力評価システム（詳細はREADME参照）
 
 **ELYZA-tasks-100 関連**
 - （今後実装予定）
@@ -67,78 +61,7 @@ uv run dump_questions.py
 
 ### 2. Tengu Benchmark 関連
 
-#### `conv_tengu.py` - JSON→Markdown変換
-```bash
-uv run conv_tengu.py
-```
-- `1tengu.json`から個別Markdownファイルに変換
-- 出力: `1tengu/001.md` ～ `1tengu/120.md`
-
-#### `check_criteria.py` - 評価項目形式検証
-```bash
-uv run check_criteria.py
-```
-- 120件の評価項目形式を自動検証
-- 単層構造（97件）と階層構造（23件）を適切に処理
-- 全件正常確認後、次の段階に進む
-
-#### `md_to_schema.py` - Markdown→JSONスキーマ変換
-```bash
-uv run md_to_schema.py
-```
-- MarkdownファイルからJSONスキーマを自動生成
-- 出力: `1tengu/001.json` ～ `1tengu/120.json`
-- 構造化出力用スキーマファイルを120件作成
-
-#### `tengu-000.py` - 単一タスク実証テスト
-```bash
-uv run tengu-000.py
-```
-- 「急がば回れ」の説明タスクで構造化出力をテスト
-- llm7shiライブラリを使用してGemini 2.5 Flash APIにアクセス
-- 概念実証として最初に実行
-
-#### `tengu.py` - 本格的な評価システム
-```bash
-# 単一タスク評価
-uv run tengu.py <model_answer_file> -n <task_number> [-m <evaluator_model>]
-
-# 全タスク評価
-uv run tengu.py <model_answer_file> --all [-m <evaluator_model>]
-
-# 具体例
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json --all
-```
-- リアルタイムスキーマ検証機能統合済み
-
-#### 開発過程の補助ツール
-
-##### `validate_schema.py` - 評価結果スキーマ検証
-```bash
-# 評価結果ディレクトリの検証
-uv run validate_schema.py <評価結果ディレクトリ>
-
-# 具体例
-uv run validate_schema.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
-```
-- Tengu Benchmark評価結果がJSONスキーマに適合しているかチェック
-- 評価項目の完全性、ポイント値の妥当性、必須フィールドを検証
-- `tengu.py`でリアルタイム検証機能として統合済み
-
-##### `add_scores.py` - 過去データのスコア追加
-```bash
-# 特定ディレクトリの処理
-uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
-
-# ドライランモード
-uv run add_scores.py 1tengu/gemini-2.5-flash/gemini-2.5-pro --dry-run
-
-# 再帰的処理
-uv run add_scores.py 1tengu --recursive
-```
-- 過去の評価結果に`score`フィールドを追加
-- 新旧データの形式統一
+詳細は[1tengu/README.md](1tengu/README.md)を参照してください。
 
 ### 3. ELYZA-tasks-100 関連
 
@@ -205,10 +128,6 @@ python merge_csv.py file1.csv file2.csv
 - 列順序の統一（アルファベット順）
 - 標準ライブラリのみ使用（pandas不要）
 - 詳細は[merge_csv.md](merge_csv.md)を参照
-
-### 6. 過去データ調整
-
-*（tengu.pyの開発過程で使用した補助ツール。現在は`tengu.py`に機能統合済み）*
 
 ### 5. ELYZA-tasks-100 構造化出力システム
 

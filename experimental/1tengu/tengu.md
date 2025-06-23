@@ -46,7 +46,7 @@ calculate_score() → 合計点数計算 → 最終結果表示
 **入力ファイル：**
 - `data/xxx.md`: 評価指示プロンプト（120件）
 - `data/xxx.json`: 構造化出力用JSONスキーマ（120件）
-- `../data/model_answers/.../model.json`: モデル回答データ
+- `../../data/model_answers/.../model.json`: モデル回答データ
 
 **出力：**
 - 構造化された評価結果JSON
@@ -196,13 +196,13 @@ uv run tengu.py <model_answer_file> -n <task_number> [-m <evaluator_model>]
 uv run tengu.py <model_answer_file> --all [-m <evaluator_model>]
 
 # 具体例（Gemini）
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 42 -m gemini-2.5-flash
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json --all -m gemini-2.5-pro
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 42 -m gemini-2.5-flash
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json --all -m gemini-2.5-pro
 
 # 具体例（OpenAI）
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gpt-4o.json -n 1 -m gpt-4.1-mini
-uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json --all -m gpt-4o
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json -n 1 -m gpt-4.1-mini
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json --all -m gpt-4o
 
 # 強制上書き
 uv run tengu.py model.json -n 1 --force
@@ -420,7 +420,7 @@ models=(
 )
 
 for model_file in "${models[@]}"; do
-    uv run tengu.py "../data/model_answers/lightblue__tengu_bench/$model_file" --all
+    uv run tengu.py "../../data/model_answers/lightblue__tengu_bench/$model_file" --all
 done
 ```
 

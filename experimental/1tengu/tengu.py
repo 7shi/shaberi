@@ -117,9 +117,9 @@ def main():
         description="Tengu Benchmark構造化出力評価 (OpenAI/Gemini対応)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""例:
-  uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
-  uv run tengu.py ../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json -n 42 -m gemini-2.5-pro
-  uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m gpt-4.1-mini"""
+  uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
+  uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json -n 42 -m gemini-2.5-pro
+  uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m gpt-4.1-mini"""
     )
     parser.add_argument("json_file", help="モデル回答が格納されたJSONファイルのパス")
     parser.add_argument("-n", "--task-number", type=int, help="評価するタスク番号")
