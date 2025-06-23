@@ -42,36 +42,39 @@ Tengu Benchmarkの評価システムを開発する過程で、以下の課題�
 ```python
 result = generate_with_schema(
     model="gemini-2.5-flash",  # または "gpt-4.1-mini"
-    messages=[
-        {"role": "system", "content": "システムプロンプト"},
-        {"role": "user", "content": "ユーザープロンプト"}
+    contents=[
+        "ユーザープロンプト1",
+        "ユーザープロンプト2"
     ],
     schema=json_schema,
-    temperature=0
+    temperature=0,
+    system_prompt="システムプロンプト"
 )
 ```
 
 **特徴**:
 - モデル名で自動的にAPIを判別
-- メッセージ形式はOpenAI互換で統一
+- シンプルな`contents`配列とシステムプロンプト分離
 - 構造化出力（JSON Schema）をサポート
 
-### 2. generate_with_temperature_retry()
+### 2. contents_to_openai_messages()
 
-JSONパースエラーに対する自動リトライ機能：
+Contents配列とシステムプロンプトをOpenAI形式に変換：
 
 ```python
-result = generate_with_temperature_retry(
-    model="gpt-4.1-mini",
-    messages=messages,
-    schema=schema
+from llm import contents_to_openai_messages
+
+openai_messages = contents_to_openai_messages(
+    contents=["プロンプト1", "プロンプト2"],
+    system_prompt="システムプロンプト"
 )
+# 結果: [{"role": "system", "content": "..."}, {"role": "user", "content": "プロンプト1"}, ...]
 ```
 
 **特徴**:
-- 温度を0.0から1.0まで0.05刻みで増加
-- パースエラー時に自動的に再試行
-- エラー情報を標準エラー出力に記録
+- シンプルなcontents配列をOpenAI形式のmessages配列に変換
+- システムプロンプトを最初に配置
+- 各contentをuserロールとして追加
 
 ### 3. API固有の実装
 
@@ -103,18 +106,16 @@ else:
 
 ### メッセージ形式の統一
 
-OpenAIのメッセージ形式を標準として採用：
+シンプルな配列とシステムプロンプト分離形式を採用：
 
 ```python
-messages = [
-    {"role": "system", "content": "..."},
-    {"role": "user", "content": "..."}
-]
+contents = ["ユーザープロンプト1", "ユーザープロンプト2"]
+system_prompt = "システムプロンプト"
 ```
 
-Gemini APIでは内部で以下のように変換：
-- `system` → `system_instruction`
-- `user` → `contents`リスト
+各APIでは内部で以下のように変換：
+- **Gemini API**: `contents`直接使用、`system_prompt` → `system_instruction`
+- **OpenAI API**: `contents_to_openai_messages()`でOpenAI形式に変換
 
 ### スキーマの自動調整
 
@@ -154,28 +155,37 @@ from llm import generate_with_schema, DEFAULT_MODEL
 # デフォルトモデル（Gemini）での生成
 result = generate_with_schema(
     model=DEFAULT_MODEL,
-    messages=[{"role": "user", "content": "質問"}],
-    schema={"type": "object", "properties": {...}}
+    contents=["質問"],
+    schema={"type": "object", "properties": {...}},
+    system_prompt="システムプロンプト"
 )
 
 # OpenAIモデルでの生成
 result = generate_with_schema(
     model="gpt-4.1-mini",
-    messages=[{"role": "user", "content": "質問"}],
-    schema={"type": "object", "properties": {...}}
+    contents=["質問"],
+    schema={"type": "object", "properties": {...}},
+    system_prompt="システムプロンプト"
 )
 ```
 
-### エラー耐性のある生成
+### OpenAI形式への変換
 
 ```python
-from llm import generate_with_temperature_retry
+from llm import contents_to_openai_messages
 
-# パースエラーに強い生成
-result = generate_with_temperature_retry(
+# Contents配列をOpenAI形式に変換
+openai_messages = contents_to_openai_messages(
+    contents=["質問1", "質問2"],
+    system_prompt="システムプロンプト"
+)
+
+# 外部ライブラリで直接使用
+import openai
+client = openai.OpenAI()
+response = client.chat.completions.create(
     model="gpt-4.1-mini",
-    messages=messages,
-    schema=schema
+    messages=openai_messages
 )
 ```
 

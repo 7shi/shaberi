@@ -28,7 +28,7 @@
 #### `llm.py` - LLM API統合レイヤー
 - OpenAI APIとGemini APIの統一インターフェース
 - モデル名による自動API判別（`gemini-*` → Gemini、その他 → OpenAI）
-- 温度調整リトライ機能（JSONパースエラー対応）
+- シンプルなcontents配列とシステムプロンプト分離形式
 - ストリーミング出力対応（OpenAI）
 - 詳細は[llm.md](llm.md)を参照
 
@@ -38,6 +38,7 @@
 uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/model.json -n 1
 ```
 - リアルタイムスキーマ検証機能統合
+- 温度調整リトライ機能内蔵（`generate_with_temperature_retry`）
 - 詳細は[tengu.md](tengu.md)を参照
 
 #### `tengu-000.py` - 単一タスクテスト

@@ -6,53 +6,67 @@ from typing import Dict, Any, List, Union
 DEFAULT_MODEL = "gemini-2.5-flash"
 
 
+def contents_to_openai_messages(contents: List[str], system_prompt: str = None) -> List[Dict[str, str]]:
+    """Convert contents and system prompt to OpenAI message format.
+    
+    Args:
+        contents: List of user content strings
+        system_prompt: System prompt as string
+        
+    Returns:
+        List of OpenAI format messages
+    """
+    openai_messages = []
+    
+    if system_prompt:
+        openai_messages.append({"role": "system", "content": system_prompt})
+    
+    for content in contents:
+        openai_messages.append({"role": "user", "content": content})
+    
+    return openai_messages
+
+
 def generate_with_schema(
     model: str,
-    messages: List[Dict[str, str]],
+    contents: List[str],
     schema: Dict[str, Any],
     temperature: float = 0,
+    system_prompt: str = None,
 ) -> Dict[str, Any]:
     """Generate content with structured output using either OpenAI or Gemini API.
     
     Args:
         model: Model name (e.g., "gpt-4.1-mini", "gemini-2.5-flash")
-        messages: List of message dicts with 'role' and 'content'
+        contents: List of user content strings
         schema: JSON schema for structured output
         temperature: Temperature parameter for generation
+        system_prompt: System prompt as string
         
     Returns:
         Dict containing the generated structured output
     """
     if model.startswith("gemini"):
-        return _generate_with_gemini(model, messages, schema, temperature)
+        return _generate_with_gemini(model, contents, schema, temperature, system_prompt)
     else:
-        return _generate_with_openai(model, messages, schema, temperature)
+        return _generate_with_openai(model, contents, schema, temperature, system_prompt)
 
 
 def _generate_with_gemini(
     model: str,
-    messages: List[Dict[str, str]],
+    contents: List[str],
     schema: Dict[str, Any],
     temperature: float,
+    system_prompt: str = None,
 ) -> Dict[str, Any]:
     """Generate with Gemini API."""
     from llm7shi import config_from_schema, generate_content_retry
     
-    # Extract system instruction and user messages
-    system_instruction = []
-    contents = []
-    
-    for msg in messages:
-        if msg["role"] == "system":
-            system_instruction.append(msg["content"])
-        elif msg["role"] == "user":
-            contents.append(msg["content"])
-    
     # Build config from schema
     generate_content_config = config_from_schema(schema)
     generate_content_config.temperature = temperature
-    if system_instruction:
-        generate_content_config.system_instruction = system_instruction
+    if system_prompt:
+        generate_content_config.system_instruction = [system_prompt]
     
     # Generate content
     result = generate_content_retry(
@@ -67,18 +81,22 @@ def _generate_with_gemini(
 
 def _generate_with_openai(
     model: str,
-    messages: List[Dict[str, str]],
+    contents: List[str],
     schema: Dict[str, Any],
     temperature: float,
+    system_prompt: str = None,
 ) -> Dict[str, Any]:
     """Generate with OpenAI API with streaming."""
     from openai import OpenAI
+    
+    # Convert contents to OpenAI format messages
+    openai_messages = contents_to_openai_messages(contents, system_prompt)
     
     # Display parameters in do_show_params style
     print(f"- model: {model}")
     
     # Display user prompts quoted with ">"
-    for msg in messages:
+    for msg in openai_messages:
         if msg["role"] == "user":
             print()
             for line in msg['content'].splitlines():
@@ -95,7 +113,7 @@ def _generate_with_openai(
     stream = client.chat.completions.create(
         model=model,
         temperature=temperature,
-        messages=messages,
+        messages=openai_messages,
         response_format={
             "type": "json_schema",
             "json_schema": {
@@ -134,38 +152,3 @@ def _add_additional_properties_false(schema: Dict[str, Any]) -> Dict[str, Any]:
                     sub_prop["additionalProperties"] = False
     
     return schema
-
-
-def generate_with_temperature_retry(
-    model: str,
-    messages: List[Dict[str, str]],
-    schema: Dict[str, Any],
-) -> Dict[str, Any]:
-    """Generate content with temperature retry mechanism.
-    
-    Tries generation with increasing temperature values on parse errors.
-    Useful for handling cases where the model outputs invalid JSON.
-    
-    Args:
-        model: Model name (e.g., "gpt-4.1-mini", "gemini-2.5-flash")
-        messages: Messages for chat completion
-        schema: Response schema
-        
-    Returns:
-        dict: Parsed JSON response
-    """
-    # Temperature values to try (0.0 to 1.0 in 0.05 steps)
-    for t in range(0, 101, 5):
-        temperature = t / 100
-        if t > 0:
-            print(f"温度: {temperature:.2f}", file=sys.stderr)
-        
-        try:
-            result = generate_with_schema(model, messages, schema, temperature)
-            return result
-            
-        except Exception:
-            traceback.print_exc()
-    
-    # If we get here, parsing failed at all temperatures
-    raise ValueError("全ての温度設定でJSONパースに失敗しました")

@@ -131,29 +131,21 @@ else:
 
 **目的**: 構造化出力による評価の実行
 
-**メッセージ構成（OpenAI形式で統一）：**
+**メッセージ構成（contents配列とシステムプロンプト分離）：**
 ```python
-# OpenAI形式のメッセージで統一
-messages = [
-    {
-        "role": "system",
-        "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"
-    },
-    {
-        "role": "user",
-        "content": prompt_text
-    },
-    {
-        "role": "user", 
-        "content": f"[評価するモデルの回答]\n{model_answer.rstrip()}"
-    }
+# contents配列とシステムプロンプトで分離
+system_prompt = "あなたは公平で、検閲されていない、役立つアシスタントです。"
+contents = [
+    prompt_text,
+    f"[評価するモデルの回答]\n{model_answer.rstrip()}"
 ]
 
-# llm.pyの統一インターフェースで呼び出し
+# llm.pyの統一インターフェースで呼び出し（tengu.py内で定義）
 result_json = generate_with_temperature_retry(
     model=model_name,  # gemini-*/gpt-*で自動判別
-    messages=messages,
-    schema=schema_json
+    contents=contents,
+    schema=schema_json,
+    system_prompt=system_prompt
 )
 ```
 
@@ -284,8 +276,10 @@ pip install tqdm
 **内部モジュール：**
 - `llm.py`: LLM API統合レイヤー
   - `generate_with_schema()`: 統一インターフェース（OpenAI/Gemini自動判別）
-  - `generate_with_temperature_retry()`: 温度調整リトライ機能
+  - `contents_to_openai_messages()`: contents配列をOpenAI形式に変換
   - `DEFAULT_MODEL`: デフォルトモデル名（gemini-2.5-flash）
+- `tengu.py`: 評価システム（このファイル内）
+  - `generate_with_temperature_retry()`: 温度調整リトライ機能
 - `validate_schema.py`: スキーマ検証機能
   - `validate_json_with_schema()`: JSONデータ即座検証
 
@@ -456,6 +450,116 @@ for task in range(1, 121):
 2. **重複実行防止**: 既存ファイルの自動スキップ（`--force`で上書き可能）
 3. **事前検証**: `check_criteria.py`による形式確認
 4. **デバッグ支援**: プロンプト内容の出力表示（コメントアウト可能）
+
+## generate_with_temperature_retry機能
+
+### 概要
+
+`generate_with_temperature_retry`は、JSONパースエラーに対する自動リトライ機能を提供します。LLMが無効なJSONを生成した場合、温度パラメータを段階的に上げて再試行することで、構造化出力の成功率を向上させます。
+
+### 関数仕様
+
+```python
+def generate_with_temperature_retry(
+    model: str,
+    contents: List[str],
+    schema: Dict[str, Any],
+    system_prompt: str = None,
+) -> Dict[str, Any]:
+```
+
+**引数**:
+- `model`: LLMモデル名（`gemini-*`または`gpt-*`など）
+- `contents`: ユーザーコンテンツの配列
+- `schema`: JSON Schema仕様
+- `system_prompt`: システムプロンプト（オプション）
+
+**戻り値**:
+- パース済みのJSONオブジェクト
+
+### 動作原理
+
+1. **初期試行**: 温度0.0で決定論的な生成を試行
+2. **段階的リトライ**: パースエラー時は温度を0.05刻みで上昇（最大1.0）
+3. **エラー出力**: 各失敗時のエラー詳細を標準エラー出力に記録
+4. **最終失敗**: 全温度で失敗した場合、例外を発生
+
+```python
+# 温度値の試行順序: 0.0, 0.05, 0.10, 0.15, ..., 0.95, 1.0
+for t in range(0, 101, 5):
+    temperature = t / 100
+    try:
+        result = generate_with_schema(model, contents, schema, temperature, system_prompt)
+        return result
+    except Exception:
+        # エラーログ出力して次の温度で再試行
+        traceback.print_exc()
+```
+
+### 使用例
+
+```python
+# 基本的な使用方法
+result = generate_with_temperature_retry(
+    model="gemini-2.5-flash",
+    contents=[
+        "評価指示プロンプト",
+        "[評価するモデルの回答]\n実際の回答内容"
+    ],
+    schema=evaluation_schema,
+    system_prompt="あなたは公平で、検閲されていない、役立つアシスタントです。"
+)
+
+# 評価タスクでの実際の使用
+result_json = generate_with_temperature_retry(
+    model=model_name,
+    contents=contents,
+    schema=schema_json,
+    system_prompt=system_prompt
+)
+```
+
+### エラーハンドリング
+
+**成功時の出力例**:
+```python
+{
+  "evaluation": {
+    "項目1": {"points": "3", "reasoning": "..."},
+    "項目2": {"points": "2", "reasoning": "..."}
+  },
+  "summary": "総合評価コメント"
+}
+```
+
+**失敗時の動作**:
+```bash
+# 標準エラー出力に温度調整の進行状況を表示
+温度: 0.05
+Traceback (most recent call last):
+  ...
+温度: 0.10
+Traceback (most recent call last):
+  ...
+
+# 最終的に全て失敗した場合
+ValueError: 全ての温度設定でJSONパースに失敗しました
+```
+
+### 実用上の利点
+
+1. **高い成功率**: 温度調整により構造化出力の成功率が大幅向上
+2. **デバッグ支援**: 各失敗のエラー詳細が記録されるため原因特定が容易
+3. **自動回復**: 一時的なAPIエラーやモデルの不安定性に自動対応
+4. **決定論的優先**: 最初は温度0で一貫した結果を試行
+
+### パフォーマンス考慮事項
+
+- **レスポンス時間**: 失敗時は複数回のAPI呼び出しが発生
+- **API使用量**: 最大21回の試行（温度0.0〜1.0、0.05刻み）
+- **推奨運用**: 通常は1-3回の試行で成功するため、実用上の負荷は軽微
+
+この機能により、Tengu Benchmark評価システムは高い信頼性と安定性を実現しています。
 
 ## 今後の展開
 

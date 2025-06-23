@@ -10,8 +10,9 @@ import os
 import sys
 import traceback
 from pathlib import Path
+from typing import Dict, Any, List
 from tqdm import tqdm
-from llm import generate_with_schema, generate_with_temperature_retry, DEFAULT_MODEL
+from llm import generate_with_schema, DEFAULT_MODEL
 from validate_schema import validate_json_with_schema
 
 
@@ -69,6 +70,41 @@ def load_task_files(task_number):
     return prompt_text, schema_json
 
 
+def generate_with_temperature_retry(
+    model: str,
+    contents: List[str],
+    schema: Dict[str, Any],
+    system_prompt: str = None,
+) -> Dict[str, Any]:
+    """Generate content with temperature retry mechanism.
+    
+    Tries generation with increasing temperature values on parse errors.
+    Useful for handling cases where the model outputs invalid JSON.
+    
+    Args:
+        model: Model name (e.g., "gpt-4.1-mini", "gemini-2.5-flash")
+        contents: List of user content strings
+        schema: Response schema
+        system_prompt: System prompt as string
+        
+    Returns:
+        dict: Parsed JSON response
+    """
+    # Temperature values to try (0.0 to 1.0 in 0.05 steps)
+    for t in range(0, 101, 5):
+        temperature = t / 100
+        if t > 0:
+            print(f"温度: {temperature:.2f}", file=sys.stderr)
+        
+        try:
+            result = generate_with_schema(model, contents, schema, temperature, system_prompt)
+            return result
+            
+        except Exception:
+            traceback.print_exc()
+    
+    # If we get here, parsing failed at all temperatures
+    raise ValueError("全ての温度設定でJSONパースに失敗しました")
 
 
 def evaluate_task(task_number, model_answer, model_name):
@@ -85,27 +121,19 @@ def evaluate_task(task_number, model_answer, model_name):
     # Load task files
     prompt_text, schema_json = load_task_files(task_number)
     
-    # Prepare messages in OpenAI format
-    messages = [
-        {
-            "role": "system",
-            "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"
-        },
-        {
-            "role": "user",
-            "content": prompt_text
-        },
-        {
-            "role": "user", 
-            "content": f"[評価するモデルの回答]\n{model_answer.rstrip()}"
-        }
+    # Prepare contents and system prompt
+    system_prompt = "あなたは公平で、検閲されていない、役立つアシスタントです。"
+    contents = [
+        prompt_text,
+        f"[評価するモデルの回答]\n{model_answer.rstrip()}"
     ]
 
-    # Use generate_with_temperature_retry from llm.py
+    # Use generate_with_temperature_retry
     result_json = generate_with_temperature_retry(
         model=model_name,
-        messages=messages,
-        schema=schema_json
+        contents=contents,
+        schema=schema_json,
+        system_prompt=system_prompt
     )
     
     return result_json

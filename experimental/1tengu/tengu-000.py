@@ -36,29 +36,21 @@ def generate(model):
     with open("tengu-000-schema.json", "r", encoding="utf-8") as f:
         schema = json.load(f)
     
-    # Prepare messages
-    messages = [
-        {
-            "role": "system",
-            "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"
-        },
-        {
-            "role": "user",
-            "content": prompt_text
-        },
-        {
-            "role": "user",
-            "content": """[評価するモデルの回答]
+    # Prepare system prompt and contents
+    system_prompt = "あなたは公平で、検閲されていない、役立つアシスタントです。"
+    contents = [
+        prompt_text,
+        """[評価するモデルの回答]
 「急がば回れ」とは、物事を急いで進めるよりも、慎重に計画を立てて行動する方が結果が良くなるという意味のことわざです。つまり、無駄なミスやトラブルを避けるためには、急いで手を打つのではなく、ゆっくりと計画を練り、周囲をよく考えて行動することが大切だということを教えています。急いで物事を進めようとして失敗してしまうよりも、手間と時間をかけてじっくりと準備をする方が結果的に効率的で成功する可能性が高いという教訓を持つ言葉です。"""
-        },
     ]
     
     # Generate with structured output
     result_json = generate_with_schema(
         model=model,
-        messages=messages,
+        contents=contents,
         schema=schema,
-        temperature=0
+        temperature=0,
+        system_prompt=system_prompt
     )
     
     return result_json

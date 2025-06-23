@@ -204,11 +204,11 @@ python tengu-000.py -m gemini-2.5-pro
 ### モデル判定ロジック
 
 ```python
-def generate_with_schema(model, messages, schema, temperature=0):
+def generate_with_schema(model, contents, schema, temperature=0, system_prompt=None):
     if model.startswith("gemini"):
-        return _generate_with_gemini(model, messages, schema, temperature)
+        return _generate_with_gemini(model, contents, schema, temperature, system_prompt)
     else:
-        return _generate_with_openai(model, messages, schema, temperature)
+        return _generate_with_openai(model, contents, schema, temperature, system_prompt)
 ```
 
 ### スコア計算
