@@ -72,7 +72,8 @@ def _generate_with_gemini(
     result = generate_content_retry(
         model=model,
         config=generate_content_config,
-        contents=contents
+        contents=contents,
+        show_params=False
     )
     
     # Parse and return result
@@ -91,17 +92,6 @@ def _generate_with_openai(
     
     # Convert contents to OpenAI format messages
     openai_messages = contents_to_openai_messages(contents, system_prompt)
-    
-    # Display parameters in do_show_params style
-    print(f"- model: {model}")
-    
-    # Display user prompts quoted with ">"
-    for msg in openai_messages:
-        if msg["role"] == "user":
-            print()
-            for line in msg['content'].splitlines():
-                print(">", line)
-    print()
     
     # Add additionalProperties: false as required by OpenAI
     schema = _add_additional_properties_false(schema)

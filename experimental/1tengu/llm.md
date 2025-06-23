@@ -83,13 +83,13 @@ openai_messages = contents_to_openai_messages(
 - `llm7shi`ライブラリを使用
 - システムインストラクションとユーザーメッセージを分離
 - `config_from_schema()`でスキーマから設定を生成
+- `show_params=False`でパラメータ表示を抑制
 
 #### OpenAI API (_generate_with_openai)
 
 - 公式`openai`ライブラリを使用
 - ストリーミング出力をデフォルトで有効化
 - `additionalProperties: false`を自動追加（OpenAI必須）
-- プロンプトを`do_show_params`形式で表示
 
 ## 設計の詳細
 
