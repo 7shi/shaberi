@@ -29,13 +29,13 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)  # ログレベルを設定
 default_console_level = logging.WARNING  # 必要に応じて変更 (INFO/DEBUG)
 
-def setup_logging(model_name: str, log_prefix: str = "log", console_level: int = default_console_level):
+def setup_logging(model_name: str, log_prefix: str = None, console_level: int = default_console_level):
     """
     ロギングの設定を行う
     
     Args:
         model_name: モデル名（ログファイル名に使用）
-        log_prefix: ログファイルのプレフィックス ("answer_log" or "judgement_log")
+        log_prefix: ログファイルのプレフィックス ("answer_log" or "judgement_log")。Noneの場合はファイルハンドラを作成しない
         console_level: コンソールハンドラのログレベル (logging.INFO, logging.WARNING等)
     """
     # 既存のハンドラをクリア（重複防止）
@@ -45,11 +45,12 @@ def setup_logging(model_name: str, log_prefix: str = "log", console_level: int =
     # フォーマットの設定
     formatter = logging.Formatter("%(asctime)s - %(message)s")
     
-    # ファイルハンドラ（model_nameを含む）
-    file_handler = logging.FileHandler(f"{log_prefix}_{model_name.replace('/', '__')}.txt", encoding="utf-8")
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    # ファイルハンドラ（log_prefixが指定された場合のみ）
+    if log_prefix:
+        file_handler = logging.FileHandler(f"{log_prefix}_{model_name.replace('/', '__')}.txt", encoding="utf-8")
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
     
     # コンソールハンドラ
     console_handler = logging.StreamHandler()
