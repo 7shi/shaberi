@@ -17,6 +17,7 @@ from openai import OpenAI
 fp = 0.0
 generation_max_tokens = 1500
 evaluation_max_tokens = 1024
+evaluation_start_temperature = 0
 
 # Constants
 NO_RESPONSE = "No response received"
@@ -156,7 +157,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
     answer_function = get_response_func(model_name)
     
     # 温度を段階的に上げながらリトライ
-    for t in range(0, 101, 5):
+    for t in range(evaluation_start_temperature, 101, 5):
         evaluation_temperature = t / 100
         logger.info(f"temperature: {evaluation_temperature:.2f}")
 
