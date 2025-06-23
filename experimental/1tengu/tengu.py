@@ -217,8 +217,8 @@ def main():
             # Load model answer
             model_answer = answers[task_num - 1]
 
-            print(f"タスク {task_num:03d}: 評価中...")
             print()
+            print(f"タスク {task_num:03d}: 評価中...")
             
             # Evaluate the task
             result_json = evaluate_task(task_num, model_answer, args.model)
@@ -256,6 +256,9 @@ def main():
                 traceback.print_exc()
             else:
                 raise
+        
+        if args.all:
+            print()
     
     if args.all:
         print(f"\n全タスク評価完了: {total_evaluated}件評価, {total_skipped}件スキップ (--force指定なし)")
