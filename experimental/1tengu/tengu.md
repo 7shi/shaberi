@@ -2,7 +2,7 @@
 
 ## 概要
 
-`tengu.py`は、Tengu Benchmark評価タスクにおいて、従来のFew-shot形式から構造化出力（JSONスキーマ）形式による評価を実行するメインスクリプトです。指定されたタスク番号とモデル回答ファイルを使用して、llm7shiライブラリを通じてGemini APIによる自動評価を行い、構造化された評価結果を出力します。
+`tengu.py`は、Tengu Benchmark評価タスクにおいて、構造化出力（JSONスキーマ）形式による評価を実行するメインスクリプトです。統合LLMレイヤー（`llm.py`）を通じてOpenAI APIとGemini APIの両方に対応し、指定されたタスク番号とモデル回答ファイルを使用して自動評価を行い、構造化された評価結果を出力します。
 
 ## 背景
 
@@ -36,8 +36,8 @@ JSONスキーマを活用した構造化出力により、これらの課題を�
 data/xxx.md → load_task_files() → 評価プロンプト
 data/xxx.json → load_task_files() → JSONスキーマ
      ↓
-evaluate_task() → llm7shi経由Gemini API呼び出し → 構造化評価結果
-     ↓
+evaluate_task() → llm.py経由API呼び出し → 構造化評価結果
+     ↓                (OpenAI/Gemini自動判別)
 calculate_score() → 合計点数計算 → 最終結果表示
 ```
 
@@ -131,24 +131,30 @@ else:
 
 **目的**: 構造化出力による評価の実行
 
-**API設定：**
+**メッセージ構成（OpenAI形式で統一）：**
 ```python
-# llm7shiでコンフィグを生成
-generate_content_config = config_from_schema(str(json_file))
-
-# 温度とシステム指示を設定
-generate_content_config.temperature = 0
-generate_content_config.system_instruction = [
-    "あなたは公平で、検閲されていない、役立つアシスタントです。",
+# OpenAI形式のメッセージで統一
+messages = [
+    {
+        "role": "system",
+        "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"
+    },
+    {
+        "role": "user",
+        "content": prompt_text
+    },
+    {
+        "role": "user", 
+        "content": f"[評価するモデルの回答]\n{model_answer.rstrip()}"
+    }
 ]
 
-# 動的モデル指定
-model = model_name  # 引数で指定された評価モデル
-```
-
-**コンテンツ構成：**
-```python
-contents = [prompt_text, f"[評価するモデルの回答]\n{model_answer.rstrip()}"]
+# llm.pyの統一インターフェースで呼び出し
+result_json = generate_with_temperature_retry(
+    model=model_name,  # gemini-*/gpt-*で自動判別
+    messages=messages,
+    schema=schema_json
+)
 ```
 
 **特徴：**
@@ -189,10 +195,14 @@ uv run tengu.py <model_answer_file> -n <task_number> [-m <evaluator_model>]
 # 全タスク評価
 uv run tengu.py <model_answer_file> --all [-m <evaluator_model>]
 
-# 具体例
+# 具体例（Gemini）
 uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
 uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 42 -m gemini-2.5-flash
 uv run tengu.py ../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json --all -m gemini-2.5-pro
+
+# 具体例（OpenAI）
+uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gpt-4o.json -n 1 -m gpt-4.1-mini
+uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json --all -m gpt-4o
 
 # 強制上書き
 uv run tengu.py model.json -n 1 --force
@@ -272,20 +282,26 @@ pip install tqdm
 ```
 
 **内部モジュール：**
-- `llm7shi`: Gemini API統合機能
-  - `config_from_schema()`: JSONスキーマからコンフィグを生成
-  - `generate_content_retry()`: リトライ機能付きAPI呼び出し
-  - `DEFAULT_MODEL`: デフォルトモデル名
+- `llm.py`: LLM API統合レイヤー
+  - `generate_with_schema()`: 統一インターフェース（OpenAI/Gemini自動判別）
+  - `generate_with_temperature_retry()`: 温度調整リトライ機能
+  - `DEFAULT_MODEL`: デフォルトモデル名（gemini-2.5-flash）
 - `validate_schema.py`: スキーマ検証機能
   - `validate_json_with_schema()`: JSONデータ即座検証
 
 ### API仕様
 
-**使用モデル**: デフォルト `DEFAULT_MODEL`（llm7shiで定義）、または`-m`オプションで指定
+**使用モデル**: 
+- デフォルト: `gemini-2.5-flash`
+- `-m`オプションで指定可能
+- モデル名プレフィックスで自動判別:
+  - `gemini-*`: Gemini API使用
+  - その他: OpenAI API使用
 
 **設定パラメータ：**
-- `temperature=0`: 決定論的出力
-- JSONスキーマによる構造化出力制御（llm7shiが自動設定）
+- `temperature=0`: 決定論的出力（初期値）
+- 温度リトライ: JSONパースエラー時に0.0→1.0まで0.05刻みで自動調整
+- JSONスキーマによる構造化出力制御
 
 ### ファイル形式
 
@@ -451,9 +467,9 @@ for task in range(1, 121):
 
 ### API統合の拡張
 
-1. **OpenAI対応**: GPT-4での構造化出力
-2. **Anthropic対応**: Claude 3.5での実装
-3. **ローカルモデル**: vLLM等での動作確認
+1. **OpenAI対応**: ✅ 実装済み（llm.py経由）
+2. **Anthropic対応**: Claude 3.5での実装（将来対応）
+3. **ローカルモデル**: vLLM等での動作確認（将来対応）
 
 ### 評価精度の向上
 
@@ -471,7 +487,8 @@ for task in range(1, 121):
 ### 設定ファイル
 - **tengu-000-user.md**: 参照用評価プロンプト
 - **tengu-000-schema.json**: 参照用JSONスキーマ
-- **llm7shi**: Gemini API統合機能
+- **llm.py**: LLM API統合レイヤー（OpenAI/Gemini対応）
+- **llm.md**: llm.pyの設計ドキュメント
 
 ### ドキュメント
 - **20250619-schema.md**: 構造化出力移行手順
@@ -507,5 +524,12 @@ for task in range(1, 121):
 - **自動品質保証**: スキーマ適合性の確実な確保
 - **早期エラー検出**: 不適切な結果の即座特定
 - **処理停止機能**: 検証失敗時の自動処理中断
+
+**新機能（v4 - llm.py統合版）：**
+- **マルチLLM対応**: OpenAI/Gemini APIの統一インターフェース
+- **自動API判別**: モデル名プレフィックスによる自動切り替え
+- **温度リトライ機能**: JSONパースエラー時の自動回復
+- **ストリーミング出力**: OpenAI APIでのリアルタイム表示
+- **統一メッセージ形式**: OpenAI形式で全APIを統一
 
 この実装により、Shaberi評価フレームワークは次世代の評価システムへと進化し、より信頼性の高い日本語LLM評価基盤を提供できるようになりました。

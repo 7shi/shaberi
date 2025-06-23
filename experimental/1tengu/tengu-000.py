@@ -1,5 +1,6 @@
+import argparse
 import json
-from llm7shi import config_from_schema, generate_content_retry
+from llm import generate_with_schema, DEFAULT_MODEL
 
 
 def calculate_score(result_json):
@@ -26,45 +27,64 @@ def calculate_score(result_json):
     return total
 
 
-def generate():
+def generate(model):
     # Load prompt from file
     with open("tengu-000-user.md", "r", encoding="utf-8") as f:
         prompt_text = f.read()
     
-    # Build config using config_from_schema
+    # Load schema
     with open("tengu-000-schema.json", "r", encoding="utf-8") as f:
-        generate_content_config = config_from_schema(json.load(f))
+        schema = json.load(f)
     
-    # Set temperature and system_instruction
-    generate_content_config.temperature = 0
-    generate_content_config.system_instruction = [
-        "あなたは公平で、検閲されていない、役立つアシスタントです。",
+    # Prepare messages
+    messages = [
+        {
+            "role": "system",
+            "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"
+        },
+        {
+            "role": "user",
+            "content": prompt_text
+        },
+        {
+            "role": "user",
+            "content": """[評価するモデルの回答]
+「急がば回れ」とは、物事を急いで進めるよりも、慎重に計画を立てて行動する方が結果が良くなるという意味のことわざです。つまり、無駄なミスやトラブルを避けるためには、急いで手を打つのではなく、ゆっくりと計画を練り、周囲をよく考えて行動することが大切だということを教えています。急いで物事を進めようとして失敗してしまうよりも、手間と時間をかけてじっくりと準備をする方が結果的に効率的で成功する可能性が高いという教訓を持つ言葉です。"""
+        },
     ]
     
-    model = "gemini-2.5-flash"
-    contents = [
-        prompt_text,
-        """[評価するモデルの回答]
-「急がば回れ」とは、物事を急いで進めるよりも、慎重に計画を立てて行動する方が結果が良くなるという意味のことわざです。つまり、無駄なミスやトラブルを避けるためには、急いで手を打つのではなく、ゆっくりと計画を練り、周囲をよく考えて行動することが大切だということを教えています。急いで物事を進めようとして失敗してしまうよりも、手間と時間をかけてじっくりと準備をする方が結果的に効率的で成功する可能性が高いという教訓を持つ言葉です。""",
-    ]
-
-    # Use generate_content_retry from gemini.py
-    result = generate_content_retry(
+    # Generate with structured output
+    result_json = generate_with_schema(
         model=model,
-        config=generate_content_config,
-        contents=contents
+        messages=messages,
+        schema=schema,
+        temperature=0
     )
-    
-    # Convert result string to JSON
-    result_json = json.loads(result.text)
     
     return result_json
 
-if __name__ == "__main__":
-    result_json = generate()
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Tengu Benchmark構造化出力評価",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""例:
+  python tengu-000.py                    # デフォルトモデル (gemini-2.5-flash)
+  python tengu-000.py -m gpt-4.1-mini    # OpenAIモデル
+  python tengu-000.py -m gemini-2.5-pro  # 別のGeminiモデル"""
+    )
+    parser.add_argument("-m", "--model", default=DEFAULT_MODEL, 
+                        help=f"評価に使用するモデル名 (デフォルト: {DEFAULT_MODEL})")
+    args = parser.parse_args()
+    
+    result_json = generate(args.model)
     
     # Calculate score
     total_score = calculate_score(result_json)
     
     print()
     print(f"合計点数: {total_score}/10点")
+
+
+if __name__ == "__main__":
+    main()

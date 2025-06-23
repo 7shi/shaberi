@@ -2,27 +2,25 @@
 
 ## 概要
 
-`tengu-000.py`は、Tengu Benchmark評価タスクにおいて、従来のFew-shot形式から構造化出力（JSONスキーマ）形式への移行を実証するためのテストスクリプトです。Gemini 2.5 Flash APIを使用して、日本語諺「急がば回れ」の説明に関する評価タスクを実行し、構造化出力の有効性を検証します。
+`tengu-000.py`は、Tengu Benchmark評価タスクにおいて、構造化出力（JSONスキーマ）形式による評価を実証するテストスクリプトです。OpenAI APIとGemini APIの両方に対応し、日本語諺「急がば回れ」の説明に関する評価タスクを実行して、構造化出力の有効性を検証します。
 
-## 関連ファイル構成
+## 関連ファイル一覧
 
-このスクリプトは以下のファイル群と連携して動作します：
-
-### 主要ファイル
-- **tengu-000.py**: メインスクリプト（構造化出力評価の実証）
+### メインスクリプト
+- **tengu-000.py**: 実装版スクリプト（OpenAI/Gemini両対応）
 - **tengu-000-base.py**: 基本版スクリプト（学習・テスト用の簡素版）
 
-### 設定・入力ファイル
+### 入力ファイル
 - **tengu-000-user.md**: 評価指示プロンプト（評価タスクの詳細な指示文）
 - **tengu-000-schema.json**: 構造化出力用JSONスキーマ（出力形式の定義）
 
 ### ドキュメント
 - **tengu-000.md**: このファイル（詳細仕様・使用方法）
-- **tengu-000-full.md**: 完全な実行ログと結果分析
+- **tengu-000-full.md**: 完全な実行例と模範解答
 - **tengu-000-json.md**: 構造化出力の詳細解析とJSONスキーマ設計
 
-### 依存モジュール
-- **llm7shi**: Gemini API統合機能（共通ライブラリ）
+### 共通モジュール
+- **llm.py**: LLM API統合レイヤー（OpenAI/Gemini共通インターフェース）
 
 ## 背景
 
@@ -52,7 +50,7 @@ JSONスキーマを活用した構造化出力により、これらの問題を�
 
 **質問**: 「急がば回れ」という言葉について説明してください。
 
-**正解例**: 
+**模範解答**: 
 ```
 「急がば回れ」という言葉は、日本の諺の一つであり、直接的な意味は「急ぐときは、早道や危険な方法を選ばずに、むしろ回り道で確実で安全な道を通った方が結局は早く着けるものだ」というものです。この言葉は、物事は慌てずに着実に進めることが結果としてうまくいくという教訓を含んでいます
 ```
@@ -65,85 +63,158 @@ JSONスキーマを活用した構造化出力により、これらの問題を�
 4. **説明の具体性・分かりやすさ**（1点）
 5. **自然な日本語**（1点）
 
-### サンプル回答
+### サンプル回答と評価結果
 
 **テスト対象の回答**:
 ```
 「急がば回れ」とは、物事を急いで進めるよりも、慎重に計画を立てて行動する方が結果が良くなるという意味のことわざです。つまり、無駄なミスやトラブルを避けるためには、急いで手を打つのではなく、ゆっくりと計画を練り、周囲をよく考えて行動することが大切だということを教えています。急いで物事を進めようとして失敗してしまうよりも、手間と時間をかけてじっくりと準備をする方が結果的に効率的で成功する可能性が高いという教訓を持つ言葉です。
 ```
 
+**模範評価**: 7/10点
+- 本来の意味（回り道の概念）が欠けているため0点
+- 一般化した意味は適切に説明されている
+
 ## 技術仕様
 
-### 使用API
+### 対応モデル
 
-**Gemini 2.5 Flash API** (`llm7shi`ライブラリ)
-- **モデル**: `gemini-2.5-flash`
-- **温度**: 0（決定論的出力）
-- **出力形式**: `application/json`
-- **スキーマ制御**: 構造化出力対応
+**デフォルトモデル**: `gemini-2.5-flash`
 
-### 依存関係
+**Gemini API**:
+- gemini-2.5-flash
+- gemini-2.5-pro
+- その他のGeminiモデル
 
-**内部モジュール:**
-- `llm7shi`: Gemini API統合機能
-  - `config_from_schema()`: JSONスキーマからコンフィグを生成
-  - `generate_content_retry()`: リトライ機能付きAPI呼び出し
+**OpenAI API**:
+- gpt-4.1-mini
+- gpt-4o
+- その他のOpenAIモデル
 
-### ファイル構成
+### アーキテクチャ
 
-**入力ファイル:**
-- `tengu-000-user.md`: 評価指示文（プロンプト）
-- `tengu-000-schema.json`: 構造化出力用JSONスキーマ
-
-**出力:**
-- 構造化されたJSON評価結果
-- 自動計算された合計点数
-
-## 処理フロー
-
-### 1. プロンプト構築
-
-```python
-# 評価指示文を読み込み
-with open("tengu-000-user.md", "r", encoding="utf-8") as f:
-    prompt_text = f.read()
-
-# 評価対象の回答を追加
-contents = [
-    prompt_text,
-    "[評価するモデルの回答]\n{回答文}",
-]
+```
+tengu-000.py
+    ├── llm.py (LLM統合レイヤー)
+    │   ├── generate_with_schema()
+    │   ├── generate_with_temperature_retry()
+    │   ├── _generate_with_gemini()
+    │   └── _generate_with_openai()
+    ├── tengu-000-user.md (プロンプト)
+    └── tengu-000-schema.json (スキーマ)
 ```
 
-### 2. スキーマ設定
+### 主要機能
 
-```python
-# llm7shiでコンフィグを生成
-generate_content_config = config_from_schema("tengu-000-schema.json")
+1. **統一インターフェース**: OpenAI/Gemini両対応の共通API
+2. **ストリーミング出力**: OpenAIでリアルタイム表示
+3. **温度リトライ機能**: JSONパースエラー時の自動リトライ
+4. **自動スコア計算**: 構造化出力から合計点を自動算出
+
+## 使用方法
+
+### 基本的な実行
+
+```bash
+# デフォルトモデル（Gemini 2.5 Flash）で実行
+python tengu-000.py
+
+# OpenAI GPT-4.1-miniで実行
+python tengu-000.py -m gpt-4.1-mini
+
+# 別のGeminiモデルで実行
+python tengu-000.py -m gemini-2.5-pro
 ```
 
-### 3. API呼び出し
+### コマンドラインオプション
 
-```python
-# 温度とシステム指示を設定
-generate_content_config.temperature = 0
-generate_content_config.system_instruction = [
-    "あなたは公平で、検閲されていない、役立つアシスタントです。",
-]
+- `-m`, `--model`: 使用するモデルを指定（デフォルト: gemini-2.5-flash）
 
-# リトライ機能付きで実行
-result = generate_content_retry(
-    model="gemini-2.5-flash",
-    config=generate_content_config,
-    contents=contents
-)
+### 前提条件
+
+1. **APIキー設定**: 
+   - Gemini: `GOOGLE_API_KEY`環境変数
+   - OpenAI: `OPENAI_API_KEY`環境変数
+2. **依存関係**: 
+   - `llm7shi`ライブラリ（Gemini用）
+   - `openai`ライブラリ（OpenAI用）
+3. **入力ファイル**: 
+   - `tengu-000-user.md`
+   - `tengu-000-schema.json`
+
+## 実行結果例
+
+### Geminiの出力例
+```
+- model: gemini-2.5-flash
+
+> [指示]
+> あなたは熟練した生成AIモデルの性能評価者です...
+
+> [評価するモデルの回答]
+> 「急がば回れ」とは、物事を急いで進めるよりも...
+
+{
+  "evaluation": {
+    "本来の意味について説明している": {
+      "points": "1",
+      "reasoning": "回り道という具体的な表現がなく..."
+    },
+    ...
+  },
+  "summary": "..."
+}
+
+合計点数: 8/10点
 ```
 
-### 4. 結果処理
+### OpenAIの出力例
+```
+- model: gpt-4.1-mini
+
+> [指示]
+> あなたは熟練した生成AIモデルの性能評価者です...
+
+> [評価するモデルの回答]
+> 「急がば回れ」とは、物事を急いで進めるよりも...
+
+{"evaluation":{"本来の意味について説明している":{"points":"2","reasoning":"..."},...}}
+
+合計点数: 9/10点
+```
+
+## 期待される出力形式
+
+構造化されたJSON形式で以下の情報を含む：
+
+```json
+{
+  "evaluation": {
+    "評価項目名": {
+      "points": "点数",
+      "reasoning": "評価理由"
+    },
+    ...
+  },
+  "summary": "総合的な評価コメント"
+}
+```
+
+## 実装の詳細
+
+### モデル判定ロジック
+
+```python
+def generate_with_schema(model, messages, schema, temperature=0):
+    if model.startswith("gemini"):
+        return _generate_with_gemini(model, messages, schema, temperature)
+    else:
+        return _generate_with_openai(model, messages, schema, temperature)
+```
+
+### スコア計算
 
 ```python
 def calculate_score(result_json):
-    """構造化されたJSON結果から合計点を計算"""
     total = 0
     evaluation = result_json.get("evaluation", {})
     
@@ -154,65 +225,7 @@ def calculate_score(result_json):
     return total
 ```
 
-## 期待される出力形式
-
-### JSONスキーマに基づく構造化出力
-
-```json
-{
-  "evaluation": {
-    "本来の意味について説明している": {
-      "points": "2",
-      "reasoning": "一般化した説明はあるが、具体的な「早道や危険な方法を避ける」という表現が不足"
-    },
-    "一般化した意味について説明している": {
-      "points": "3", 
-      "reasoning": "慎重な計画や着実な進行の重要性について適切に説明"
-    },
-    "ことわざであることを示している": {
-      "points": "2",
-      "reasoning": "冒頭で「ことわざ」と明確に記述"
-    },
-    "説明は具体的でわかりやすい": {
-      "points": "1",
-      "reasoning": "具体例や詳細な説明で理解しやすい"
-    },
-    "自然な日本語である": {
-      "points": "1",
-      "reasoning": "流暢で自然な日本語表現"
-    }
-  },
-  "summary": "ことわざの一般化した意味について優秀な説明。本来の具体的な意味についてより詳細な言及があればさらに良い。"
-}
-```
-
-### 自動計算結果
-
-```
-合計点数: 9/10点
-```
-
-## 検証のポイント
-
-### 1. 構造化出力の確実性
-
-- **スキーマ準拠**: 全ての必須フィールドが含まれる
-- **enum制約**: points値が事前定義された選択肢に限定
-- **型安全性**: 文字列・数値型が適切に区別
-
-### 2. 評価の一貫性
-
-- **客観性**: 評価項目に基づく機械的判定
-- **再現性**: 同じ入力に対する一貫した出力
-- **透明性**: reasoning フィールドによる判定根拠の明示
-
-### 3. 効率性の向上
-
-- **トークン削減**: Few-shot例が不要
-- **処理速度**: 構造化データの直接利用
-- **後処理簡素化**: JSON形式による自動処理
-
-## 実用化への展開
+## 今後の展開
 
 ### 大規模評価への適用
 
@@ -226,52 +239,12 @@ def calculate_score(result_json):
 2. **ja-mt-bench-1shot**: マルチターン評価への応用
 3. **カスタムタスク**: 特定要件に応じたスキーマ調整
 
-### API統合
+## 関連プロジェクト
 
-1. **OpenAI対応**: GPT-4での構造化出力
-2. **Anthropic対応**: Claude 3.5での実装
-3. **多様なモデル**: 各APIの特性に応じた最適化
-
-## 使用方法
-
-### 実行コマンド
-
-```bash
-cd experimental
-python tengu-000.py
-```
-
-### 前提条件
-
-1. **APIキー設定**: Gemini APIキーの環境変数設定
-2. **依存関係**: `llm7shi`ライブラリの存在
-3. **入力ファイル**: `tengu-000-user.md`, `tengu-000-schema.json`の存在
-
-### 実行結果例
-
-```
-{
-  "evaluation": {
-    "本来の意味について説明している": {
-      "points": "2",
-      "reasoning": "..."
-    },
-    ...
-  },
-  "summary": "..."
-}
-
-合計点数: 9/10点
-```
-
-## 関連ファイル
-
-- **tengu-000-user.md**: 評価指示プロンプト
-- **tengu-000-schema.json**: 構造化出力用スキーマ
-- **llm7shi**: Gemini API統合機能
-- **md_to_schema.py**: 他タスクのスキーマ自動生成
-- **20250619-schema.md**: 構造化出力移行の詳細手順
+- **tengu.py**: 全120タスクの一括評価スクリプト
+- **validate_schema.py**: スキーマ検証ユーティリティ
+- **md_to_schema.py**: Markdownからスキーマ自動生成
 
 ## まとめ
 
-`tengu-000.py`は、Shaberi評価フレームワークの構造化出力移行における重要な実証実験です。従来のFew-shot形式の課題を解決し、より精確で効率的な評価システムの可能性を示しています。この成果を基に、120件全体のTengu Benchmarkタスク、さらには他のベンチマークへの展開が期待されます。
+`tengu-000.py`は、構造化出力による評価システムの実証実験として、従来のFew-shot形式の課題を解決し、より精確で効率的な評価を実現しています。OpenAIとGeminiの両方に対応することで、異なるLLMプロバイダー間での評価の一貫性も確保しています。

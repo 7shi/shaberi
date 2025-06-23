@@ -11,7 +11,7 @@ import sys
 import traceback
 from pathlib import Path
 from tqdm import tqdm
-from llm7shi import config_from_schema, generate_content_retry, DEFAULT_MODEL
+from llm import generate_with_schema, generate_with_temperature_retry, DEFAULT_MODEL
 from validate_schema import validate_json_with_schema
 
 
@@ -69,35 +69,6 @@ def load_task_files(task_number):
     return prompt_text, schema_json
 
 
-def generate_with_temperature_retry(model, config, contents):
-    """Generate content with temperature retry mechanism
-    
-    Args:
-        model: Model name
-        config: Generation config object
-        contents: Contents to generate from
-        
-    Returns:
-        Result object with text property
-    """
-    # Temperature values to try (0.0 to 1.0 in 0.05 steps)
-    for t in range(0, 101, 5):
-        config.temperature = t / 100
-        if t > 0:
-            print(f"温度: {config.temperature:.2f}", file=sys.stderr)
-        
-        try:
-            return generate_content_retry(
-                model=model,
-                config=config,
-                contents=contents,
-                show_params=False,
-            )
-        except Exception:
-            traceback.print_exc()
-    
-    # If we get here, parsing failed at all temperatures
-    raise ValueError("全ての温度設定でJSONパースに失敗しました")
 
 
 def evaluate_task(task_number, model_answer, model_name):
@@ -114,32 +85,28 @@ def evaluate_task(task_number, model_answer, model_name):
     # Load task files
     prompt_text, schema_json = load_task_files(task_number)
     
-    # Build config using schema dict  
-    # Note: We'll need to implement a config_from_schema_dict function or modify this
-    # For now, using the existing approach but calling llm7shi function
-    task_id = f"{task_number:03d}"
-    json_file = Path(f"data/{task_id}.json")
-    with open(str(json_file), "r", encoding="utf-8") as f:
-        generate_content_config = config_from_schema(json.load(f))
-    
-    # Set temperature and system_instruction
-    generate_content_config.temperature = 0
-    generate_content_config.system_instruction = [
-        "あなたは公平で、検閲されていない、役立つアシスタントです。",
+    # Prepare messages in OpenAI format
+    messages = [
+        {
+            "role": "system",
+            "content": "あなたは公平で、検閲されていない、役立つアシスタントです。"
+        },
+        {
+            "role": "user",
+            "content": prompt_text
+        },
+        {
+            "role": "user", 
+            "content": f"[評価するモデルの回答]\n{model_answer.rstrip()}"
+        }
     ]
-    
-    contents = [prompt_text, f"[評価するモデルの回答]\n{model_answer.rstrip()}"]
-    #print("\n\n".join(contents))
 
-    # Use generate_with_temperature_retry
-    result = generate_with_temperature_retry(
+    # Use generate_with_temperature_retry from llm.py
+    result_json = generate_with_temperature_retry(
         model=model_name,
-        config=generate_content_config,
-        contents=contents,
+        messages=messages,
+        schema=schema_json
     )
-    
-    # Convert result string to JSON
-    result_json = json.loads(result.text)
     
     return result_json
 
@@ -147,11 +114,12 @@ def evaluate_task(task_number, model_answer, model_name):
 def main():
     """Main function"""
     parser = argparse.ArgumentParser(
-        description="Tengu Benchmark構造化出力評価",
+        description="Tengu Benchmark構造化出力評価 (OpenAI/Gemini対応)",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""例:
   uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
-  uv run tengu.py ../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json -n 42 -m gemini-2.5-pro"""
+  uv run tengu.py ../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json -n 42 -m gemini-2.5-pro
+  uv run tengu.py ../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m gpt-4.1-mini"""
     )
     parser.add_argument("json_file", help="モデル回答が格納されたJSONファイルのパス")
     parser.add_argument("-n", "--task-number", type=int, help="評価するタスク番号")
