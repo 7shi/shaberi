@@ -12,15 +12,16 @@ Shaberi評価フレームワークでは、評価結果が以下のような階�
 
 ```
 1tengu/
-├── gemini-2.5-flash/           # 評価者モデル
-│   ├── gemini-2.5-pro/         # 被評価モデル
-│   │   ├── 001.json            # タスク1の評価結果
-│   │   ├── 002.json            # タスク2の評価結果
-│   │   └── ...                 # 120タスク分
-│   └── claude-3-5-sonnet/
-│       └── ...
-└── gemini-2.5-pro/
-    └── ...
+└── judge/
+    ├── gemini-2.5-flash/           # 評価者モデル
+    │   ├── gemini-2.5-pro/         # 被評価モデル
+    │   │   ├── 001.json            # タスク1の評価結果
+    │   │   ├── 002.json            # タスク2の評価結果
+    │   │   └── ...                 # 120タスク分
+    │   └── claude-3-5-sonnet/
+    │       └── ...
+    └── gemini-2.5-pro/
+        └── ...
 ```
 
 この構造では、各組み合わせのスコア統計を把握するために：
@@ -66,7 +67,7 @@ dir_name = f"{parent_path.name}/{base_path.name}"
 ```
 
 **動作例**:
-- 入力: `1tengu/gemini-2.5-flash/gemini-2.5-pro`
+- 入力: `1tengu/judge/gemini-2.5-flash/gemini-2.5-pro`
 - 出力: `gemini-2.5-flash/gemini-2.5-pro`
 
 ### 2. JSONスコア集計
@@ -183,23 +184,23 @@ uv run score_tool.py
 uv run score_tool.py -o my_scores.toml
 
 # 単一の組み合わせを集計
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
 
 # 従来の評価結果ファイル（JSONL）を集計
 uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/gemini-2.5-pro.json
 
 # 複数パスの一括集計
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro 1tengu/gemini-2.5-flash/claude-3-5-sonnet
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro 1tengu/judge/gemini-2.5-flash/claude-3-5-sonnet
 
 # 新旧ファイル形式の混在処理
-uv run score_tool.py ../data/judgements/judge_*/lightblue__tengu_bench/gemini-2.5-pro.json 1tengu/gemini-2.5-flash/gemini-2.5-pro
+uv run score_tool.py ../data/judgements/judge_*/lightblue__tengu_bench/gemini-2.5-pro.json 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
 ```
 
 ### 複数ファイル形式対応
 
 ```bash
-# 構造化出力結果ディレクトリ（1tengu/evaluator/model/）
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
+# 構造化出力結果ディレクトリ（1tengu/judge/evaluator/model/）
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
 
 # 従来の評価結果ファイル（../data/judgements/judge_evaluator/dataset/model.json）
 uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/gemini-2.5-pro.json
@@ -208,7 +209,7 @@ uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_
 uv run score_tool.py path1 path2 path3 ...
 
 # 段階的集計（既存ファイルに追加）
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
 uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
 # → scores.tomlに両方の結果が蓄積される
 ```
@@ -252,10 +253,10 @@ uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_
 
 **複数パス処理**:
 ```bash
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
 ```
 ```
-評価結果ディレクトリを集計中: 1tengu/gemini-2.5-flash/gemini-2.5-pro
+評価結果ディレクトリを集計中: 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
 評価結果ファイルを集計中: ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
 合計 2 組み合わせを処理しました
 スコア集計結果を scores.toml に保存しました
@@ -332,9 +333,9 @@ scores = [個別スコア配列]
 
 ```bash
 # 複数モデルの評価結果を集計
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
-uv run score_tool.py 1tengu/gemini-2.5-flash/claude-3-5-sonnet
-uv run score_tool.py 1tengu/gemini-2.5-flash/gpt-4o
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/claude-3-5-sonnet
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gpt-4o
 
 # scores.tomlから平均スコア、標準偏差を分析
 ```
@@ -343,9 +344,9 @@ uv run score_tool.py 1tengu/gemini-2.5-flash/gpt-4o
 
 ```bash
 # 同一モデルを異なる評価者で評価
-uv run score_tool.py 1tengu/gemini-2.5-flash/target-model
-uv run score_tool.py 1tengu/gemini-2.5-pro/target-model
-uv run score_tool.py 1tengu/claude-3-5-sonnet/target-model
+uv run score_tool.py 1tengu/judge/gemini-2.5-flash/target-model
+uv run score_tool.py 1tengu/judge/gemini-2.5-pro/target-model
+uv run score_tool.py 1tengu/judge/claude-3-5-sonnet/target-model
 
 # 評価者間のスコア分布を比較
 ```
@@ -361,7 +362,7 @@ TOMLファイルから`scores`配列を分析することで：
 
 ```bash
 # 新しい評価結果の追加
-uv run score_tool.py 1tengu/new-evaluator/new-model
+uv run score_tool.py 1tengu/judge/new-evaluator/new-model
 
 # 既存のscores.tomlに自動統合
 # 履歴的な性能追跡が可能
