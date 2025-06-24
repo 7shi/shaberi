@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"search_company\",\n    \"properties\": {\n      \"keyword\": \"医療関係の会社\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "0",
+      "reasoning": "search_companyのみしか選択していないため0点です。"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "0",
+      "reasoning": "search_companyのみしか選択していないため0点です。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "引数の説明は正しいです。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "キーの名称は正しいです。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "JSON形式として正しいです。"
+    }
+  },
+  "summary": "必要なツールを全て選択できておらず、順番も考慮されていないため大幅な減点となりました。",
+  "score": 4
+}

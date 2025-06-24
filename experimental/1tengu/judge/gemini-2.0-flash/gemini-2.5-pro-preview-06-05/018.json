@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n    {\n        \"name\": \"auto_message\",\n        \"properties\": {\n            \"address\": \"xxxooo@example.com\",\n            \"situation\": \"新しい製品紹介\"\n        }\n    }\n]\n```",
+  "evaluation": {
+    "'auto_message'のツールを選択している": {
+      "points": "3",
+      "reasoning": "メール送信に必要なツールであるauto_messageを選択しているため。"
+    },
+    "propertiesの中の'address'の値が'xxxooo@example.com'": {
+      "points": "2",
+      "reasoning": "addressの値が正しく設定されているため。"
+    },
+    "propertiesの中の'situation'の値が'新しい製品紹介のメール'に類するもの": {
+      "points": "2",
+      "reasoning": "製品紹介というキーワードが含まれており、メールの内容を適切に要約できているため。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "2",
+      "reasoning": "引数のキーが'address','situation'であり正しい。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "JSON形式として正しい。"
+    }
+  },
+  "summary": "モデルの回答は、指定されたツールと引数を正確にJSON形式で出力しており、正解例と一致する。評価項目にすべて適合している。",
+  "score": 10
+}

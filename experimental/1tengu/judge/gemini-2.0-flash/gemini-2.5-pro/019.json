@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n    {\n        \"name\": \"search_files\",\n        \"properties\": {\n            \"keyword\": \"△△\"\n        }\n    },\n    {\n        \"name\": \"auto_message\",\n        \"properties\": {\n            \"address\": \"xxxooo@example.com\",\n            \"contents\": \"新しい製品「△△」についての詳細な紹介\"\n        }\n    }\n]\n```",
+  "evaluation": {
+    "['search_files','auto_message']の全てのツールを選択している": {
+      "points": "3",
+      "reasoning": "search_filesとauto_messageの両方のツールが選択されているため。"
+    },
+    "['search_files','auto_message']の順番にツールが選択されている": {
+      "points": "3",
+      "reasoning": "search_filesが先に選択され、その後にauto_messageが選択されているため。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "search_filesのkeywordとauto_messageのaddressは正しい。contentsの説明も概ね正しい。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "properties内の引数のキーの名称がすべて正しい。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "JSON形式が正しい。"
+    }
+  },
+  "summary": "モデルの回答は、必要なツールをすべて選択し、正しい順序で使用しており、引数の説明もほぼ正確です。JSON形式も正しいです。",
+  "score": 10
+}

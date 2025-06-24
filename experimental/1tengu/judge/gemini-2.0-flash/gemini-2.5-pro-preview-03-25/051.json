@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。以下に翻訳案を記載します。\n\n---\n\n**Subject: Investigation Report: Customer Claim Product**\n\nDear Mr./Ms. Tanaka, (※1)\nSales Department (※2)\n\nThis is Suzuki from the Administration Department.\n\nWe would like to report the findings of our investigation into the product returned by the customer due to a complaint.\nThe details are as follows:\n\n(ここに調査結果を記載してください)\n(Please list the investigation results here)\n\nWe kindly ask for your review and confirmation of these findings.\n\nThank you for your attention to this matter.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n**補足:**\n\n*   (※1) 田中様の性別が分かっている場合は、\"Mr. Tanaka\" または \"Ms. Tanaka\" をお使いください。不明な場合は \"Tanaka-san\" も使用できますが、ビジネスの相手であれば可能な限り確認することをお勧めします。\n*   (※2) 英語のEメールでは、宛名に部署名を含めることは必須ではありませんが、日本の書式に合わせる場合はこのように記載します。\n\n**ポイント:**\n\n*   「お疲れ様です」は英語に直訳できる表現がないため、Eメールの冒頭挨拶としては省略するか、\"I hope this email finds you well.\" (ご健勝のことと存じます) などを状況に応じて使います。今回はシンプルに省略しました。\n*   「さてこの度」は、\"We would like to report...\" (ご報告いたします) という形で本題に入ることで表現しています。\n*   「下記の通り」は \"The details are as follows:\" とし、その後に具体的な内容が続くことを示しています。\n*   「ご検収のほどよろしくお願い申し上げます」は、\"We kindly ask for your review and confirmation of these findings.\" (これらの調査結果をご確認いただき、ご承認くださいますようお願い申し上げます) としました。\"review\" (確認・検討) と \"confirmation\" (承認・確定) の両方のニュアンスを含めています。\n\nご不明な点があれば、お気軽にお尋ねください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "「お疲れ様です」を省略するなど、英語圏のメールの慣習に合わせた表現を選択している点を評価しました。丁寧な補足説明も加点対象です。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "原文の情報を適切に英語に翻訳できています。調査結果を記載する場所を明示するなど、親切な設計です。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "全体的に自然な英語で記述されており、ビジネスシーンで問題なく使用できるレベルです。細かいニュアンスも捉えられています。"
+    }
+  },
+  "summary": "モデルの回答は、日本語と英語のメールの書き方の違いを理解し、原文の内容を過不足なく、かつ自然な英語で表現できています。補足説明も丁寧で、非常に質の高い翻訳を提供しています。",
+  "score": 10
+}

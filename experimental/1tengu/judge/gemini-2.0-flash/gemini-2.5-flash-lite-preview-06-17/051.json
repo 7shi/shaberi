@@ -1,0 +1,19 @@
+{
+  "answer": "承知いたしました。以下にメールの英語訳を提示します。\n\n---\n\n**Subject: Report on Returned Defective Product - [Your Company Name]**\n\nDear Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the findings of our investigation into the defective product returned by a customer. The details are as follows:\n\n[Insert investigation findings here]\n\nWe kindly request your review and approval.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n**いくつか補足事項があります:**\n\n*   **[Your Company Name]**: ご自身の会社名を入れてください。\n*   **[Insert investigation findings here]**: ここに具体的な調査結果を英語で記述してください。\n*   **\"Tanaka-san\"**: 日本のビジネスメールでよく使われる「〜さん」をそのまま英語にしました。よりフォーマルにしたい場合は、\"Mr. Tanaka\" や \"Ms. Tanaka\" など、相手の性別が分かっていればそちらを使用してください。\n*   **\"Defective product\"**: 「クレーム品」は文脈によって \"returned item\", \"complaint product\", \"faulty product\" などとも訳せますが、ここでは「欠陥のある製品」という意味で \"defective product\" が一般的です。\n*   **\"Review and approval\"**: 「ご検収」は、内容を確認し、承認するという意味合いで \"review and approval\" としました。単に確認を求める場合は \"review\" だけでも良いでしょう。\n\n必要に応じて、これらの点を調整してください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "3",
+      "reasoning": "英語のビジネスメールの形式に沿って、件名を入れる、丁寧な表現を使うなどの配慮が見られる。しかし、日本の「お疲れ様です」に相当する挨拶がない点は減点。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "3",
+      "reasoning": "基本的な内容は訳せているが、「ご検収のほどよろしくお願いいたします」を\"review and approval\"と訳しているのは少し意訳に感じる。また、調査結果を挿入する箇所が指示されているだけで、具体的な翻訳がないため減点。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "\"This is Suzuki from the Administration Department.\"は自然な英語。\"Tanaka-san\"をそのまま使用している点も、注釈で説明されているため許容範囲。"
+    }
+  },
+  "summary": "全体的に、英語のビジネスメールとして適切な形式で書かれている。しかし、原文のニュアンスを完全に捉えきれていない部分や、具体的な翻訳が不足している点が改善の余地がある。",
+  "score": 8
+}
