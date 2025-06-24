@@ -349,7 +349,7 @@ def main():
             all_results.append(f"# {benchmark_name}\n\n分析対象のモデルが見つかりませんでした（最小評価者数: {args.min_evaluators}）")
     
     # 結果の出力
-    final_output = "\n\n" + "="*80 + "\n\n".join(all_results)
+    final_output = "\n\n".join(all_results)
     
     if args.output:
         try:

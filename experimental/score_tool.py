@@ -366,7 +366,8 @@ def cmd_list(args):
     patterns = getattr(args, 'pattern', None)
     benchmark = getattr(args, 'benchmark', None)
     exclude_patterns = getattr(args, 'exclude', None)
-    success = display_scores(args.output, patterns, benchmark, exclude_patterns)
+    output_file = getattr(args, 'output_file', 'scores.yaml')
+    success = display_scores(output_file, patterns, benchmark, exclude_patterns)
     return 0 if success else 1
 
 
@@ -661,32 +662,33 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 使用例:
-    # 既存の集計結果を表示
+    # 既存の集計結果を表示（デフォルト: scores.yaml）
     uv run score_tool.py list                                         # 全エントリを表示
     uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
-    uv run score_tool.py list "judge_gpt" "gemini"                    # judge_gptとgeminiの両方を含むエントリのみ表示
+    uv run score_tool.py my-score.yaml list "judge_gpt" "gemini"      # カスタムファイルでjudge_gptとgeminiの両方を含むエントリのみ表示
     uv run score_tool.py list -b "lightblue/tengu_bench" "gemini"     # 指定ベンチマーク内でgeminiを含むエントリのみ表示
     uv run score_tool.py list -b "lightblue/tengu_bench" "gemini-2.5-pro" -v "preview"  # gemini-2.5-proを含み、previewを含まないエントリ
     
     # 部分一致パターンでエントリを削除
     uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
-    uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
+    uv run score_tool.py my-score.yaml remove "judge_gpt" "gemini"    # カスタムファイルでAND条件で削除
     uv run score_tool.py remove -b "lightblue/tengu_bench"            # 指定ベンチマーク全体を削除
     uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
     uv run score_tool.py remove "gemini" -v "preview" -v "lite"       # geminiを含み、previewとliteを含まないエントリを削除
     
     # 全てのデフォルトパスから自動収集して集計
-    uv run score_tool.py add
+    uv run score_tool.py add                                          # デフォルトファイルに集計
+    uv run score_tool.py my-score.yaml add                            # カスタムファイルに集計
     
     # 特定のディレクトリのみから収集
-    uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
-    uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchのみ
-    uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100のみ
-    uv run score_tool.py add --mt 3mt/judge           # MT-Benchのみ
+    uv run score_tool.py add -j ../data/judgements                    # 従来形式のみ
+    uv run score_tool.py my-score.yaml add --tengu 1tengu/judge       # Tengu Benchのみ
+    uv run score_tool.py add --elyza 2elyza/judge                     # ELYZA-tasks-100のみ
+    uv run score_tool.py add --mt 3mt/judge                           # MT-Benchのみ
     
     # カスタムディレクトリから収集
     uv run score_tool.py add --tengu /custom/tengu
-    uv run score_tool.py add -j /custom/judgements --elyza /custom/elyza
+    uv run score_tool.py my-score.yaml add -j /custom/judgements --elyza /custom/elyza
         
 出力形式:
     benchmark_name:
@@ -694,6 +696,14 @@ def main():
         total: X
         scores: [0, 1, 2, 3, ...]
         """
+    )
+    
+    # メインの出力ファイル引数（オプション）
+    parser.add_argument(
+        'output_file',
+        nargs='?',
+        default='scores.yaml',
+        help='操作対象のYAMLファイル名（デフォルト: scores.yaml）'
     )
     
     # サブコマンドの設定
@@ -716,11 +726,6 @@ def main():
         action='append',
         metavar='PATTERN',
         help='除外パターン（grep -v相当、複数指定可能）'
-    )
-    list_parser.add_argument(
-        '-o', '--output',
-        default='scores.yaml',
-        help='表示するファイル名 (デフォルト: scores.yaml)'
     )
     
     # remove サブコマンド
@@ -746,11 +751,6 @@ def main():
         action='store_true',
         help='確認なしで削除を実行'
     )
-    remove_parser.add_argument(
-        '-o', '--output',
-        default='scores.yaml',
-        help='対象ファイル名 (デフォルト: scores.yaml)'
-    )
     
     # add サブコマンド
     add_parser = subparsers.add_parser('add', help='評価結果を収集して集計')
@@ -773,11 +773,6 @@ def main():
         '--mt',
         metavar='DIR',
         help='MT-Benchの評価結果ディレクトリを指定'
-    )
-    add_parser.add_argument(
-        '-o', '--output',
-        default='scores.yaml',
-        help='出力ファイル名 (デフォルト: scores.yaml)'
     )
     
     args = parser.parse_args()

@@ -212,18 +212,20 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None, exc
 - `remove`: 部分一致パターンでエントリを削除
 - `add`: 評価結果を収集して集計
 
+**引数構造の変更（2025年6月24日更新）**:
+- 出力ファイル名は第1引数として指定（オプション、デフォルト: scores.yaml）
+- 従来の各サブコマンドの`-o`オプションを廃止し、メインコマンドレベルに統一
+
 **listコマンドの表示オプション**:
 - `pattern`: 表示対象パターン（項目名の部分一致、複数指定でAND条件）（任意）
 - `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
 - `-v, --exclude PATTERN`: 除外パターン（grep -v相当、複数指定可能）
-- `-o, --output`: 表示するファイル名（デフォルト: scores.yaml）
 
 **removeコマンドの削除オプション**:
 - `pattern`: 削除対象パターン（項目名の部分一致、複数指定でAND条件）（任意）
 - `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
 - `-v, --exclude PATTERN`: 除外パターン（grep -v相当、複数指定可能）
 - `-f, --force`: 確認なしで削除を実行
-- `-o, --output`: 対象ファイル名（デフォルト: scores.yaml）
 
 **addコマンドのディレクトリ指定オプション**:
 - `-j DIR`, `--judgements-dir DIR`: 従来形式の評価結果ディレクトリを指定
@@ -251,7 +253,7 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None, exc
 uv run score_tool.py
 # → ヘルプメッセージが表示され、エラー終了
 
-# 既存集計結果の表示
+# 既存集計結果の表示（デフォルト: scores.yaml）
 uv run score_tool.py list                                         # 全エントリを表示
 uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
 uv run score_tool.py list "judge_gpt" "gemini"                    # judge_gptとgeminiの両方を含むエントリのみ表示
@@ -260,26 +262,28 @@ uv run score_tool.py list "gemini-2.5-pro" -v "preview"           # gemini-2.5-p
 uv run score_tool.py list "gemini" -v "preview" -v "lite"         # geminiを含み、previewとliteを含まないエントリ
 
 # カスタム出力ファイルの表示
-uv run score_tool.py list -o my_scores.yaml
+uv run score_tool.py my_scores.yaml list
 
 # 部分一致パターンでエントリを削除
 uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
 uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
 uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
 uv run score_tool.py remove "gemini" -v "preview" -v "lite"       # geminiを含み、previewとliteを含まないエントリを削除
+uv run score_tool.py my_scores.yaml remove "pattern"              # カスタムファイルでエントリ削除
 
 # 全デフォルトパスから自動収集して集計
 uv run score_tool.py add
+uv run score_tool.py my_scores.yaml add                           # カスタムファイルに集計
 
 # 特定のディレクトリのみから収集
-uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
-uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchのみ
-uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100のみ
-uv run score_tool.py add --mt 3mt/judge           # MT-Benchのみ
+uv run score_tool.py add -j ../data/judgements                    # 従来形式のみ
+uv run score_tool.py add --tengu 1tengu/judge                     # Tengu Benchのみ
+uv run score_tool.py add --elyza 2elyza/judge                     # ELYZA-tasks-100のみ
+uv run score_tool.py add --mt 3mt/judge                           # MT-Benchのみ
 
 # カスタムディレクトリから収集
 uv run score_tool.py add --tengu /custom/tengu
-uv run score_tool.py add -j /custom/judgements --elyza /custom/elyza
+uv run score_tool.py my_scores.yaml add -j /custom/judgements --elyza /custom/elyza
 
 # 複数ディレクトリを同時指定
 uv run score_tool.py add -j ../data/judgements --tengu 1tengu/judge --elyza 2elyza/judge
@@ -309,16 +313,21 @@ uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchを追加
 uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100を追加
 # → scores.yamlに両方の結果がベンチマーク別に蓄積される
 
+# カスタムファイルでの集計
+uv run score_tool.py tengu-only.yaml add --tengu 1tengu/judge      # Tengu Benchのみ
+uv run score_tool.py elyza-only.yaml add --elyza 2elyza/judge      # ELYZA-tasks-100のみ
+
 # 特定のエントリを削除
-uv run score_tool.py remove "gemini-2.0-flash"    # 全ベンチマークから項目名の部分一致
-uv run score_tool.py remove "judge_gpt" "gemini"  # AND条件：judge_gptとgeminiの両方を含む項目
-uv run score_tool.py remove -b "lightblue/tengu_bench"                   # 指定ベンチマーク全体を削除
+uv run score_tool.py remove "gemini-2.0-flash"                     # 全ベンチマークから項目名の部分一致
+uv run score_tool.py remove "judge_gpt" "gemini"                   # AND条件：judge_gptとgeminiの両方を含む項目
+uv run score_tool.py remove -b "lightblue/tengu_bench"             # 指定ベンチマーク全体を削除
 uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini" --force  # 指定ベンチマーク内での部分一致
+uv run score_tool.py my_scores.yaml remove "pattern"               # カスタムファイルでの削除
 ```
 
 ### 出力例
 
-**表示専用実行**:
+**表示専用実行（デフォルトファイル）**:
 ```bash
 # 全エントリを表示
 uv run score_tool.py list
