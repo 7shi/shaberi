@@ -36,6 +36,7 @@ experimental/
 
 **集計・分析**
 - **score_tool.py** - 評価結果からスコア統計を集計しYAML形式で出力（list/add/remove サブコマンド対応）
+- **analyze_variance.py** - 評価者間分散の詳細分析による構造化出力の効果検証ツール
 - **totals_to_csv.py** - 複数の評価結果を集計してCSVファイルに出力（改修版）
 - **merge_csv.py** - 異なる列順序を持つCSVファイルをマージ（列名ベース統合）
 
@@ -95,6 +96,14 @@ uv run score_tool.py add --tengu 1tengu    # Tengu Benchのみ
 - 評価結果からスコア統計を集計してYAML形式で出力
 - **詳細な使用方法は[score_tool.md](score_tool.md)を参照**
 
+#### `analyze_variance.py` - 評価者間分散分析ツール
+```bash
+# Tengu Benchmarkの分散分析
+uv run analyze_variance.py -b lightblue/tengu_bench
+```
+- 構造化出力による評価者間分散の減少効果を定量的に分析
+- **詳細な使用方法は[analyze_variance.md](analyze_variance.md)を参照**
+
 #### `totals_to_csv.py` - 評価結果CSV集計ツール
 ```bash
 # デフォルト設定で実行
@@ -139,6 +148,7 @@ uv run merge_csv.py *.csv -o all_results.csv
 3. **効率処理**: 構造化データの直接利用
 4. **トークン節約**: Few-shot例が不要
 5. **品質保証**: リアルタイムスキーマ検証による自動品質管理
+6. **評価者間一貫性**: 平均56.4%の分散削減を実現（最大87.5%改善）
 
 ## 依存関係
 
@@ -189,7 +199,8 @@ pip install tomli
 1. **他ベンチマーク対応**: ELYZA、ja-mt-benchへの適用
 2. **API統合拡張**: OpenAI、Anthropic対応
 3. **評価精度向上**: 温度調整、プロンプト改良
-4. **統計分析**: タスク別難易度分析
+4. **統計分析拡張**: タスク別難易度分析、項目別パフォーマンス分析
+5. **分散分析の高度化**: 効果量計算、信頼区間推定、統計的検定
 
 ## 関連ドキュメント
 
