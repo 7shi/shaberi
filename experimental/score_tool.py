@@ -17,7 +17,7 @@ score_tool.py - スコア集計ツール
     uv run score_tool.py add --tengu 1tengu           # Tengu Benchのみ
     uv run score_tool.py add --elyza 2elyza           # ELYZA-tasks-100のみ
     uv run score_tool.py add --mt 3mt                 # MT-Benchのみ
-    uv run score_tool.py add -j ../data/judgements --tengu 1tengu  # 複数指定
+    uv run score_tool.py add -j ../data/judgements --tengu 1tengu/judge  # 複数指定
     
 出力形式:
     benchmark_name:
@@ -536,9 +536,9 @@ def cmd_add(args):
     if not any([args.judgements_dir, args.tengu, args.elyza, args.mt]):
         default_paths = [
             ('judgements', '../data/judgements'),
-            ('tengu', '1tengu'),
-            ('elyza', '2elyza'),
-            ('mt', '3mt')
+            ('tengu', '1tengu/judge'),
+            ('elyza', '2elyza/judge'),
+            ('mt', '3mt/judge')
         ]
         
         for path_type, default_path in default_paths:
@@ -680,9 +680,9 @@ def main():
     
     # 特定のディレクトリのみから収集
     uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
-    uv run score_tool.py add --tengu 1tengu           # Tengu Benchのみ
-    uv run score_tool.py add --elyza 2elyza           # ELYZA-tasks-100のみ
-    uv run score_tool.py add --mt 3mt                 # MT-Benchのみ
+    uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchのみ
+    uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100のみ
+    uv run score_tool.py add --mt 3mt/judge           # MT-Benchのみ
     
     # カスタムディレクトリから収集
     uv run score_tool.py add --tengu /custom/tengu

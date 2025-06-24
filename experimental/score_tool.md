@@ -234,9 +234,9 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None, exc
 **デフォルト動作**:
 - `add`コマンドでオプション未指定時は全デフォルトパスを自動試行
   - `../data/judgements` (従来形式)
-  - `1tengu` (Tengu Bench)
-  - `2elyza` (ELYZA-tasks-100)
-  - `3mt` (MT-Bench)
+  - `1tengu/judge` (Tengu Bench)
+  - `2elyza/judge` (ELYZA-tasks-100)
+  - `3mt/judge` (MT-Bench)
 
 **重要な仕様変更**:
 - サブコマンド未指定時はヘルプメッセージを表示してエラー終了
@@ -273,40 +273,40 @@ uv run score_tool.py add
 
 # 特定のディレクトリのみから収集
 uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
-uv run score_tool.py add --tengu 1tengu           # Tengu Benchのみ
-uv run score_tool.py add --elyza 2elyza           # ELYZA-tasks-100のみ
-uv run score_tool.py add --mt 3mt                 # MT-Benchのみ
+uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchのみ
+uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100のみ
+uv run score_tool.py add --mt 3mt/judge           # MT-Benchのみ
 
 # カスタムディレクトリから収集
 uv run score_tool.py add --tengu /custom/tengu
 uv run score_tool.py add -j /custom/judgements --elyza /custom/elyza
 
 # 複数ディレクトリを同時指定
-uv run score_tool.py add -j ../data/judgements --tengu 1tengu --elyza 2elyza
+uv run score_tool.py add -j ../data/judgements --tengu 1tengu/judge --elyza 2elyza/judge
 ```
 
 ### ベンチマーク別収集の詳細
 
 ```bash
 # Tengu Benchのみ収集（新形式）
-uv run score_tool.py add --tengu 1tengu
-# → 1tengu/ ディレクトリから evaluator/model を自動検索
+uv run score_tool.py add --tengu 1tengu/judge
+# → 1tengu/judge/ ディレクトリから evaluator/model を自動検索
 
 # ELYZA-tasks-100のみ収集（新形式）
-uv run score_tool.py add --elyza 2elyza
-# → 2elyza/ ディレクトリから evaluator/model を自動検索
+uv run score_tool.py add --elyza 2elyza/judge
+# → 2elyza/judge/ ディレクトリから evaluator/model を自動検索
 
 # MT-Benchのみ収集（新形式）
-uv run score_tool.py add --mt 3mt
-# → 3mt/ ディレクトリから evaluator/model を自動検索
+uv run score_tool.py add --mt 3mt/judge
+# → 3mt/judge/ ディレクトリから evaluator/model を自動検索
 
 # 従来形式のみ収集
 uv run score_tool.py add -j ../data/judgements
 # → ../data/judgements/judge_*/dataset/model.json を自動検索
 
 # 段階的集計（既存ファイルに追加）
-uv run score_tool.py add --tengu 1tengu     # Tengu Benchを追加
-uv run score_tool.py add --elyza 2elyza     # ELYZA-tasks-100を追加
+uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchを追加
+uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100を追加
 # → scores.yamlに両方の結果がベンチマーク別に蓄積される
 
 # 特定のエントリを削除
@@ -377,10 +377,10 @@ uv run score_tool.py list -b "lightblue/tengu_bench" "gemini-2.5-pro" -v "previe
 **集計実行時のコンソール出力**:
 ```bash
 # Tengu Benchのみ収集
-uv run score_tool.py add --tengu 1tengu
+uv run score_tool.py add --tengu 1tengu/judge
 ```
 ```
-1tengu から 8 個のTengu Bench評価結果ディレクトリを発見
+1tengu/judge から 8 個のTengu Bench評価結果ディレクトリを発見
 評価結果ディレクトリを集計中: 1tengu/gemini-2.5-flash/gemini-2.5-pro
 評価結果ディレクトリを集計中: 1tengu/gemini-2.5-flash/claude-3-5-sonnet
 ...
@@ -396,9 +396,9 @@ uv run score_tool.py add
 ```
 ```
 ../data/judgements から 15 個の従来形式評価結果ファイルを発見
-1tengu から 8 個のTengu Bench評価結果ディレクトリを発見
-2elyza から 6 個のELYZA-tasks-100評価結果ディレクトリを発見
-3mt から 4 個のMT-Bench評価結果ディレクトリを発見
+1tengu/judge から 8 個のTengu Bench評価結果ディレクトリを発見
+2elyza/judge から 6 個のELYZA-tasks-100評価結果ディレクトリを発見
+3mt/judge から 4 個のMT-Bench評価結果ディレクトリを発見
 合計 33 組み合わせを処理しました
 スコア集計結果を scores.yaml に保存しました
 更新された組み合わせ: 33
@@ -485,9 +485,9 @@ benchmark_name:
 
 ```bash
 # 複数モデルの評価結果を集計
-uv run score_tool.py add --tengu 1tengu     # Tengu Benchのみ
-uv run score_tool.py add --elyza 2elyza     # ELYZA-tasks-100のみ
-uv run score_tool.py add --mt 3mt           # MT-Benchのみ
+uv run score_tool.py add --tengu 1tengu/judge     # Tengu Benchのみ
+uv run score_tool.py add --elyza 2elyza/judge     # ELYZA-tasks-100のみ
+uv run score_tool.py add --mt 3mt/judge           # MT-Benchのみ
 
 # scores.yamlからベンチマーク別の平均スコア、標準偏差を分析
 ```
