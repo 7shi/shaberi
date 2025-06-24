@@ -73,12 +73,12 @@ def get_response_from_openai(messages: list, model_name: str, evaluation_tempera
         api_key=os.environ.get("OPENAI_API_KEY")
     )
 
-    response = client.chat.completions.create(
-        messages=messages,
-        model=model_name,
-        temperature=evaluation_temperature,
-        max_tokens=evaluation_max_tokens,
-    )
+    kwargs = {"messages": messages, "model": model_name}
+    if evaluation_temperature is not None:
+        kwargs["temperature"] = evaluation_temperature
+    if evaluation_max_tokens > 0:
+        kwargs["max_tokens"] = evaluation_max_tokens
+    response = client.chat.completions.create(**kwargs)
     return response.choices[0].message.content
 
 # === 評価生成関数群 ===
@@ -125,7 +125,7 @@ def get_response_from_litellm_gemini(messages: list, model_name: str, evaluation
 
 
 def get_response_func(model_name: str) -> callable:
-    if "gpt" in model_name:
+    if "gpt" in model_name or model_name in ["o4-mini"]:
         return get_response_from_openai
     elif "gemini" in model_name:
         return get_response_from_litellm_gemini
@@ -155,6 +155,21 @@ def get_model_response(messages: list, model_name: str, parser_func):
         return None
 
     answer_function = get_response_func(model_name)
+    
+    # evaluation_start_temperatureが負またはNoneの場合は温度を指定せずに1回だけ実行
+    if evaluation_start_temperature < 0 or evaluation_start_temperature is None:
+        logger.info("temperature: not specified (single execution)")
+        response = answer_function(messages, model_name, None)
+        if not response or response == NO_RESPONSE:
+            logger.info(f"Response is empty or blocked: {response}")
+            return None
+        
+        try:
+            result = parser_func(response)
+            return result
+        except Exception as e:
+            logger.error(f"Parse error with unspecified temperature: {e}")
+            return None
     
     # 温度を段階的に上げながらリトライ
     for t in range(evaluation_start_temperature, 101, 5):

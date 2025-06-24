@@ -50,14 +50,16 @@ def main():
     parser.add_argument('-e', '--evaluation_model', type=str, default='gpt-4-turbo-preview')
     parser.add_argument('-n', '--num_proc', type=int, default=8)
     parser.add_argument('-t', '--max-tokens', type=int, default=llm_functions.evaluation_max_tokens)
+    parser.add_argument('-st', '--start-temperature', type=int, default=llm_functions.evaluation_start_temperature)
 
     args = parser.parse_args()
 
     # 引数が確定した後にロギングを設定
     setup_logging(args.model_name, log_prefix="judgement_log")
     
-    # max_tokensの設定
+    # max_tokensとstart_temperatureの設定
     llm_functions.evaluation_max_tokens = args.max_tokens
+    llm_functions.evaluation_start_temperature = args.start_temperature
     
     run_judgement(args.model_name, args.eval_dataset_name, args.evaluation_model, args.num_proc)
     
