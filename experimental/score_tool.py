@@ -424,19 +424,20 @@ def cmd_remove(args):
         print("Error: 削除対象のパターン、ベンチマーク、または除外パターンを指定してください")
         return 1
     
-    if not os.path.exists(args.output):
-        print(f"Error: {args.output} が存在しません")
+    output_file = getattr(args, 'output_file', 'scores.yaml')
+    if not os.path.exists(output_file):
+        print(f"Error: {output_file} が存在しません")
         return 1
     
     try:
-        with open(args.output, 'r', encoding='utf-8') as f:
+        with open(output_file, 'r', encoding='utf-8') as f:
             yaml_data = yaml.safe_load(f) or {}
     except Exception as e:
-        print(f"Error: {args.output} の読み込みに失敗しました: {e}")
+        print(f"Error: {output_file} の読み込みに失敗しました: {e}")
         return 1
     
     if not yaml_data:
-        print(f"Warning: {args.output} にデータがありません")
+        print(f"Warning: {output_file} にデータがありません")
         return 0
     
     # 削除対象を検索
@@ -502,7 +503,7 @@ def cmd_remove(args):
                                 key=lambda x: x[1]['total'], reverse=True)
             sorted_yaml_data[benchmark_name] = dict(sorted_items)
         
-        with open(args.output, 'w', encoding='utf-8') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             # 配列（scoresのみ）をインライン形式で出力
             yaml.add_representer(list, lambda dumper, data: dumper.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True))
             yaml.dump(sorted_yaml_data, f, 
@@ -512,7 +513,7 @@ def cmd_remove(args):
                      indent=2)
         
         print(f"\n{removed_count} 個のエントリを削除しました")
-        print(f"更新された {args.output} を保存しました")
+        print(f"更新された {output_file} を保存しました")
         
         # 残りの統計情報を表示
         total_combinations = sum(len(benchmark_data) for benchmark_data in sorted_yaml_data.values())
@@ -608,12 +609,13 @@ def cmd_add(args):
     print(f"合計 {processed_count} 組み合わせを処理しました")
     
     # 既存のYAMLファイルを読み込み（存在する場合）
+    output_file = getattr(args, 'output_file', 'scores.yaml')
     yaml_data = {}
-    if os.path.exists(args.output):
+    if os.path.exists(output_file):
         try:
-            with open(args.output, 'r', encoding='utf-8') as f:
+            with open(output_file, 'r', encoding='utf-8') as f:
                 yaml_data = yaml.safe_load(f) or {}
-            print(f"既存の {args.output} を読み込みました")
+            print(f"既存の {output_file} を読み込みました")
         except Exception as e:
             print(f"Warning: 既存ファイルの読み込みに失敗: {e}")
             yaml_data = {}
@@ -634,7 +636,7 @@ def cmd_add(args):
                                 key=lambda x: x[1]['total'], reverse=True)
             sorted_yaml_data[benchmark_name] = dict(sorted_items)
         
-        with open(args.output, 'w', encoding='utf-8') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             # 配列（scoresのみ）をインライン形式で出力
             yaml.add_representer(list, lambda dumper, data: dumper.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True))
             yaml.dump(sorted_yaml_data, f, 
@@ -645,7 +647,7 @@ def cmd_add(args):
         
         # 結果の統計情報を表示
         total_combinations = sum(len(benchmark_data) for benchmark_data in yaml_data.values())
-        print(f"スコア集計結果を {args.output} に保存しました")
+        print(f"スコア集計結果を {output_file} に保存しました")
         print(f"更新された組み合わせ: {processed_count}")
         print(f"ファイル内の総組み合わせ数: {total_combinations}")
             
