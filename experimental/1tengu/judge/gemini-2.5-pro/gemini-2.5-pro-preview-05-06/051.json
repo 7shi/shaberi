@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。以下に英語のメール文案を作成しました。\n\n---\n\n**Subject: Investigation Report on Returned Defective Product**\n\nDear Mr./Ms. Tanaka,\nSales Department\n\nThis is Suzuki from the Administration Department.\n\nRegarding the defective product returned by the customer, we would like to report the investigation results as follows:\n\n[ここに調査結果を記載 / Please insert the investigation results here]\n\nWe kindly ask for your review and confirmation.\n\nThank you for your attention to this matter.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n**ポイント：**\n\n*   **Mr./Ms. Tanaka:** 相手の性別が不明な場合や、より現代的な表現として \"Ms.\" を使うことも一般的です。もしフルネームが分かれば、Mr./Ms. [Last Name] の形がより丁寧です。\n*   **\"Regarding the defective product returned by the customer...\"**: 「お客さまからご返却いただきましたクレーム品」の部分を具体的に表現しました。\"complaint product\" としても良いでしょう。\n*   **\"...we would like to report the investigation results as follows:\"**: 「調査結果を下記の通りご報告させていただきます」という丁寧な依頼のニュアンスです。\n*   **\"We kindly ask for your review and confirmation.\"**: 「ご検収のほどよろしくお願い申し上げます」の部分です。\"Please review the following.\" や \"Your review would be appreciated.\" なども可能です。\n*   **\"Thank you for your attention to this matter.\"**: 一般的なビジネスメールの結びの言葉です。\n\nご希望に応じて調整いたしますので、お気軽にお申し付けください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "「お疲れ様です」を翻訳せず、代わりに英語のビジネスメールで一般的な件名や結びの言葉（Best regards）を追加するなど、日本語と英語の文化的な違いを的確に捉えて翻訳できている。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "「クレーム品」を「defective product returned by the customer」、「ご検収のほど」を「review and confirmation」と訳すなど、原文の意図を汲み取り、過不足なく正確に情報を伝えられている。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "全体として非常に自然でプロフェッショナルな英語で書かれている。宛名の部署名の位置（Sales Department）がわずかに不自然だが、それ以外の表現は全く問題なく、ビジネスで通用するレベルである。"
+    }
+  },
+  "summary": "日本語のビジネスメールを、英語圏の慣習に合わせて非常にうまく翻訳できています。件名の追加や定型挨拶の適切な処理など、文化差への配慮が見事です。訳文も正確かつ自然で、ビジネスシーンでそのまま使える高品質な回答です。宛名の書き方にわずかな改善点はあるものの、全体として非常に優れた回答と言えます。",
+  "score": 10
+}

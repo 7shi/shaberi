@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。\n以下に、丁寧さや状況に応じて使い分けられるよう、複数のパターンで翻訳します。\n\n---\n\n### パターン1：標準的で丁寧な表現\n\n**Subject:** Investigation Report on Customer Claim\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the results of our investigation into the product returned by the customer under a claim. Please find the details below.\n\n(ここに調査結果を記載)\n\nWe would appreciate it if you could review the report.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン2：よりシンプルで直接的な表現\n\n**Subject:** Report on the Claimed Product\n\nHi Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nPlease see below for the investigation results of the claimed product returned from the customer.\n\n(ここに調査結果を記載)\n\nPlease review the details.\n\nThank you,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン3：よりフォーマルな表現\n\n**Subject:** Findings of Investigation Regarding the Returned Product\n\nTo: Mr. Tanaka, Sales Department\nFrom: Suzuki, Administration Department\n\nDear Mr. Tanaka,\n\nThis message is to formally report the findings of our investigation concerning the product that was returned due to a customer complaint. The results are provided as follows.\n\n(ここに調査結果を記載)\n\nYour review and confirmation of this report would be greatly appreciated.\n\nSincerely,\n\nSuzuki\nAdministration Department\n\n---\n\n### 【表現のポイント】\n\n*   **件名 (Subject):** 英語のビジネスメールでは、内容がひと目でわかる件名が非常に重要です。「Investigation Report on Customer Claim」（顧客クレームに関する調査報告）などが一般的です。\n*   **お疲れ様です:** 英語に直訳できる表現はないため、社内メールでは省略するか、`Hope you are doing well.` のような簡単な挨拶を添えます。\n*   **クレーム品:** `claimed product` / `product returned under a claim` / `product under complaint` などと表現できます。\n*   **ご検収のほど:** `Please review...`（ご確認ください）が最もシンプルです。より丁寧に伝えたい場合は `We would appreciate it if you could review...`（ご確認いただけますと幸いです）などが使えます。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "複数のパターンで英語圏のビジネスメールの書き方を丁寧に説明し、件名の重要性や挨拶表現の違いなどを詳細に解説しているため、英語圏のメール文化の違いを十分に考慮している。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "3",
+      "reasoning": "原文の内容を丁寧に英訳しているが、複数パターンの例示により一部表現がやや冗長であり、調査結果の具体的内容は省略されているため、過不足なく訳しているとは言い切れない。ただし、原文の要点は十分にカバーしている。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "提示された3つのパターンはいずれも自然で適切な英語表現であり、ビジネスメールとして違和感がない。"
+    }
+  },
+  "summary": "モデルの回答は、英語圏のビジネスメールの書き方の違いを詳細に説明し、複数の翻訳パターンを示すことで丁寧に対応している。原文の内容もほぼ過不足なく訳されており、自然な英語表現であるため、評価項目を高く満たしている。ただし、調査結果の具体的内容が省略されている点で満点とは言い難い。総合的に非常に優れた回答である。",
+  "score": 9
+}

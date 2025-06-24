@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。\n以下に、丁寧さの度合いに応じていくつかの英語翻訳案を提示します。状況に合わせて使い分けてください。\n\n---\n\n### パターン1（標準的・フォーマル）\n\n最も一般的で、どのような相手にも使える丁寧な表現です。\n\n**Subject: Investigation Report on a Customer Claim**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the results of our investigation into the claimed product returned by the customer. The details are as follows.\n\nPlease review the findings.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン2（少し簡潔な表現）\n\n社内のやり取りで、より簡潔に伝えたい場合に適しています。\n\n**Subject: Report on Returned Product Claim**\n\nHi Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nPlease find the investigation results for the customer's claim product below.\n\nWe would appreciate your confirmation.\n\nRegards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン3（より丁寧な表現）\n\n特に丁寧さが求められる場合や、フォーマルな報告書として送る場合に適しています。\n\n**Subject: Formal Report: Investigation of the Customer Claim Product**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nThis email is to formally report the findings of our investigation concerning the product that was returned by a customer under a claim. The results are detailed below.\n\nYour review and confirmation of this report would be highly appreciated.\n\nSincerely,\n\nSuzuki\nAdministration Department\n\n---\n\n### ポイント\n\n*   **件名 (Subject):** `Investigation Report` (調査報告), `Customer Claim` (顧客クレーム) などのキーワードを入れると内容が分かりやすくなります。\n*   **お疲れ様です:** 英語のビジネスメールでは、`Hi` や `Dear` の後、すぐに本題に入ることが一般的です。\n*   **ご検収のほど:** `Please review` (内容をご確認ください), `Please check` (ご確認ください), `We would appreciate your confirmation` (ご確認いただけますと幸いです) などが使えます。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "「お疲れ様です」を訳さずに本題から入ること、内容が分かりやすい件名を付けることなど、英語のビジネスメールの慣習を的確に反映している。さらに、丁寧さの度合いに応じた3つのパターンを提示しており、文化的な違いへの配慮が非常に優れている。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "提示された3つのパターン全てにおいて、「クレーム品の調査結果報告」という原文の主旨が、過不足なく正確に訳されている。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "フォーマル、簡潔、より丁寧、といった各パターンの状況設定に応じた、自然で適切な英語表現が使われている。"
+    }
+  },
+  "summary": "単に直訳するだけでなく、英語のビジネスメールにおける慣習（件名の付け方、「お疲れ様です」の扱いなど）を的確に踏まえた、非常に質の高い回答である。丁寧さの度合いに応じて3つの優れた翻訳案を提示し、それぞれのポイントを解説している点は、質問者の意図を深く理解した付加価値の高いものと言える。全ての翻訳文は自然かつ正確であり、模範的な回答である。",
+  "score": 10
+}

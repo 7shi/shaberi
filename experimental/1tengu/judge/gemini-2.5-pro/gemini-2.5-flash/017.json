@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"get_email_address\",\n    \"properties\": {\n      \"name\": \"田中\"\n    }\n  },\n  {\n    \"name\": \"auto_message\",\n    \"properties\": {\n      \"address\": \"田中さんのメールアドレス\",\n      \"situation\": \"遅刻する旨\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['get_email_address','auto_message']の全てのツールを選択している": {
+      "points": "3",
+      "reasoning": "質問の意図を汲み取り、get_email_addressとauto_messageの両方のツールを正しく選択できている。"
+    },
+    "['get_email_address','auto_message']の順番にツールが選択されている": {
+      "points": "3",
+      "reasoning": "メールアドレスを取得してからメールを送信するという、正しいツールの実行順序を理解している。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "各ツールの引数（name, address, situation）に対して、発言内容から適切な値を抽出・設定できている。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "全ての引数のキー名（name, address, situation）が、ツール定義と一致しており正しい。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "出力は、JSON配列として完全にパース可能であり、構文的に正しい。"
+    }
+  },
+  "summary": "モデルの回答は、評価項目をすべて満たした完璧な回答です。必要なツールを正しい順序で選択し、各引数に適切な値を設定できています。また、出力形式も完全に有効なJSONです。正解例とほぼ同等の高品質な出力と言えます。",
+  "score": 10
+}

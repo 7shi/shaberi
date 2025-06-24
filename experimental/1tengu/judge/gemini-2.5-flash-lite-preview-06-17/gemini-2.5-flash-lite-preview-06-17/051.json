@@ -1,0 +1,19 @@
+{
+  "answer": "承知いたしました。以下にメールの英語訳を提示します。\n\n---\n\n**Subject: Report on Returned Defective Product - [Your Company Name]**\n\nDear Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the findings of our investigation into the defective product returned by a customer. The details are as follows:\n\n[Insert investigation findings here]\n\nWe kindly request your review and approval.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n**いくつか補足事項があります:**\n\n*   **[Your Company Name]**: ご自身の会社名を入れてください。\n*   **[Insert investigation findings here]**: ここに具体的な調査結果を英語で記述してください。\n*   **\"Tanaka-san\"**: 日本のビジネスメールでよく使われる「〜さん」をそのまま英語にしました。よりフォーマルにしたい場合は、\"Mr. Tanaka\" や \"Ms. Tanaka\" など、相手の性別が分かっていればそちらを使用してください。\n*   **\"Defective product\"**: 「クレーム品」は文脈によって \"returned item\", \"complaint product\", \"faulty product\" などとも訳せますが、ここでは「欠陥のある製品」という意味で \"defective product\" が一般的です。\n*   **\"Review and approval\"**: 「ご検収」は、内容を確認し、承認するという意味合いで \"review and approval\" としました。単に確認を求める場合は \"review\" だけでも良いでしょう。\n\n必要に応じて、これらの点を調整してください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "3",
+      "reasoning": "件名を追加するなど英語圏のメールの慣習を取り入れているが、「Tanaka-san」のように日本語の敬称をそのまま使用している点は、英語圏の慣習への完全な適応とは言えないため、減点した。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "3",
+      "reasoning": "メールの主要な内容は正確に訳されている。ただし、原文にはない件名を追加しており、また「下記の通り」という表現を受けて具体的な調査結果の箇所にプレースホルダーを挿入している点は、原文の過不足なく訳すという点では若干の乖離がある。また、原文の「営業部」というヘッダーが欠落している。"
+    },
+    "自然な英語である": {
+      "points": "1",
+      "reasoning": "「Dear Tanaka-san」の「-san」の部分が不自然な英語である。その他の部分は自然な英語で書かれているが、この点が減点対象となった。"
+    }
+  },
+  "summary": "英語圏のメールの慣習を考慮して件名を追加するなど、一定の適応は見られるものの、「Tanaka-san」のような日本語の敬称の直訳や、原文にないプレースホルダーの挿入など、自然さや原文忠実性の点で改善の余地がある翻訳です。",
+  "score": 7
+}

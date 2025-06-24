@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。以下に英語のメール文案をいくつか提案します。\n\n---\n\n**Option 1 (Standard & Professional)**\n\n**Subject: Investigation Results: Customer Complaint Product**\n\nDear Mr./Ms. Tanaka,\n\nThis is Suzuki from the Management Department.\n\nI am writing to report the investigation results for the product returned by the customer due to a complaint, as detailed below.\n\n[Please insert the investigation results here]\n\nYour kind review of the findings would be greatly appreciated.\n\nRegards,\n\nSuzuki\nManagement Department\n\n---\n\n**Option 2 (Slightly more direct)**\n\n**Subject: Report on Returned Complaint Item Investigation**\n\nDear Mr./Ms. Tanaka,\n\nThis is Suzuki from the Management Department.\n\nPlease find below the investigation results for the complaint product returned by the customer.\n\n[Please insert the investigation results here]\n\nWe kindly request your review of this report.\n\nSincerely,\n\nSuzuki\nManagement Department\n\n---\n\n**Option 3 (Including a common polite opening)**\n\n**Subject: Investigation Results for Customer Returned Product**\n\nDear Mr./Ms. Tanaka,\n\nHope this email finds you well.\nThis is Suzuki from the Management Department.\n\nI would like to inform you of the investigation results for the product that was returned by the customer due to a complaint. The details are as follows:\n\n[Please insert the investigation results here]\n\nYour review and acknowledgement would be appreciated.\n\nBest regards,\n\nSuzuki\nManagement Department\n\n---\n\n**ポイント：**\n\n*   **Subject (件名):** 内容がすぐにわかるように明確にしましょう。\n*   **\"お疲れ様です。\"**: 英語には直接的な訳がありません。文脈に応じて \"Hope this email finds you well.\" や \"Hope you're doing well.\" といった挨拶を入れるか、単に自己紹介から始めるのが一般的です。\n*   **\"クレーム品\"**: \"complaint product,\" \"defective product,\" \"returned product due to a complaint\" などが使えます。文脈に合わせて選びましょう。\n*   **\"ご検収のほどよろしくお願い申し上げます。\"**: \"Your kind review is appreciated,\" \"We kindly request your review,\" \"Please review and acknowledge\" など、状況に応じた表現を選びます。\n\nご希望のニュアンスに合わせてお選びください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "「お疲れ様です」や「ご検収のほどよろしくお願い申し上げます」といった日本語特有の表現について、英語には直接的な訳がないことを理解し、文脈に応じた自然な英語表現を複数提案できている。件名の付け方や結びの言葉など、英語のビジネスメールの慣習を完全に踏まえている。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "提示された3つの選択肢すべてにおいて、元の日本語メールの要点（誰から誰へ、何の報告か、何をしてほしいか）が、過不足なく正確に翻訳されている。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "提示された英文はどれも文法的に正しく、ビジネスメールで一般的に使われる自然な表現で構成されている。不自然な直訳は見られない。"
+    }
+  },
+  "summary": "単一の翻訳案ではなく、ニュアンスの異なる3つの優れた選択肢を提示している点が非常に優れている。日本語特有の表現を英語のビジネス習慣に合わせて自然に翻訳できており、内容の正確性も高い。なぜその翻訳になるのかという解説も付いており、ユーザーにとって非常に有益な回答となっている。",
+  "score": 10
+}

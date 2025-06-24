@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"get_email_address\",\n    \"parameters\": {\n      \"name\": \"田中\"\n    }\n  },\n  {\n    \"name\": \"auto_message\",\n    \"parameters\": {\n      \"address\": \"tanaka@example.com\",\n      \"situation\": \"遅刻する旨のメール\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['get_email_address','auto_message']の全てのツールを選択している": {
+      "points": "3",
+      "reasoning": "get_email_addressとauto_messageの両方のツールが使用されているため、満点の3点を付与。"
+    },
+    "['get_email_address','auto_message']の順番にツールが選択されている": {
+      "points": "3",
+      "reasoning": "get_email_addressが先に、auto_messageが後に選択されており、正しい順番であるため3点。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "0",
+      "reasoning": "propertiesではなくparametersというキーを使用しており、引数の説明も不足しているため0点。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "0",
+      "reasoning": "propertiesではなくparametersというキーを使っているため、キー名称が正しくない。0点。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "JSON形式としては正しいため1点。"
+    }
+  },
+  "summary": "全てのツールを正しく選択し、順番も正しいが、propertiesのキー名がparametersとなっており、評価項目の仕様に合致していない。また引数の説明も不足している。JSON形式は正しいため、合計7点となる。",
+  "score": 7
+}

@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n    {\n        \"name\": \"search_company\",\n        \"properties\": {\n            \"keyword\": \"医療関係\"\n        }\n    }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "0",
+      "reasoning": "ユーザーの意図である「株価を比べて分析したい」を達成するためには、会社検索、シンボル取得、株価取得の3つのツールすべてが必要ですが、モデルは`search_company`しか選択していません。"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "0",
+      "reasoning": "必要なツールがすべて選択されていないため、正しい順序でツールが選択されているとは言えません。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "1",
+      "reasoning": "`search_company`の引数`keyword`に「医療関係」を設定している点は正しいですが、後続の`get_stock_symbol`や`get_stock_price`で必要となる引数が全く含まれていません。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "`search_company`ツールの引数として定義されている`keyword`を正しく使用しています。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "出力はJSON配列として正しくフォーマットされています。"
+    }
+  },
+  "summary": "モデルはユーザーの意図の第一歩である会社検索ツール(`search_company`)を正しく特定し、適切な引数を設定できています。しかし、「株価を比べて分析したい」という最終目標を達成するために必要な後続のツール（シンボル取得、株価取得）を全く選択できておらず、全体として不完全な回答となっています。JSON形式は正確です。",
+  "score": 3
+}

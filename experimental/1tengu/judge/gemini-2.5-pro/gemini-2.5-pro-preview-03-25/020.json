@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"search_company\",\n    \"properties\": {\n      \"keyword\": \"医療関係の会社\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "0",
+      "reasoning": "ユーザーの意図である「株価を比べて分析したい」を達成するためには、会社検索、シンボル取得、株価取得の3つのツールが必要です。しかし、モデルは`search_company`しか選択しておらず、`get_stock_symbol`と`get_stock_price`が欠けています。"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "0",
+      "reasoning": "必要なツールが1つしか選択されていないため、正しい順番でツールを呼び出すことができていません。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "`search_company`の引数として`keyword`に\"医療関係の会社\"を指定しており、ユーザーの意図を正しく汲み取れています。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "`search_company`の引数のキーとして`keyword`を正しく使用できています。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "出力は有効なJSON形式です。"
+    }
+  },
+  "summary": "JSON形式は正しく、`search_company`ツールの選択と引数の設定は適切です。しかし、ユーザーの最終的な目的である「株価の比較分析」を達成するために必要な`get_stock_symbol`と`get_stock_price`ツールが完全に欠落しており、複数のツールを連携させるという指示の核心部分を実行できていません。そのため、全体として評価は低くなります。",
+  "score": 4
+}

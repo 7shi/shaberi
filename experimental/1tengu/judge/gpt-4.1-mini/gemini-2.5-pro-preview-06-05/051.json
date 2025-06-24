@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。\n以下に、丁寧さの度合いに応じていくつかの英語翻訳案を提示します。状況に合わせて使い分けてください。\n\n---\n\n### パターン1（標準的・フォーマル）\n\n最も一般的で、どのような相手にも使える丁寧な表現です。\n\n**Subject: Investigation Report on a Customer Claim**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the results of our investigation into the claimed product returned by the customer. The details are as follows.\n\nPlease review the findings.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン2（少し簡潔な表現）\n\n社内のやり取りで、より簡潔に伝えたい場合に適しています。\n\n**Subject: Report on Returned Product Claim**\n\nHi Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nPlease find the investigation results for the customer's claim product below.\n\nWe would appreciate your confirmation.\n\nRegards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン3（より丁寧な表現）\n\n特に丁寧さが求められる場合や、フォーマルな報告書として送る場合に適しています。\n\n**Subject: Formal Report: Investigation of the Customer Claim Product**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nThis email is to formally report the findings of our investigation concerning the product that was returned by a customer under a claim. The results are detailed below.\n\nYour review and confirmation of this report would be highly appreciated.\n\nSincerely,\n\nSuzuki\nAdministration Department\n\n---\n\n### ポイント\n\n*   **件名 (Subject):** `Investigation Report` (調査報告), `Customer Claim` (顧客クレーム) などのキーワードを入れると内容が分かりやすくなります。\n*   **お疲れ様です:** 英語のビジネスメールでは、`Hi` や `Dear` の後、すぐに本題に入ることが一般的です。\n*   **ご検収のほど:** `Please review` (内容をご確認ください), `Please check` (ご確認ください), `We would appreciate your confirmation` (ご確認いただけますと幸いです) などが使えます。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "複数のパターンで英語圏のビジネスメールの書き方を丁寧に説明し、件名の重要性や挨拶の違いなどを解説しており、日英のメール文化の違いを十分に考慮している。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "3",
+      "reasoning": "原文の内容を複数のパターンで丁寧に英訳しているが、原文の「お疲れ様です」や「管理部の鈴木です」などの挨拶表現を英語のビジネスメールに適した形で自然に訳している。ただし、原文の「ご検収のほどよろしくお願い申し上げます」を複数の表現で示しているが、翻訳文自体はやや簡潔で、完全に過不足なくとは言い切れないため満点は避けた。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "提示された英語文はどれも自然でビジネスメールとして適切な表現であり、文法的にも問題がない。"
+    }
+  },
+  "summary": "モデルの回答は、英語圏のビジネスメールの書き方の違いを詳細に説明し、複数の翻訳パターンを示すことで非常に丁寧かつ実用的な内容となっている。原文の内容もほぼ過不足なく訳されており、自然な英語表現であるため、高評価に値する。ただし、翻訳文が複数提示されているため、単一の翻訳としての完結性にやや欠ける点を考慮し、原文内容の過不足は満点ではない。全体として非常に優れた回答である。",
+  "score": 9
+}

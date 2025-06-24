@@ -1,0 +1,23 @@
+{
+  "answer": "```json\n{\n  \"name\": \"switch_airconditioner\",\n  \"properties\": {\n    \"switch\": true,\n    \"temperature\": 25\n  }\n}\n```",
+  "evaluation": {
+    "'switch_airconditioner'のツールを選択している": {
+      "points": "4",
+      "reasoning": "質問内容の「暑すぎて汗が止まらない」という文脈から、エアコンをつけるという判断が適切であり、正しく`switch_airconditioner`を選択できている。"
+    },
+    "propertiesの中の'temperature'の設定した値が冷房として適切な温度である(20~28度程度)": {
+      "points": "3",
+      "reasoning": "設定温度が25度であり、評価項目の基準である20~28度の範囲内であるため。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "2",
+      "reasoning": "properties内の引数名が`switch`と`temperature`であり、ツールの定義と一致しているため。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "出力は正しいJSON形式であるため。"
+    }
+  },
+  "summary": "モデルの回答は、質問の意図を完全に理解し、適切なツールと引数を選択しています。JSON形式も正しく、すべての評価項目で満点を獲得しており、正解例と遜色ない完璧な回答です。",
+  "score": 10
+}

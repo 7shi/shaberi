@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"search_company\",\n    \"properties\": {\n      \"keyword\": \"医療\"\n    }\n  },\n  {\n    \"name\": \"get_stock_symbol\",\n    \"properties\": {\n      \"company_name\": \"（search_companyの結果から得られた会社名）\"\n    }\n  },\n  {\n    \"name\": \"get_stock_price\",\n    \"properties\": {\n      \"symbol\": \"（get_stock_symbolの結果から得られた株式シンボル）\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "3",
+      "reasoning": "search_company、get_stock_symbol、get_stock_priceの3つのツールすべてが使用されているため満点。"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "3",
+      "reasoning": "search_company → get_stock_symbol → get_stock_priceの順番で正しく選択されている。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "各関数の引数の説明が正しく、search_companyのkeyword、get_stock_symbolのcompany_name、get_stock_priceのsymbolが適切に使われている。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "すべての引数キー名が仕様通り正しい。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "JSON形式として正しく、構文エラーもない。"
+    }
+  },
+  "summary": "モデルの回答は、すべての指定されたツールを正しい順序で使用し、引数の説明やキー名も正確であり、JSON形式も正しい。したがって、評価項目すべてにおいて満点を獲得している。",
+  "score": 10
+}

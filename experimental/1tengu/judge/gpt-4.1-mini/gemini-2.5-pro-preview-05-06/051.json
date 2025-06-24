@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。以下に英語のメール文案を作成しました。\n\n---\n\n**Subject: Investigation Report on Returned Defective Product**\n\nDear Mr./Ms. Tanaka,\nSales Department\n\nThis is Suzuki from the Administration Department.\n\nRegarding the defective product returned by the customer, we would like to report the investigation results as follows:\n\n[ここに調査結果を記載 / Please insert the investigation results here]\n\nWe kindly ask for your review and confirmation.\n\nThank you for your attention to this matter.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n**ポイント：**\n\n*   **Mr./Ms. Tanaka:** 相手の性別が不明な場合や、より現代的な表現として \"Ms.\" を使うことも一般的です。もしフルネームが分かれば、Mr./Ms. [Last Name] の形がより丁寧です。\n*   **\"Regarding the defective product returned by the customer...\"**: 「お客さまからご返却いただきましたクレーム品」の部分を具体的に表現しました。\"complaint product\" としても良いでしょう。\n*   **\"...we would like to report the investigation results as follows:\"**: 「調査結果を下記の通りご報告させていただきます」という丁寧な依頼のニュアンスです。\n*   **\"We kindly ask for your review and confirmation.\"**: 「ご検収のほどよろしくお願い申し上げます」の部分です。\"Please review the following.\" や \"Your review would be appreciated.\" なども可能です。\n*   **\"Thank you for your attention to this matter.\"**: 一般的なビジネスメールの結びの言葉です。\n\nご希望に応じて調整いたしますので、お気軽にお申し付けください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "英語圏のビジネスメールの形式に沿っており、件名の追加や丁寧な表現が適切に使われているため、書き方の違いを十分に考慮している。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "原文の全ての重要な内容（挨拶、自己紹介、調査結果の報告、検収依頼、結びの挨拶）が過不足なく含まれている。調査結果の具体的内容は挿入箇所として明示されており、原文の意図を損なっていない。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "全体的に自然で丁寧な英語表現が使われており、ビジネスメールとして適切である。"
+    }
+  },
+  "summary": "モデルの回答は日本語圏と英語圏のメールの書き方の違いを十分に考慮し、原文の内容を過不足なく訳している。英語表現も自然で丁寧なビジネスメールとして適切であり、高品質な翻訳である。",
+  "score": 10
+}
