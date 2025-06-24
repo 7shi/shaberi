@@ -2,7 +2,7 @@
 
 ## 概要
 
-`score_tool.py`は、Shaberi評価フレームワークの構造化出力評価結果から、evaluator/model組み合わせごとのスコア統計を集計し、TOML形式で出力するツールです。tengu.pyで生成された評価結果ディレクトリから個別のスコアデータを読み込み、統合されたスコア集計ファイルを生成します。
+`score_tool.py`は、Shaberi評価フレームワークの評価結果から、ベンチマーク別・evaluator/model組み合わせごとのスコア統計を集計し、YAML形式で出力するツールです。新形式の構造化出力（`1tengu/`, `2elyza/`, `3mt/`）と従来のJSONL形式の両方に対応し、ベンチマーク分類による統合されたスコア集計ファイルを生成します。
 
 ## 背景
 
@@ -10,18 +10,36 @@
 
 Shaberi評価フレームワークでは、評価結果が以下のような階層的ディレクトリ構造で管理されています：
 
+**新形式**（ベンチマーク別）:
 ```
-1tengu/
-└── judge/
-    ├── gemini-2.5-flash/           # 評価者モデル
-    │   ├── gemini-2.5-pro/         # 被評価モデル
-    │   │   ├── 001.json            # タスク1の評価結果
-    │   │   ├── 002.json            # タスク2の評価結果
-    │   │   └── ...                 # 120タスク分
-    │   └── claude-3-5-sonnet/
-    │       └── ...
-    └── gemini-2.5-pro/
-        └── ...
+1tengu/                             # Tengu Bench
+├── gemini-2.5-flash/               # 評価者モデル
+│   ├── gemini-2.5-pro/             # 被評価モデル
+│   │   ├── 001.json                # タスク1の評価結果
+│   │   ├── 002.json                # タスク2の評価結果
+│   │   └── ...                     # 120タスク分
+│   └── claude-3-5-sonnet/
+│       └── ...
+└── gemini-2.5-pro/
+    └── ...
+
+2elyza/                             # ELYZA-tasks-100
+├── gemini-2.5-flash/
+│   └── ...
+
+3mt/                                # MT-Bench
+├── gemini-2.5-flash/
+│   └── ...
+```
+
+**従来形式**:
+```
+../data/judgements/
+├── judge_gemini-2.5-flash/
+│   ├── lightblue__tengu_bench/
+│   │   └── model.json              # JSONL形式
+│   └── elyza__ELYZA-tasks-100/
+│       └── model.json
 ```
 
 この構造では、各組み合わせのスコア統計を把握するために：
@@ -79,28 +97,38 @@ for json_file in sorted(base_path.glob("*.json")):
     with open(json_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
     score = data.get('score', 0)
-    scores.append(score)
+    scores.append(int(score))  # 整数として処理
 ```
 
 **特徴**:
 - ファイル名順（001.json → 120.json）での読み込み
-- `score`フィールドからの直接取得
+- `score`フィールドからの直接取得（整数変換）
 - エラー耐性（欠損時は0として扱う）
 
-### 3. TOML形式での統合出力
+### 3. YAML形式でのベンチマーク分類出力
 
 **出力形式**:
-```toml
-["evaluator/model"]
-total = 合計スコア
-scores = [タスク1スコア, タスク2スコア, ...]
+```yaml
+benchmark_name:
+  evaluator/model:
+    total: 合計スコア
+    scores: [タスク1スコア, タスク2スコア, ...]  # インライン配列形式で簡潔表示
 ```
 
 **具体例**:
-```toml
-["gemini-2.5-flash/gemini-2.5-pro"]
-total = 1061
-scores = [10, 10, 10, 10, 10, 10, 7, 10, 10, 10, ...]
+```yaml
+lightblue/tengu_bench:
+  gemini-2.5-flash/gemini-2.5-pro:
+    total: 1061
+    scores: [10, 10, 10, 10, 10, 10, 7, 10, 10, 10, 8, 9, 10, 5, 10, 10, 10, 10, 7, 10, ...]
+  gemini-2.5-flash/claude-3-5-sonnet:
+    total: 1055
+    scores: [9, 10, 8, 10, 10, 10, 6, 9, 10, 10, 7, 8, 10, 4, 10, 10, 9, 10, 6, 9, ...]
+
+elyza/ELYZA-tasks-100:
+  gemini-2.5-flash/gemini-2.5-pro:
+    total: 485
+    scores: [5, 4, 5, 4, 5, 5, 3, 4, 5, 5, 4, 5, 4, 3, 5, 5, 4, 5, 3, 4, ...]
 ```
 
 ### 4. 増分更新機能
@@ -108,24 +136,28 @@ scores = [10, 10, 10, 10, 10, 10, 7, 10, 10, 10, ...]
 **目的**: 既存の集計結果に新しいデータを追加・更新
 
 **処理フロー**:
-1. 既存の`scores.toml`ファイルを読み込み（存在する場合）
-2. 新しいevaluator/model組み合わせのデータを集計
-3. 既存データに統合（上書き・追加）
-4. 更新されたTOMLファイルを保存
+1. 既存の`scores.yaml`ファイルを読み込み（存在する場合）
+2. 新しいベンチマーク/evaluator/model組み合わせのデータを集計
+3. 既存データに統合（ベンチマーク別に上書き・追加）
+4. 更新されたYAMLファイルを保存
 
 **利点**:
 - 段階的なデータ蓄積が可能
 - 既存の評価結果を保護
 - 新しい組み合わせの追加が効率的
 
-### 5. スコア降順ソート機能
+### 5. ベンチマーク別スコア降順ソート機能
 
-**目的**: モデル性能の比較を容易にする
+**目的**: ベンチマーク別のモデル性能比較を容易にする
 
 **実装**:
 ```python
-# スコア（total）の降順でソート
-sorted_items = sorted(toml_data.items(), key=lambda x: x[1]['total'], reverse=True)
+# 各ベンチマーク内でスコア（total）の降順でソート
+for benchmark_name in sorted(yaml_data.keys()):
+    benchmark_data = yaml_data[benchmark_name]
+    sorted_items = sorted(benchmark_data.items(), 
+                        key=lambda x: x[1]['total'], reverse=True)
+    sorted_yaml_data[benchmark_name] = dict(sorted_items)
 ```
 
 **効果**:
@@ -133,21 +165,23 @@ sorted_items = sorted(toml_data.items(), key=lambda x: x[1]['total'], reverse=Tr
 - ファイル出力とコンソール表示の両方で適用
 - 性能ランキングが一目で把握可能
 
-### 6. 表示専用機能
+### 6. ベンチマーク別表示機能
 
 **目的**: 既存の集計結果の確認
 
 **実装**:
 ```python
-def display_scores(output_file='scores.toml'):
-    # TOMLファイルを読み込み、統計情報を表示
+def display_scores(output_file='scores.yaml'):
+    # YAMLファイルを読み込み、ベンチマーク別統計情報を表示
     # 平均スコア（avg）も計算
 ```
 
 **表示内容**:
 - 総組み合わせ数
-- 各組み合わせの詳細統計（1行形式: `{total}/{tasks}={avg:.2f} {dir_name}`）
-- スコア降順での一覧表示
+- ベンチマーク別グループ表示
+- 各組み合わせの詳細統計（1行形式: `{total}/{tasks}={avg:.2f} {benchmark}/{evaluator/model}`）
+- 各ベンチマーク内でスコア降順一覧
+- スコアは整数として表示（例：`1035/120=8.62`）
 
 ### 7. 従来評価結果ファイル対応
 
@@ -162,15 +196,22 @@ def display_scores(output_file='scores.toml'):
 - `judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro.json`の形式でdir名生成
 - JSONL形式（1行1JSON）からスコア抽出
 
-### 8. 複数パス一括処理
+### 8. 新しいオプション体系による自動スキャン
 
-**目的**: 効率的な大量データ処理
+**目的**: ベンチマーク別の効率的な自動データ収集
 
-**機能**:
-- 引数での複数パス指定（`paths1 path2 path3 ...`）
-- ファイル/ディレクトリの自動判定
-- エラー耐性（1つのパスでエラーが発生しても他を継続処理）
-- 統合結果の一括保存
+**新オプション体系**:
+- `-s`: 全ベンチマークから自動収集
+- `-s0`: 従来形式のみ (`-j0`)
+- `-s1`: Tengu Benchのみ (`-j1`)
+- `-s2`: ELYZA-tasks-100のみ (`-j2`)
+- `-s3`: MT-Benchのみ (`-j3`)
+
+**ディレクトリオプション**:
+- `-j0`: 従来形式 (デフォルト: `../data/judgements`)
+- `-j1`: Tengu Bench (デフォルト: `1tengu`)
+- `-j2`: ELYZA-tasks-100 (デフォルト: `2elyza`)
+- `-j3`: MT-Bench (デフォルト: `3mt`)
 
 ## 使用方法
 
@@ -181,37 +222,45 @@ def display_scores(output_file='scores.toml'):
 uv run score_tool.py
 
 # カスタム出力ファイルの表示
-uv run score_tool.py -o my_scores.toml
+uv run score_tool.py -o my_scores.yaml
 
-# 単一の組み合わせを集計
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
+# 全ベンチマークから自動収集して集計
+uv run score_tool.py -s
 
-# 従来の評価結果ファイル（JSONL）を集計
-uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/gemini-2.5-pro.json
+# 特定のベンチマークのみから収集
+uv run score_tool.py -s0  # 従来形式のみ
+uv run score_tool.py -s1  # Tengu Benchのみ
+uv run score_tool.py -s2  # ELYZA-tasks-100のみ
+uv run score_tool.py -s3  # MT-Benchのみ
 
-# 複数パスの一括集計
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro 1tengu/judge/gemini-2.5-flash/claude-3-5-sonnet
-
-# 新旧ファイル形式の混在処理
-uv run score_tool.py ../data/judgements/judge_*/lightblue__tengu_bench/gemini-2.5-pro.json 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
+# カスタムディレクトリから収集
+uv run score_tool.py -s1 -j1 /custom/tengu
+uv run score_tool.py -s2 -j2 /custom/elyza
 ```
 
-### 複数ファイル形式対応
+### ベンチマーク別収集の詳細
 
 ```bash
-# 構造化出力結果ディレクトリ（1tengu/judge/evaluator/model/）
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
+# Tengu Benchのみ収集（新形式）
+uv run score_tool.py -s1
+# → 1tengu/ ディレクトリから evaluator/model を自動検索
 
-# 従来の評価結果ファイル（../data/judgements/judge_evaluator/dataset/model.json）
-uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/gemini-2.5-pro.json
+# ELYZA-tasks-100のみ収集（新形式）
+uv run score_tool.py -s2
+# → 2elyza/ ディレクトリから evaluator/model を自動検索
 
-# 複数パスの一括処理
-uv run score_tool.py path1 path2 path3 ...
+# MT-Benchのみ収集（新形式）
+uv run score_tool.py -s3
+# → 3mt/ ディレクトリから evaluator/model を自動検索
+
+# 従来形式のみ収集
+uv run score_tool.py -s0
+# → ../data/judgements/judge_*/dataset/model.json を自動検索
 
 # 段階的集計（既存ファイルに追加）
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
-uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
-# → scores.tomlに両方の結果が蓄積される
+uv run score_tool.py -s1  # Tengu Benchを追加
+uv run score_tool.py -s2  # ELYZA-tasks-100を追加
+# → scores.yamlに両方の結果がベンチマーク別に蓄積される
 ```
 
 ### 出力例
@@ -221,65 +270,93 @@ uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_
 uv run score_tool.py
 ```
 ```
-スコア統計表示: scores.toml
-総組み合わせ数: 10
+スコア統計表示: scores.yaml
+総組み合わせ数: 15
 --------------------------------------------------------------------------------
-1097/120=9.14 judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-03-25.json
-1094/120=9.12 judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-06-05.json
-1088/120=9.07 gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-03-25
-1083/120=9.03 gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-06-05
-1082/120=9.02 judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro.json
-1082/120=9.02 judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-05-06.json
-1076/120=8.97 gemini-2.5-flash/gemini-2.5-pro-preview-06-05
-1074/120=8.95 gemini-2.5-flash/gemini-2.5-pro-preview-03-25
+[lightblue/tengu_bench]
+  1097/120=9.14 gemini-2.5-flash/gemini-2.5-pro
+  1094/120=9.12 gemini-2.5-flash/claude-3-5-sonnet
+  1088/120=9.07 gemini-2.5-pro/gemini-2.5-pro
+
+[elyza/ELYZA-tasks-100]
+  485/100=4.85 gemini-2.5-flash/gemini-2.5-pro
+  480/100=4.80 gemini-2.5-flash/claude-3-5-sonnet
+
+[shisa-ai/ja-mt-bench-1shot]
+  585/60=9.75 gemini-2.5-flash/gemini-2.5-pro
+  580/60=9.67 gemini-2.5-flash/claude-3-5-sonnet
 ```
 
 **集計実行時のコンソール出力**:
 ```bash
-# 単一ファイル処理
-uv run score_tool.py ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/gemini-2.5-pro.json
+# Tengu Benchのみ収集
+uv run score_tool.py -s1
 ```
 ```
-評価結果ファイルを集計中: ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/gemini-2.5-pro.json
-スコア集計結果を scores.toml に保存しました
-更新された組み合わせ: 1
-ファイル内の総組み合わせ数: 10
+1tengu から 8 個のTengu Bench評価結果ディレクトリを発見
+評価結果ディレクトリを集計中: 1tengu/gemini-2.5-flash/gemini-2.5-pro
+評価結果ディレクトリを集計中: 1tengu/gemini-2.5-flash/claude-3-5-sonnet
+...
+合計 8 組み合わせを処理しました
+スコア集計結果を scores.yaml に保存しました
+更新された組み合わせ: 8
+ファイル内の総組み合わせ数: 8
 --------------------------------------------------------------------------------
-1097/120=9.14 judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-03-25.json
-1094/120=9.12 judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-06-05.json
-1082/120=9.02 judge_gemini-2.5-flash/gemini-2.5-pro.json
-...（降順で全組み合わせ表示）
+[lightblue/tengu_bench]
+  1097/120=9.14 gemini-2.5-flash/gemini-2.5-pro
+  1094/120=9.12 gemini-2.5-flash/claude-3-5-sonnet
+  ...
 ```
 
-**複数パス処理**:
+**全ベンチマーク処理**:
 ```bash
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
+uv run score_tool.py -s
 ```
 ```
-評価結果ディレクトリを集計中: 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
-評価結果ファイルを集計中: ../data/judgements/judge_gemini-2.5-flash/lightblue__tengu_bench/claude-3-5-sonnet.json
-合計 2 組み合わせを処理しました
-スコア集計結果を scores.toml に保存しました
-更新された組み合わせ: 2
-ファイル内の総組み合わせ数: 12
-...（統合結果表示）
+../data/judgements から 15 個の従来形式評価結果ファイルを発見
+1tengu から 8 個のTengu Bench評価結果ディレクトリを発見
+2elyza から 6 個のELYZA-tasks-100評価結果ディレクトリを発見
+3mt から 4 個のMT-Bench評価結果ディレクトリを発見
+合計 33 組み合わせを処理しました
+スコア集計結果を scores.yaml に保存しました
+更新された組み合わせ: 33
+ファイル内の総組み合わせ数: 33
+--------------------------------------------------------------------------------
+[lightblue/tengu_bench]
+  1097/120=9.14 gemini-2.5-flash/gemini-2.5-pro
+  1094/120=9.12 gemini-2.5-flash/claude-3-5-sonnet
+
+[elyza/ELYZA-tasks-100]
+  485/100=4.85 gemini-2.5-flash/gemini-2.5-pro
+  480/100=4.80 gemini-2.5-flash/claude-3-5-sonnet
+
+[shisa-ai/ja-mt-bench-1shot]
+  585/60=9.75 gemini-2.5-flash/gemini-2.5-pro
+  580/60=9.67 gemini-2.5-flash/claude-3-5-sonnet
 ```
 
-**scores.tomlファイル（スコア降順ソート）**:
-```toml
-["judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-03-25.json"]
-total = 1097
-scores = [10, 10, 10, 10, 10, 10, 7, 2, 10, 4, ...]
+**scores.yamlファイル（ベンチマーク別・スコア降順ソート）**:
+```yaml
+lightblue/tengu_bench:
+  gemini-2.5-flash/gemini-2.5-pro:
+    total: 1097
+    scores: [10, 10, 10, 10, 10, 10, 7, 2, 10, 4, 8, 9, 10, 5, 10, 10, 10, 10, 7, 10, 8, 9, 10, 5, 10, 10, ...]
+  gemini-2.5-flash/claude-3-5-sonnet:
+    total: 1094
+    scores: [10, 10, 10, 10, 10, 10, 7, 3, 10, 5, 7, 8, 10, 4, 10, 10, 9, 10, 6, 9, 7, 8, 10, 4, 10, 10, ...]
 
-["gemini-2.5-flash-preview-05-20/gemini-2.5-pro-preview-03-25"]
-total = 1088
-scores = [10, 10, 10, 10, 10, 10, 7, 3, 10, 5, ...]
+elyza/ELYZA-tasks-100:
+  gemini-2.5-flash/gemini-2.5-pro:
+    total: 485
+    scores: [5, 4, 5, 4, 5, 5, 3, 4, 5, 5, 4, 5, 4, 3, 5, 5, 4, 5, 3, 4, 5, 4, 5, 4, 5, 5, ...]
+  gemini-2.5-flash/claude-3-5-sonnet:
+    total: 480
+    scores: [5, 4, 4, 4, 5, 5, 3, 4, 5, 4, 3, 4, 4, 3, 5, 5, 3, 5, 2, 4, 5, 4, 4, 4, 5, 5, ...]
 
-["judge_gemini-2.5-flash/gemini-2.5-pro.json"]
-total = 1082
-scores = [10, 10, 10, 10, 10, 10, 7, 10, 10, 10, ...]
-
-...（スコア降順で全組み合わせ）
+shisa-ai/ja-mt-bench-1shot:
+  gemini-2.5-flash/gemini-2.5-pro:
+    total: 585
+    scores: [10, 10, 9, 10, 10, 10, 8, 9, 10, 10, 9, 8, 10, 7, 10, 10, 9, 10, 8, 9, 10, 10, 9, 8, 10, 7, ...]
 ```
 
 ## 技術仕様
@@ -288,8 +365,8 @@ scores = [10, 10, 10, 10, 10, 10, 7, 10, 10, 10, ...]
 
 **必須ライブラリ**:
 ```bash
-# TOML読み込み（Python 3.10以前のみ）
-pip install tomli  # Python 3.11+では組み込みtomllib使用
+# YAML読み書き
+uv add pyyaml
 ```
 
 **内部モジュール**:
@@ -309,11 +386,12 @@ pip install tomli  # Python 3.11+では組み込みtomllib使用
 }
 ```
 
-**出力（TOML形式）**:
-```toml
-["evaluator/model"]
-total = 合計点数
-scores = [個別スコア配列]
+**出力（YAML形式）**:
+```yaml
+benchmark_name:
+  evaluator/model:
+    total: 合計点数
+    scores: [個別スコア配列]  # インライン配列形式で大幅に圧縮
 ```
 
 ### エラーハンドリング
@@ -323,7 +401,11 @@ scores = [個別スコア配列]
 - JSONファイル不存在: 警告表示、スコア0として扱う
 - JSON解析エラー: 警告表示、スコア0として扱う
 
-**TOML関連エラー**:
+**データ型処理**:
+- スコア値は整数に変換（`int(score)`）して処理
+- 浮動小数点数での保存を防止し、表示時の一貫性を確保
+
+**YAML関連エラー**:
 - 既存ファイル読み込み失敗: 警告表示、新規作成
 - ファイル書き込み失敗: エラー表示、処理中断
 
@@ -333,39 +415,38 @@ scores = [個別スコア配列]
 
 ```bash
 # 複数モデルの評価結果を集計
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gemini-2.5-pro
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/claude-3-5-sonnet
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/gpt-4o
+uv run score_tool.py -s1  # Tengu Benchのみ
+uv run score_tool.py -s2  # ELYZA-tasks-100のみ
+uv run score_tool.py -s3  # MT-Benchのみ
 
-# scores.tomlから平均スコア、標準偏差を分析
+# scores.yamlからベンチマーク別の平均スコア、標準偏差を分析
 ```
 
 ### 2. 評価者一貫性の検証
 
 ```bash
-# 同一モデルを異なる評価者で評価
-uv run score_tool.py 1tengu/judge/gemini-2.5-flash/target-model
-uv run score_tool.py 1tengu/judge/gemini-2.5-pro/target-model
-uv run score_tool.py 1tengu/judge/claude-3-5-sonnet/target-model
+# 全ベンチマークから同一モデルの評価結果を収集
+uv run score_tool.py -s
 
-# 評価者間のスコア分布を比較
+# scores.yamlから同一モデルの評価者間・ベンチマーク間のスコア分布を比較
 ```
 
 ### 3. タスク別難易度分析
 
-TOMLファイルから`scores`配列を分析することで：
+YAMLファイルの各ベンチマークから`scores`配列を分析することで：
 - **易しいタスク**: 多くのモデルが高スコア
 - **難しいタスク**: 多くのモデルが低スコア
 - **識別力の高いタスク**: モデル間でスコア差が大きい
+- **ベンチマーク間の難易度比較**: 同一モデルのベンチマーク間スコア差
 
 ### 4. 継続的評価監視
 
 ```bash
 # 新しい評価結果の追加
-uv run score_tool.py 1tengu/judge/new-evaluator/new-model
+uv run score_tool.py -s  # 全ベンチマークを再収集
 
-# 既存のscores.tomlに自動統合
-# 履歴的な性能追跡が可能
+# 既存のscores.yamlに自動統合
+# ベンチマーク別の履歴的性能追跡が可能
 ```
 
 ## 関連ファイル
@@ -375,8 +456,9 @@ uv run score_tool.py 1tengu/judge/new-evaluator/new-model
 - **validate_schema.py**: 評価結果の品質保証
 
 ### 設定ファイル
-- **scores.toml**: 出力される統合スコアファイル
-- **pyproject.toml**: tomli-w等の依存関係定義
+- **scores.yaml**: 出力される統合スコアファイル
+- **pyproject.toml**: PyYAML等の依存関係定義
+- **evaluation_datasets_config.py**: ベンチマーク定義とマッピング
 
 ### ドキュメント
 - **tengu.md**: 構造化出力評価システムの詳細
@@ -407,10 +489,11 @@ uv run score_tool.py 1tengu/judge/new-evaluator/new-model
 `score_tool.py`は、Shaberi評価フレームワークの構造化出力評価結果を効率的に集計・統合するための重要なツールです。
 
 **主要価値**:
-- **効率化**: 120個のJSONファイルの手動集計を自動化
-- **標準化**: TOML形式による統一的なデータ表現
-- **拡張性**: 増分更新による段階的データ蓄積
-- **分析支援**: 統計分析・可視化の基盤データ提供
+- **効率化**: 複数ベンチマークの大量JSONファイル手動集計を自動化
+- **標準化**: YAML形式によるベンチマーク分類データ表現
+- **拡張性**: ベンチマーク別増分更新による段階的データ蓄積
+- **分析支援**: ベンチマーク横断的な統計分析・可視化の基盤データ提供
+- **新形式対応**: 1tengu/, 2elyza/, 3mt/の新ディレクトリ構造に完全対応
 
 **適用効果**:
 - 評価結果の迅速な把握
