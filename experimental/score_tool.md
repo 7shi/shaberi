@@ -217,7 +217,7 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
 - `-o, --output`: 表示するファイル名（デフォルト: scores.yaml）
 
 **removeコマンドの削除オプション**:
-- `pattern`: 削除対象パターン（項目名の部分一致、複数指定でAND条件）（必須）
+- `pattern`: 削除対象パターン（項目名の部分一致、複数指定でAND条件）（任意）
 - `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
 - `-f, --force`: 確認なしで削除を実行
 - `-o, --output`: 対象ファイル名（デフォルト: scores.yaml）
@@ -304,8 +304,9 @@ uv run score_tool.py add --elyza 2elyza     # ELYZA-tasks-100を追加
 # → scores.yamlに両方の結果がベンチマーク別に蓄積される
 
 # 特定のエントリを削除
-uv run score_tool.py remove "gemini-2.0-flash"                          # 全ベンチマークから項目名の部分一致
-uv run score_tool.py remove "judge_gpt" "gemini"                        # AND条件：judge_gptとgeminiの両方を含む項目
+uv run score_tool.py remove "gemini-2.0-flash"    # 全ベンチマークから項目名の部分一致
+uv run score_tool.py remove "judge_gpt" "gemini"  # AND条件：judge_gptとgeminiの両方を含む項目
+uv run score_tool.py remove -b "lightblue/tengu_bench"                   # 指定ベンチマーク全体を削除
 uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini" --force  # 指定ベンチマーク内での部分一致
 ```
 

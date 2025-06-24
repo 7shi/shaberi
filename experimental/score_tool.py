@@ -242,12 +242,17 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
             print(f"Warning: {output_file} にデータがありません")
             return True
         
-        # パターンフィルタリングが指定されている場合
-        if patterns:
+        # パターンフィルタリングまたはベンチマーク指定がある場合
+        if patterns or benchmark:
+            # patternsが空の場合は空リストとして扱う
+            patterns = patterns or []
             matches = find_matching_entries(yaml_data, patterns, benchmark)
             if not matches:
-                pattern_str = "', '".join(patterns)
-                print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+                if patterns:
+                    pattern_str = "', '".join(patterns)
+                    print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+                else:
+                    print(f"ベンチマーク '{benchmark}' が見つかりません")
                 return True
             
             # マッチしたエントリのみでYAMLデータを再構築
@@ -394,6 +399,11 @@ def cmd_remove(args):
     """
     指定された前方一致パターンに基づいてエントリを削除する
     """
+    # パターンが空でベンチマークも指定されていない場合はエラー
+    if not args.pattern and not args.benchmark:
+        print("Error: 削除対象のパターンまたはベンチマークを指定してください")
+        return 1
+    
     if not os.path.exists(args.output):
         print(f"Error: {args.output} が存在しません")
         return 1
@@ -413,12 +423,14 @@ def cmd_remove(args):
     to_remove = find_matching_entries(yaml_data, args.pattern, args.benchmark)
     
     if not to_remove:
-        pattern_str = "', '".join(args.pattern)
-        print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+        if args.pattern:
+            pattern_str = "', '".join(args.pattern)
+            print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+        else:
+            print(f"ベンチマーク '{args.benchmark}' が見つかりません")
         return 0
     
-    # 確認表示（ベンチマーク別にグループ化）
-    print(f"以下 {len(to_remove)} 個のエントリを削除します:")
+    # 削除対象データの準備（ベンチマーク別にグループ化）
     grouped_remove = {}
     for benchmark_name, evaluator_model, full_path in to_remove:
         if benchmark_name not in grouped_remove:
@@ -434,15 +446,14 @@ def cmd_remove(args):
         for total, tasks, avg, evaluator_model in grouped_remove[benchmark_name]:
             print(f"  {total:4d}/{tasks}={avg:.2f} {evaluator_model}")
     
+    print()
+    print(f"{len(to_remove)} 個のエントリを削除します。")
+    
     # 確認プロンプト（--force オプションがない場合）
     if not args.force:
-        try:
-            response = input("\n削除を実行しますか? (y/N): ").strip().lower()
-            if response not in ['y', 'yes']:
-                print("削除をキャンセルしました")
-                return 0
-        except KeyboardInterrupt:
-            print("\n削除をキャンセルしました")
+        response = input("削除を実行しますか? (y/N): ").strip().lower()
+        if response.strip().lower() not in ['y', 'yes']:
+            print("削除をキャンセルしました")
             return 0
     
     # 削除実行
@@ -634,6 +645,7 @@ def main():
     # 部分一致パターンでエントリを削除
     uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
     uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
+    uv run score_tool.py remove -b "lightblue/tengu_bench"            # 指定ベンチマーク全体を削除
     uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
     
     # 全てのデフォルトパスから自動収集して集計
@@ -682,7 +694,7 @@ def main():
     remove_parser = subparsers.add_parser('remove', help='部分一致パターンでエントリを削除')
     remove_parser.add_argument(
         'pattern',
-        nargs='+',
+        nargs='*',
         help='削除対象パターン（項目名の部分一致、複数指定でAND条件）'
     )
     remove_parser.add_argument(
