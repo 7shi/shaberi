@@ -175,7 +175,7 @@ elif re.match(r'-.+$', line):
 ### 実行コマンド
 ```bash
 cd experimental
-python check_criteria.py
+uv run check_criteria.py
 ```
 
 ### 前提条件

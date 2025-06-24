@@ -115,13 +115,13 @@ uv run totals_to_csv.py --encoding cp932 -o totals_cp932.csv
 #### `merge_csv.py` - CSVファイルマージツール
 ```bash
 # 2つのCSVファイルをマージ
-python merge_csv.py file1.csv file2.csv -o merged.csv
+uv run merge_csv.py file1.csv file2.csv -o merged.csv
 
 # 複数ファイルを一度にマージ
-python merge_csv.py *.csv -o all_results.csv
+uv run merge_csv.py *.csv -o all_results.csv
 
 # 標準出力に結果を表示
-python merge_csv.py file1.csv file2.csv
+uv run merge_csv.py file1.csv file2.csv
 ```
 - 異なる列順序を持つCSVファイルを列名ベースで統合
 - 重複行の自動除去（同じモデル名の場合、最初の出現を保持）

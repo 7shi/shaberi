@@ -77,8 +77,7 @@ Shaberi（しゃべり）は日本語LLMの評価フレームワークで、複�
 ## 使用方法
 
 ```bash
-cd experimental
-python dump_questions.py
+uv run dump_questions.py
 ```
 
 ### 前提条件

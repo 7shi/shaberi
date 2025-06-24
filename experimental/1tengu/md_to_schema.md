@@ -227,7 +227,7 @@ JSONスキーマを使用した構造化出力により、これらの問題を�
 ### 実行コマンド
 ```bash
 cd experimental
-python md_to_schema.py
+uv run md_to_schema.py
 ```
 
 ### 前提条件

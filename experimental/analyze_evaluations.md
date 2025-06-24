@@ -113,8 +113,7 @@ except Exception as e:
 ### 基本実行
 
 ```bash
-cd experimental
-python analyze_evaluations.py
+uv run analyze_evaluations.py
 ```
 
 ### 前提条件

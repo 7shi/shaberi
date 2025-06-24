@@ -51,19 +51,19 @@ gemini-2.5-pro-preview-03-25,9.141666666666667,9.833333333333334,9.5,9.491666666
 ### 基本的な使用例
 
 ```bash
-python merge_csv.py file1.csv file2.csv -o merged.csv
+uv run merge_csv.py file1.csv file2.csv -o merged.csv
 ```
 
 ### 複数ファイルのマージ
 
 ```bash
-python merge_csv.py *.csv -o all_results.csv
+uv run merge_csv.py *.csv -o all_results.csv
 ```
 
 ### 標準出力への出力
 
 ```bash
-python merge_csv.py file1.csv file2.csv
+uv run merge_csv.py file1.csv file2.csv
 ```
 
 ### コマンドライン引数
@@ -74,7 +74,7 @@ python merge_csv.py file1.csv file2.csv
 ## 実行例
 
 ```bash
-$ python merge_csv.py 0.csv 1.csv -o merged.csv
+$ uv run merge_csv.py 0.csv 1.csv -o merged.csv
 Loaded 0.csv: 11 rows, columns: ['', 'ELYZA-tasks-100', 'MT-Bench', 'Tengu-Bench', 'mean', 'weighted_mean']
 Loaded 1.csv: 4 rows, columns: ['', 'Tengu-Bench', 'MT-Bench', 'ELYZA-tasks-100', 'mean', 'weighted_mean']
 Merged result: 13 rows, columns: ['', 'ELYZA-tasks-100', 'MT-Bench', 'Tengu-Bench', 'mean', 'weighted_mean']
@@ -118,14 +118,14 @@ gemini-2.5-pro-preview-05-06,9.24,9.9,9.06666666666667,9.40222222222222,9.307142
 
 ```bash
 # 異なる時期に生成された評価結果を統合
-python merge_csv.py results_2024_01.csv results_2024_02.csv -o quarterly_results.csv
+uv run merge_csv.py results_2024_01.csv results_2024_02.csv -o quarterly_results.csv
 ```
 
 ### ベンチマーク結果の比較
 
 ```bash
 # 異なるベンチマークセットの結果を統合
-python merge_csv.py elyza_results.csv mt_bench_results.csv tengu_results.csv -o comprehensive_eval.csv
+uv run merge_csv.py elyza_results.csv mt_bench_results.csv tengu_results.csv -o comprehensive_eval.csv
 ```
 
 ## 関連ファイル

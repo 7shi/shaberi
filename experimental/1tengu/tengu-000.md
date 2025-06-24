@@ -116,13 +116,13 @@ tengu-000.py
 
 ```bash
 # デフォルトモデル（Gemini 2.5 Flash）で実行
-python tengu-000.py
+uv run tengu-000.py
 
 # OpenAI GPT-4.1-miniで実行
-python tengu-000.py -m gpt-4.1-mini
+uv run tengu-000.py -m gpt-4.1-mini
 
 # 別のGeminiモデルで実行
-python tengu-000.py -m gemini-2.5-pro
+uv run tengu-000.py -m gemini-2.5-pro
 ```
 
 ### コマンドラインオプション

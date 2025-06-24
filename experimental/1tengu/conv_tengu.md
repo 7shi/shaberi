@@ -106,7 +106,7 @@ data/
 ### 実行コマンド
 ```bash
 cd experimental
-python conv_tengu.py
+uv run conv_tengu.py
 ```
 
 ### 前提条件
