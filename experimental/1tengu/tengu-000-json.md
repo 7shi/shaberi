@@ -24,39 +24,105 @@
 [評価するモデルの回答]
 「急がば回れ」とは、物事を急いで進めるよりも、慎重に計画を立てて行動する方が結果が良くなるという意味のことわざです。つまり、無駄なミスやトラブルを避けるためには、急いで手を打つのではなく、ゆっくりと計画を練り、周囲をよく考えて行動することが大切だということを教えています。急いで物事を進めようとして失敗してしまうよりも、手間と時間をかけてじっくりと準備をする方が結果的に効率的で成功する可能性が高いという教訓を持つ言葉です。
 
-## 以下の構造化された形式で回答してください。
+## 以下のスキーマに従って構造化された形式で回答してください。
 
 ```json
 {
-  "evaluation": {
-    "本来の意味について説明している": {
-      "satisfied": boolean,
-      "points": number,
-      "reasoning": "string"
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "本来の意味について説明している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": ["0", "1", "2", "3"],
+              "description": "Points assigned (0-3 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": ["points", "reasoning"]
+        },
+        "一般化した意味について説明している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": ["0", "1", "2", "3"],
+              "description": "Points assigned (0-3 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": ["points", "reasoning"]
+        },
+        "ことわざであることを示している": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": ["0", "1", "2"],
+              "description": "Points assigned (0-2 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": ["points", "reasoning"]
+        },
+        "説明は具体的でわかりやすい": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": ["0", "1"],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": ["points", "reasoning"]
+        },
+        "自然な日本語である": {
+          "type": "object",
+          "properties": {
+            "points": {
+              "type": "string",
+              "enum": ["0", "1"],
+              "description": "Points assigned (0-1 scale based on how well this criterion is met)"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "Brief explanation in Japanese of why this score was assigned"
+            }
+          },
+          "required": ["points", "reasoning"]
+        }
+      },
+      "required": [
+        "本来の意味について説明している",
+        "一般化した意味について説明している", 
+        "ことわざであることを示している",
+        "説明は具体的でわかりやすい",
+        "自然な日本語である"
+      ]
     },
-    "一般化した意味について説明している": {
-      "satisfied": boolean,
-      "points": number,
-      "reasoning": "string"
-    },
-    "ことわざであることを示している": {
-      "satisfied": boolean,
-      "points": number,
-      "reasoning": "string"
-    },
-    "説明は具体的でわかりやすい": {
-      "satisfied": boolean,
-      "points": number,
-      "reasoning": "string"
-    },
-    "自然な日本語である": {
-      "satisfied": boolean,
-      "points": number,
-      "reasoning": "string"
+    "summary": {
+      "type": "string",
+      "description": "Overall assessment summary in Japanese of the model's answer"
     }
   },
-  "total_score": number,
-  "summary": "string"
+  "required": ["evaluation", "summary"]
 }
 ```
 
@@ -66,32 +132,28 @@
 {
   "evaluation": {
     "本来の意味について説明している": {
-      "satisfied": false,
-      "points": 0,
-      "reasoning": "回り道や確実で安全な道を通るという本来の意味について言及していない"
+      "points": "1",
+      "reasoning": "「急いで物事を進めようとして失敗してしまうよりも、手間と時間をかけてじっくりと準備をする方が結果的に効率的で成功する可能性が高い」という説明は、本来の「回り道で確実な道を通った方が結局は早く着ける」というニュアンスを完全に捉えきれていません。回り道という具体的な表現がなく、抽象的な説明に留まっています。"
     },
     "一般化した意味について説明している": {
-      "satisfied": true,
-      "points": 3,
-      "reasoning": "慎重に計画を立てて行動する方が結果が良くなるという一般化した意味を説明している"
+      "points": "3",
+      "reasoning": "「物事を急いで進めるよりも、慎重に計画を立てて行動する方が結果が良くなる」という一般化した意味を明確に説明しており、非常に適切です。"
     },
     "ことわざであることを示している": {
-      "satisfied": true,
-      "points": 2,
-      "reasoning": "「ことわざです」と明記している"
+      "points": "2",
+      "reasoning": "「…という意味のことわざです」と明記されており、ことわざであることが明確に示されています。"
     },
     "説明は具体的でわかりやすい": {
-      "satisfied": true,
-      "points": 1,
-      "reasoning": "言い換えや具体例を用いて詳しく説明している"
+      "points": "1",
+      "reasoning": "説明は具体的で、読者が理解しやすいように工夫されています。"
     },
     "自然な日本語である": {
-      "satisfied": true,
-      "points": 1,
-      "reasoning": "文法的に正しく、自然な日本語で記述されている"
+      "points": "1",
+      "reasoning": "全体的に自然な日本語で書かれており、不自然な表現は見られません。"
     }
   },
-  "total_score": 7,
-  "summary": "一般化した意味とことわざであることは正しく説明されているが、本来の「回り道」の意味が欠落している"
+  "summary": "モデルの回答は、「急がば回れ」の一般化された意味と、それがことわざであることを明確に説明できています。しかし、本来の「回り道を選んだ方が結果的に早く目的地に着く」という具体的なニュアンスが不足しており、抽象的な説明に留まっている点が改善の余地があります。全体的には分かりやすく、自然な日本語で書かれています。"
 }
 ```
+
+合計点数: 8/10点

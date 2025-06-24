@@ -25,6 +25,7 @@ YYYYMMDD-{category}-{description}.md
 ### 評価システム設計
 - [**20250619-evaluations.md**](20250619-evaluations.md): Tengu Benchmark評価結果の詳細分析と比較
 - [**20250619-schema.md**](20250619-schema.md): 構造化出力システムの設計と実装手順
+- [**20250625-structured-output.md**](20250625-structured-output.md): 構造化出力による評価品質向上の実証分析
 
 ### 開発・運用ガイド
 - [**20250620-git-exclude-files.md**](20250620-git-exclude-files.md): Gitの特定コミットからファイルを除外する手順
