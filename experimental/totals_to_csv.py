@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 評価結果を集計してCSVファイルに出力するスクリプト
-使用方法: python totals_to_csv.py [データディレクトリ] [-o 出力ファイル]
+使用方法: python totals_to_csv.py [評価者モデル名] [-j 評価結果ディレクトリ] [-o 出力ファイル | -d 出力ディレクトリ]
 """
 
 import argparse
@@ -11,60 +11,16 @@ from pathlib import Path
 import pandas as pd
 
 
-def main():
-    parser = argparse.ArgumentParser(description='評価結果を集計してCSVファイルに出力')
-    parser.add_argument('data_dir', nargs='?', default='./data/judgements',
-                        help='評価結果のディレクトリまたはJSONファイル (デフォルト: ./data/judgements)')
-    parser.add_argument('-o', '--output', dest='output_file', default=None,
-                        help='出力CSVファイル (デフォルト: 入力JSONのbasename.csv)')
-    parser.add_argument('--encoding', default='utf-8',
-                        help='出力エンコーディング (デフォルト: utf-8)')
-    args = parser.parse_args()
-    
-    # デフォルトの出力ファイル名を設定
-    if args.output_file is None:
-        data_path = Path(args.data_dir)
-        if data_path.is_file() and data_path.suffix == '.json':
-            # JSONファイルのbasenameから.csvファイル名を生成
-            args.output_file = data_path.stem + '.csv'
-        else:
-            # ディレクトリ名から.csvファイル名を生成
-            args.output_file = data_path.name + '.csv'
-
-    # データセット名のマッピング
-    eval_dataset_dict = {
-        "elyza__ELYZA-tasks-100": "ELYZA-tasks-100",
-        # "yuzuai__rakuda-questions": "Rakuda",
-        "lightblue__tengu_bench": "Tengu-Bench",
-        "shisa-ai__ja-mt-bench-1shot": "MT-Bench",
-    }
-
-    # 評価結果ファイルの収集
-    data_path = Path(args.data_dir)
-    
-    if not data_path.exists():
-        print(f"エラー: ディレクトリ {args.data_dir} が存在しません", file=sys.stderr)
-        sys.exit(1)
-    
-    # rglobで再帰的にJSONファイルを検索
-    model_result_paths = list(data_path.rglob("*.json"))
+def process_judge_model(judge_dir, eval_dataset_dict, weights):
+    """特定の評価者モデルのディレクトリを処理"""
+    model_result_paths = list(judge_dir.rglob("*.json"))
     
     if not model_result_paths:
-        print(f"エラー: {args.data_dir} 内にJSONファイルが見つかりません", file=sys.stderr)
-        sys.exit(1)
+        return None
     
-    # 見つかったファイルを表示
-    print(f"\n見つかったJSONファイル数: {len(model_result_paths)}")
-    print("ファイル一覧:")
-    for path in sorted(model_result_paths):
-        print(f"  {path}")
-    print()
-
     # 全結果を読み込み
     all_result_dfs = []
     for model_result_path in model_result_paths:
-        # Pathオブジェクトをstrに変換してから処理
-        path_str = str(model_result_path)
         parts = model_result_path.parts
         
         # ディレクトリ構造から情報を抽出（最低3階層必要）
@@ -86,8 +42,7 @@ def main():
             print(f"警告: {model_result_path} の読み込みに失敗: {e}", file=sys.stderr)
 
     if not all_result_dfs:
-        print("エラー: 有効な評価結果が見つかりません", file=sys.stderr)
-        sys.exit(1)
+        return None
 
     # データフレームを結合
     all_result_df = pd.concat(all_result_dfs)
@@ -112,14 +67,6 @@ def main():
     if 'ELYZA-tasks-100' in eval_res_df.columns:
         eval_res_df['ELYZA-tasks-100'] = eval_res_df['ELYZA-tasks-100'] * 2
 
-    # データセットごとの重み
-    weights = {
-        # "Rakuda": 40,
-        "Tengu-Bench": 120,
-        "MT-Bench": 60,
-        "ELYZA-tasks-100": 100
-    }
-
     # 単純平均
     eval_res_df['mean'] = eval_res_df.mean(axis=1)
 
@@ -138,20 +85,123 @@ def main():
 
     # 重み付け平均でソート
     eval_res_df = eval_res_df.sort_values(by='weighted_mean', ascending=False)
+    
+    return eval_res_df
 
-    # 出力ディレクトリの作成
-    output_dir = os.path.dirname(args.output_file)
-    if output_dir and not os.path.exists(output_dir):
-        os.makedirs(output_dir)
 
-    # CSVで保存
-    try:
-        with open(args.output_file, mode="w", encoding=args.encoding, errors="ignore", newline="") as f:
-            eval_res_df.to_csv(f, index=True)
-        print(f"結果を {args.output_file} に保存しました")
-    except Exception as e:
-        print(f"エラー: ファイルの保存に失敗: {e}", file=sys.stderr)
+def main():
+    parser = argparse.ArgumentParser(description='評価結果を集計してCSVファイルに出力')
+    parser.add_argument('judge_model', nargs='?', default=None,
+                        help='評価者モデル名 (例: gpt-4.1-mini)')
+    parser.add_argument('-j', '--judgements-dir', default='../data/judgements',
+                        help='評価結果のベースディレクトリ (デフォルト: ../data/judgements)')
+    parser.add_argument('-o', '--output', dest='output_file', default=None,
+                        help='出力CSVファイル (評価者モデル指定時のみ有効)')
+    parser.add_argument('-d', '--output-dir', default='judge',
+                        help='出力ディレクトリ (デフォルト: judge/)')
+    parser.add_argument('--encoding', default='utf-8',
+                        help='出力エンコーディング (デフォルト: utf-8)')
+    args = parser.parse_args()
+    
+    # -oと-dの同時指定チェック
+    if args.output_file and args.judge_model is None:
+        print("エラー: -o/--outputは評価者モデルを指定した場合のみ使用できます", file=sys.stderr)
         sys.exit(1)
+    
+    # -oと-dの同時指定チェック
+    if args.output_file and args.output_dir != 'judge':
+        print("エラー: -o/--outputと-d/--output-dirは同時に指定できません", file=sys.stderr)
+        sys.exit(1)
+
+    # データセット名のマッピング
+    eval_dataset_dict = {
+        "elyza__ELYZA-tasks-100": "ELYZA-tasks-100",
+        # "yuzuai__rakuda-questions": "Rakuda",
+        "lightblue__tengu_bench": "Tengu-Bench",
+        "shisa-ai__ja-mt-bench-1shot": "MT-Bench",
+    }
+
+    # データセットごとの重み
+    weights = {
+        # "Rakuda": 40,
+        "Tengu-Bench": 120,
+        "MT-Bench": 60,
+        "ELYZA-tasks-100": 100
+    }
+
+    judgements_path = Path(args.judgements_dir)
+    if not judgements_path.exists():
+        print(f"エラー: ディレクトリ {args.judgements_dir} が存在しません", file=sys.stderr)
+        sys.exit(1)
+
+    if args.judge_model:
+        # 特定の評価者モデルの処理
+        judge_dir = judgements_path / f"judge_{args.judge_model}"
+        if not judge_dir.exists():
+            print(f"エラー: ディレクトリ {judge_dir} が存在しません", file=sys.stderr)
+            sys.exit(1)
+        
+        print(f"評価者モデル: {args.judge_model}")
+        print(f"探索ディレクトリ: {judge_dir}")
+        
+        eval_res_df = process_judge_model(judge_dir, eval_dataset_dict, weights)
+        if eval_res_df is None:
+            print(f"エラー: {judge_dir} 内に有効な評価結果が見つかりません", file=sys.stderr)
+            sys.exit(1)
+        
+        # 出力ファイル名の決定
+        if args.output_file:
+            output_file = args.output_file
+        else:
+            output_file = Path(args.output_dir) / f"{args.judge_model}.csv"
+        
+        # 出力ディレクトリの作成
+        output_dir = os.path.dirname(output_file)
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+
+        # CSVで保存
+        try:
+            with open(output_file, mode="w", encoding=args.encoding, errors="ignore", newline="") as f:
+                eval_res_df.to_csv(f, index=True)
+            print(f"結果を {output_file} に保存しました")
+        except Exception as e:
+            print(f"エラー: ファイルの保存に失敗: {e}", file=sys.stderr)
+            sys.exit(1)
+    
+    else:
+        # 全評価者モデルの処理
+        judge_dirs = [d for d in judgements_path.iterdir() if d.is_dir() and d.name.startswith("judge_")]
+        
+        if not judge_dirs:
+            print(f"エラー: {judgements_path} 内にjudge_で始まるディレクトリが見つかりません", file=sys.stderr)
+            sys.exit(1)
+        
+        print(f"見つかった評価者モデル: {len(judge_dirs)}")
+        
+        # 出力ディレクトリの作成
+        output_dir = Path(args.output_dir)
+        if not output_dir.exists():
+            output_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 各評価者モデルを処理
+        for judge_dir in sorted(judge_dirs):
+            judge_model_name = judge_dir.name[6:]  # "judge_"を削除
+            print(f"\n処理中: {judge_model_name}")
+            
+            eval_res_df = process_judge_model(judge_dir, eval_dataset_dict, weights)
+            if eval_res_df is None:
+                print(f"警告: {judge_dir} 内に有効な評価結果が見つかりません", file=sys.stderr)
+                continue
+            
+            output_file = output_dir / f"{judge_model_name}.csv"
+            
+            try:
+                with open(output_file, mode="w", encoding=args.encoding, errors="ignore", newline="") as f:
+                    eval_res_df.to_csv(f, index=True)
+                print(f"結果を {output_file} に保存しました")
+            except Exception as e:
+                print(f"エラー: {output_file} の保存に失敗: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":

@@ -14,17 +14,22 @@
 
 ### 1. コマンドライン引数対応
 ```bash
-python experimental/totals_to_csv.py [データディレクトリ] [-o 出力ファイル] [--encoding エンコーディング]
+uv run totals_to_csv.py [評価者モデル名] [-j 評価結果ディレクトリ] [-o 出力ファイル | -d 出力ディレクトリ]
 ```
 
-- **データディレクトリ**: 評価結果を含むディレクトリ（デフォルト: `./data/judgements`）
-- **-o, --output**: 集計結果の出力先（デフォルト: 入力ディレクトリ名.csv）
+- **評価者モデル名**: 処理する評価者モデル（例: `gpt-4.1-mini`）。省略時は全評価者を処理
+- **-j, --judgements-dir**: 評価結果のベースディレクトリ（デフォルト: `../data/judgements`）
+- **-o, --output**: 出力CSVファイル（評価者モデル指定時のみ有効）
+- **-d, --output-dir**: 出力ディレクトリ（デフォルト: `judge/`）
 - **--encoding**: 出力エンコーディング（デフォルト: `utf-8`）
 
-### 1.1 出力ファイル名の自動生成
-- 出力ファイル名を指定しない場合、入力パスから自動生成
-- ディレクトリの場合: `ディレクトリ名.csv`
-- JSONファイルの場合: `ファイル名.csv`（拡張子を置換）
+### 1.1 動作モード
+- **特定評価者モード**: 評価者モデル名を指定した場合、`judgements_dir/judge_評価者モデル名`を探索
+- **全評価者モード**: 評価者モデル名を省略した場合、`judgements_dir`内の全`judge_*`ディレクトリを探索し、評価者ごとに別々のCSVファイルを出力
+
+### 1.2 エラーチェック
+- `-o`と`-d`の同時指定はエラー
+- 評価者モデル未指定時の`-o`指定はエラー
 
 ### 2. 再帰的ファイル検索
 - `pathlib.Path.rglob()`を使用して、指定ディレクトリ以下の全JSONファイルを再帰的に検索
@@ -43,24 +48,32 @@ python experimental/totals_to_csv.py [データディレクトリ] [-o 出力フ
 
 ### 基本的な使用
 ```bash
-# デフォルト設定で実行（totals.csvに出力）
-python experimental/totals_to_csv.py
+# 全評価者モデルを処理（judge/ディレクトリに各評価者のCSVを出力）
+uv run totals_to_csv.py
 
-# カスタムディレクトリを指定（ディレクトリ名.csvに自動出力）
-python experimental/totals_to_csv.py ./data/judgements/judge_gemini-2.5-flash
-# → judge_gemini-2.5-flash.csvに出力
+# 特定の評価者モデルを処理（judge/gpt-4.1-mini.csvに出力）
+uv run totals_to_csv.py gpt-4.1-mini
 
-# 出力ファイルも指定
-python experimental/totals_to_csv.py ./data/judgements -o ./output/summary.csv
+# 出力ファイルを指定（評価者モデル指定時のみ）
+uv run totals_to_csv.py gpt-4.1-mini -o results/gpt4-mini-results.csv
+
+# 別のjudgementsディレクトリを指定
+uv run totals_to_csv.py -j ./data/experimental_judgements
+
+# 出力ディレクトリを変更（全評価者モード時）
+uv run totals_to_csv.py -d results/all-judges
 
 # CP932エンコーディングで出力（Windows Excel用）
-python experimental/totals_to_csv.py --encoding cp932 -o totals_cp932.csv
+uv run totals_to_csv.py gemini-2.5-flash --encoding cp932
 ```
 
 ### 実験的な評価結果の集計
 ```bash
-# 実験用ディレクトリの結果を集計
-python experimental/totals_to_csv.py ./experimental/eval_results -o experimental_totals.csv
+# 実験用ディレクトリの特定評価者を集計
+uv run totals_to_csv.py gpt-4.1-mini -j ./data/experimental_judgements
+
+# 実験用ディレクトリの全評価者を集計
+uv run totals_to_csv.py -j ./data/experimental_judgements -d experimental_results
 ```
 
 ## 処理フロー
@@ -84,25 +97,22 @@ python experimental/totals_to_csv.py ./experimental/eval_results -o experimental
 
 ## オリジナルとの互換性
 
-デフォルトのデータディレクトリは同じですが、出力ファイルのデフォルトが異なります：
-- オリジナル版: `results/totals.csv`
-- 改修版: `入力パス名.csv`（カレントディレクトリ）
+改修版は大幅に仕様が変更されています：
 
-### 出力ファイル名のデフォルト動作例
+### 主な変更点
+- **引数の意味**: 第1引数がデータディレクトリから評価者モデル名に変更
+- **デフォルトディレクトリ**: `./data/judgements` → `../data/judgements`
+- **出力方式**: 単一CSVファイル → 評価者ごとに個別のCSVファイル
+- **出力先**: `results/totals.csv` → `judge/評価者モデル名.csv`
+
+### 新しい動作
 ```bash
-# データディレクトリ未指定 → totals.csv
-python experimental/totals_to_csv.py
+# 全評価者を処理 → judge/内に複数のCSVファイル
+uv run totals_to_csv.py
 
-# 特定のディレクトリ指定 → ディレクトリ名.csv
-python experimental/totals_to_csv.py ./data/judgements/judge_gpt-4
-# → judge_gpt-4.csv
+# 特定の評価者を処理 → judge/gpt-4.1-mini.csv
+uv run totals_to_csv.py gpt-4.1-mini
 
-# JSONファイル指定 → ファイル名.csv
-python experimental/totals_to_csv.py ./results/model_eval.json
-# → model_eval.csv
-```
-
-オリジナルと同じ場所に出力したい場合：
-```bash
-python experimental/totals_to_csv.py -o results/totals.csv
+# カスタム出力先（評価者指定時のみ）
+uv run totals_to_csv.py gpt-4.1-mini -o results/custom.csv
 ```
