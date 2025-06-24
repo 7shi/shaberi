@@ -171,9 +171,9 @@ for benchmark_name in sorted(yaml_data.keys()):
 
 **実装**:
 ```python
-def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
+def display_scores(output_file='scores.yaml', patterns=None, benchmark=None, exclude_patterns=None):
     # YAMLファイルを読み込み、ベンチマーク別統計情報を表示
-    # パターンマッチングによるフィルタリング対応
+    # パターンマッチングによるフィルタリング対応（包含・除外の両方）
     # 平均スコア（avg）も計算
 ```
 
@@ -186,6 +186,7 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
 
 **フィルタリング機能**:
 - パターン指定による部分一致検索（複数パターンのAND条件）
+- 除外パターン指定による逆マッチング（grep -v相当、複数指定可能）
 - ベンチマーク指定による範囲限定
 - `find_matching_entries`共通関数を使用してremoveコマンドと同じ検索ロジックを共有
 
@@ -214,11 +215,13 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
 **listコマンドの表示オプション**:
 - `pattern`: 表示対象パターン（項目名の部分一致、複数指定でAND条件）（任意）
 - `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
+- `-v, --exclude PATTERN`: 除外パターン（grep -v相当、複数指定可能）
 - `-o, --output`: 表示するファイル名（デフォルト: scores.yaml）
 
 **removeコマンドの削除オプション**:
 - `pattern`: 削除対象パターン（項目名の部分一致、複数指定でAND条件）（任意）
 - `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
+- `-v, --exclude PATTERN`: 除外パターン（grep -v相当、複数指定可能）
 - `-f, --force`: 確認なしで削除を実行
 - `-o, --output`: 対象ファイル名（デフォルト: scores.yaml）
 
@@ -253,6 +256,8 @@ uv run score_tool.py list                                         # 全エント
 uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
 uv run score_tool.py list "judge_gpt" "gemini"                    # judge_gptとgeminiの両方を含むエントリのみ表示
 uv run score_tool.py list -b "lightblue/tengu_bench" "gemini"     # 指定ベンチマーク内でgeminiを含むエントリのみ表示
+uv run score_tool.py list "gemini-2.5-pro" -v "preview"           # gemini-2.5-proを含み、previewを含まないエントリ
+uv run score_tool.py list "gemini" -v "preview" -v "lite"         # geminiを含み、previewとliteを含まないエントリ
 
 # カスタム出力ファイルの表示
 uv run score_tool.py list -o my_scores.yaml
@@ -261,6 +266,7 @@ uv run score_tool.py list -o my_scores.yaml
 uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
 uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
 uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
+uv run score_tool.py remove "gemini" -v "preview" -v "lite"       # geminiを含み、previewとliteを含まないエントリを削除
 
 # 全デフォルトパスから自動収集して集計
 uv run score_tool.py add
@@ -349,6 +355,21 @@ uv run score_tool.py list "gemini"
 
 [shisa-ai/ja-mt-bench-1shot]
  585/60=9.75 judge_gemini-2.5-flash/gemini-2.5-pro.json
+
+総組み合わせ数: 4
+```
+
+**除外パターンによるフィルタリング**:
+```bash
+# gemini-2.5-proを含み、previewを除外
+uv run score_tool.py list -b "lightblue/tengu_bench" "gemini-2.5-pro" -v "preview"
+```
+```
+[lightblue/tengu_bench]
+1111/120=9.26 judge_gpt-4.1-mini/gemini-2.5-pro.json
+1091/120=9.09 judge_gemini-2.0-flash/gemini-2.5-pro.json
+1087/120=9.06 judge_gemini-2.5-pro/gemini-2.5-pro.json
+1082/120=9.02 judge_gemini-2.5-flash/gemini-2.5-pro.json
 
 総組み合わせ数: 4
 ```
@@ -543,6 +564,7 @@ uv run score_tool.py add  # 全ベンチマークを再収集
 - **拡張性**: ベンチマーク別増分更新による段階的データ蓄積
 - **分析支援**: ベンチマーク横断的な統計分析・可視化の基盤データ提供
 - **新形式対応**: 1tengu/, 2elyza/, 3mt/の新ディレクトリ構造に完全対応
+- **直感的フィルタリング**: grep風の除外パターン指定による柔軟なデータ抽出
 
 **適用効果**:
 - 評価結果の迅速な把握

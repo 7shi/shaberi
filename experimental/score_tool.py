@@ -221,7 +221,7 @@ def extract_scores_from_jsonl_file(file_path):
     return results
 
 
-def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
+def display_scores(output_file='scores.yaml', patterns=None, benchmark=None, exclude_patterns=None):
     """
     既存のYAMLファイルからスコア統計を表示
     
@@ -229,6 +229,7 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
         output_file (str): YAMLファイルのパス
         patterns (list): 表示対象のパターンリスト（AND条件）
         benchmark (str): 指定したベンチマーク名、省略時は全ベンチマークを対象
+        exclude_patterns (list): 除外パターンのリスト（grep -v相当）
     """
     if not os.path.exists(output_file):
         print(f"Error: {output_file} が存在しません")
@@ -243,14 +244,20 @@ def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
             return True
         
         # パターンフィルタリングまたはベンチマーク指定がある場合
-        if patterns or benchmark:
+        if patterns or benchmark or exclude_patterns:
             # patternsが空の場合は空リストとして扱う
             patterns = patterns or []
-            matches = find_matching_entries(yaml_data, patterns, benchmark)
+            matches = find_matching_entries(yaml_data, patterns, benchmark, exclude_patterns)
             if not matches:
-                if patterns:
-                    pattern_str = "', '".join(patterns)
-                    print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+                if patterns or exclude_patterns:
+                    desc_parts = []
+                    if patterns:
+                        pattern_str = "', '".join(patterns)
+                        desc_parts.append(f"パターン '{pattern_str}'")
+                    if exclude_patterns:
+                        exclude_str = "', '".join(exclude_patterns)
+                        desc_parts.append(f"除外パターン '{exclude_str}'")
+                    print(f"{' および '.join(desc_parts)} に一致するエントリが見つかりません")
                 else:
                     print(f"ベンチマーク '{benchmark}' が見つかりません")
                 return True
@@ -358,11 +365,12 @@ def cmd_list(args):
     """
     patterns = getattr(args, 'pattern', None)
     benchmark = getattr(args, 'benchmark', None)
-    success = display_scores(args.output, patterns, benchmark)
+    exclude_patterns = getattr(args, 'exclude', None)
+    success = display_scores(args.output, patterns, benchmark, exclude_patterns)
     return 0 if success else 1
 
 
-def find_matching_entries(yaml_data, patterns, benchmark=None):
+def find_matching_entries(yaml_data, patterns, benchmark=None, exclude_patterns=None):
     """
     指定されたパターンに基づいてエントリを検索する共通関数
     
@@ -370,25 +378,35 @@ def find_matching_entries(yaml_data, patterns, benchmark=None):
         yaml_data (dict): YAMLデータ
         patterns (list): 検索パターンのリスト（AND条件）
         benchmark (str): 指定したベンチマーク名、省略時は全ベンチマークを対象
+        exclude_patterns (list): 除外パターンのリスト（AND条件、grep -v相当）
         
     Returns:
         list: マッチした(benchmark_name, evaluator_model, full_path)のリスト
     """
+    exclude_patterns = exclude_patterns or []
     matches = []
     for benchmark_name, benchmark_data in yaml_data.items():
         if benchmark:
             # 指定したベンチマーク内で部分一致検索
             if benchmark_name == benchmark:
                 for evaluator_model in benchmark_data.keys():
-                    # 全パターンがevaluator_modelに含まれる場合のみマッチ（AND条件）
-                    if all(pattern in evaluator_model for pattern in patterns):
+                    # 包含パターンマッチング（AND条件）
+                    include_match = all(pattern in evaluator_model for pattern in patterns) if patterns else True
+                    # 除外パターンマッチング（AND条件）- いずれかが含まれていれば除外
+                    exclude_match = any(pattern in evaluator_model for pattern in exclude_patterns) if exclude_patterns else False
+                    
+                    if include_match and not exclude_match:
                         full_path = f"{benchmark_name}/{evaluator_model}"
                         matches.append((benchmark_name, evaluator_model, full_path))
         else:
             # 全ベンチマークから項目名での部分一致検索
             for evaluator_model in benchmark_data.keys():
-                # 全パターンがevaluator_modelに含まれる場合のみマッチ（AND条件）
-                if all(pattern in evaluator_model for pattern in patterns):
+                # 包含パターンマッチング（AND条件）
+                include_match = all(pattern in evaluator_model for pattern in patterns) if patterns else True
+                # 除外パターンマッチング（AND条件）- いずれかが含まれていれば除外
+                exclude_match = any(pattern in evaluator_model for pattern in exclude_patterns) if exclude_patterns else False
+                
+                if include_match and not exclude_match:
                     full_path = f"{benchmark_name}/{evaluator_model}"
                     matches.append((benchmark_name, evaluator_model, full_path))
     
@@ -399,9 +417,10 @@ def cmd_remove(args):
     """
     指定された前方一致パターンに基づいてエントリを削除する
     """
-    # パターンが空でベンチマークも指定されていない場合はエラー
-    if not args.pattern and not args.benchmark:
-        print("Error: 削除対象のパターンまたはベンチマークを指定してください")
+    # パターンが空でベンチマークも除外パターンも指定されていない場合はエラー
+    exclude_patterns = getattr(args, 'exclude', None)
+    if not args.pattern and not args.benchmark and not exclude_patterns:
+        print("Error: 削除対象のパターン、ベンチマーク、または除外パターンを指定してください")
         return 1
     
     if not os.path.exists(args.output):
@@ -420,12 +439,18 @@ def cmd_remove(args):
         return 0
     
     # 削除対象を検索
-    to_remove = find_matching_entries(yaml_data, args.pattern, args.benchmark)
+    to_remove = find_matching_entries(yaml_data, args.pattern, args.benchmark, exclude_patterns)
     
     if not to_remove:
-        if args.pattern:
-            pattern_str = "', '".join(args.pattern)
-            print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+        if args.pattern or exclude_patterns:
+            desc_parts = []
+            if args.pattern:
+                pattern_str = "', '".join(args.pattern)
+                desc_parts.append(f"パターン '{pattern_str}'")
+            if exclude_patterns:
+                exclude_str = "', '".join(exclude_patterns)
+                desc_parts.append(f"除外パターン '{exclude_str}'")
+            print(f"{' および '.join(desc_parts)} に一致するエントリが見つかりません")
         else:
             print(f"ベンチマーク '{args.benchmark}' が見つかりません")
         return 0
@@ -641,12 +666,14 @@ def main():
     uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
     uv run score_tool.py list "judge_gpt" "gemini"                    # judge_gptとgeminiの両方を含むエントリのみ表示
     uv run score_tool.py list -b "lightblue/tengu_bench" "gemini"     # 指定ベンチマーク内でgeminiを含むエントリのみ表示
+    uv run score_tool.py list -b "lightblue/tengu_bench" "gemini-2.5-pro" -v "preview"  # gemini-2.5-proを含み、previewを含まないエントリ
     
     # 部分一致パターンでエントリを削除
     uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
     uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
     uv run score_tool.py remove -b "lightblue/tengu_bench"            # 指定ベンチマーク全体を削除
     uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
+    uv run score_tool.py remove "gemini" -v "preview" -v "lite"       # geminiを含み、previewとliteを含まないエントリを削除
     
     # 全てのデフォルトパスから自動収集して集計
     uv run score_tool.py add
@@ -685,6 +712,12 @@ def main():
         help='指定したベンチマーク内でpatternの部分一致検索を実行'
     )
     list_parser.add_argument(
+        '-v', '--exclude',
+        action='append',
+        metavar='PATTERN',
+        help='除外パターン（grep -v相当、複数指定可能）'
+    )
+    list_parser.add_argument(
         '-o', '--output',
         default='scores.yaml',
         help='表示するファイル名 (デフォルト: scores.yaml)'
@@ -701,6 +734,12 @@ def main():
         '-b', '--benchmark',
         metavar='BENCHMARK',
         help='指定したベンチマーク内でpatternの部分一致検索を実行'
+    )
+    remove_parser.add_argument(
+        '-v', '--exclude',
+        action='append',
+        metavar='PATTERN',
+        help='除外パターン（grep -v相当、複数指定可能）'
     )
     remove_parser.add_argument(
         '-f', '--force',
