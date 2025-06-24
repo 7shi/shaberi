@@ -4,6 +4,8 @@
 
 このディレクトリには、Shaberi評価フレームワークをFew-shot形式から構造化出力（JSONスキーマ）形式に移行するための実験的ツール群が含まれています。
 
+**注**: このREADMEでは各ツールの代表的なコマンド例のみを掲載しています。詳細な使用方法やオプションについては、各ツールのドキュメント（`{tool_name}.md`）を参照してください。
+
 ## ファイル構成
 
 実際にはexperimental/直下に多数のファイルが存在しますが、ここでは主要なサブディレクトリ構造のみ示します：
@@ -33,7 +35,7 @@ experimental/
 - （今後実装予定）
 
 **集計・分析**
-- **score_tool.py** - 評価結果からスコア統計を集計しTOML形式で出力
+- **score_tool.py** - 評価結果からスコア統計を集計しYAML形式で出力（list/add/remove サブコマンド対応）
 - **totals_to_csv.py** - 複数の評価結果を集計してCSVファイルに出力（改修版）
 - **merge_csv.py** - 異なる列順序を持つCSVファイルをマージ（列名ベース統合）
 
@@ -75,42 +77,34 @@ uv run dump_questions.py
 
 #### `score_tool.py` - スコア集計・統合ツール
 ```bash
-# 単一組み合わせの集計
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
+# 既存の集計結果を表示
+uv run score_tool.py list
+uv run score_tool.py list "gemini"         # パターンマッチングで表示
 
-# カスタム出力ファイル
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro -o my_scores.toml
+# エントリの削除
+uv run score_tool.py remove "gemini-2.0-flash"  # 部分一致で削除
 
-# 複数組み合わせの段階的集計
-uv run score_tool.py 1tengu/gemini-2.5-flash/gemini-2.5-pro
-uv run score_tool.py 1tengu/gemini-2.5-flash/claude-3-5-sonnet
-# → scores.tomlに自動統合
+# 全デフォルトパスから自動収集して集計
+uv run score_tool.py add
+
+# 特定のディレクトリのみから収集
+uv run score_tool.py add --tengu 1tengu    # Tengu Benchのみ
 ```
-- 評価結果ディレクトリからスコア統計を集計
-- TOML形式での統合データ出力
-- 増分更新による段階的データ蓄積
-- モデル性能比較・分析の基盤データ提供
+- サブコマンド形式（`list`/`add`/`remove`）による直感的な操作
+- パターンマッチングによる柔軟な表示・削除機能
+- 評価結果からスコア統計を集計してYAML形式で出力
+- **詳細な使用方法は[score_tool.md](score_tool.md)を参照**
 
-#### `totals_to_csv.py` - 評価結果CSV集計ツール（改修版）
+#### `totals_to_csv.py` - 評価結果CSV集計ツール
 ```bash
-# デフォルト設定で実行（totals.csvに出力）
+# デフォルト設定で実行
 uv run totals_to_csv.py
 
-# カスタムディレクトリを指定（ディレクトリ名.csvに自動出力）
+# カスタムディレクトリを指定
 uv run totals_to_csv.py ./data/judgements/judge_gemini-2.5-flash
-# → judge_gemini-2.5-flash.csvに出力
-
-# 出力ファイルも指定
-uv run totals_to_csv.py ./data/judgements -o ./output/summary.csv
-
-# CP932エンコーディングで出力（Windows Excel用）
-uv run totals_to_csv.py --encoding cp932 -o totals_cp932.csv
 ```
-- 任意のディレクトリ構造から評価結果を再帰的に検索・集計
-- モデル・データセットごとの重み付け平均スコアを計算
-- 出力ファイル名の自動生成（入力パスから.csv拡張子で生成）
-- CSV形式での出力（デフォルト：入力パス名.csv）
-- 詳細は[totals_to_csv.md](totals_to_csv.md)を参照
+- 評価結果を再帰的に検索し、重み付け平均スコアをCSV出力
+- **詳細な使用方法は[totals_to_csv.md](totals_to_csv.md)を参照**
 
 #### `merge_csv.py` - CSVファイルマージツール
 ```bash
@@ -119,15 +113,9 @@ uv run merge_csv.py file1.csv file2.csv -o merged.csv
 
 # 複数ファイルを一度にマージ
 uv run merge_csv.py *.csv -o all_results.csv
-
-# 標準出力に結果を表示
-uv run merge_csv.py file1.csv file2.csv
 ```
 - 異なる列順序を持つCSVファイルを列名ベースで統合
-- 重複行の自動除去（同じモデル名の場合、最初の出現を保持）
-- 列順序の統一（アルファベット順）
-- 標準ライブラリのみ使用（pandas不要）
-- 詳細は[merge_csv.md](merge_csv.md)を参照
+- **詳細な使用方法は[merge_csv.md](merge_csv.md)を参照**
 
 ### 5. ELYZA-tasks-100 構造化出力システム
 

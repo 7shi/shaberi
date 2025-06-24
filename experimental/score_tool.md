@@ -167,12 +167,13 @@ for benchmark_name in sorted(yaml_data.keys()):
 
 ### 6. ベンチマーク別表示機能
 
-**目的**: 既存の集計結果の確認
+**目的**: 既存の集計結果の確認とフィルタリング表示
 
 **実装**:
 ```python
-def display_scores(output_file='scores.yaml'):
+def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
     # YAMLファイルを読み込み、ベンチマーク別統計情報を表示
+    # パターンマッチングによるフィルタリング対応
     # 平均スコア（avg）も計算
 ```
 
@@ -182,6 +183,11 @@ def display_scores(output_file='scores.yaml'):
 - 各組み合わせの詳細統計（1行形式: `{total}/{tasks}={avg:.2f} {benchmark}/{evaluator/model}`）
 - 各ベンチマーク内でスコア降順一覧
 - スコアは整数として表示（例：`1035/120=8.62`）
+
+**フィルタリング機能**:
+- パターン指定による部分一致検索（複数パターンのAND条件）
+- ベンチマーク指定による範囲限定
+- `find_matching_entries`共通関数を使用してremoveコマンドと同じ検索ロジックを共有
 
 ### 7. 従来評価結果ファイル対応
 
@@ -196,101 +202,160 @@ def display_scores(output_file='scores.yaml'):
 - `judge_gemini-2.5-flash-preview-05-20/gemini-2.5-pro.json`の形式でdir名生成
 - JSONL形式（1行1JSON）からスコア抽出
 
-### 8. 新しいオプション体系による自動スキャン
+### 8. サブコマンド体系による直感的な操作
 
-**目的**: ベンチマーク別の効率的な自動データ収集
+**目的**: より直感的で柔軟な評価結果の収集・表示
 
-**新オプション体系**:
-- `-s`: 全ベンチマークから自動収集
-- `-s0`: 従来形式のみ (`-j0`)
-- `-s1`: Tengu Benchのみ (`-j1`)
-- `-s2`: ELYZA-tasks-100のみ (`-j2`)
-- `-s3`: MT-Benchのみ (`-j3`)
+**サブコマンド体系**:
+- `list`: 既存の集計結果を表示
+- `remove`: 部分一致パターンでエントリを削除
+- `add`: 評価結果を収集して集計
 
-**ディレクトリオプション**:
-- `-j0`: 従来形式 (デフォルト: `../data/judgements`)
-- `-j1`: Tengu Bench (デフォルト: `1tengu`)
-- `-j2`: ELYZA-tasks-100 (デフォルト: `2elyza`)
-- `-j3`: MT-Bench (デフォルト: `3mt`)
+**listコマンドの表示オプション**:
+- `pattern`: 表示対象パターン（項目名の部分一致、複数指定でAND条件）（任意）
+- `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
+- `-o, --output`: 表示するファイル名（デフォルト: scores.yaml）
+
+**removeコマンドの削除オプション**:
+- `pattern`: 削除対象パターン（項目名の部分一致、複数指定でAND条件）（必須）
+- `-b, --benchmark BENCHMARK`: 指定したベンチマーク内でpatternの部分一致検索を実行
+- `-f, --force`: 確認なしで削除を実行
+- `-o, --output`: 対象ファイル名（デフォルト: scores.yaml）
+
+**addコマンドのディレクトリ指定オプション**:
+- `-j DIR`, `--judgements-dir DIR`: 従来形式の評価結果ディレクトリを指定
+- `--tengu DIR`: Tengu Benchの評価結果ディレクトリを指定
+- `--elyza DIR`: ELYZA-tasks-100の評価結果ディレクトリを指定
+- `--mt DIR`: MT-Benchの評価結果ディレクトリを指定
+
+**デフォルト動作**:
+- `add`コマンドでオプション未指定時は全デフォルトパスを自動試行
+  - `../data/judgements` (従来形式)
+  - `1tengu` (Tengu Bench)
+  - `2elyza` (ELYZA-tasks-100)
+  - `3mt` (MT-Bench)
+
+**重要な仕様変更**:
+- サブコマンド未指定時はヘルプメッセージを表示してエラー終了
+- 明示的な`list`または`add`サブコマンドの指定が必須
 
 ## 使用方法
 
 ### 基本的な実行
 
 ```bash
-# 既存集計結果の表示のみ（引数なし）
+# サブコマンド未指定時はヘルプを表示
 uv run score_tool.py
+# → ヘルプメッセージが表示され、エラー終了
+
+# 既存集計結果の表示
+uv run score_tool.py list                                         # 全エントリを表示
+uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
+uv run score_tool.py list "judge_gpt" "gemini"                    # judge_gptとgeminiの両方を含むエントリのみ表示
+uv run score_tool.py list -b "lightblue/tengu_bench" "gemini"     # 指定ベンチマーク内でgeminiを含むエントリのみ表示
 
 # カスタム出力ファイルの表示
-uv run score_tool.py -o my_scores.yaml
+uv run score_tool.py list -o my_scores.yaml
 
-# 全ベンチマークから自動収集して集計
-uv run score_tool.py -s
+# 部分一致パターンでエントリを削除
+uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
+uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
+uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
 
-# 特定のベンチマークのみから収集
-uv run score_tool.py -s0  # 従来形式のみ
-uv run score_tool.py -s1  # Tengu Benchのみ
-uv run score_tool.py -s2  # ELYZA-tasks-100のみ
-uv run score_tool.py -s3  # MT-Benchのみ
+# 全デフォルトパスから自動収集して集計
+uv run score_tool.py add
+
+# 特定のディレクトリのみから収集
+uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
+uv run score_tool.py add --tengu 1tengu           # Tengu Benchのみ
+uv run score_tool.py add --elyza 2elyza           # ELYZA-tasks-100のみ
+uv run score_tool.py add --mt 3mt                 # MT-Benchのみ
 
 # カスタムディレクトリから収集
-uv run score_tool.py -s1 -j1 /custom/tengu
-uv run score_tool.py -s2 -j2 /custom/elyza
+uv run score_tool.py add --tengu /custom/tengu
+uv run score_tool.py add -j /custom/judgements --elyza /custom/elyza
+
+# 複数ディレクトリを同時指定
+uv run score_tool.py add -j ../data/judgements --tengu 1tengu --elyza 2elyza
 ```
 
 ### ベンチマーク別収集の詳細
 
 ```bash
 # Tengu Benchのみ収集（新形式）
-uv run score_tool.py -s1
+uv run score_tool.py add --tengu 1tengu
 # → 1tengu/ ディレクトリから evaluator/model を自動検索
 
 # ELYZA-tasks-100のみ収集（新形式）
-uv run score_tool.py -s2
+uv run score_tool.py add --elyza 2elyza
 # → 2elyza/ ディレクトリから evaluator/model を自動検索
 
 # MT-Benchのみ収集（新形式）
-uv run score_tool.py -s3
+uv run score_tool.py add --mt 3mt
 # → 3mt/ ディレクトリから evaluator/model を自動検索
 
 # 従来形式のみ収集
-uv run score_tool.py -s0
+uv run score_tool.py add -j ../data/judgements
 # → ../data/judgements/judge_*/dataset/model.json を自動検索
 
 # 段階的集計（既存ファイルに追加）
-uv run score_tool.py -s1  # Tengu Benchを追加
-uv run score_tool.py -s2  # ELYZA-tasks-100を追加
+uv run score_tool.py add --tengu 1tengu     # Tengu Benchを追加
+uv run score_tool.py add --elyza 2elyza     # ELYZA-tasks-100を追加
 # → scores.yamlに両方の結果がベンチマーク別に蓄積される
+
+# 特定のエントリを削除
+uv run score_tool.py remove "gemini-2.0-flash"                          # 全ベンチマークから項目名の部分一致
+uv run score_tool.py remove "judge_gpt" "gemini"                        # AND条件：judge_gptとgeminiの両方を含む項目
+uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini" --force  # 指定ベンチマーク内での部分一致
 ```
 
 ### 出力例
 
 **表示専用実行**:
 ```bash
-uv run score_tool.py
+# 全エントリを表示
+uv run score_tool.py list
 ```
 ```
-スコア統計表示: scores.yaml
-総組み合わせ数: 15
---------------------------------------------------------------------------------
 [lightblue/tengu_bench]
-  1097/120=9.14 gemini-2.5-flash/gemini-2.5-pro
-  1094/120=9.12 gemini-2.5-flash/claude-3-5-sonnet
-  1088/120=9.07 gemini-2.5-pro/gemini-2.5-pro
+1097/120=9.14 judge_gemini-2.5-flash/gemini-2.5-pro.json
+1094/120=9.12 judge_gemini-2.5-flash/claude-3-5-sonnet.json
+1088/120=9.07 judge_gemini-2.5-pro/gemini-2.5-pro.json
 
 [elyza/ELYZA-tasks-100]
-  485/100=4.85 gemini-2.5-flash/gemini-2.5-pro
-  480/100=4.80 gemini-2.5-flash/claude-3-5-sonnet
+ 485/100=4.85 judge_gemini-2.5-flash/gemini-2.5-pro.json
+ 480/100=4.80 judge_gemini-2.5-flash/claude-3-5-sonnet.json
 
 [shisa-ai/ja-mt-bench-1shot]
-  585/60=9.75 gemini-2.5-flash/gemini-2.5-pro
-  580/60=9.67 gemini-2.5-flash/claude-3-5-sonnet
+ 585/60=9.75 judge_gemini-2.5-flash/gemini-2.5-pro.json
+ 580/60=9.67 judge_gemini-2.5-flash/claude-3-5-sonnet.json
+
+総組み合わせ数: 15
+```
+
+**フィルタリング表示**:
+```bash
+# geminiを含むエントリのみ表示
+uv run score_tool.py list "gemini"
+```
+```
+[lightblue/tengu_bench]
+1097/120=9.14 judge_gemini-2.5-flash/gemini-2.5-pro.json
+1088/120=9.07 judge_gemini-2.5-pro/gemini-2.5-pro.json
+
+[elyza/ELYZA-tasks-100]
+ 485/100=4.85 judge_gemini-2.5-flash/gemini-2.5-pro.json
+
+[shisa-ai/ja-mt-bench-1shot]
+ 585/60=9.75 judge_gemini-2.5-flash/gemini-2.5-pro.json
+
+総組み合わせ数: 4
 ```
 
 **集計実行時のコンソール出力**:
 ```bash
 # Tengu Benchのみ収集
-uv run score_tool.py -s1
+uv run score_tool.py add --tengu 1tengu
 ```
 ```
 1tengu から 8 個のTengu Bench評価結果ディレクトリを発見
@@ -301,16 +366,11 @@ uv run score_tool.py -s1
 スコア集計結果を scores.yaml に保存しました
 更新された組み合わせ: 8
 ファイル内の総組み合わせ数: 8
---------------------------------------------------------------------------------
-[lightblue/tengu_bench]
-  1097/120=9.14 gemini-2.5-flash/gemini-2.5-pro
-  1094/120=9.12 gemini-2.5-flash/claude-3-5-sonnet
-  ...
 ```
 
 **全ベンチマーク処理**:
 ```bash
-uv run score_tool.py -s
+uv run score_tool.py add
 ```
 ```
 ../data/judgements から 15 個の従来形式評価結果ファイルを発見
@@ -321,18 +381,6 @@ uv run score_tool.py -s
 スコア集計結果を scores.yaml に保存しました
 更新された組み合わせ: 33
 ファイル内の総組み合わせ数: 33
---------------------------------------------------------------------------------
-[lightblue/tengu_bench]
-  1097/120=9.14 gemini-2.5-flash/gemini-2.5-pro
-  1094/120=9.12 gemini-2.5-flash/claude-3-5-sonnet
-
-[elyza/ELYZA-tasks-100]
-  485/100=4.85 gemini-2.5-flash/gemini-2.5-pro
-  480/100=4.80 gemini-2.5-flash/claude-3-5-sonnet
-
-[shisa-ai/ja-mt-bench-1shot]
-  585/60=9.75 gemini-2.5-flash/gemini-2.5-pro
-  580/60=9.67 gemini-2.5-flash/claude-3-5-sonnet
 ```
 
 **scores.yamlファイル（ベンチマーク別・スコア降順ソート）**:
@@ -415,9 +463,9 @@ benchmark_name:
 
 ```bash
 # 複数モデルの評価結果を集計
-uv run score_tool.py -s1  # Tengu Benchのみ
-uv run score_tool.py -s2  # ELYZA-tasks-100のみ
-uv run score_tool.py -s3  # MT-Benchのみ
+uv run score_tool.py add --tengu 1tengu     # Tengu Benchのみ
+uv run score_tool.py add --elyza 2elyza     # ELYZA-tasks-100のみ
+uv run score_tool.py add --mt 3mt           # MT-Benchのみ
 
 # scores.yamlからベンチマーク別の平均スコア、標準偏差を分析
 ```
@@ -426,7 +474,7 @@ uv run score_tool.py -s3  # MT-Benchのみ
 
 ```bash
 # 全ベンチマークから同一モデルの評価結果を収集
-uv run score_tool.py -s
+uv run score_tool.py add
 
 # scores.yamlから同一モデルの評価者間・ベンチマーク間のスコア分布を比較
 ```
@@ -443,7 +491,7 @@ YAMLファイルの各ベンチマークから`scores`配列を分析するこ�
 
 ```bash
 # 新しい評価結果の追加
-uv run score_tool.py -s  # 全ベンチマークを再収集
+uv run score_tool.py add  # 全ベンチマークを再収集
 
 # 既存のscores.yamlに自動統合
 # ベンチマーク別の履歴的性能追跡が可能

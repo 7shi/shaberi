@@ -2,21 +2,22 @@
 """
 score_tool.py - スコア集計ツール
 
-評価結果からevaluator/modelの組み合わせごとにスコア統計を集計し、TOML形式で出力します。
+評価結果からevaluator/modelの組み合わせごとにスコア統計を集計し、YAML形式で出力します。
 従来のJSONL形式と新しい構造化出力形式の両方に対応しています。
 
 使用方法:
     # 既存の集計結果を表示
-    python score_tool.py
+    uv run score_tool.py list
     
-    # 全てのベンチマークから自動収集して集計
-    python score_tool.py -s
+    # 全てのデフォルトパスから自動収集して集計
+    uv run score_tool.py add
     
-    # 特定のベンチマークのみから収集
-    python score_tool.py -s0  # 従来形式のみ
-    python score_tool.py -s1  # Tengu Benchのみ
-    python score_tool.py -s2  # ELYZA-tasks-100のみ
-    python score_tool.py -s3  # MT-Benchのみ
+    # 特定のディレクトリのみから収集
+    uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
+    uv run score_tool.py add --tengu 1tengu           # Tengu Benchのみ
+    uv run score_tool.py add --elyza 2elyza           # ELYZA-tasks-100のみ
+    uv run score_tool.py add --mt 3mt                 # MT-Benchのみ
+    uv run score_tool.py add -j ../data/judgements --tengu 1tengu  # 複数指定
     
 出力形式:
     benchmark_name:
@@ -33,19 +34,14 @@ from pathlib import Path
 from collections import defaultdict
 import yaml
 
-# evaluation_datasets_config.pyからベンチマーク情報をインポート
-sys.path.append('..')
-try:
-    from evaluation_datasets_config import EVAL_MODEL_CONFIGS
-except ImportError:
-    # フォールバック: デフォルトのベンチマークリスト
-    EVAL_MODEL_CONFIGS = {
-        "lightblue/tengu_bench": {},
-        "elyza/ELYZA-tasks-100": {},
-        "shisa-ai/ja-mt-bench-1shot": {},
-        "kunishou/do-not-answer-120-ja": {},
-        "umiyuki/do-not-answer-ja-creative-150": {},
-    }
+# デフォルトのベンチマークリスト
+EVAL_MODEL_CONFIGS = {
+    "lightblue/tengu_bench": {},
+    "elyza/ELYZA-tasks-100": {},
+    "shisa-ai/ja-mt-bench-1shot": {},
+    "kunishou/do-not-answer-120-ja": {},
+    "umiyuki/do-not-answer-ja-creative-150": {},
+}
 
 
 def determine_benchmark_from_path(file_path):
@@ -225,12 +221,14 @@ def extract_scores_from_jsonl_file(file_path):
     return results
 
 
-def display_scores(output_file='scores.yaml'):
+def display_scores(output_file='scores.yaml', patterns=None, benchmark=None):
     """
     既存のYAMLファイルからスコア統計を表示
     
     Args:
         output_file (str): YAMLファイルのパス
+        patterns (list): 表示対象のパターンリスト（AND条件）
+        benchmark (str): 指定したベンチマーク名、省略時は全ベンチマークを対象
     """
     if not os.path.exists(output_file):
         print(f"Error: {output_file} が存在しません")
@@ -243,6 +241,22 @@ def display_scores(output_file='scores.yaml'):
         if not yaml_data:
             print(f"Warning: {output_file} にデータがありません")
             return True
+        
+        # パターンフィルタリングが指定されている場合
+        if patterns:
+            matches = find_matching_entries(yaml_data, patterns, benchmark)
+            if not matches:
+                pattern_str = "', '".join(patterns)
+                print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+                return True
+            
+            # マッチしたエントリのみでYAMLデータを再構築
+            filtered_yaml_data = {}
+            for benchmark_name, evaluator_model, full_path in matches:
+                if benchmark_name not in filtered_yaml_data:
+                    filtered_yaml_data[benchmark_name] = {}
+                filtered_yaml_data[benchmark_name][evaluator_model] = yaml_data[benchmark_name][evaluator_model]
+            yaml_data = filtered_yaml_data
         
         # 全ベンチマークでの総組み合わせ数を計算
         all_combinations = []
@@ -259,15 +273,27 @@ def display_scores(output_file='scores.yaml'):
                     'avg': avg
                 })
         
-        # スコア（total）の降順でソート
-        all_combinations.sort(key=lambda x: x['total'], reverse=True)
+        # ベンチマーク別に表示するために再構築
+        benchmark_display = {}
+        for benchmark_name, benchmark_data in yaml_data.items():
+            benchmark_display[benchmark_name] = []
+            for evaluator_model, data in benchmark_data.items():
+                total = data.get('total', 0)
+                scores = data.get('scores', [])
+                tasks = len(scores)
+                avg = total / tasks if tasks > 0 else 0
+                benchmark_display[benchmark_name].append((total, tasks, avg, evaluator_model))
+            # ベンチマーク内でスコア降順ソート
+            benchmark_display[benchmark_name].sort(key=lambda x: x[0], reverse=True)
         
-        print(f"スコア統計表示: {output_file}")
-        print(f"総組み合わせ数: {len(all_combinations)}")
-        print("-" * 80)
+        for benchmark_name in sorted(benchmark_display.keys()):
+            print(f"[{benchmark_name}]")
+            for total, tasks, avg, evaluator_model in benchmark_display[benchmark_name]:
+                print(f"{total:4d}/{tasks}={avg:.2f} {evaluator_model}")
+            print()
         
-        for combo in all_combinations:
-            print(f"{combo['total']}/{combo['tasks']}={combo['avg']:.2f} {combo['name']}")
+        total_combinations = sum(len(all_combinations) for all_combinations in benchmark_display.values())
+        print(f"総組み合わせ数: {total_combinations}")
         
         return True
         
@@ -276,181 +302,230 @@ def display_scores(output_file='scores.yaml'):
         return False
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="評価結果ディレクトリからスコア統計を集計します",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-使用例:
-    # 既存の集計結果を表示
-    python score_tool.py
-    
-    # 全てのベンチマークから自動収集して集計
-    python score_tool.py -s
-    
-    # 従来形式のみから収集
-    python score_tool.py -s0
-    
-    # 特定のベンチマークのみから収集
-    python score_tool.py -s1  # Tengu Bench
-    python score_tool.py -s2  # ELYZA-tasks-100
-    python score_tool.py -s3  # MT-Bench
-    
-    # カスタムディレクトリから収集
-    python score_tool.py -s1 -j1 /custom/tengu
-    python score_tool.py -s2 -j2 /custom/elyza
+def _collect_judgements_files(judgements_dir):
+    """
+    従来形式のディレクトリからJSONLファイルを収集
+    """
+    paths = []
+    j0_path = Path(judgements_dir)
+    if j0_path.exists():
+        # judge_*/dataset/model.json のパターンでファイルを検索
+        jsonl_files = list(j0_path.glob("judge_*/*/*.json"))
+        if jsonl_files:
+            print(f"{judgements_dir} から {len(jsonl_files)} 個の従来形式評価結果ファイルを発見")
+            paths.extend([str(f) for f in jsonl_files])
+        else:
+            print(f"Warning: {judgements_dir} に評価結果ファイルが見つかりません")
+    else:
+        print(f"Warning: {judgements_dir} が存在しません")
+    return paths
+
+
+def _collect_benchmark_dirs(benchmark_dir, benchmark_type):
+    """
+    ベンチマーク用ディレクトリから評価結果ディレクトリを収集
+    """
+    paths = []
+    benchmark_path = Path(benchmark_dir)
+    if benchmark_path.exists():
+        # evaluator/model のディレクトリパターンを検索
+        eval_dirs = []
+        for evaluator_dir in benchmark_path.iterdir():
+            if evaluator_dir.is_dir():
+                for model_dir in evaluator_dir.iterdir():
+                    if model_dir.is_dir() and list(model_dir.glob("*.json")):
+                        eval_dirs.append(str(model_dir))
         
-出力形式:
-    benchmark_name:
-      evaluator/model:
-        total: X
-        scores: [0, 1, 2, 3, ...]
-        """
-    )
+        if eval_dirs:
+            benchmark_name = {'tengu': 'Tengu Bench', 'elyza': 'ELYZA-tasks-100', 'mt': 'MT-Bench'}.get(benchmark_type, benchmark_type)
+            print(f"{benchmark_dir} から {len(eval_dirs)} 個の{benchmark_name}評価結果ディレクトリを発見")
+            paths.extend(eval_dirs)
+        else:
+            print(f"Warning: {benchmark_dir} に評価結果ディレクトリが見つかりません")
+    else:
+        print(f"Warning: {benchmark_dir} が存在しません")
+    return paths
+
+
+def cmd_list(args):
+    """
+    既存の集計結果を表示する
+    """
+    patterns = getattr(args, 'pattern', None)
+    benchmark = getattr(args, 'benchmark', None)
+    success = display_scores(args.output, patterns, benchmark)
+    return 0 if success else 1
+
+
+def find_matching_entries(yaml_data, patterns, benchmark=None):
+    """
+    指定されたパターンに基づいてエントリを検索する共通関数
     
-    parser.add_argument(
-        '-s', '--scan',
-        action='store_true',
-        help='全てのディレクトリから自動的に評価結果を収集して集計'
-    )
+    Args:
+        yaml_data (dict): YAMLデータ
+        patterns (list): 検索パターンのリスト（AND条件）
+        benchmark (str): 指定したベンチマーク名、省略時は全ベンチマークを対象
+        
+    Returns:
+        list: マッチした(benchmark_name, evaluator_model, full_path)のリスト
+    """
+    matches = []
+    for benchmark_name, benchmark_data in yaml_data.items():
+        if benchmark:
+            # 指定したベンチマーク内で部分一致検索
+            if benchmark_name == benchmark:
+                for evaluator_model in benchmark_data.keys():
+                    # 全パターンがevaluator_modelに含まれる場合のみマッチ（AND条件）
+                    if all(pattern in evaluator_model for pattern in patterns):
+                        full_path = f"{benchmark_name}/{evaluator_model}"
+                        matches.append((benchmark_name, evaluator_model, full_path))
+        else:
+            # 全ベンチマークから項目名での部分一致検索
+            for evaluator_model in benchmark_data.keys():
+                # 全パターンがevaluator_modelに含まれる場合のみマッチ（AND条件）
+                if all(pattern in evaluator_model for pattern in patterns):
+                    full_path = f"{benchmark_name}/{evaluator_model}"
+                    matches.append((benchmark_name, evaluator_model, full_path))
     
-    parser.add_argument(
-        '-s0', '--scan0',
-        action='store_true',
-        help='従来形式のディレクトリ(-j0)からのみ収集'
-    )
+    return matches
+
+
+def cmd_remove(args):
+    """
+    指定された前方一致パターンに基づいてエントリを削除する
+    """
+    if not os.path.exists(args.output):
+        print(f"Error: {args.output} が存在しません")
+        return 1
     
-    parser.add_argument(
-        '-s1', '--scan1',
-        action='store_true',
-        help='Tengu Benchディレクトリ(-j1)からのみ収集'
-    )
+    try:
+        with open(args.output, 'r', encoding='utf-8') as f:
+            yaml_data = yaml.safe_load(f) or {}
+    except Exception as e:
+        print(f"Error: {args.output} の読み込みに失敗しました: {e}")
+        return 1
     
-    parser.add_argument(
-        '-s2', '--scan2',
-        action='store_true',
-        help='ELYZA-tasks-100ディレクトリ(-j2)からのみ収集'
-    )
+    if not yaml_data:
+        print(f"Warning: {args.output} にデータがありません")
+        return 0
     
-    parser.add_argument(
-        '-s3', '--scan3',
-        action='store_true',
-        help='MT-Benchディレクトリ(-j3)からのみ収集'
-    )
+    # 削除対象を検索
+    to_remove = find_matching_entries(yaml_data, args.pattern, args.benchmark)
     
-    parser.add_argument(
-        '-j0', '--judgements-dir0',
-        default='../data/judgements',
-        help='従来形式の評価結果ディレクトリ (デフォルト: ../data/judgements)'
-    )
+    if not to_remove:
+        pattern_str = "', '".join(args.pattern)
+        print(f"パターン '{pattern_str}' に一致するエントリが見つかりません")
+        return 0
     
-    parser.add_argument(
-        '-j1', '--judgements-dir1',
-        default='1tengu',
-        help='Tengu Benchの評価結果ディレクトリ (デフォルト: 1tengu)'
-    )
+    # 確認表示（ベンチマーク別にグループ化）
+    print(f"以下 {len(to_remove)} 個のエントリを削除します:")
+    grouped_remove = {}
+    for benchmark_name, evaluator_model, full_path in to_remove:
+        if benchmark_name not in grouped_remove:
+            grouped_remove[benchmark_name] = []
+        data = yaml_data[benchmark_name][evaluator_model]
+        total = data.get('total', 0)
+        tasks = len(data.get('scores', []))
+        avg = total / tasks if tasks > 0 else 0
+        grouped_remove[benchmark_name].append((total, tasks, avg, evaluator_model))
     
-    parser.add_argument(
-        '-j2', '--judgements-dir2',
-        default='2elyza',
-        help='ELYZA-tasks-100の評価結果ディレクトリ (デフォルト: 2elyza)'
-    )
+    for benchmark_name in sorted(grouped_remove.keys()):
+        print(f"[{benchmark_name}]")
+        for total, tasks, avg, evaluator_model in grouped_remove[benchmark_name]:
+            print(f"  {total:4d}/{tasks}={avg:.2f} {evaluator_model}")
     
-    parser.add_argument(
-        '-j3', '--judgements-dir3',
-        default='3mt',
-        help='MT-Benchの評価結果ディレクトリ (デフォルト: 3mt)'
-    )
+    # 確認プロンプト（--force オプションがない場合）
+    if not args.force:
+        try:
+            response = input("\n削除を実行しますか? (y/N): ").strip().lower()
+            if response not in ['y', 'yes']:
+                print("削除をキャンセルしました")
+                return 0
+        except KeyboardInterrupt:
+            print("\n削除をキャンセルしました")
+            return 0
     
-    parser.add_argument(
-        '-o', '--output',
-        default='scores.yaml',
-        help='出力ファイル名 (デフォルト: scores.yaml)'
-    )
+    # 削除実行
+    removed_count = 0
+    for benchmark_name, evaluator_model, full_path in to_remove:
+        del yaml_data[benchmark_name][evaluator_model]
+        removed_count += 1
+        
+        # ベンチマークが空になった場合は削除
+        if not yaml_data[benchmark_name]:
+            del yaml_data[benchmark_name]
     
-    args = parser.parse_args()
+    # ファイルに書き戻し
+    try:
+        # 各ベンチマーク内でスコア降順ソート
+        sorted_yaml_data = {}
+        for benchmark_name in sorted(yaml_data.keys()):
+            benchmark_data = yaml_data[benchmark_name]
+            sorted_items = sorted(benchmark_data.items(), 
+                                key=lambda x: x[1]['total'], reverse=True)
+            sorted_yaml_data[benchmark_name] = dict(sorted_items)
+        
+        with open(args.output, 'w', encoding='utf-8') as f:
+            # 配列（scoresのみ）をインライン形式で出力
+            yaml.add_representer(list, lambda dumper, data: dumper.represent_sequence('tag:yaml.org,2002:seq', data, flow_style=True))
+            yaml.dump(sorted_yaml_data, f, 
+                     default_flow_style=False, 
+                     allow_unicode=True, 
+                     sort_keys=False,
+                     indent=2)
+        
+        print(f"\n{removed_count} 個のエントリを削除しました")
+        print(f"更新された {args.output} を保存しました")
+        
+        # 残りの統計情報を表示
+        total_combinations = sum(len(benchmark_data) for benchmark_data in sorted_yaml_data.values())
+        print(f"残りの組み合わせ数: {total_combinations}")
+        
+    except Exception as e:
+        print(f"Error: ファイル出力に失敗しました: {e}")
+        return 1
     
-    # スキャンオプションが指定されていない場合は表示のみ
-    if not (args.scan or args.scan0 or args.scan1 or args.scan2 or args.scan3):
-        success = display_scores(args.output)
-        return 0 if success else 1
+    return 0
+
+
+def cmd_add(args):
+    """
+    評価結果を収集して集計する
+    """
     
     # 処理対象のパスを収集
     paths_to_process = []
     
-    # -s0 または -s の場合、j0ディレクトリから従来形式のファイルを収集
-    if args.scan0 or args.scan:
-        j0_path = Path(args.judgements_dir0)
-        if j0_path.exists():
-            # judge_*/dataset/model.json のパターンでファイルを検索
-            jsonl_files = list(j0_path.glob("judge_*/*/*.json"))
-            if jsonl_files:
-                print(f"{args.judgements_dir0} から {len(jsonl_files)} 個の従来形式評価結果ファイルを発見")
-                paths_to_process.extend([str(f) for f in jsonl_files])
+    # 指定されたディレクトリが何もない場合はデフォルトパスを全て試行
+    if not any([args.judgements_dir, args.tengu, args.elyza, args.mt]):
+        default_paths = [
+            ('judgements', '../data/judgements'),
+            ('tengu', '1tengu'),
+            ('elyza', '2elyza'),
+            ('mt', '3mt')
+        ]
+        
+        for path_type, default_path in default_paths:
+            if path_type == 'judgements':
+                paths_to_process.extend(_collect_judgements_files(default_path))
             else:
-                print(f"Warning: {args.judgements_dir0} に評価結果ファイルが見つかりません")
-        else:
-            print(f"Warning: {args.judgements_dir0} が存在しません")
+                paths_to_process.extend(_collect_benchmark_dirs(default_path, path_type))
     
-    # -s1 または -s の場合、j1ディレクトリからTengu Benchのディレクトリを収集
-    if args.scan1 or args.scan:
-        j1_path = Path(args.judgements_dir1)
-        if j1_path.exists():
-            # evaluator/model のディレクトリパターンを検索
-            eval_dirs = []
-            for evaluator_dir in j1_path.iterdir():
-                if evaluator_dir.is_dir():
-                    for model_dir in evaluator_dir.iterdir():
-                        if model_dir.is_dir() and list(model_dir.glob("*.json")):
-                            eval_dirs.append(str(model_dir))
-            
-            if eval_dirs:
-                print(f"{args.judgements_dir1} から {len(eval_dirs)} 個のTengu Bench評価結果ディレクトリを発見")
-                paths_to_process.extend(eval_dirs)
-            else:
-                print(f"Warning: {args.judgements_dir1} に評価結果ディレクトリが見つかりません")
-        else:
-            print(f"Warning: {args.judgements_dir1} が存在しません")
+    # 従来形式ディレクトリが指定された場合
+    if args.judgements_dir:
+        paths_to_process.extend(_collect_judgements_files(args.judgements_dir))
     
-    # -s2 または -s の場合、j2ディレクトリからELYZA-tasks-100のディレクトリを収集
-    if args.scan2 or args.scan:
-        j2_path = Path(args.judgements_dir2)
-        if j2_path.exists():
-            # evaluator/model のディレクトリパターンを検索
-            eval_dirs = []
-            for evaluator_dir in j2_path.iterdir():
-                if evaluator_dir.is_dir():
-                    for model_dir in evaluator_dir.iterdir():
-                        if model_dir.is_dir() and list(model_dir.glob("*.json")):
-                            eval_dirs.append(str(model_dir))
-            
-            if eval_dirs:
-                print(f"{args.judgements_dir2} から {len(eval_dirs)} 個のELYZA-tasks-100評価結果ディレクトリを発見")
-                paths_to_process.extend(eval_dirs)
-            else:
-                print(f"Warning: {args.judgements_dir2} に評価結果ディレクトリが見つかりません")
-        else:
-            print(f"Warning: {args.judgements_dir2} が存在しません")
+    # Tengu Benchディレクトリが指定された場合
+    if args.tengu:
+        paths_to_process.extend(_collect_benchmark_dirs(args.tengu, 'tengu'))
     
-    # -s3 または -s の場合、j3ディレクトリからMT-Benchのディレクトリを収集
-    if args.scan3 or args.scan:
-        j3_path = Path(args.judgements_dir3)
-        if j3_path.exists():
-            # evaluator/model のディレクトリパターンを検索
-            eval_dirs = []
-            for evaluator_dir in j3_path.iterdir():
-                if evaluator_dir.is_dir():
-                    for model_dir in evaluator_dir.iterdir():
-                        if model_dir.is_dir() and list(model_dir.glob("*.json")):
-                            eval_dirs.append(str(model_dir))
-            
-            if eval_dirs:
-                print(f"{args.judgements_dir3} から {len(eval_dirs)} 個のMT-Bench評価結果ディレクトリを発見")
-                paths_to_process.extend(eval_dirs)
-            else:
-                print(f"Warning: {args.judgements_dir3} に評価結果ディレクトリが見つかりません")
-        else:
-            print(f"Warning: {args.judgements_dir3} が存在しません")
+    # ELYZA-tasks-100ディレクトリが指定された場合
+    if args.elyza:
+        paths_to_process.extend(_collect_benchmark_dirs(args.elyza, 'elyza'))
+    
+    # MT-Benchディレクトリが指定された場合
+    if args.mt:
+        paths_to_process.extend(_collect_benchmark_dirs(args.mt, 'mt'))
     
     if not paths_to_process:
         print("Error: 処理対象のファイル/ディレクトリが見つかりません")
@@ -536,23 +611,142 @@ def main():
         print(f"スコア集計結果を {args.output} に保存しました")
         print(f"更新された組み合わせ: {processed_count}")
         print(f"ファイル内の総組み合わせ数: {total_combinations}")
-        
-        # コンソールにも詳細表示（ベンチマーク別）
-        print("-" * 80)
-        for benchmark_name in sorted(sorted_yaml_data.keys()):
-            print(f"[{benchmark_name}]")
-            for evaluator_model, data in sorted_yaml_data[benchmark_name].items():
-                total = data['total']
-                tasks = len(data['scores'])
-                avg = total / tasks if tasks > 0 else 0
-                print(f"  {total}/{tasks}={avg:.2f} {evaluator_model}")
-            print()
             
     except Exception as e:
         print(f"Error: ファイル出力に失敗しました: {e}")
         return 1
     
     return 0
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="評価結果ディレクトリからスコア統計を集計します",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+使用例:
+    # 既存の集計結果を表示
+    uv run score_tool.py list                                         # 全エントリを表示
+    uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
+    uv run score_tool.py list "judge_gpt" "gemini"                    # judge_gptとgeminiの両方を含むエントリのみ表示
+    uv run score_tool.py list -b "lightblue/tengu_bench" "gemini"     # 指定ベンチマーク内でgeminiを含むエントリのみ表示
+    
+    # 部分一致パターンでエントリを削除
+    uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
+    uv run score_tool.py remove "judge_gpt" "gemini"                  # AND条件：judge_gptとgeminiの両方を含む項目
+    uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
+    
+    # 全てのデフォルトパスから自動収集して集計
+    uv run score_tool.py add
+    
+    # 特定のディレクトリのみから収集
+    uv run score_tool.py add -j ../data/judgements    # 従来形式のみ
+    uv run score_tool.py add --tengu 1tengu           # Tengu Benchのみ
+    uv run score_tool.py add --elyza 2elyza           # ELYZA-tasks-100のみ
+    uv run score_tool.py add --mt 3mt                 # MT-Benchのみ
+    
+    # カスタムディレクトリから収集
+    uv run score_tool.py add --tengu /custom/tengu
+    uv run score_tool.py add -j /custom/judgements --elyza /custom/elyza
+        
+出力形式:
+    benchmark_name:
+      evaluator/model:
+        total: X
+        scores: [0, 1, 2, 3, ...]
+        """
+    )
+    
+    # サブコマンドの設定
+    subparsers = parser.add_subparsers(dest='command', help='利用可能なコマンド')
+    
+    # list サブコマンド
+    list_parser = subparsers.add_parser('list', help='既存の集計結果を表示')
+    list_parser.add_argument(
+        'pattern',
+        nargs='*',
+        help='表示対象パターン（項目名の部分一致、複数指定でAND条件）'
+    )
+    list_parser.add_argument(
+        '-b', '--benchmark',
+        metavar='BENCHMARK',
+        help='指定したベンチマーク内でpatternの部分一致検索を実行'
+    )
+    list_parser.add_argument(
+        '-o', '--output',
+        default='scores.yaml',
+        help='表示するファイル名 (デフォルト: scores.yaml)'
+    )
+    
+    # remove サブコマンド
+    remove_parser = subparsers.add_parser('remove', help='部分一致パターンでエントリを削除')
+    remove_parser.add_argument(
+        'pattern',
+        nargs='+',
+        help='削除対象パターン（項目名の部分一致、複数指定でAND条件）'
+    )
+    remove_parser.add_argument(
+        '-b', '--benchmark',
+        metavar='BENCHMARK',
+        help='指定したベンチマーク内でpatternの部分一致検索を実行'
+    )
+    remove_parser.add_argument(
+        '-f', '--force',
+        action='store_true',
+        help='確認なしで削除を実行'
+    )
+    remove_parser.add_argument(
+        '-o', '--output',
+        default='scores.yaml',
+        help='対象ファイル名 (デフォルト: scores.yaml)'
+    )
+    
+    # add サブコマンド
+    add_parser = subparsers.add_parser('add', help='評価結果を収集して集計')
+    add_parser.add_argument(
+        '-j', '--judgements-dir',
+        metavar='DIR',
+        help='従来形式の評価結果ディレクトリを指定'
+    )
+    add_parser.add_argument(
+        '--tengu',
+        metavar='DIR',
+        help='Tengu Benchの評価結果ディレクトリを指定'
+    )
+    add_parser.add_argument(
+        '--elyza',
+        metavar='DIR',
+        help='ELYZA-tasks-100の評価結果ディレクトリを指定'
+    )
+    add_parser.add_argument(
+        '--mt',
+        metavar='DIR',
+        help='MT-Benchの評価結果ディレクトリを指定'
+    )
+    add_parser.add_argument(
+        '-o', '--output',
+        default='scores.yaml',
+        help='出力ファイル名 (デフォルト: scores.yaml)'
+    )
+    
+    args = parser.parse_args()
+    
+    # サブコマンドが指定されていない場合はヘルプを表示
+    if args.command is None:
+        parser.print_help()
+        return 1
+    
+    
+    # サブコマンドの実行
+    if args.command == 'list':
+        return cmd_list(args)
+    elif args.command == 'remove':
+        return cmd_remove(args)
+    elif args.command == 'add':
+        return cmd_add(args)
+    else:
+        parser.print_help()
+        return 1
 
 
 if __name__ == "__main__":
