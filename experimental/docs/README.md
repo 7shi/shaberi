@@ -28,6 +28,7 @@ YYYYMMDD-{category}-{description}.md
 
 ### 開発・運用ガイド
 - [**20250620-git-exclude-files.md**](20250620-git-exclude-files.md): Gitの特定コミットからファイルを除外する手順
+- [**20250624-git-new-file-reset.md**](20250624-git-new-file-reset.md): 新規ファイルとgit resetの動作について
 
 ## 目的
 
