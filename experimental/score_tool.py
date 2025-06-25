@@ -366,7 +366,7 @@ def cmd_list(args):
     patterns = getattr(args, 'pattern', None)
     benchmark = getattr(args, 'benchmark', None)
     exclude_patterns = getattr(args, 'exclude', None)
-    output_file = getattr(args, 'output_file', 'scores.yaml')
+    output_file = getattr(args, 'file', 'scores.yaml')
     success = display_scores(output_file, patterns, benchmark, exclude_patterns)
     return 0 if success else 1
 
@@ -424,7 +424,7 @@ def cmd_remove(args):
         print("Error: 削除対象のパターン、ベンチマーク、または除外パターンを指定してください")
         return 1
     
-    output_file = getattr(args, 'output_file', 'scores.yaml')
+    output_file = getattr(args, 'file', 'scores.yaml')
     if not os.path.exists(output_file):
         print(f"Error: {output_file} が存在しません")
         return 1
@@ -609,7 +609,7 @@ def cmd_add(args):
     print(f"合計 {processed_count} 組み合わせを処理しました")
     
     # 既存のYAMLファイルを読み込み（存在する場合）
-    output_file = getattr(args, 'output_file', 'scores.yaml')
+    output_file = getattr(args, 'file', 'scores.yaml')
     yaml_data = {}
     if os.path.exists(output_file):
         try:
@@ -667,30 +667,30 @@ def main():
     # 既存の集計結果を表示（デフォルト: scores.yaml）
     uv run score_tool.py list                                         # 全エントリを表示
     uv run score_tool.py list "gemini"                                # geminiを含むエントリのみ表示
-    uv run score_tool.py my-score.yaml list "judge_gpt" "gemini"      # カスタムファイルでjudge_gptとgeminiの両方を含むエントリのみ表示
+    uv run score_tool.py -f my-score.yaml list "judge_gpt" "gemini"   # カスタムファイルでjudge_gptとgeminiの両方を含むエントリのみ表示
     uv run score_tool.py list -b "lightblue/tengu_bench" "gemini"     # 指定ベンチマーク内でgeminiを含むエントリのみ表示
     uv run score_tool.py list -b "lightblue/tengu_bench" "gemini-2.5-pro" -v "preview"  # gemini-2.5-proを含み、previewを含まないエントリ
     
     # 部分一致パターンでエントリを削除
     uv run score_tool.py remove "gemini-2.0-flash"                    # 全ベンチマークから項目名の部分一致
-    uv run score_tool.py my-score.yaml remove "judge_gpt" "gemini"    # カスタムファイルでAND条件で削除
+    uv run score_tool.py -f my-score.yaml remove "judge_gpt" "gemini" # カスタムファイルでAND条件で削除
     uv run score_tool.py remove -b "lightblue/tengu_bench"            # 指定ベンチマーク全体を削除
     uv run score_tool.py remove -b "lightblue/tengu_bench" "gemini"   # 指定ベンチマーク内での部分一致
     uv run score_tool.py remove "gemini" -v "preview" -v "lite"       # geminiを含み、previewとliteを含まないエントリを削除
     
     # 全てのデフォルトパスから自動収集して集計
     uv run score_tool.py add                                          # デフォルトファイルに集計
-    uv run score_tool.py my-score.yaml add                            # カスタムファイルに集計
+    uv run score_tool.py -f my-score.yaml add                         # カスタムファイルに集計
     
     # 特定のディレクトリのみから収集
     uv run score_tool.py add -j ../data/judgements                    # 従来形式のみ
-    uv run score_tool.py my-score.yaml add --tengu 1tengu/judge       # Tengu Benchのみ
+    uv run score_tool.py -f my-score.yaml add --tengu 1tengu/judge    # Tengu Benchのみ
     uv run score_tool.py add --elyza 2elyza/judge                     # ELYZA-tasks-100のみ
     uv run score_tool.py add --mt 3mt/judge                           # MT-Benchのみ
     
     # カスタムディレクトリから収集
     uv run score_tool.py add --tengu /custom/tengu
-    uv run score_tool.py my-score.yaml add -j /custom/judgements --elyza /custom/elyza
+    uv run score_tool.py -f my-score.yaml add -j /custom/judgements --elyza /custom/elyza
         
 出力形式:
     benchmark_name:
@@ -700,10 +700,9 @@ def main():
         """
     )
     
-    # メインの出力ファイル引数（オプション）
+    # ファイル指定オプション
     parser.add_argument(
-        'output_file',
-        nargs='?',
+        '-f', '--file',
         default='scores.yaml',
         help='操作対象のYAMLファイル名（デフォルト: scores.yaml）'
     )
