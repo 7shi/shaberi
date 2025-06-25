@@ -199,6 +199,10 @@ uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.j
 # 強制上書き
 uv run tengu.py model.json -n 1 --force
 uv run tengu.py model.json --all --force
+
+# 温度調整リトライを無効化（o4-miniでの使用例）
+uv run tengu.py model.json -n 1 -m o4-mini --disable-temperature
+uv run tengu.py model.json --all -m o4-mini --disable-temperature
 ```
 
 ### argparseによる引数処理
@@ -209,6 +213,7 @@ uv run tengu.py model.json --all --force
 - `--all`: 全タスクを評価（-nと相互排他）
 - `-m/--model`: 評価モデル名（デフォルト: gemini-2.5-flash）
 - `--force`: 既存評価結果の上書き
+- `--disable-temperature`: 温度調整リトライ機能を無効化（o4-miniモデルでは必須）
 
 **引数検証：**
 - `--all`なし & `-n`なし → エラー（どちらか必須）
@@ -457,6 +462,10 @@ for task in range(1, 121):
 
 `generate_with_temperature_retry`は、JSONパースエラーに対する自動リトライ機能を提供します。LLMが無効なJSONを生成した場合、温度パラメータを段階的に上げて再試行することで、構造化出力の成功率を向上させます。
 
+**重要な注意事項**:
+- o4-miniモデルは温度パラメータの指定をサポートしていないため、このモデルを使用する場合は`--disable-temperature`オプションが必須です
+- 温度パラメータを指定するとAPIエラーが発生します
+
 ### 関数仕様
 
 ```python
@@ -465,6 +474,7 @@ def generate_with_temperature_retry(
     contents: List[str],
     schema: Dict[str, Any],
     system_prompt: str = None,
+    disable_temperature: bool = False,
 ) -> Dict[str, Any]:
 ```
 
@@ -473,16 +483,24 @@ def generate_with_temperature_retry(
 - `contents`: ユーザーコンテンツの配列
 - `schema`: JSON Schema仕様
 - `system_prompt`: システムプロンプト（オプション）
+- `disable_temperature`: Trueの場合、温度調整リトライを無効化（オプション）
+  - **注意**: o4-miniモデルでは温度パラメータ指定がエラーになるため、このオプションは必須
 
 **戻り値**:
 - パース済みのJSONオブジェクト
 
 ### 動作原理
 
+**通常モード（disable_temperature=False）:**
 1. **初期試行**: 温度0.0で決定論的な生成を試行
 2. **段階的リトライ**: パースエラー時は温度を0.05刻みで上昇（最大1.0）
 3. **エラー出力**: 各失敗時のエラー詳細を標準エラー出力に記録
 4. **最終失敗**: 全温度で失敗した場合、例外を発生
+
+**無効化モード（disable_temperature=True）:**
+- モデルのデフォルト温度設定で単一試行のみ実行
+- エラー時のリトライは行わない
+- **重要**: o4-miniモデルでは温度パラメータの指定がエラーになるため、このオプションの使用が必須
 
 ```python
 # 温度値の試行順序: 0.0, 0.05, 0.10, 0.15, ..., 0.95, 1.0

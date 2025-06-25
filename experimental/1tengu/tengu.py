@@ -75,6 +75,7 @@ def generate_with_temperature_retry(
     contents: List[str],
     schema: Dict[str, Any],
     system_prompt: str = None,
+    disable_temperature: bool = False,
 ) -> Dict[str, Any]:
     """Generate content with temperature retry mechanism.
     
@@ -86,10 +87,16 @@ def generate_with_temperature_retry(
         contents: List of user content strings
         schema: Response schema
         system_prompt: System prompt as string
+        disable_temperature: If True, disable temperature retry mechanism
         
     Returns:
         dict: Parsed JSON response
     """
+    if disable_temperature:
+        # Use model default temperature without retry
+        result = generate_with_schema(model, contents, schema, None, system_prompt)
+        return result
+    
     # Temperature values to try (0.0 to 1.0 in 0.05 steps)
     for t in range(0, 101, 5):
         temperature = t / 100
@@ -107,13 +114,14 @@ def generate_with_temperature_retry(
     raise ValueError("全ての温度設定でJSONパースに失敗しました")
 
 
-def evaluate_task(task_number, model_answer, model_name):
+def evaluate_task(task_number, model_answer, model_name, disable_temperature=False):
     """Evaluate a specific Tengu Benchmark task using structured output
     
     Args:
         task_number (int): Task number (1-120)
         model_answer (str): Model answer to evaluate (required)
         model_name (str): Evaluation model name
+        disable_temperature (bool): If True, disable temperature retry mechanism
         
     Returns:
         dict: Evaluation result JSON
@@ -133,7 +141,8 @@ def evaluate_task(task_number, model_answer, model_name):
         model=model_name,
         contents=contents,
         schema=schema_json,
-        system_prompt=system_prompt
+        system_prompt=system_prompt,
+        disable_temperature=disable_temperature
     )
     
     return result_json
@@ -147,7 +156,8 @@ def main():
         epilog="""例:
   uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gemini-2.5-pro.json -n 1
   uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/claude-3-5-sonnet.json -n 42 -m gemini-2.5-pro
-  uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m gpt-4.1-mini"""
+  uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m gpt-4.1-mini
+  uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m o4-mini --disable-temperature"""
     )
     parser.add_argument("json_file", help="モデル回答が格納されたJSONファイルのパス")
     parser.add_argument("-n", "--task-number", type=int, help="評価するタスク番号")
@@ -155,6 +165,7 @@ def main():
                         help=f"評価に使用するモデル名 (デフォルト: {DEFAULT_MODEL})")
     parser.add_argument( "--force", action="store_true", help="既存の評価結果を上書きする")
     parser.add_argument( "--all", action="store_true", help="全てのタスク (1-120) を評価する")
+    parser.add_argument("--disable-temperature", action="store_true", help="温度調整リトライ機能を無効化（o4-miniでは必須）")
     args = parser.parse_args()
     
     # Validate arguments
@@ -221,7 +232,7 @@ def main():
             print(f"タスク {task_num:03d}: 評価中...")
             
             # Evaluate the task
-            result_json = evaluate_task(task_num, model_answer, args.model)
+            result_json = evaluate_task(task_num, model_answer, args.model, args.disable_temperature)
             
             # Validate schema compliance
             is_valid, errors = validate_json_with_schema(result_json, task_num)
