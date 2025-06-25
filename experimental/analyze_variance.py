@@ -157,7 +157,7 @@ def format_variance_analysis(results, benchmark_name):
         output.append("分析対象のモデルが見つかりませんでした（最小評価者数: 3人）")
         return "\n".join(output)
     
-    # 分散減少効果が大きい順にソート
+    # サマリー用：分散減少効果が大きい順にソート
     sorted_models = []
     for target_model, data in results.items():
         legacy_var = data['legacy'].get('variance', 0)
@@ -171,7 +171,7 @@ def format_variance_analysis(results, benchmark_name):
             
         sorted_models.append((target_model, data, variance_reduction))
     
-    # 分散減少率の降順でソート
+    # 分散減少率の降順でソート（サマリー用）
     sorted_models.sort(key=lambda x: x[2], reverse=True)
     
     # サマリーテーブル
@@ -222,33 +222,107 @@ def format_variance_analysis(results, benchmark_name):
     output.append("## 詳細分析")
     output.append("")
     
+    # 詳細分析もサマリーと同じ順番（分散減少率降順）で表示
     for target_model, data, variance_reduction in sorted_models:
         output.append(f"### {target_model}")
         output.append("")
         
-        # 従来形式の統計
-        if data['legacy']['count'] > 0:
-            legacy = data['legacy']
-            output.append(f"**従来形式（judge_*）**: {legacy['count']} 評価者")
-            if legacy['count'] >= 2:
-                output.append(f"- 平均スコア: {legacy['mean']:.2f}")
-                output.append(f"- 標準偏差: {legacy['stdev']:.4f}")
-                output.append(f"- 分散: {legacy['variance']:.4f}")
-                output.append(f"- 範囲: {legacy['min']:.2f} - {legacy['max']:.2f} (差: {legacy['range']:.2f})")
-            output.append(f"- 評価者: {', '.join(legacy['evaluators'])}")
-            output.append("")
+        # スコア対比表
+        legacy = data['legacy']
+        structured = data['structured']
         
-        # 新形式の統計
-        if data['structured']['count'] > 0:
-            structured = data['structured']
-            output.append(f"**新形式（構造化出力）**: {structured['count']} 評価者")
-            if structured['count'] >= 2:
-                output.append(f"- 平均スコア: {structured['mean']:.2f}")
-                output.append(f"- 標準偏差: {structured['stdev']:.4f}")
-                output.append(f"- 分散: {structured['variance']:.4f}")
-                output.append(f"- 範囲: {structured['min']:.2f} - {structured['max']:.2f} (差: {structured['range']:.2f})")
-            output.append(f"- 評価者: {', '.join(structured['evaluators'])}")
-            output.append("")
+        output.append("| 評価者 | 従来形式 | 構造化出力 |")
+        output.append("|--------|----------|------------|")
+        
+        # 評価者名を収集
+        all_evaluators = set()
+        if legacy['count'] > 0:
+            for i, evaluator in enumerate(legacy['evaluators']):
+                # judge_プレフィックスを除去
+                clean_evaluator = evaluator.replace('judge_', '')
+                all_evaluators.add(clean_evaluator)
+        
+        if structured['count'] > 0:
+            for evaluator in structured['evaluators']:
+                all_evaluators.add(evaluator)
+        
+        # 評価者とスコアのペアを作成
+        evaluator_scores = []
+        for evaluator in all_evaluators:
+            legacy_score_val = None
+            structured_score_val = None
+            legacy_score_str = "N/A"
+            structured_score_str = "N/A"
+            
+            # 従来形式のスコアを検索
+            for i, leg_evaluator in enumerate(legacy['evaluators']):
+                clean_leg_evaluator = leg_evaluator.replace('judge_', '')
+                if clean_leg_evaluator == evaluator:
+                    legacy_score_val = legacy['scores'][i]
+                    legacy_score_str = f"{legacy_score_val:.2f}"
+                    break
+            
+            # 構造化出力のスコアを検索
+            if evaluator in structured['evaluators']:
+                idx = structured['evaluators'].index(evaluator)
+                structured_score_val = structured['scores'][idx]
+                structured_score_str = f"{structured_score_val:.2f}"
+            
+            evaluator_scores.append((evaluator, legacy_score_val, structured_score_val, legacy_score_str, structured_score_str))
+        
+        # 従来形式のスコア降順でソート（N/Aは最後に）
+        evaluator_scores.sort(key=lambda x: (x[1] is None, -x[1] if x[1] is not None else 0))
+        
+        # 評価者別にスコアを対比表示
+        for evaluator, _, _, legacy_score_str, structured_score_str in evaluator_scores:
+            output.append(f"| {evaluator} | {legacy_score_str} | {structured_score_str} |")
+        
+        output.append("")
+        
+        # 統計サマリー
+        output.append("**統計サマリー**")
+        output.append("")
+        output.append("| 指標 | 従来形式 | 構造化出力 |")
+        output.append("|------|----------|------------|")
+        
+        # 従来形式の統計
+        if legacy['count'] >= 2:
+            legacy_stats = f"{legacy['mean']:.2f} ± {legacy['stdev']:.4f}"
+        elif legacy['count'] == 1:
+            legacy_stats = f"{legacy['mean']:.2f}"
+        else:
+            legacy_stats = "N/A"
+        
+        # 構造化出力の統計
+        if structured['count'] >= 2:
+            structured_stats = f"{structured['mean']:.2f} ± {structured['stdev']:.4f}"
+        elif structured['count'] == 1:
+            structured_stats = f"{structured['mean']:.2f}"
+        else:
+            structured_stats = "N/A"
+        
+        output.append(f"| 平均 ± 標準偏差 | {legacy_stats} | {structured_stats} |")
+        
+        # 分散
+        legacy_var_str = f"{legacy.get('variance', 0):.4f}" if legacy['count'] >= 2 else "N/A"
+        structured_var_str = f"{structured.get('variance', 0):.4f}" if structured['count'] >= 2 else "N/A"
+        output.append(f"| 分散 | {legacy_var_str} | {structured_var_str} |")
+        
+        # 範囲
+        if legacy['count'] >= 1:
+            legacy_range_str = f"{legacy['min']:.2f} - {legacy['max']:.2f}"
+        else:
+            legacy_range_str = "N/A"
+        
+        if structured['count'] >= 1:
+            structured_range_str = f"{structured['min']:.2f} - {structured['max']:.2f}"
+        else:
+            structured_range_str = "N/A"
+        
+        output.append(f"| 範囲 | {legacy_range_str} | {structured_range_str} |")
+        output.append(f"| 評価者数 | {legacy['count']} | {structured['count']} |")
+        
+        output.append("")
         
         # 改善効果
         if data['legacy']['count'] >= 2 and data['structured']['count'] >= 2:
