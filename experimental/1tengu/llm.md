@@ -47,7 +47,7 @@ result = generate_with_schema(
         "ユーザープロンプト2"
     ],
     schema=json_schema,
-    temperature=0,
+    temperature=0,  # 省略可能（デフォルト: None = APIのデフォルト値を使用）
     system_prompt="システムプロンプト"
 )
 ```
@@ -56,6 +56,7 @@ result = generate_with_schema(
 - モデル名で自動的にAPIを判別
 - シンプルな`contents`配列とシステムプロンプト分離
 - 構造化出力（JSON Schema）をサポート
+- 温度パラメータは省略可能（APIのデフォルト値を使用）
 
 ### 2. contents_to_openai_messages()
 
@@ -137,13 +138,15 @@ for chunk in stream:
     print(chunk.choices[0].delta.content, end='', flush=True)
 ```
 
-### エラーハンドリング
+### 温度パラメータの処理
 
-温度リトライ機能により、構造化出力の信頼性を向上：
+温度パラメータの柔軟な処理により、各APIのデフォルト値を活用：
 
-1. 温度0での生成を試行
-2. パースエラー時は温度を上げて再試行
-3. 全ての試行が失敗した場合のみエラーを発生
+- `temperature=None`（デフォルト）: 各APIのデフォルト温度を使用
+- `temperature=0`: 決定論的な出力を生成
+- `temperature=0.7`など: 指定した温度で生成
+
+内部実装では、`None`の場合はAPIに温度パラメータを渡さず、APIのデフォルト値が使用されます。
 
 ## 使用例
 
@@ -152,7 +155,7 @@ for chunk in stream:
 ```python
 from llm import generate_with_schema, DEFAULT_MODEL
 
-# デフォルトモデル（Gemini）での生成
+# デフォルトモデル（Gemini）での生成（APIデフォルト温度を使用）
 result = generate_with_schema(
     model=DEFAULT_MODEL,
     contents=["質問"],
@@ -160,11 +163,12 @@ result = generate_with_schema(
     system_prompt="システムプロンプト"
 )
 
-# OpenAIモデルでの生成
+# OpenAIモデルでの生成（温度0を明示的に指定）
 result = generate_with_schema(
     model="gpt-4.1-mini",
     contents=["質問"],
     schema={"type": "object", "properties": {...}},
+    temperature=0,
     system_prompt="システムプロンプト"
 )
 ```

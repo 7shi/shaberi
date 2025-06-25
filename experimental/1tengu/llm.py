@@ -31,7 +31,7 @@ def generate_with_schema(
     model: str,
     contents: List[str],
     schema: Dict[str, Any],
-    temperature: float = 0,
+    temperature: float = None,
     system_prompt: str = None,
 ) -> Dict[str, Any]:
     """Generate content with structured output using either OpenAI or Gemini API.
@@ -40,7 +40,7 @@ def generate_with_schema(
         model: Model name (e.g., "gpt-4.1-mini", "gemini-2.5-flash")
         contents: List of user content strings
         schema: JSON schema for structured output
-        temperature: Temperature parameter for generation
+        temperature: Temperature parameter for generation (None = use model default)
         system_prompt: System prompt as string
         
     Returns:
@@ -56,7 +56,7 @@ def _generate_with_gemini(
     model: str,
     contents: List[str],
     schema: Dict[str, Any],
-    temperature: float,
+    temperature: float = None,
     system_prompt: str = None,
 ) -> Dict[str, Any]:
     """Generate with Gemini API."""
@@ -64,7 +64,8 @@ def _generate_with_gemini(
     
     # Build config from schema
     generate_content_config = config_from_schema(schema)
-    generate_content_config.temperature = temperature
+    if temperature is not None:
+        generate_content_config.temperature = temperature
     if system_prompt:
         generate_content_config.system_instruction = [system_prompt]
     
@@ -84,7 +85,7 @@ def _generate_with_openai(
     model: str,
     contents: List[str],
     schema: Dict[str, Any],
-    temperature: float,
+    temperature: float = None,
     system_prompt: str = None,
 ) -> Dict[str, Any]:
     """Generate with OpenAI API with streaming."""
@@ -99,12 +100,11 @@ def _generate_with_openai(
     # Initialize client
     client = OpenAI()
     
-    # Call API with structured output and streaming
-    stream = client.chat.completions.create(
-        model=model,
-        temperature=temperature,
-        messages=openai_messages,
-        response_format={
+    # Build kwargs
+    kwargs = {
+        "model": model,
+        "messages": openai_messages,
+        "response_format": {
             "type": "json_schema",
             "json_schema": {
                 "name": "evaluation_response",
@@ -112,8 +112,15 @@ def _generate_with_openai(
                 "strict": True
             }
         },
-        stream=True
-    )
+        "stream": True
+    }
+    
+    # Add temperature only if provided
+    if temperature is not None:
+        kwargs["temperature"] = temperature
+    
+    # Call API with structured output and streaming
+    stream = client.chat.completions.create(**kwargs)
     
     # Collect streamed response
     collected_content = ""
