@@ -67,7 +67,7 @@ def backoff_handler(details):
         raise backoff.Backoff.Stop
 
 # === 評価生成関数群 ===
-@backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
+@backoff.on_exception(backoff.fibo, Exception, max_tries=5, on_backoff=backoff_handler)
 def get_response_from_openai(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     client = OpenAI(
         api_key=os.environ.get("OPENAI_API_KEY")
@@ -82,7 +82,7 @@ def get_response_from_openai(messages: list, model_name: str, evaluation_tempera
     return response.choices[0].message.content
 
 # === 評価生成関数群 ===
-@backoff.on_exception(backoff.fibo, Exception, max_tries=1000, on_backoff=backoff_handler)
+@backoff.on_exception(backoff.fibo, Exception, max_tries=5, on_backoff=backoff_handler)
 def get_response_from_litellm_gemini(messages: list, model_name: str, evaluation_temperature: float = 0) -> str:
     add_messages = [
             {"role": "system", "content": SYSTEM_PROMPT},
@@ -201,7 +201,7 @@ def get_model_response(messages: list, model_name: str, parser_func):
 
 
 # === 回答生成関数群 ===
-@backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
+@backoff.on_exception(backoff.fibo, Exception, max_tries=5)
 def get_answer_from_openai(question: str, model_name: str):
     api_key = os.environ.get("OPENAI_API_KEY", "EMPTY")
     if api_key == "EMPTY":
@@ -247,7 +247,7 @@ def get_answer_from_openai(question: str, model_name: str):
     return response.choices[0].message.content
 
 
-@backoff.on_exception(backoff.fibo, Exception, max_tries=1000)
+@backoff.on_exception(backoff.fibo, Exception, max_tries=5)
 def get_answer_from_litellm_gemini(question: str, model_name: str):
     generation_temperature = 0.2
 
