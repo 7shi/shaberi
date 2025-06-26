@@ -12,7 +12,8 @@ import traceback
 from pathlib import Path
 from typing import Dict, Any, List
 from tqdm import tqdm
-from llm import generate_with_schema, DEFAULT_MODEL
+from llm7shi.compat import generate_with_schema
+from llm7shi import DEFAULT_MODEL
 from validate_schema import validate_json_with_schema
 
 
@@ -94,8 +95,9 @@ def generate_with_temperature_retry(
     """
     if disable_temperature:
         # Use model default temperature without retry
-        result = generate_with_schema(model, contents, schema, None, system_prompt)
-        return result
+        result = generate_with_schema(contents, schema, model=model,
+                                      system_prompt=system_prompt, show_params=False)
+        return json.loads(result.text)
     
     # Temperature values to try (0.0 to 1.0 in 0.05 steps)
     for t in range(0, 101, 5):
@@ -104,8 +106,9 @@ def generate_with_temperature_retry(
             print(f"温度: {temperature:.2f}", file=sys.stderr)
         
         try:
-            result = generate_with_schema(model, contents, schema, temperature, system_prompt)
-            return result
+            result = generate_with_schema(contents, schema, model=model, temperature=temperature,
+                                          system_prompt=system_prompt, show_params=False)
+            return json.loads(result.text)
             
         except Exception:
             traceback.print_exc()

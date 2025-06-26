@@ -1,6 +1,7 @@
 import argparse
 import json
-from llm import generate_with_schema, DEFAULT_MODEL
+from llm7shi.compat import generate_with_schema
+from llm7shi import DEFAULT_MODEL
 
 
 def calculate_score(result_json):
@@ -45,13 +46,14 @@ def generate(model):
     ]
     
     # Generate with structured output
-    result_json = generate_with_schema(
-        model=model,
+    result = generate_with_schema(
         contents=contents,
         schema=schema,
+        model=model,
         temperature=0,
         system_prompt=system_prompt
     )
+    result_json = json.loads(result.text)
     
     return result_json
 

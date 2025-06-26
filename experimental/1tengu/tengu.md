@@ -140,7 +140,7 @@ contents = [
     f"[評価するモデルの回答]\n{model_answer.rstrip()}"
 ]
 
-# llm.pyの統一インターフェースで呼び出し（tengu.py内で定義）
+# llm7shi.compatの統一インターフェースで呼び出し（tengu.py内で定義）
 result_json = generate_with_temperature_retry(
     model=model_name,  # gemini-*/gpt-*で自動判別
     contents=contents,
@@ -279,9 +279,9 @@ pip install tqdm
 ```
 
 **内部モジュール：**
-- `llm.py`: LLM API統合レイヤー
+- `llm7shi.compat`: LLM API統合レイヤー
   - `generate_with_schema()`: 統一インターフェース（OpenAI/Gemini自動判別）
-  - `contents_to_openai_messages()`: contents配列をOpenAI形式に変換
+- `llm7shi`: デフォルト設定
   - `DEFAULT_MODEL`: デフォルトモデル名（gemini-2.5-flash）
 - `tengu.py`: 評価システム（このファイル内）
   - `generate_with_temperature_retry()`: 温度調整リトライ機能
@@ -609,8 +609,7 @@ ValueError: 全ての温度設定でJSONパースに失敗しました
 ### 設定ファイル
 - **tengu-000-user.md**: 参照用評価プロンプト
 - **tengu-000-schema.json**: 参照用JSONスキーマ
-- **llm.py**: LLM API統合レイヤー（OpenAI/Gemini対応）
-- **llm.md**: llm.pyの設計ドキュメント
+- **llm7shi.compat**: LLM API統合レイヤー（OpenAI/Gemini対応）
 
 ### ドキュメント
 - **20250619-schema.md**: 構造化出力移行手順

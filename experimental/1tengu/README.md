@@ -17,8 +17,7 @@
 │   └── {評価者モデル}/
 │       └── {回答者モデル}/
 │           └── 001.json ～ 120.json  # 評価結果
-├── llm.py                    # LLM API統合レイヤー
-├── tengu.py                  # メイン評価システム
+├── tengu.py                 # メイン評価システム
 ├── tengu-000.py             # 単一タスクテストスクリプト
 └── その他の補助ツール
 ```
@@ -27,7 +26,7 @@
 
 ### コア機能
 
-- **llm.py** - LLM API統合レイヤー（OpenAI/Gemini統一インターフェース）
+- **llm7shi.compat** - LLM API統合レイヤー（OpenAI/Gemini統一インターフェース）
 - **tengu.py** - メイン評価システム（構造化出力による自動評価実行）
 - **tengu-000.py** - 単一タスクテストスクリプト
 
@@ -107,7 +106,7 @@ uv run validate_schema.py judge/gpt-4o-mini/shisa-v1-llama3-8b
 ## 関連ドキュメント
 
 各ツールの詳細な使用方法：
-- [llm.md](llm.md) - LLM API統合レイヤーの詳細
+- [llm7shi.compat](https://pypi.org/project/llm7shi/) - LLM API統合レイヤーの詳細
 - [tengu.md](tengu.md) - メイン評価システムの詳細
 - [tengu-000.md](tengu-000.md) - 単一タスクテストの詳細
 - [conv_tengu.md](conv_tengu.md) - データ抽出・変換の詳細

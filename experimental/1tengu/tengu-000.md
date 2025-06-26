@@ -20,7 +20,7 @@
 - **tengu-000-json.md**: 構造化出力の詳細解析とJSONスキーマ設計
 
 ### 共通モジュール
-- **llm.py**: LLM API統合レイヤー（OpenAI/Gemini共通インターフェース）
+- **llm7shi.compat**: LLM API統合レイヤー（OpenAI/Gemini共通インターフェース）
 
 ## 背景
 
@@ -94,13 +94,14 @@ JSONスキーマを活用した構造化出力により、これらの問題を�
 
 ```
 tengu-000.py
-    ├── llm.py (LLM統合レイヤー)
-    │   ├── generate_with_schema()
-    │   ├── generate_with_temperature_retry()
-    │   ├── _generate_with_gemini()
-    │   └── _generate_with_openai()
     ├── tengu-000-user.md (プロンプト)
     └── tengu-000-schema.json (スキーマ)
+
+外部依存:
+    └── llm7shi.compat (LLM統合レイヤー)
+        ├── generate_with_schema()
+        ├── _generate_with_gemini()
+        └── _generate_with_openai()
 ```
 
 ### 主要機能
@@ -135,8 +136,7 @@ uv run tengu-000.py -m gemini-2.5-pro
    - Gemini: `GOOGLE_API_KEY`環境変数
    - OpenAI: `OPENAI_API_KEY`環境変数
 2. **依存関係**: 
-   - `llm7shi`ライブラリ（Gemini用）
-   - `openai`ライブラリ（OpenAI用）
+   - `llm7shi`ライブラリ（OpenAI/Gemini統合）
 3. **入力ファイル**: 
    - `tengu-000-user.md`
    - `tengu-000-schema.json`
