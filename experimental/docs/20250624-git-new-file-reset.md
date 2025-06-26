@@ -4,6 +4,13 @@
 
 Gitにおいて、新規ファイル（new file）と既存ファイルの変更では、`git reset`コマンドの動作が異なります。この文書では、その違いと適切な操作方法について説明します。
 
+なお、この対処法は`git status`の出力の中に書いてあります。
+
+```
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+```
+
 ## 新規ファイルと既存ファイルの違い
 
 ### 既存ファイルの変更
