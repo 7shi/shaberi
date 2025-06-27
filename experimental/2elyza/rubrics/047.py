@@ -1,0 +1,9 @@
+def judge_047(score: int, judge: callable) -> int:
+    # - 不正解の場合: 1点になる
+    # - 正解の場合: 5点になる
+    
+    if judge("正解である"):
+        score = 5
+    else:
+        score = 1
+    return score
