@@ -70,7 +70,18 @@ gemini-2.5-pro|15m19.328s
 
 model|time
 ----|----
+gemini-2.5-flash-lite-preview-06-17|29m45.539s
+gemini-2.5-flash|28m31.114s
+gemini-2.5-pro-preview-03-25|24m30.727s
+gemini-2.5-pro-preview-05-06|---
+gemini-2.5-pro-preview-06-05|25m21.614s
 gemini-2.5-pro|19m21.592s
+
+62番が拒否される
+
+```text
+openai.BadRequestError: Error code: 400 - {'error': {'message': "Unsupported value: 'temperature' does not support 0.0 with this model. Only the default (1) value is supported.", 'type': 'invalid_request_error', 'param': 'temperature', 'code': 'unsupported_value'}}
+```
 
 ----
 
