@@ -70,21 +70,36 @@ def get_judge_function_and_args(task_number: int) -> Tuple[Optional[Callable], L
 
 ## 機能概要
 
-### コア機能
+### 評価系機能
 
-1. **`get_judge_function_and_args(task_number)`**
+1. **`calculate_score(result_json, task_number)`**
+   - 構造化出力から最終スコア（1-5点）を計算
+   - judge関数による問題固有減点と共通減点を適用
+   - KeyErrorで無効なjudgeクエリを検出
+
+2. **`load_and_prepare_schema(task_number)`**
+   - ベーススキーマを読み込み、タスク固有フィールドを動的追加
+   - judge関数の引数をq1, q2, q3...として自動展開
+
+3. **`log_calls(func)`**
+   - judge関数の呼び出しをログ出力するデコレーター
+   - デバッグとトレーシング用途
+
+### judge関数管理機能
+
+4. **`get_judge_function_and_args(task_number)`**
    - タスク番号から(judge関数, 引数リスト)のタプルを返す
    - 最も重要なAPI関数
 
-2. **`extract_judge_args_from_ast(code)`**
+5. **`extract_judge_args_from_ast(code)`**
    - ASTを使用したjudge()引数の抽出
    - 内部関数として使用
 
-3. **`list_available_judges()`**
+6. **`list_available_judges()`**
    - 利用可能なjudge関数の一覧取得
    - デバッグ・管理用途
 
-4. **`test_judge_function(task_number)`**
+7. **`test_judge_function(task_number)`**
    - judge関数のテスト実行
    - 開発・検証用途
 
@@ -106,23 +121,25 @@ uv run elyza_utils.py --test 1
 ### 基本的な使用方法
 
 ```python
+from elyza_utils import calculate_score, load_and_prepare_schema
+
+# 1. スキーマ生成とLLM評価
+schema = load_and_prepare_schema(task_number=1)
+result_json = llm_generate_with_schema(prompt, schema)
+
+# 2. スコア計算
+final_score = calculate_score(result_json, task_number=1)
+print(f"最終スコア: {final_score}/5点")
+
+# 3. 低レベルAPIの使用例
 from elyza_utils import get_judge_function_and_args
 
-# タスク1の評価関数と引数を取得
 judge_func, judge_args = get_judge_function_and_args(1)
-
 if judge_func:
     print(f"関数名: {judge_func.__name__}")
     print(f"評価項目: {len(judge_args)}個")
     for i, arg in enumerate(judge_args):
         print(f"  {i+1}. {arg}")
-    
-    # 実際の評価実行
-    def my_judge(query: str) -> bool:
-        # 実際のLLM評価ロジック
-        return evaluate_with_llm(query, model_answer)
-    
-    final_score = judge_func(5, my_judge)
 ```
 
 ### バッチ処理での活用
