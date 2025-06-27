@@ -163,11 +163,8 @@ def extract_judge_args_from_ast(code: str) -> List[str]:
                     node.func.id == 'judge' and 
                     len(node.args) == 1):
                     
-                    # 文字列リテラルの場合
-                    if isinstance(node.args[0], ast.Str):
-                        judge_args.append(node.args[0].s)
-                    # Python 3.8+のast.Constantの場合
-                    elif isinstance(node.args[0], ast.Constant) and isinstance(node.args[0].value, str):
+                    # 文字列リテラルの場合（Python 3.8+）
+                    if isinstance(node.args[0], ast.Constant) and isinstance(node.args[0].value, str):
                         judge_args.append(node.args[0].value)
                 
                 self.generic_visit(node)
