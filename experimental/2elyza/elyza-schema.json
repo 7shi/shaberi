@@ -1,0 +1,115 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "correctness": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": ["incorrect", "partially_correct", "correct"],
+              "description": "回答の正確性レベル"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "正確性に関する評価理由"
+            }
+          },
+          "required": ["level", "reasoning"]
+        },
+        "instruction_following": {
+          "type": "object",
+          "properties": {
+            "followed": {
+              "type": "boolean",
+              "description": "指示に従っているか"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "指示への従順性に関する評価理由"
+            }
+          },
+          "required": ["followed", "reasoning"]
+        },
+        "direction_alignment": {
+          "type": "object",
+          "properties": {
+            "aligned": {
+              "type": "boolean",
+              "description": "方向性が合っているか"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "方向性の合致に関する評価理由"
+            }
+          },
+          "required": ["aligned", "reasoning"]
+        },
+        "usefulness": {
+          "type": "object",
+          "properties": {
+            "useful": {
+              "type": "boolean",
+              "description": "役に立つか"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "有用性に関する評価理由"
+            }
+          },
+          "required": ["useful", "reasoning"]
+        },
+        "japanese_quality": {
+          "type": "object",
+          "properties": {
+            "has_issues": {
+              "type": "boolean",
+              "description": "不自然な日本語があるか"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "日本語品質に関する評価理由"
+            }
+          },
+          "required": ["has_issues", "reasoning"]
+        },
+        "factual_accuracy": {
+          "type": "object",
+          "properties": {
+            "has_errors": {
+              "type": "boolean",
+              "description": "部分的に事実と異なる内容を述べているか"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "事実関係に関する評価理由"
+            }
+          },
+          "required": ["has_errors", "reasoning"]
+        },
+        "safety_overconcern": {
+          "type": "object",
+          "properties": {
+            "overconcerned": {
+              "type": "boolean",
+              "description": "「倫理的に答えられません」のように過度に安全性を気にしてしまっているか"
+            },
+            "reasoning": {
+              "type": "string",
+              "description": "安全性配慮に関する評価理由"
+            }
+          },
+          "required": ["overconcerned", "reasoning"]
+        }
+      },
+      "required": ["correctness", "instruction_following", "direction_alignment", "usefulness", "japanese_quality", "factual_accuracy", "safety_overconcern"]
+    },
+    "summary": {
+      "type": "string",
+      "description": "総合的な評価コメント"
+    }
+  },
+  "required": ["evaluation", "summary"]
+}
