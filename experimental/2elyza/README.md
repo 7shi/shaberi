@@ -10,47 +10,24 @@
 
 ## ツール使用フロー
 
-```mermaid
-graph TD
-    A[開始] --> B[環境設定<br/>API キー設定]
-    B --> C[conv_elyza.py<br/>データ分割]
-    C --> D[check_criteria.py<br/>採点基準確認]
-    D --> E[generate_rubrics.py<br/>評価関数自動生成]
-    E --> F[conv_rubrics.py<br/>Python統合ファイル作成]
-    F --> G[elyza_utils.py<br/>judge関数確認]
-    G --> H[elyza-001.py<br/>単一タスク実証]
-    H --> I[elyza.py<br/>全タスク評価]
-    
-    %% データファイル
-    C --> C1[data/001.md～100.md<br/>分割タスクデータ]
-    E --> E1[rubrics/001.md～100.md<br/>評価関数Markdown]
-    F --> F1[rubrics.py<br/>統合評価関数]
-    H --> H1[単一タスクスコア<br/>5/5点]
-    I --> I1[全タスク評価結果<br/>judge/{評価者}/{回答者}/]
-    
-    %% ユーティリティ使用
-    G --> G1[elyza_utils.py --list<br/>利用可能関数一覧]
-    G --> G2[elyza_utils.py --get-args 1<br/>評価項目表示]
-    G --> G3[elyza_utils.py --test 1<br/>関数テスト]
-    
-    %% 評価実行の詳細
-    H --> H2[elyza-schema.json<br/>ベーススキーマ読み込み]
-    H --> H3[elyza-001-answer.md<br/>評価対象回答読み込み]
-    H --> H4[動的スキーマ生成]
-    H --> H5[LLM評価実行]
-    H --> H6[構造化出力解析]
-    H --> H7[スコア計算]
-    
-    %% スタイル
-    classDef processBox fill:#e1f5fe
-    classDef dataBox fill:#f3e5f5
-    classDef utilBox fill:#e8f5e8
-    classDef outputBox fill:#fff3e0
-    
-    class B,C,D,E,F,G,H,I processBox
-    class C1,E1,F1,H2,H3 dataBox
-    class G1,G2,G3 utilBox
-    class H1,I1,H4,H5,H6,H7 outputBox
+```
+[開始]
+  ↓
+[環境設定: API キー設定]
+  ↓
+[conv_elyza.py: データ分割] → [data/001.md～100.md: 分割タスクデータ]
+  ↓
+[check_criteria.py: 採点基準確認]
+  ↓
+[generate_rubrics.py: 評価関数自動生成] → [rubrics/001.md～100.md: 評価関数Markdown]
+  ↓
+[conv_rubrics.py: Python統合ファイル作成] → [rubrics.py: 統合評価関数]
+  ↓
+[elyza_utils.py: judge関数確認]
+  ↓
+[elyza-001.py: 単一タスク実証] → [単一タスクスコア: 5/5点]
+  ↓
+[elyza.py: 全タスク評価] → [全タスク評価結果: judge/評価者/回答者/]
 ```
 
 ### フロー説明（8段階の変換プロセス）

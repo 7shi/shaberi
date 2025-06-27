@@ -20,25 +20,22 @@
 
 ## 実装フロー：7段階の変換プロセス
 
-```mermaid
-graph TD
-    A[既存ベンチマーク<br/>データ分析] --> B[データ分割<br/>conv_xxx.py]
-    B --> C[評価基準抽出<br/>check_criteria.py]
-    C --> D[評価関数自動生成<br/>generate_rubrics.py]
-    D --> E[Python統合<br/>conv_rubrics.py]
-    E --> F[動的システム<br/>xxx_utils.py]
-    F --> G[実証システム<br/>xxx-001.py]
-    G --> H[全タスク評価<br/>xxx.py]
-    
-    %% データ流れ
-    A --> A1[元データ構造解析]
-    B --> B1[data/001.md～N.md]
-    C --> C1[採点基準一覧]
-    D --> D1[rubrics/001.md～N.md]
-    E --> E1[rubrics.py統合ファイル]
-    F --> F1[judge関数動的取得]
-    G --> G1[単一タスク実証]
-    H --> H1[全タスク本番評価]
+```
+[既存ベンチマークデータ分析] → [元データ構造解析]
+  ↓
+[データ分割: conv_xxx.py] → [data/001.md～N.md]
+  ↓
+[評価基準抽出: check_criteria.py] → [採点基準一覧]
+  ↓
+[評価関数自動生成: generate_rubrics.py] → [rubrics/001.md～N.md]
+  ↓
+[Python統合: conv_rubrics.py] → [rubrics.py統合ファイル]
+  ↓
+[動的システム: xxx_utils.py] → [judge関数動的取得]
+  ↓
+[実証システム: xxx-001.py] → [単一タスク実証]
+  ↓
+[全タスク評価: xxx.py] → [全タスク本番評価]
 ```
 
 ## 段階1: データ構造分析と分割戦略
