@@ -18,7 +18,7 @@
 - **効率処理**: 構造化データの直接利用
 - **トークン節約**: Few-shot例が不要
 
-## 実装フロー：6段階の変換プロセス
+## 実装フロー：7段階の変換プロセス
 
 ```mermaid
 graph TD
@@ -28,6 +28,7 @@ graph TD
     D --> E[Python統合<br/>conv_rubrics.py]
     E --> F[動的システム<br/>xxx_utils.py]
     F --> G[実証システム<br/>xxx-001.py]
+    G --> H[全タスク評価<br/>xxx.py]
     
     %% データ流れ
     A --> A1[元データ構造解析]
@@ -36,7 +37,8 @@ graph TD
     D --> D1[rubrics/001.md～N.md]
     E --> E1[rubrics.py統合ファイル]
     F --> F1[judge関数動的取得]
-    G --> G1[構造化出力評価]
+    G --> G1[単一タスク実証]
+    H --> H1[全タスク本番評価]
 ```
 
 ## 段階1: データ構造分析と分割戦略
@@ -274,6 +276,56 @@ def calculate_score(result_json, task_number):
     return max(min_score, min(max_score, score))
 ```
 
+## 段階7: 全タスク評価システムの実装
+
+### 目的
+実証された単一タスク評価システムを、全タスクに対応した本番評価システムに拡張する。tengu.py等の既存実装をベースとした統一仕様を採用。
+
+### 全タスク対応システム（xxx.py）
+```python
+def main():
+    """全タスク評価の汎用パターン（tengu.py準拠）"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument("json_file", help="モデル回答が格納されたJSONファイルのパス")
+    parser.add_argument("-n", "--task-number", type=int, help="評価するタスク番号")
+    parser.add_argument("--all", action="store_true", help="全てのタスクを評価する")
+    parser.add_argument("-m", "--model", help="評価に使用するモデル名")
+    parser.add_argument("--force", action="store_true", help="既存の評価結果を上書きする")
+    
+    # JSONL形式でモデル回答読み込み
+    with open(args.json_file, 'r') as f:
+        answers = [json.loads(line)["ModelAnswer"] for line in f]
+    
+    # 単一/全タスクの分岐
+    if args.all:
+        targets = list(range(1, len(answers) + 1))
+    else:
+        targets = [args.task_number]
+    
+    # 進捗管理とスキップ機能
+    iterator = tqdm(targets, desc="評価進捗") if args.all else targets
+    
+    for task_num in iterator:
+        # 既存ファイルチェック
+        output_file = f"judge/{args.model}/{model_name}/{task_num:03d}.json"
+        if os.path.exists(output_file) and not args.force:
+            continue
+        
+        # 評価実行
+        result_json = evaluate_task(task_num, answers[task_num-1], args.model)
+        score = calculate_score(result_json, task_num)
+        
+        # 結果保存
+        save_evaluation_result(output_file, result_json, score)
+```
+
+### tengu.py準拠の共通仕様
+1. **コマンドライン引数**: 単一タスク（-n）、全タスク（--all）、モデル指定（-m）、強制上書き（--force）
+2. **入力形式**: JSONL形式のモデル回答ファイル
+3. **出力形式**: judge/{評価モデル}/{回答モデル}/{タスク番号}.json
+4. **進捗管理**: tqdmによるプログレスバー表示
+5. **エラーハンドリング**: 全タスクモードでのエラー継続処理
+
 ## ベンチマーク適応における考慮事項
 
 ### Tengu Benchからの適用実績（ELYZA実装）
@@ -389,9 +441,9 @@ python xxx-001.py --dry-run     # 評価システムのドライラン
 3. **設定駆動システム**: ベンチマーク固有部分の設定ファイル化
 
 ### 中期目標
-1. **バッチ処理システム**: 全タスク一括評価機能
-2. **品質比較分析**: 従来手法との定量的比較
-3. **性能最適化**: 並列処理とキャッシュ機能
+1. **品質比較分析**: 従来手法との定量的比較
+2. **性能最適化**: 並列処理とキャッシュ機能
+3. **統計分析機能**: 評価結果の詳細分析ツール
 
 ### 長期目標
 1. **構造化出力評価の標準化**: 日本語LLM評価の統一手法確立
@@ -401,10 +453,11 @@ python xxx-001.py --dry-run     # 評価システムのドライラン
 ## 技術的教訓とベストプラクティス
 
 ### 成功要因
-1. **段階的アプローチ**: 複雑なシステムを6段階に分割
+1. **段階的アプローチ**: 複雑なシステムを7段階に分割
 2. **自動化の徹底**: 手動作業を最小限に削減
 3. **動的システム設計**: ハードコーディングの完全排除
 4. **Few-shot学習活用**: LLMによる高品質コード生成
+5. **統一仕様採用**: tengu.py準拠による一貫性確保
 
 ### 技術的革新
 1. **ASTベース解析**: 正規表現より確実な引数抽出
@@ -420,7 +473,9 @@ python xxx-001.py --dry-run     # 評価システムのドライラン
 
 ## 結論
 
-このガイドに従うことで、任意の従来型評価ベンチマークを構造化出力システムに変換可能です。ELYZA-tasks-100での実装により確立された6段階の変換プロセスは、ja-mt-bench-1shot等の他ベンチマークへの適用において、開発効率の大幅向上と品質の一貫性を実現します。
+このガイドに従うことで、任意の従来型評価ベンチマークを構造化出力システムに変換可能です。ELYZA-tasks-100での実装により確立された7段階の変換プロセスは、ja-mt-bench-1shot等の他ベンチマークへの適用において、開発効率の大幅向上と品質の一貫性を実現します。
+
+特に、単一タスク実証（段階6）から全タスク評価（段階7）への拡張は、tengu.py準拠の統一仕様により、最小限の追加実装で完了できることが実証されました。
 
 構造化出力による評価システムは、計算精度、形式保証、効率性の面で従来手法を大幅に改善し、日本語LLM評価の新たな標準となる技術基盤を提供します。
 
@@ -428,5 +483,6 @@ python xxx-001.py --dry-run     # 評価システムのドライラン
 
 - [../2elyza/README.md](../2elyza/README.md): 実装されたツールの詳細
 - [../2elyza/elyza-001.md](../2elyza/elyza-001.md): 実証システムの技術仕様
+- [../2elyza/elyza.md](../2elyza/elyza.md): 全タスク評価システムの詳細
 - [../2elyza/generate_rubrics.md](../2elyza/generate_rubrics.md): 自動コード生成の詳細
 - [../2elyza/elyza_utils.md](../2elyza/elyza_utils.md): 動的システムの実装詳細

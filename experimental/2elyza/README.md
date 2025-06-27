@@ -18,13 +18,15 @@ graph TD
     D --> E[generate_rubrics.py<br/>評価関数自動生成]
     E --> F[conv_rubrics.py<br/>Python統合ファイル作成]
     F --> G[elyza_utils.py<br/>judge関数確認]
-    G --> H[elyza-001.py<br/>評価実行]
+    G --> H[elyza-001.py<br/>単一タスク実証]
+    H --> I[elyza.py<br/>全タスク評価]
     
     %% データファイル
     C --> C1[data/001.md～100.md<br/>分割タスクデータ]
     E --> E1[rubrics/001.md～100.md<br/>評価関数Markdown]
     F --> F1[rubrics.py<br/>統合評価関数]
-    H --> H1[最終スコア出力<br/>ログ表示]
+    H --> H1[単一タスクスコア<br/>5/5点]
+    I --> I1[全タスク評価結果<br/>judge/{評価者}/{回答者}/]
     
     %% ユーティリティ使用
     G --> G1[elyza_utils.py --list<br/>利用可能関数一覧]
@@ -45,13 +47,13 @@ graph TD
     classDef utilBox fill:#e8f5e8
     classDef outputBox fill:#fff3e0
     
-    class B,C,D,E,F,G,H processBox
+    class B,C,D,E,F,G,H,I processBox
     class C1,E1,F1,H2,H3 dataBox
     class G1,G2,G3 utilBox
-    class H1,H4,H5,H6,H7 outputBox
+    class H1,I1,H4,H5,H6,H7 outputBox
 ```
 
-### フロー説明（6段階の変換プロセス）
+### フロー説明（8段階の変換プロセス）
 
 1. **初期設定**: API キーの設定
 2. **データ分割**: ELYZA-tasks-100データの個別ファイル分割（conv_elyza.py）
@@ -59,7 +61,8 @@ graph TD
 4. **評価関数生成**: 評価基準のPython関数自動化（generate_rubrics.py）
 5. **Python統合**: 個別評価関数の統合と最適化（conv_rubrics.py）
 6. **動的システム**: judge関数動的取得とスキーマ生成（elyza_utils.py）
-7. **実証評価**: 構造化出力による実際の評価実行（elyza-001.py）
+7. **実証評価**: 構造化出力による単一タスク評価実行（elyza-001.py）
+8. **全タスク評価**: tengu.py準拠の全100タスク評価システム（elyza.py）
 
 ## ファイル構成
 
@@ -69,6 +72,8 @@ graph TD
 ├── conv_elyza.py            # データ分割ツール
 ├── conv_elyza.md            # conv_elyza.pyの詳細ドキュメント
 ├── elyza-001.py             # 単一タスク評価実証スクリプト
+├── elyza.py                 # 全タスク対応評価スクリプト（tengu.py準拠）
+├── elyza.md                 # elyza.pyの詳細ドキュメント
 ├── elyza-schema.json        # ベース構造化出力JSONスキーマ（7つの基本評価項目）
 ├── elyza-001-answer.md      # 評価対象回答（gemini-2.5-flash-lite-preview-06-17）
 ├── elyza-001.md             # 001タスク実証スクリプトドキュメント
@@ -110,6 +115,7 @@ graph TD
 ### 実証・検証
 
 - **elyza-001.py** - 単一タスク（001）での構造化出力評価実証（汎用関数利用、ログ出力対応）
+- **elyza.py** - 全タスク対応評価スクリプト（tengu.py準拠、単一/全タスク評価、進捗管理機能付き）
 
 ### ユーティリティ
 
@@ -154,12 +160,31 @@ uv run elyza_utils.py --get-args 1
 ```
 
 ### 6. 評価実行
+
+#### 単一タスク実証（elyza-001.py）
 ```bash
 # 単一タスク実証評価（デフォルトモデル）
 uv run elyza-001.py
+
+# OpenAIモデルで実行
+uv run elyza-001.py -m gpt-4.1-mini
 ```
 
-**注**: 評価対象の回答は`elyza-001-answer.md`から自動読み込みされます。異なる回答を評価したい場合は、該当ファイルの内容を変更してください。
+**注**: 評価対象の回答は`elyza-001-answer.md`から自動読み込みされます。
+
+#### 全タスク評価（elyza.py）
+```bash
+# 単一タスク評価
+uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gemini-2.5-pro.json -n 1
+
+# 全タスク評価（1-100）
+uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gpt-4o.json --all -m gpt-4.1-mini
+
+# 強制上書き
+uv run elyza.py model.json --all --force
+```
+
+**注**: elyza.pyはtengu.pyと同様の仕様で、モデル回答JSONLファイルを入力として全100タスクの評価を実行します。
 
 詳細な使用方法は各ツールのドキュメント（`{tool_name}.md`）を参照してください。
 
@@ -198,6 +223,7 @@ uv run elyza-001.py
 - [conv_rubrics.md](conv_rubrics.md) - 評価基準Markdown→結合Python変換の詳細
 - [elyza_utils.md](elyza_utils.md) - ELYZA評価ユーティリティの詳細
 - [elyza-001.md](elyza-001.md) - 単一タスク実証評価の詳細
+- [elyza.md](elyza.md) - 全タスク対応評価システムの詳細（tengu.py準拠仕様、使用例、技術仕様）
 
 ### 実装ガイドと技術仕様
 - [../docs/20250626-dev-elyza-implementation.md](../docs/20250626-dev-elyza-implementation.md) - 従来型評価システムから構造化出力システムへの変換実装ガイド（ja-mt-bench-1shot等への適用手順）

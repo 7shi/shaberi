@@ -12,11 +12,21 @@
 
 ```
 experimental/
-└── 1tengu/                  # 生成されるファイル群
-    ├── 001.md ～ 120.md     # 評価プロンプト
-    ├── 001.json ～ 120.json # JSONスキーマ
-    └── {評価者}/{回答者}/   # 評価結果
-        └── 001.json ～ 120.json
+├── 1tengu/                  # Tengu Benchmark関連ファイル
+│   ├── data/
+│   │   ├── 001.md ～ 120.md     # 評価プロンプト
+│   │   └── 001.json ～ 120.json # JSONスキーマ
+│   └── judge/
+│       └── {評価者}/{回答者}/   # 評価結果
+│           └── 001.json ～ 120.json
+└── 2elyza/                  # ELYZA-tasks-100関連ファイル
+    ├── data/
+    │   └── 001.md ～ 100.md     # 評価プロンプト
+    ├── elyza-schema.json        # ベーススキーマ
+    ├── rubrics.py               # 問題固有採点ルール
+    └── judge/
+        └── {評価者}/{回答者}/   # 評価結果
+            └── 001.json ～ 100.json
 ```
 
 ## ツール一覧
@@ -29,7 +39,7 @@ experimental/
 - [1tengu/](1tengu/) - Tengu Benchmark構造化出力評価システム（詳細はREADME参照）
 
 **ELYZA-tasks-100 関連**
-- （今後実装予定）
+- [2elyza/](2elyza/) - ELYZA-tasks-100構造化出力評価システム（詳細はREADME参照）
 
 **ja-mt-bench-1shot 関連**
 - （今後実装予定）
@@ -68,7 +78,7 @@ uv run dump_questions.py
 
 ### 3. ELYZA-tasks-100 関連
 
-*（今後実装予定）*
+詳細は[2elyza/README.md](2elyza/README.md)を参照してください。
 
 ### 4. ja-mt-bench-1shot 関連
 
@@ -126,11 +136,8 @@ uv run merge_csv.py *.csv -o all_results.csv
 - 異なる列順序を持つCSVファイルを列名ベースで統合
 - **詳細な使用方法は[merge_csv.md](merge_csv.md)を参照**
 
-### 5. ELYZA-tasks-100 構造化出力システム
 
-*（今後実装予定）*
-
-### 6. ja-mt-bench-1shot 構造化出力システム
+### 5. ja-mt-bench-1shot 構造化出力システム
 
 *（今後実装予定）*
 
@@ -184,19 +191,22 @@ pip install tomli
 ## 実行結果
 
 ### 処理統計
-- **対象タスク**: 120件（Tengu Benchmark）
+- **対象タスク**: 220件（Tengu Benchmark 120件 + ELYZA-tasks-100 100件）
 - **成功率**: 100%
-- **形式分類**: 単層構造（97件）+ 階層構造（23件）
-- **スキーマ生成**: 全120件対応
+- **形式分類**: 
+  - Tengu: 単層構造（97件）+ 階層構造（23件）
+  - ELYZA: 動的スキーマ生成（judge関数統合）
+- **スキーマ生成**: 全220件対応
 
 ### パフォーマンス
-- **高速処理**: 120件を数秒で完了
+- **高速処理**: 各ベンチマーク100件以上を効率的に処理
 - **メモリ効率**: ファイル単位での逐次処理
 - **エラー耐性**: 1件の失敗が全体に影響しない
+- **進捗管理**: tqdmによるリアルタイム進捗表示
 
 ## 今後の展開
 
-1. **他ベンチマーク対応**: ELYZA、ja-mt-benchへの適用
+1. **他ベンチマーク対応**: ja-mt-benchへの適用（ELYZA完了済み）
 2. **API統合拡張**: OpenAI、Anthropic対応
 3. **評価精度向上**: 温度調整、プロンプト改良
 4. **統計分析拡張**: タスク別難易度分析、項目別パフォーマンス分析
