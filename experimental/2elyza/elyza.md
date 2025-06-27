@@ -103,6 +103,13 @@ for t in range(start_temperature, 101, 5):
                                       max_length=MAX_LENGTH)
         return json.loads(result.text)
         
+    except KeyboardInterrupt:
+        # Ctrl+C押下時の処理
+        response = input("\n\n処理を中止しますか？ (y/N): ")
+        if response.lower() in ['y', 'yes']:
+            raise
+        print("処理を続行します...\n")
+        
     except Exception:
         traceback.print_exc()
 
@@ -114,6 +121,7 @@ raise ValueError("全ての温度設定でJSONパースに失敗しました")
 - **段階的リトライ**: 指定開始温度→1.0まで0.05刻みで自動調整
 - **無効化オプション**: o4-miniモデル対応（`-st -1`）
 - **詳細ログ**: 各試行のエラー詳細を標準エラー出力
+- **キーボード割り込み対応**: Ctrl+C押下時に処理中止の確認（y/N）
 - **確実な処理**: 最終的に全温度で失敗した場合の例外発生
 - **生成長制限**: `MAX_LENGTH = 8192`による出力文字数制限
 

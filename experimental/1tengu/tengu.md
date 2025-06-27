@@ -505,7 +505,8 @@ def generate_with_temperature_retry(
 1. **初期試行**: 指定された開始温度で生成を試行
 2. **段階的リトライ**: パースエラー時は温度を0.05刻みで上昇（最大1.0）
 3. **エラー出力**: 各失敗時のエラー詳細を標準エラー出力に記録
-4. **最終失敗**: 全温度で失敗した場合、例外を発生
+4. **キーボード割り込み対応**: Ctrl+C押下時に処理中止の確認（y/N）
+5. **最終失敗**: 全温度で失敗した場合、例外を発生
 
 **無効化モード（start_temperature < 0）:**
 - モデルのデフォルト温度設定で単一試行のみ実行
@@ -520,6 +521,12 @@ for t in range(start_temperature, 101, 5):
         result = generate_with_schema(model, contents, schema, temperature, system_prompt,
                                       max_length=MAX_LENGTH)
         return result
+    except KeyboardInterrupt:
+        # Ctrl+C押下時の処理
+        response = input("\n\n処理を中止しますか？ (y/N): ")
+        if response.lower() in ['y', 'yes']:
+            raise
+        print("処理を続行します...\n")
     except Exception:
         # エラーログ出力して次の温度で再試行
         traceback.print_exc()

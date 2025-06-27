@@ -117,6 +117,13 @@ def generate_with_temperature_retry(
                                           max_length=max_length)
             return json.loads(result.text)
             
+        except KeyboardInterrupt:
+            # Handle Ctrl+C
+            response = input("\n\n処理を中止しますか？ (y/N): ")
+            if response.lower() in ['y', 'yes']:
+                raise
+            print("処理を続行します...\n")
+            
         except Exception:
             traceback.print_exc()
     
