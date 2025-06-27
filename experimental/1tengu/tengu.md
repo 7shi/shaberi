@@ -109,6 +109,9 @@ with open(md_file, "r", encoding="utf-8") as f:
 ```python
 from validate_schema import validate_json_with_schema
 
+# 定数定義
+MAX_LENGTH = 8192
+
 # LLM評価結果の生成後
 result_json = evaluate_task(task_num, model_answer, args.model)
 
@@ -127,7 +130,7 @@ else:
 - **詳細エラー報告**: 具体的な検証失敗内容を表示
 - **処理停止**: 検証失敗時の即座中断
 
-### 4. evaluate_task(task_number, model_answer, model_name)
+### 4. evaluate_task(task_number, model_answer, model_name, disable_temperature=False, max_length=MAX_LENGTH)
 
 **目的**: 構造化出力による評価の実行
 
@@ -203,6 +206,10 @@ uv run tengu.py model.json --all --force
 # 温度調整リトライを無効化（o4-miniでの使用例）
 uv run tengu.py model.json -n 1 -m o4-mini --disable-temperature
 uv run tengu.py model.json --all -m o4-mini --disable-temperature
+
+# 最大トークン数を指定
+uv run tengu.py model.json -n 1 --max-length 16384
+uv run tengu.py model.json --all --max-length 32768
 ```
 
 ### argparseによる引数処理
@@ -214,6 +221,7 @@ uv run tengu.py model.json --all -m o4-mini --disable-temperature
 - `-m/--model`: 評価モデル名（デフォルト: gemini-2.5-flash）
 - `--force`: 既存評価結果の上書き
 - `--disable-temperature`: 温度調整リトライ機能を無効化（o4-miniモデルでは必須）
+- `--max-length`: 最大トークン数（デフォルト: 8192）
 
 **引数検証：**
 - `--all`なし & `-n`なし → エラー（どちらか必須）
@@ -273,11 +281,6 @@ ValueError: スキーマ検証失敗: タスク 042
 
 ### 依存関係
 
-**必須ライブラリ：**
-```bash
-pip install tqdm
-```
-
 **内部モジュール：**
 - `llm7shi.compat`: LLM API統合レイヤー
   - `generate_with_schema()`: 統一インターフェース（OpenAI/Gemini自動判別）
@@ -301,6 +304,7 @@ pip install tqdm
 - `temperature=0`: 決定論的出力（初期値）
 - 温度リトライ: JSONパースエラー時に0.0→1.0まで0.05刻みで自動調整
 - JSONスキーマによる構造化出力制御
+- **生成長制限**: `MAX_LENGTH = 8192`による出力文字数制限
 
 ### ファイル形式
 
@@ -475,6 +479,7 @@ def generate_with_temperature_retry(
     schema: Dict[str, Any],
     system_prompt: str = None,
     disable_temperature: bool = False,
+    max_length: int = MAX_LENGTH,
 ) -> Dict[str, Any]:
 ```
 
@@ -485,6 +490,7 @@ def generate_with_temperature_retry(
 - `system_prompt`: システムプロンプト（オプション）
 - `disable_temperature`: Trueの場合、温度調整リトライを無効化（オプション）
   - **注意**: o4-miniモデルでは温度パラメータ指定がエラーになるため、このオプションは必須
+- `max_length`: 最大トークン数（オプション、デフォルト: 8192）
 
 **戻り値**:
 - パース済みのJSONオブジェクト
@@ -507,7 +513,8 @@ def generate_with_temperature_retry(
 for t in range(0, 101, 5):
     temperature = t / 100
     try:
-        result = generate_with_schema(model, contents, schema, temperature, system_prompt)
+        result = generate_with_schema(model, contents, schema, temperature, system_prompt,
+                                      max_length=MAX_LENGTH)
         return result
     except Exception:
         # エラーログ出力して次の温度で再試行
@@ -570,6 +577,7 @@ ValueError: 全ての温度設定でJSONパースに失敗しました
 2. **デバッグ支援**: 各失敗のエラー詳細が記録されるため原因特定が容易
 3. **自動回復**: 一時的なAPIエラーやモデルの不安定性に自動対応
 4. **決定論的優先**: 最初は温度0で一貫した結果を試行
+5. **生成長制御**: `MAX_LENGTH = 8192`による出力文字数制限で効率的な処理
 
 ### パフォーマンス考慮事項
 

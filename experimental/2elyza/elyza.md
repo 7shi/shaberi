@@ -99,7 +99,8 @@ for t in range(0, 101, 5):
     
     try:
         result = generate_with_schema(contents, schema, model=model, temperature=temperature,
-                                      system_prompt=system_prompt, show_params=False)
+                                      system_prompt=system_prompt, show_params=False,
+                                      max_length=MAX_LENGTH)
         return json.loads(result.text)
         
     except Exception:
@@ -114,8 +115,9 @@ raise ValueError("全ての温度設定でJSONパースに失敗しました")
 - **無効化オプション**: o4-miniモデル対応（`--disable-temperature`）
 - **詳細ログ**: 各試行のエラー詳細を標準エラー出力
 - **確実な処理**: 最終的に全温度で失敗した場合の例外発生
+- **生成長制限**: `MAX_LENGTH = 8192`による出力文字数制限
 
-### 3. evaluate_task(task_number, model_answer, model_name, disable_temperature=False)
+### 3. evaluate_task(task_number, model_answer, model_name, disable_temperature=False, max_length=MAX_LENGTH)
 
 **目的**: 指定タスクの構造化出力評価を実行
 
@@ -213,6 +215,10 @@ uv run elyza.py model.json --all --force
 # 温度調整リトライを無効化（o4-miniでの使用例）
 uv run elyza.py model.json -n 1 -m o4-mini --disable-temperature
 uv run elyza.py model.json --all -m o4-mini --disable-temperature
+
+# 最大トークン数を指定
+uv run elyza.py model.json -n 1 --max-length 16384
+uv run elyza.py model.json --all --max-length 32768
 ```
 
 ### argparseによる引数処理
@@ -224,6 +230,7 @@ uv run elyza.py model.json --all -m o4-mini --disable-temperature
 - `-m/--model`: 評価モデル名（デフォルト: gemini-2.5-flash）
 - `--force`: 既存評価結果の上書き
 - `--disable-temperature`: 温度調整リトライ機能を無効化（o4-miniモデルでは必須）
+- `--max-length`: 最大トークン数（デフォルト: 8192）
 
 **引数検証：**
 - `--all`なし & `-n`なし → エラー（どちらか必須）
@@ -280,11 +287,6 @@ ValueError: 全ての温度設定でJSONパースに失敗しました
 - その他のOpenAIモデル
 
 ### 依存関係
-
-**必須ライブラリ：**
-```bash
-pip install tqdm
-```
 
 **内部モジュール：**
 - `elyza_utils`: スコア計算・スキーマ生成・judge関数統合
