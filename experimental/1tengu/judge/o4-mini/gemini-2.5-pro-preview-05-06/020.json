@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"search_company\",\n    \"properties\": {\n      \"keyword\": \"医療\"\n    }\n  },\n  {\n    \"name\": \"get_stock_symbol\",\n    \"properties\": {\n      \"company_name\": \"（search_companyの結果から得られた会社名）\"\n    }\n  },\n  {\n    \"name\": \"get_stock_price\",\n    \"properties\": {\n      \"symbol\": \"（get_stock_symbolの結果から得られた株式シンボル）\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "3",
+      "reasoning": "search_company, get_stock_symbol, get_stock_priceの3つ全てが使用されているため"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "3",
+      "reasoning": "指定通りsearch_company→get_stock_symbol→get_stock_priceの順序で並んでいるため"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "各propertiesに正しい引数（keyword, company_name, symbol）の説明やプレースホルダーが適切に記載されているため"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "keyword, company_name, symbolのキー名が定義と完全に一致しているため"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "配列・オブジェクトの構造が正しく、ダブルクオート等も適切であるため"
+    }
+  },
+  "summary": "全ての関数が正しい順序で使用され、プロパティのキー・説明ともに正確であり、JSON形式も有効なため満点の評価となる。",
+  "score": 10
+}

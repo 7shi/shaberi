@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"search_company\",\n    \"properties\": {\n      \"keyword\": \"医療関係\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['search_company','get_stock_symbol','get_stock_price']の全てのツールを選択している": {
+      "points": "0",
+      "reasoning": "一つのツールのみ選択しており、すべてのツールが使用されていません。"
+    },
+    "['search_company','get_stock_symbol','get_stock_price']の順番にツールが選択されている": {
+      "points": "0",
+      "reasoning": "順番の評価に必要なすべてのツールが選択されていないため、順序が不十分です。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "search_companyのkeyword引数に適切な値（\"医療関係\"）が設定されています。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "properties内のキー名\"keyword\"は正しいです。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "有効なJSON配列形式です。"
+    }
+  },
+  "summary": "モデルはsearch_companyのみを選択し、他のツールを呼び出していないため不完全です。引数は正しく指定されているものの、全体の手順が不足しています。",
+  "score": 4
+}

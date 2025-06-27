@@ -1,0 +1,23 @@
+{
+  "answer": "```json\n{\n  \"name\": \"switch_airconditioner\",\n  \"properties\": {\n    \"switch\": true,\n    \"temperature\": 25\n  }\n}\n```",
+  "evaluation": {
+    "'switch_airconditioner'のツールを選択している": {
+      "points": "4",
+      "reasoning": "正しいツール（switch_airconditioner）が選択されているため"
+    },
+    "propertiesの中の'temperature'の設定した値が冷房として適切な温度である(20~28度程度)": {
+      "points": "3",
+      "reasoning": "25度は20～28度の範囲内で適切な冷房設定温度であるため"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "2",
+      "reasoning": "switchおよびtemperatureのキー名称が正しいため"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "構文エラーがなく正しいJSON形式であるため"
+    }
+  },
+  "summary": "全ての評価項目を満たしており、完璧な出力です。",
+  "score": 10
+}

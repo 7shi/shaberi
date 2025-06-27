@@ -1,0 +1,19 @@
+{
+  "answer": "承知いたしました。以下にメールの英語訳を提示します。\n\n---\n\n**Subject: Report on Returned Defective Product - [Your Company Name]**\n\nDear Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the findings of our investigation into the defective product returned by a customer. The details are as follows:\n\n[Insert investigation findings here]\n\nWe kindly request your review and approval.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n**いくつか補足事項があります:**\n\n*   **[Your Company Name]**: ご自身の会社名を入れてください。\n*   **[Insert investigation findings here]**: ここに具体的な調査結果を英語で記述してください。\n*   **\"Tanaka-san\"**: 日本のビジネスメールでよく使われる「〜さん」をそのまま英語にしました。よりフォーマルにしたい場合は、\"Mr. Tanaka\" や \"Ms. Tanaka\" など、相手の性別が分かっていればそちらを使用してください。\n*   **\"Defective product\"**: 「クレーム品」は文脈によって \"returned item\", \"complaint product\", \"faulty product\" などとも訳せますが、ここでは「欠陥のある製品」という意味で \"defective product\" が一般的です。\n*   **\"Review and approval\"**: 「ご検収」は、内容を確認し、承認するという意味合いで \"review and approval\" としました。単に確認を求める場合は \"review\" だけでも良いでしょう。\n\n必要に応じて、これらの点を調整してください。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "件名の追加、Dear～、結びの挨拶など英語メールの基本構成を取り入れており、日本語メールとの違いをよく考慮しているため。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "管理部、調査報告、検収依頼など原文の要点はすべて訳出されており、情報の過不足もない。"
+    },
+    "自然な英語である": {
+      "points": "1",
+      "reasoning": "“Tanaka-san”のまま使用する点や注釈が混在し、英語ネイティブが送る実際のビジネスメールとしてはやや不自然な箇所がある。"
+    }
+  },
+  "summary": "モデルは英語メールの構造を的確に取り入れ、原文の内容も漏れなく翻訳している。一方で日本語的な敬称を残したり、注釈が混在するため、ネイティブ向けの自然さにはやや欠ける。",
+  "score": 9
+}

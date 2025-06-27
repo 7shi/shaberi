@@ -1,0 +1,27 @@
+{
+  "answer": "```json\n[\n  {\n    \"name\": \"get_email_address\",\n    \"properties\": {\n      \"name\": \"田中\"\n    }\n  },\n  {\n    \"name\": \"auto_message\",\n    \"properties\": {\n      \"address\": \"（get_email_addressの結果のメールアドレス）\",\n      \"situation\": \"遅刻する旨の連絡\"\n    }\n  }\n]\n```",
+  "evaluation": {
+    "['get_email_address','auto_message']の全てのツールを選択している": {
+      "points": "3",
+      "reasoning": "両方のツールが使用されているため満点です。"
+    },
+    "['get_email_address','auto_message']の順番にツールが選択されている": {
+      "points": "3",
+      "reasoning": "get_email_addressの後にauto_messageが続いており、正しい順序です。"
+    },
+    "propertiesの中の引数の説明が正しい": {
+      "points": "2",
+      "reasoning": "name, address, situationの説明・内容ともに適切です。"
+    },
+    "properities内の引数のキーの名称が正しい": {
+      "points": "1",
+      "reasoning": "キー名（name, properties, address, situation）が仕様どおりです。"
+    },
+    "正確なJSON形式である": {
+      "points": "1",
+      "reasoning": "有効なJSON形式で記述されています。"
+    }
+  },
+  "summary": "すべての評価項目を満たしており、正答例と同等の出力ができています。",
+  "score": 10
+}

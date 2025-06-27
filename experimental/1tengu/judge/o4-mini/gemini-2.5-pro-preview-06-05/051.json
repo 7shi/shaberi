@@ -1,0 +1,19 @@
+{
+  "answer": "はい、承知いたしました。\n以下に、丁寧さの度合いに応じていくつかの英語翻訳案を提示します。状況に合わせて使い分けてください。\n\n---\n\n### パターン1（標準的・フォーマル）\n\n最も一般的で、どのような相手にも使える丁寧な表現です。\n\n**Subject: Investigation Report on a Customer Claim**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nI am writing to report the results of our investigation into the claimed product returned by the customer. The details are as follows.\n\nPlease review the findings.\n\nBest regards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン2（少し簡潔な表現）\n\n社内のやり取りで、より簡潔に伝えたい場合に適しています。\n\n**Subject: Report on Returned Product Claim**\n\nHi Tanaka-san,\n\nThis is Suzuki from the Administration Department.\n\nPlease find the investigation results for the customer's claim product below.\n\nWe would appreciate your confirmation.\n\nRegards,\n\nSuzuki\nAdministration Department\n\n---\n\n### パターン3（より丁寧な表現）\n\n特に丁寧さが求められる場合や、フォーマルな報告書として送る場合に適しています。\n\n**Subject: Formal Report: Investigation of the Customer Claim Product**\n\nDear Mr. Tanaka,\n\nThis is Suzuki from the Administration Department.\n\nThis email is to formally report the findings of our investigation concerning the product that was returned by a customer under a claim. The results are detailed below.\n\nYour review and confirmation of this report would be highly appreciated.\n\nSincerely,\n\nSuzuki\nAdministration Department\n\n---\n\n### ポイント\n\n*   **件名 (Subject):** `Investigation Report` (調査報告), `Customer Claim` (顧客クレーム) などのキーワードを入れると内容が分かりやすくなります。\n*   **お疲れ様です:** 英語のビジネスメールでは、`Hi` や `Dear` の後、すぐに本題に入ることが一般的です。\n*   **ご検収のほど:** `Please review` (内容をご確認ください), `Please check` (ご確認ください), `We would appreciate your confirmation` (ご確認いただけますと幸いです) などが使えます。",
+  "evaluation": {
+    "日本語圏と英語圏のメールの書き方の違いを考慮している": {
+      "points": "4",
+      "reasoning": "3つのパターンそれぞれで件名の例や書き出しの形式を示し、日本語圏と英語圏のビジネスメールの慣習の違いを十分に考慮しているため。"
+    },
+    "原文の内容を過不足なく訳すことができている": {
+      "points": "4",
+      "reasoning": "クレーム品の調査結果報告という要点を全てパターンで反映し、過不足なく訳出できている。"
+    },
+    "自然な英語である": {
+      "points": "2",
+      "reasoning": "いずれのパターンも文法や語彙の選択が適切で、ビジネスメールとして自然に読める。"
+    }
+  },
+  "summary": "複数の丁寧度に応じた翻訳例を示すことで日本語圏と英語圏のメール文化の違いを明確に反映し、原文の内容を漏れなく訳出している。文体もビジネス向けの自然な英語であり、評価項目を十分に満たしている。",
+  "score": 10
+}
