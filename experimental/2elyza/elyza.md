@@ -91,8 +91,8 @@ schema_json = load_and_prepare_schema(task_number)
 
 **処理ロジック：**
 ```python
-# Temperature values to try (0.0 to 1.0 in 0.05 steps)
-for t in range(0, 101, 5):
+# Temperature values to try (start_temperature to 1.0 in 0.05 steps)
+for t in range(start_temperature, 101, 5):
     temperature = t / 100
     if t > 0:
         print(f"温度: {temperature:.2f}", file=sys.stderr)
@@ -111,13 +111,13 @@ raise ValueError("全ての温度設定でJSONパースに失敗しました")
 ```
 
 **特徴：**
-- **段階的リトライ**: 温度0.0→1.0まで0.05刻みで自動調整
-- **無効化オプション**: o4-miniモデル対応（`--disable-temperature`）
+- **段階的リトライ**: 指定開始温度→1.0まで0.05刻みで自動調整
+- **無効化オプション**: o4-miniモデル対応（`-st -1`）
 - **詳細ログ**: 各試行のエラー詳細を標準エラー出力
 - **確実な処理**: 最終的に全温度で失敗した場合の例外発生
 - **生成長制限**: `MAX_LENGTH = 8192`による出力文字数制限
 
-### 3. evaluate_task(task_number, model_answer, model_name, disable_temperature=False, max_length=MAX_LENGTH)
+### 3. evaluate_task(task_number, model_answer, model_name, start_temperature=0, max_length=MAX_LENGTH)
 
 **目的**: 指定タスクの構造化出力評価を実行
 
@@ -136,7 +136,7 @@ result_json = generate_with_temperature_retry(
     contents=contents,
     schema=schema_json,
     system_prompt=system_prompt,
-    disable_temperature=disable_temperature
+    start_temperature=start_temperature
 )
 ```
 
@@ -213,8 +213,12 @@ uv run elyza.py model.json -n 1 --force
 uv run elyza.py model.json --all --force
 
 # 温度調整リトライを無効化（o4-miniでの使用例）
-uv run elyza.py model.json -n 1 -m o4-mini --disable-temperature
-uv run elyza.py model.json --all -m o4-mini --disable-temperature
+uv run elyza.py model.json -n 1 -m o4-mini -st -1
+uv run elyza.py model.json --all -m o4-mini --start-temperature -1
+
+# 開始温度を指定（20%から開始）
+uv run elyza.py model.json -n 1 -m gemini-2.5-flash -st 20
+uv run elyza.py model.json --all --start-temperature 50
 
 # 最大トークン数を指定
 uv run elyza.py model.json -n 1 --max-length 16384
@@ -229,7 +233,7 @@ uv run elyza.py model.json --all --max-length 32768
 - `--all`: 全タスクを評価（-nと相互排他）
 - `-m/--model`: 評価モデル名（デフォルト: gemini-2.5-flash）
 - `--force`: 既存評価結果の上書き
-- `--disable-temperature`: 温度調整リトライ機能を無効化（o4-miniモデルでは必須）
+- `-st/--start-temperature`: 開始温度を指定（0-100）。負値の場合は温度調整リトライを無効化（o4-miniモデルでは-1推奨）
 - `--max-length`: 最大トークン数（デフォルト: 8192）
 
 **引数検証：**
@@ -283,7 +287,7 @@ ValueError: 全ての温度設定でJSONパースに失敗しました
 **OpenAI API**:
 - gpt-4.1-mini
 - gpt-4o
-- o4-mini（`--disable-temperature`必須）
+- o4-mini（`-st -1`必須）
 - その他のOpenAIモデル
 
 ### 依存関係
@@ -385,7 +389,7 @@ schema_json = load_and_prepare_schema(task_number)
 **単一タスクモード:**
 ```python
 try:
-    result_json = evaluate_task(task_num, model_answer, args.model, args.disable_temperature)
+    result_json = evaluate_task(task_num, model_answer, args.model, args.start_temperature)
     # ...
 except Exception as e:
     if args.all:

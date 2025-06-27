@@ -68,7 +68,13 @@ uv run md_to_schema.py
 uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/shisa-v1-llama3-8b.json -n 1
 
 # 全120件を評価
-uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/shisa-v1-llama3-8b.json
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/shisa-v1-llama3-8b.json --all
+
+# 特定の評価モデルを使用
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m gpt-4.1-mini
+
+# 温度調整リトライを無効化（o4-miniでの使用例）
+uv run tengu.py ../../data/model_answers/lightblue__tengu_bench/gpt-4o.json --all -m o4-mini -st -1
 ```
 
 ### 4. 結果検証

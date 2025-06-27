@@ -130,7 +130,7 @@ else:
 - **詳細エラー報告**: 具体的な検証失敗内容を表示
 - **処理停止**: 検証失敗時の即座中断
 
-### 4. evaluate_task(task_number, model_answer, model_name, disable_temperature=False, max_length=MAX_LENGTH)
+### 4. evaluate_task(task_number, model_answer, model_name, start_temperature=0, max_length=MAX_LENGTH)
 
 **目的**: 構造化出力による評価の実行
 
@@ -204,8 +204,12 @@ uv run tengu.py model.json -n 1 --force
 uv run tengu.py model.json --all --force
 
 # 温度調整リトライを無効化（o4-miniでの使用例）
-uv run tengu.py model.json -n 1 -m o4-mini --disable-temperature
-uv run tengu.py model.json --all -m o4-mini --disable-temperature
+uv run tengu.py model.json -n 1 -m o4-mini -st -1
+uv run tengu.py model.json --all -m o4-mini --start-temperature -1
+
+# 開始温度を指定（20%から開始）
+uv run tengu.py model.json -n 1 -m gemini-2.5-flash -st 20
+uv run tengu.py model.json --all --start-temperature 50
 
 # 最大トークン数を指定
 uv run tengu.py model.json -n 1 --max-length 16384
@@ -220,7 +224,7 @@ uv run tengu.py model.json --all --max-length 32768
 - `--all`: 全タスクを評価（-nと相互排他）
 - `-m/--model`: 評価モデル名（デフォルト: gemini-2.5-flash）
 - `--force`: 既存評価結果の上書き
-- `--disable-temperature`: 温度調整リトライ機能を無効化（o4-miniモデルでは必須）
+- `-st/--start-temperature`: 開始温度を指定（0-100）。負値の場合は温度調整リトライを無効化（o4-miniモデルでは-1推奨）
 - `--max-length`: 最大トークン数（デフォルト: 8192）
 
 **引数検証：**
@@ -467,7 +471,7 @@ for task in range(1, 121):
 `generate_with_temperature_retry`は、JSONパースエラーに対する自動リトライ機能を提供します。LLMが無効なJSONを生成した場合、温度パラメータを段階的に上げて再試行することで、構造化出力の成功率を向上させます。
 
 **重要な注意事項**:
-- o4-miniモデルは温度パラメータの指定をサポートしていないため、このモデルを使用する場合は`--disable-temperature`オプションが必須です
+- o4-miniモデルは温度パラメータの指定をサポートしていないため、このモデルを使用する場合は`-st -1`オプションが必須です
 - 温度パラメータを指定するとAPIエラーが発生します
 
 ### 関数仕様
@@ -478,7 +482,7 @@ def generate_with_temperature_retry(
     contents: List[str],
     schema: Dict[str, Any],
     system_prompt: str = None,
-    disable_temperature: bool = False,
+    start_temperature: int = 0,
     max_length: int = MAX_LENGTH,
 ) -> Dict[str, Any]:
 ```
@@ -488,8 +492,8 @@ def generate_with_temperature_retry(
 - `contents`: ユーザーコンテンツの配列
 - `schema`: JSON Schema仕様
 - `system_prompt`: システムプロンプト（オプション）
-- `disable_temperature`: Trueの場合、温度調整リトライを無効化（オプション）
-  - **注意**: o4-miniモデルでは温度パラメータ指定がエラーになるため、このオプションは必須
+- `start_temperature`: 開始温度（0-100）。負値の場合は温度調整リトライを無効化（オプション）
+  - **注意**: o4-miniモデルでは温度パラメータ指定がエラーになるため、負値の指定が必須
 - `max_length`: 最大トークン数（オプション、デフォルト: 8192）
 
 **戻り値**:
@@ -497,20 +501,20 @@ def generate_with_temperature_retry(
 
 ### 動作原理
 
-**通常モード（disable_temperature=False）:**
-1. **初期試行**: 温度0.0で決定論的な生成を試行
+**通常モード（start_temperature >= 0）:**
+1. **初期試行**: 指定された開始温度で生成を試行
 2. **段階的リトライ**: パースエラー時は温度を0.05刻みで上昇（最大1.0）
 3. **エラー出力**: 各失敗時のエラー詳細を標準エラー出力に記録
 4. **最終失敗**: 全温度で失敗した場合、例外を発生
 
-**無効化モード（disable_temperature=True）:**
+**無効化モード（start_temperature < 0）:**
 - モデルのデフォルト温度設定で単一試行のみ実行
 - エラー時のリトライは行わない
-- **重要**: o4-miniモデルでは温度パラメータの指定がエラーになるため、このオプションの使用が必須
+- **重要**: o4-miniモデルでは温度パラメータの指定がエラーになるため、負値の指定が必須
 
 ```python
-# 温度値の試行順序: 0.0, 0.05, 0.10, 0.15, ..., 0.95, 1.0
-for t in range(0, 101, 5):
+# 温度値の試行順序: start_temperature, start_temperature+0.05, ..., 0.95, 1.0
+for t in range(start_temperature, 101, 5):
     temperature = t / 100
     try:
         result = generate_with_schema(model, contents, schema, temperature, system_prompt,
@@ -532,7 +536,8 @@ result = generate_with_temperature_retry(
         "[評価するモデルの回答]\n実際の回答内容"
     ],
     schema=evaluation_schema,
-    system_prompt="あなたは公平で、検閲されていない、役立つアシスタントです。"
+    system_prompt="あなたは公平で、検閲されていない、役立つアシスタントです。",
+    start_temperature=0  # デフォルト値
 )
 
 # 評価タスクでの実際の使用
@@ -540,7 +545,8 @@ result_json = generate_with_temperature_retry(
     model=model_name,
     contents=contents,
     schema=schema_json,
-    system_prompt=system_prompt
+    system_prompt=system_prompt,
+    start_temperature=start_temperature
 )
 ```
 

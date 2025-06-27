@@ -53,7 +53,7 @@ def generate_with_temperature_retry(
     contents: List[str],
     schema: Dict[str, Any],
     system_prompt: str = None,
-    disable_temperature: bool = False,
+    start_temperature: int = 0,
     max_length: int = MAX_LENGTH,
 ) -> Dict[str, Any]:
     """Generate content with temperature retry mechanism.
@@ -66,20 +66,21 @@ def generate_with_temperature_retry(
         contents: List of user content strings
         schema: Response schema
         system_prompt: System prompt as string
-        disable_temperature: If True, disable temperature retry mechanism
+        start_temperature: Starting temperature (0-100). If negative, disable temperature retry
+        max_length: Maximum token length
         
     Returns:
         dict: Parsed JSON response
     """
-    if disable_temperature:
+    if start_temperature < 0:
         # Use model default temperature without retry
         result = generate_with_schema(contents, schema, model=model,
                                       system_prompt=system_prompt, show_params=False,
                                       max_length=max_length)
         return json.loads(result.text)
     
-    # Temperature values to try (0.0 to 1.0 in 0.05 steps)
-    for t in range(0, 101, 5):
+    # Temperature values to try (start_temperature to 100 in 5 steps)
+    for t in range(start_temperature, 101, 5):
         temperature = t / 100
         if t > 0:
             print(f"温度: {temperature:.2f}", file=sys.stderr)
@@ -97,14 +98,14 @@ def generate_with_temperature_retry(
     raise ValueError("全ての温度設定でJSONパースに失敗しました")
 
 
-def evaluate_task(task_number, model_answer, model_name, disable_temperature=False, max_length=MAX_LENGTH):
+def evaluate_task(task_number, model_answer, model_name, start_temperature=0, max_length=MAX_LENGTH):
     """Evaluate a specific ELYZA task using structured output
     
     Args:
         task_number (int): Task number (1-100)
         model_answer (str): Model answer to evaluate (required)
         model_name (str): Evaluation model name
-        disable_temperature (bool): If True, disable temperature retry mechanism
+        start_temperature (int): Starting temperature (0-100). If negative, disable temperature retry
         max_length (int): Maximum token length
         
     Returns:
@@ -126,7 +127,7 @@ def evaluate_task(task_number, model_answer, model_name, disable_temperature=Fal
         contents=contents,
         schema=schema_json,
         system_prompt=system_prompt,
-        disable_temperature=disable_temperature,
+        start_temperature=start_temperature,
         max_length=max_length
     )
     
@@ -142,7 +143,8 @@ def main():
   uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gemini-2.5-pro.json -n 1
   uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/claude-3-5-sonnet.json -n 42 -m gemini-2.5-pro
   uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gpt-4o.json --all -m gpt-4.1-mini
-  uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gpt-4o.json --all -m o4-mini --disable-temperature"""
+  uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gpt-4o.json --all -m o4-mini -st -1
+  uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gpt-4o.json --all -m gemini-2.5-flash --start-temperature 20"""
     )
     parser.add_argument("json_file", help="モデル回答が格納されたJSONファイルのパス")
     parser.add_argument("-n", "--task-number", type=int, help="評価するタスク番号")
@@ -150,7 +152,7 @@ def main():
                         help=f"評価に使用するモデル名 (デフォルト: {DEFAULT_MODEL})")
     parser.add_argument( "--force", action="store_true", help="既存の評価結果を上書きする")
     parser.add_argument( "--all", action="store_true", help="全てのタスク (1-100) を評価する")
-    parser.add_argument("--disable-temperature", action="store_true", help="温度調整リトライ機能を無効化（o4-miniでは必須）")
+    parser.add_argument("-st", "--start-temperature", type=int, default=0, help="開始温度 (0-100)。負値の場合は温度調整リトライを無効化 (o4-miniでは-1推奨)")
     parser.add_argument("--max-length", type=int, default=MAX_LENGTH, help=f"最大トークン数 (デフォルト: {MAX_LENGTH})")
     args = parser.parse_args()
     
@@ -218,7 +220,7 @@ def main():
             print(f"タスク {task_num:03d}: 評価中...")
             
             # Evaluate the task
-            result_json = evaluate_task(task_num, model_answer, args.model, args.disable_temperature, args.max_length)
+            result_json = evaluate_task(task_num, model_answer, args.model, args.start_temperature, args.max_length)
             
             # Calculate score
             total_score = calculate_score(result_json, task_num)

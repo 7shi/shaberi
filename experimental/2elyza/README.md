@@ -159,6 +159,9 @@ uv run elyza.py ../../data/model_answers/elyza__ELYZA-tasks-100/gpt-4o.json --al
 
 # 強制上書き
 uv run elyza.py model.json --all --force
+
+# 温度調整リトライを無効化（o4-miniでの使用例）
+uv run elyza.py model.json --all -m o4-mini -st -1
 ```
 
 **注**: elyza.pyはtengu.pyと同様の仕様で、モデル回答JSONLファイルを入力として全100タスクの評価を実行します。
