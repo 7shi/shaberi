@@ -1,9 +1,0 @@
-def judge_017(score: int, judge: callable) -> int:
-    # - CM風の文体でない場合: -2点
-    # - 要約に含まれていない内容を書いてしまっている: -2点
-
-    if judge("CM風の文体ではない"):
-        score -= 2
-    if judge("要約に含まれていない内容を書いてしまっている"):
-        score -= 2
-    return score

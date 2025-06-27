@@ -1,5 +1,0 @@
-def judge_012(score: int, judge: callable) -> int:
-    # - 皮肉が言えていない場合: -2点
-    if judge("皮肉が言えていない"):
-        score -= 2
-    return score

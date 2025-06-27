@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-rubrics/*.mdファイルからPythonコードを抽出し、コメントを削除して.pyファイルに変換するスクリプト
+rubrics/*.mdファイルからPythonコードを抽出し、コメントを削除して結合したrubrics.pyファイルを生成するスクリプト
 """
 
 import argparse
 import os
 import re
 from pathlib import Path
+from tqdm import tqdm
 
 
 def extract_python_code(content: str) -> str:
@@ -98,7 +99,7 @@ def add_source_reference(code: str, task_number: int) -> str:
     data_file = f"data/{task_id}.md"
     criteria_lines = extract_criteria(data_file)
     
-    lines = code.split('\n')
+    lines = code.rstrip().splitlines()
     result_lines = []
     
     for i, line in enumerate(lines):
@@ -113,17 +114,16 @@ def add_source_reference(code: str, task_number: int) -> str:
     return '\n'.join(result_lines)
 
 
-def convert_md_to_py(input_file: Path, output_file: Path, task_number: int) -> bool:
+def convert_md_to_code(input_file: Path, task_number: int) -> str:
     """
-    .mdファイルを.pyファイルに変換
+    .mdファイルからPythonコードを抽出して処理
     
     Args:
         input_file: 入力ファイル
-        output_file: 出力ファイル
         task_number: タスク番号
         
     Returns:
-        bool: 変換成功の場合True
+        str: 処理されたPythonコード（エラーの場合は空文字列）
     """
     try:
         with open(input_file, 'r', encoding='utf-8') as f:
@@ -138,26 +138,22 @@ def convert_md_to_py(input_file: Path, output_file: Path, task_number: int) -> b
         # 元ファイルの引用を追加
         final_code = add_source_reference(code_without_comments, task_number)
         
-        # 出力ファイルに書き込み
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(final_code)
-        
-        return True
+        return final_code
         
     except Exception as e:
         print(f"エラー: {input_file} の変換に失敗しました - {e}")
-        return False
+        return ""
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="rubrics/*.mdファイルからPythonコードを抽出して.pyファイルに変換",
+        description="rubrics/*.mdファイルからPythonコードを抽出して結合したrubrics.pyファイルを生成",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""例:
-  python conv_rubrics.py --all                    # 001-100全て変換
+  python conv_rubrics.py --all                    # 001-100全て変換してrubrics.pyに出力
   python conv_rubrics.py --start 3 --end 10       # 003-010を変換
   python conv_rubrics.py --tasks 5 7 12           # 005,007,012のみ変換
-  python conv_rubrics.py --start 3 --end 5 -o py  # 出力ディレクトリ指定
+  python conv_rubrics.py --all -o my_rubrics.py   # 出力ファイル名を指定
 """
     )
     
@@ -167,9 +163,8 @@ def main():
     group.add_argument("--all", action="store_true", help="001-100の全タスクを変換")
     
     parser.add_argument("--end", type=int, help="終了タスク番号（--startと組み合わせて使用）")
-    parser.add_argument("-o", "--output-dir", default="rubrics", 
-                       help="出力ディレクトリ (デフォルト: rubrics)")
-    parser.add_argument("--force", action="store_true", help="既存ファイルを上書き")
+    parser.add_argument("-o", "--output", default="rubrics.py", 
+                       help="出力ファイル名 (デフォルト: rubrics.py)")
     
     args = parser.parse_args()
     
@@ -190,42 +185,52 @@ def main():
         print("エラー: rubricsディレクトリが見つかりません")
         return 1
     
-    # 出力ディレクトリ
-    output_dir = Path(args.output_dir)
-    output_dir.mkdir(exist_ok=True)
+    # 出力ファイル
+    output_file = Path(args.output)
     
     print(f"変換対象: {len(task_numbers)}個のタスク")
-    print(f"出力ディレクトリ: {output_dir}")
-    print()
+    print(f"出力ファイル: {output_file}")
     
+    # 全ての関数コードを収集
+    all_functions = []
     success_count = 0
     skip_count = 0
     
-    for task_num in task_numbers:
+    # プログレスバーを表示
+    for task_num in tqdm(task_numbers, desc="変換中"):
         md_file = input_dir / f"{task_num:03d}.md"
-        py_file = output_dir / f"{task_num:03d}.py"
         
         # ファイルが存在しない場合はスキップ
         if not md_file.exists():
-            print(f"タスク #{task_num:03d} スキップ (ファイルなし)")
             skip_count += 1
             continue
         
-        # 既存ファイルのスキップ判定
-        if py_file.exists() and not args.force:
-            print(f"タスク #{task_num:03d} スキップ (既存)")
-            skip_count += 1
-            continue
-        
-        print(f"タスク #{task_num:03d} を処理中... ", end="")
-        
-        if convert_md_to_py(md_file, py_file, task_num):
-            print("✓")
+        code = convert_md_to_code(md_file, task_num)
+        if code:
+            all_functions.append(code)
             success_count += 1
-        else:
-            print("✗")
     
-    print(f"\n完了: {success_count}個変換、{skip_count}個スキップ")
+    # 結合したコードをファイルに書き込み
+    if all_functions:
+        header = '''"""
+ELYZA-tasks-100 評価関数集
+
+このファイルはconv_rubrics.pyによって自動生成されました。
+各関数の評価基準はdata/XXX.mdから抽出されています。
+"""
+
+'''
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(header)
+            f.write('\n\n\n'.join(all_functions))
+            f.write('\n')
+        
+        print(f"\n完了: {success_count}個の関数を {output_file} に出力、{skip_count}個スキップ")
+    else:
+        print("\n警告: 出力する関数がありません")
+        return 1
+    
     return 0
 
 
