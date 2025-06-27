@@ -15,7 +15,7 @@
 
 ### 1. 評価基準の自動抽出
 - `data/XXX.md`ファイルから「問題固有の採点基準」セクションを抽出
-- `check_criteria.py`と同じロジックを使用
+- `check_criteria.py`の`extract_criteria`関数をインポートして使用
 
 ### 2. Few-shot学習によるコード生成
 - `rubrics-001.py`と`rubrics-002.py`を例として提示
@@ -35,6 +35,7 @@
 ### 依存関係
 - `llm7shi.compat.generate_with_schema`: LLM呼び出し
 - `llm7shi.do_show_params`: テストモード用プロンプト表示
+- `check_criteria.extract_criteria`: 評価基準抽出機能
 - `pathlib.Path`: ファイル操作
 
 ### データフロー
@@ -132,6 +133,7 @@ def judge_XXX(score: int, judge: callable) -> int:
 ### 依存関係
 - `data/`ディレクトリに分割済みタスクファイルが必要
 - `rubrics-001.py`, `rubrics-002.py`の存在が必須
+- `check_criteria.py`モジュールが必要
 
 ### LLMの制約
 - モデルの性能に依存する生成品質

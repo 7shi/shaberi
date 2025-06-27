@@ -13,33 +13,10 @@ import os
 from pathlib import Path
 from llm7shi.compat import generate_with_schema
 from llm7shi import DEFAULT_MODEL, do_show_params
+from check_criteria import extract_criteria
 
 
 examples = {}
-
-
-def extract_criteria(file_path):
-    """
-    指定されたファイルから問題固有の採点基準を抽出する（check_criteria.pyと同じ処理）
-    
-    Args:
-        file_path (str): 読み込むファイルのパス
-        
-    Returns:
-        list: 抽出された行のリスト
-    """
-    with open(file_path, 'r', encoding='utf-8') as f:
-        text = f.read()
-    
-    s = text.find("問題固有の採点基準")
-    if s < 0:
-        raise ValueError('"問題固有の採点基準" が見付かりません。')
-    
-    e = text.find("# 回答")
-    if e < 0:
-        raise ValueError('"# 回答" が見付かりません。')
-    
-    return text[s+9:e].strip().splitlines()
 
 
 def get_task_criteria(task_number: int) -> str:

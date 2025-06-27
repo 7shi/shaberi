@@ -95,6 +95,7 @@ def judge_003(score: int, judge: callable) -> int:
 ## 関連ファイル
 
 - `generate_rubrics.py`: 評価基準をMarkdown形式で生成
+- `check_criteria.py`: 評価基準抽出機能（`extract_criteria`関数）
 - `data/XXX.md`: 各タスクの問題文と評価基準
 - `rubrics/XXX.md`: 生成された評価関数（Markdown形式）
 - `rubrics.py`: 全ての評価関数を結合した出力ファイル

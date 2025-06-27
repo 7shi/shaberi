@@ -8,6 +8,7 @@ import os
 import re
 from pathlib import Path
 from tqdm import tqdm
+from check_criteria import extract_criteria
 
 
 def extract_python_code(content: str) -> str:
@@ -57,30 +58,6 @@ def remove_comments(code: str) -> str:
         result_lines.append(line)
     
     return '\n'.join(result_lines)
-
-
-def extract_criteria(file_path):
-    """
-    指定されたファイルから問題固有の採点基準を抽出する（check_criteria.pyと同じ処理）
-    
-    Args:
-        file_path (str): 読み込むファイルのパス
-        
-    Returns:
-        list: 抽出された行のリスト
-    """
-    with open(file_path, 'r', encoding='utf-8') as f:
-        text = f.read()
-    
-    s = text.find("問題固有の採点基準")
-    if s < 0:
-        raise ValueError('"問題固有の採点基準" が見付かりません。')
-    
-    e = text.find("# 回答")
-    if e < 0:
-        raise ValueError('"# 回答" が見付かりません。')
-    
-    return text[s+9:e].strip().splitlines()
 
 
 def add_source_reference(code: str, task_number: int) -> str:
