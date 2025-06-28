@@ -50,6 +50,9 @@ experimental/
 - **totals_to_csv.py** - 複数の評価結果を集計してCSVファイルに出力（重み付け平均スコア計算）
 - **merge_csv.py** - 異なる列順序を持つCSVファイルをマージ（列名ベース統合、標準ライブラリのみ実装）
 
+**補助ツール**
+- **get_answer.py** - JSONLファイルから特定行のModelAnswerフィールドを抽出（評価結果の個別確認用）
+
 ## 使用順序
 
 以下の順序で実行することで、段階的に構造化出力システムを構築できます：
@@ -142,6 +145,15 @@ uv run merge_csv.py *.csv -o all_results.csv
 - 異なる列順序を持つCSVファイルを列名ベースで統合
 - **主要機能**: 列名ベースのマージ、重複除去、列順序の統一、標準ライブラリのみ実装
 - **詳細な使用方法は[merge_csv.md](merge_csv.md)を参照**
+
+#### `get_answer.py` - ModelAnswer抽出ツール
+```bash
+# JSONLファイルの5行目からModelAnswerを抽出
+uv run get_answer.py input.jsonl -l 5 -o answer.txt
+```
+- JSONLファイルから特定行のModelAnswerフィールドを抽出
+- **主要機能**: 行番号指定による抽出、ModelAnswerフィールド専用、ファイル出力
+- **詳細な使用方法は[get_answer.md](get_answer.md)を参照**
 
 
 ### 5. ja-mt-bench-1shot 構造化出力システム
