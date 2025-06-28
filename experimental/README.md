@@ -32,8 +32,8 @@ experimental/
 ## ツール一覧
 
 **データ準備**
-- **analyze_evaluations.py** - shaberi3-evaluations.jsonのデータ構造分析・調査ツール
-- **dump_questions.py** - shaberi3-evaluations.jsonから3つのベンチマークデータを分類・抽出
+- **analyze_evaluations.py** - shaberi3-evaluations.jsonのデータ構造分析・調査ツール（標準的でないデータ構造の特定と品質確認）
+- **dump_questions.py** - shaberi3-evaluations.jsonから3つのベンチマークデータを分類・抽出（Few-shot形式からの質問抽出とベンチマーク識別）
 
 **Tengu Benchmark 関連**
 - [1tengu/](1tengu/) - Tengu Benchmark構造化出力評価システム（詳細はREADME参照）
@@ -45,10 +45,10 @@ experimental/
 - （今後実装予定）
 
 **集計・分析**
-- **score_tool.py** - 評価結果からスコア統計を集計しYAML形式で出力（list/add/remove サブコマンド対応）
-- **analyze_variance.py** - 評価者間分散の詳細分析による構造化出力の効果検証ツール
-- **totals_to_csv.py** - 複数の評価結果を集計してCSVファイルに出力（改修版）
-- **merge_csv.py** - 異なる列順序を持つCSVファイルをマージ（列名ベース統合）
+- **score_tool.py** - 評価結果からスコア統計を集計しYAML形式で出力（分散データの統合管理、list/add/remove サブコマンド対応）
+- **analyze_variance.py** - 評価者間分散の詳細分析による構造化出力の効果検証ツール（評価者間分散の定量化）
+- **totals_to_csv.py** - 複数の評価結果を集計してCSVファイルに出力（重み付け平均スコア計算）
+- **merge_csv.py** - 異なる列順序を持つCSVファイルをマージ（列名ベース統合、標準ライブラリのみ実装）
 
 ## 使用順序
 
@@ -63,6 +63,7 @@ uv run analyze_evaluations.py
 - `shaberi3-evaluations.json`のデータ構造を調査分析
 - `len(line_data) != 4`のケース等の詳細分析
 - データ前処理の品質確認に使用（必須ではない）
+- **主要機能**: 配列長分布分析、異常データの詳細調査、統計的アプローチによる効率化
 
 #### `dump_questions.py` - 質問内容分類・抽出
 ```bash
@@ -71,6 +72,7 @@ uv run dump_questions.py
 - `shaberi3-evaluations.json`から3つのベンチマークを分類
 - tengu_bench (120件)、ELYZA-tasks-100 (100件)、ja-mt-bench-1shot (60件)
 - 出力: `1tengu.json`, `2elyza.json`, `3mt.json`
+- **主要機能**: 統合データのベンチマーク別分離、Few-shot形式からの質問抽出、コンテンツプレフィックスによる識別
 
 ### 2. Tengu Benchmark 関連
 
@@ -104,6 +106,7 @@ uv run score_tool.py add --tengu 1tengu    # Tengu Benchのみ
 - サブコマンド形式（`list`/`add`/`remove`）による直感的な操作
 - パターンマッチングによる柔軟な表示・削除機能
 - 評価結果からスコア統計を集計してYAML形式で出力
+- **主要機能**: 分散評価結果の統合管理、階層的ディレクトリ解析、JSONスコア集計、増分更新機能
 - **詳細な使用方法は[score_tool.md](score_tool.md)を参照**
 
 #### `analyze_variance.py` - 評価者間分散分析ツール
@@ -112,6 +115,8 @@ uv run score_tool.py add --tengu 1tengu    # Tengu Benchのみ
 uv run analyze_variance.py -b lightblue/tengu_bench
 ```
 - 構造化出力による評価者間分散の減少効果を定量的に分析
+- **主要機能**: 評価対象モデル別分析、形式自動判別、統計的指標の包括計算、分散減少率の算出
+- **実証結果**: 平均56.4%の分散削減効果（最大87.5%改善）
 - **詳細な使用方法は[analyze_variance.md](analyze_variance.md)を参照**
 
 #### `totals_to_csv.py` - 評価結果CSV集計ツール
@@ -123,6 +128,7 @@ uv run totals_to_csv.py
 uv run totals_to_csv.py ./data/judgements/judge_gemini-2.5-flash
 ```
 - 評価結果を再帰的に検索し、重み付け平均スコアをCSV出力
+- **主要機能**: 重み付け平均スコア計算（ELYZA-tasks-100を2倍重み）、階層構造の自動解析
 - **詳細な使用方法は[totals_to_csv.md](totals_to_csv.md)を参照**
 
 #### `merge_csv.py` - CSVファイルマージツール
@@ -134,6 +140,7 @@ uv run merge_csv.py file1.csv file2.csv -o merged.csv
 uv run merge_csv.py *.csv -o all_results.csv
 ```
 - 異なる列順序を持つCSVファイルを列名ベースで統合
+- **主要機能**: 列名ベースのマージ、重複除去、列順序の統一、標準ライブラリのみ実装
 - **詳細な使用方法は[merge_csv.md](merge_csv.md)を参照**
 
 
@@ -148,6 +155,7 @@ uv run merge_csv.py *.csv -o all_results.csv
 2. **形式不統一**: 出力フォーマットが一貫しない
 3. **パース困難**: 自由形式テキストからの情報抽出が複雑
 4. **効率低下**: Few-shot例で不要なトークンを消費
+5. **評価者間分散**: 同一回答に対する評価者間のスコアばらつき
 
 ### 構造化出力による解決
 1. **計算精度**: 後処理で確実に合計点を計算
@@ -156,6 +164,7 @@ uv run merge_csv.py *.csv -o all_results.csv
 4. **トークン節約**: Few-shot例が不要
 5. **品質保証**: リアルタイムスキーマ検証による自動品質管理
 6. **評価者間一貫性**: 平均56.4%の分散削減を実現（最大87.5%改善）
+7. **詳細データ活用**: 項目別評価点と理由付けの構造化による分析精度向上
 
 ## 依存関係
 
@@ -211,6 +220,8 @@ pip install tomli
 3. **評価精度向上**: 温度調整、プロンプト改良
 4. **統計分析拡張**: タスク別難易度分析、項目別パフォーマンス分析
 5. **分散分析の高度化**: 効果量計算、信頼区間推定、統計的検定
+6. **可視化機能**: ヒストグラム、箱ひげ図、散布図による分散の視覚的比較
+7. **自動レポート生成**: Markdown/HTML形式の詳細レポート出力
 
 ## 関連ドキュメント
 

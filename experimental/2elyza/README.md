@@ -46,9 +46,9 @@
 ```
 2elyza/
 ├── README.md                # このファイル
-├── conv_elyza.py            # データ分割ツール
+├── conv_elyza.py            # データ分割ツール（2elyza.json → data/001.md-100.md）
 ├── conv_elyza.md            # conv_elyza.pyの詳細ドキュメント
-├── elyza-001.py             # 単一タスク評価実証スクリプト
+├── elyza-001.py             # 単一タスク評価実証スクリプト（タスク001専用）
 ├── elyza.py                 # 全タスク対応評価スクリプト（tengu.py準拠）
 ├── elyza.md                 # elyza.pyの詳細ドキュメント
 ├── elyza-schema.json        # ベース構造化出力JSONスキーマ（7つの基本評価項目）
@@ -56,7 +56,7 @@
 ├── elyza-001.md             # 001タスク実証スクリプトドキュメント
 ├── check_criteria.py        # 問題固有採点基準抽出ツール
 ├── check_criteria.md        # check_criteria.pyの詳細ドキュメント
-├── generate_rubrics.py      # 評価基準自動コード化ツール
+├── generate_rubrics.py      # 評価基準自動コード化ツール（Few-shot学習）
 ├── generate_rubrics.md      # generate_rubrics.pyの詳細ドキュメント
 ├── conv_rubrics.py          # 評価基準Markdown→Python変換ツール
 ├── conv_rubrics.md          # conv_rubrics.pyの詳細ドキュメント
@@ -64,11 +64,12 @@
 ├── elyza_utils.md           # elyza_utils.pyの詳細ドキュメント
 ├── rubrics-001.py           # 評価関数のfew-shot例（タスク001）
 ├── rubrics-002.py           # 評価関数のfew-shot例（タスク002）
+├── TIME.md                  # 時系列実装記録
 ├── data/                    # 生成されたファイル
 │   └── 001.md～100.md       # 分割されたタスクデータ
 ├── rubrics/                 # 生成された評価関数
 │   └── 001.md～100.md       # 各タスクの評価関数コード（Markdown形式）
-├── rubrics.py               # 全ての評価関数を結合したPythonファイル
+├── rubrics.py               # 全ての評価関数を結合したPythonファイル（import可能）
 └── judge/                   # 評価結果
     └── {評価者}/{回答者}/
         └── 001.json～100.json
@@ -79,24 +80,47 @@
 ### データ準備
 
 - **conv_elyza.py** - 2elyza.jsonからタスクデータを個別ファイルに分割
+  - 100個のタスクを`data/001.md`～`data/100.md`に分割
+  - データ変換なしの単純分割（元のベンチマーク整合性を保持）
 
 ### 分析・確認
 
 - **check_criteria.py** - 問題固有の採点基準を抽出・表示
+  - 全100タスクの採点基準を一覧表示
+  - 評価システム設計時の基礎情報として活用
 
 ### コード生成
 
 - **generate_rubrics.py** - 評価基準をPython関数として自動コード化
+  - Few-shot学習による一貫した評価関数生成
+  - `--all`オプションで全100タスクの関数を自動生成
+  - 問題固有減点項目をPythonコードに自動変換
+
 - **conv_rubrics.py** - 評価基準Markdownファイルを結合した実行可能なPythonファイルに変換
+  - `rubrics/001.md`～`rubrics/100.md`を単一の`rubrics.py`に統合
+  - 元の評価基準をコメントとして保持
+  - import可能な実行形式で提供
 
 ### 実証・検証
 
-- **elyza-001.py** - 単一タスク（001）での構造化出力評価実証（汎用関数利用、ログ出力対応）
-- **elyza.py** - 全タスク対応評価スクリプト（tengu.py準拠、単一/全タスク評価、進捗管理機能付き）
+- **elyza-001.py** - 単一タスク（001）での構造化出力評価実証
+  - 7つの基本評価項目 + 3つの問題固有項目
+  - OpenAI/Gemini両対応
+  - 外部ファイル（`elyza-001-answer.md`）から評価対象を読み込み
+
+- **elyza.py** - 全タスク対応評価スクリプト（tengu.py準拠）
+  - 単一タスク（`-n <番号>`）または全タスク（`--all`）評価
+  - 温度調整リトライ機能（JSONパースエラー時の自動復旧）
+  - 進捗管理・重複実行防止・エラー耐性
+  - argparse引数構造はtengu.pyと統一
 
 ### ユーティリティ
 
-- **elyza_utils.py** - ELYZA評価ユーティリティ（共用関数、judge関数動的取得、スコア計算、スキーマ生成）
+- **elyza_utils.py** - ELYZA評価ユーティリティ
+  - `calculate_score()`: 構造化出力から5点満点スコア計算
+  - `load_and_prepare_schema()`: 動的JSONスキーマ生成
+  - `get_judge_function_and_args()`: judge関数の動的取得とAST解析
+  - `--list`オプションで利用可能judge関数一覧表示
 
 ## 使用手順
 
@@ -162,7 +186,22 @@ uv run elyza.py model.json --all --force
 
 # 温度調整リトライを無効化（o4-miniでの使用例）
 uv run elyza.py model.json --all -m o4-mini -st -1
+
+# 開始温度を指定（20%から開始）
+uv run elyza.py model.json -n 1 -m gemini-2.5-flash -st 20
+
+# 最大トークン数を指定
+uv run elyza.py model.json --all --max-length 16384
 ```
+
+#### コマンドラインオプション（elyza.py）
+- `json_file`: モデル回答ファイルのパス（位置引数、JSONL形式）
+- `-n/--task-number`: 評価するタスク番号（単一タスク評価時必須）
+- `--all`: 全タスクを評価（-nと相互排他）
+- `-m/--model`: 評価モデル名（デフォルト: gemini-2.5-flash）
+- `--force`: 既存評価結果の上書き
+- `-st/--start-temperature`: 開始温度を指定（0-100）。負値で温度調整リトライ無効化
+- `--max-length`: 最大トークン数（デフォルト: 8192）
 
 **注**: elyza.pyはtengu.pyと同様の仕様で、モデル回答JSONLファイルを入力として全100タスクの評価を実行します。
 
@@ -191,6 +230,58 @@ uv run elyza.py model.json --all -m o4-mini -st -1
 - **エラーハンドリング**: 無効なjudgeクエリに対する例外処理
 - **ロギング機能**: judge関数呼び出しの詳細トレーシング
 - **品質保証**: Few-shot学習による一貫した評価関数生成
+
+### データ形式
+
+#### モデル回答ファイル（JSONL）
+```json
+{"ModelAnswer": "回答内容1"}
+{"ModelAnswer": "回答内容2"}
+...
+```
+
+#### 評価結果ファイル（JSON）
+**保存先**: `judge/{評価者モデル}/{回答者モデル}/{タスク番号:003}.json`
+```json
+{
+  "answer": "回答者モデルの実際の回答テキスト",
+  "evaluation": {
+    "correctness": {
+      "level": "correct|partially_correct|incorrect",
+      "reasoning": "評価理由"
+    },
+    "instruction_following": {
+      "followed": true|false,
+      "reasoning": "指示への従順性評価理由"
+    },
+    "q1": {
+      "result": true|false,
+      "reasoning": "judge_xxx内の1番目の引数に基づく判定理由"
+    }
+  },
+  "summary": "評価サマリー",
+  "score": 5
+}
+```
+
+#### 対応モデル
+**デフォルト**: `gemini-2.5-flash`
+
+**Gemini API**: gemini-2.5-flash, gemini-2.5-pro, その他のGeminiモデル  
+**OpenAI API**: gpt-4.1-mini, gpt-4o, o4-mini（`-st -1`必須）, その他のOpenAIモデル
+
+#### アーキテクチャ
+```
+elyza.py
+├── data/xxx.md (ELYZAプロンプト)
+├── elyza-schema.json (ベーススキーマ)
+├── rubrics.py (問題固有採点ルール)
+├── elyza_utils.py (judge関数動的取得)
+└── llm7shi.compat (LLM統合レイヤー)
+    ├── generate_with_schema()
+    ├── _generate_with_gemini()
+    └── _generate_with_openai()
+```
 
 詳細な技術仕様、実装の詳細、出力形式例については [elyza-001.md](elyza-001.md) を参照してください。
 
