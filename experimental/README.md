@@ -19,14 +19,21 @@ experimental/
 │   └── judge/
 │       └── {評価者}/{回答者}/   # 評価結果
 │           └── 001.json ～ 120.json
-└── 2elyza/                  # ELYZA-tasks-100関連ファイル
+├── 2elyza/                  # ELYZA-tasks-100関連ファイル
+│   ├── data/
+│   │   └── 001.md ～ 100.md     # 評価プロンプト
+│   ├── elyza-schema.json        # ベーススキーマ
+│   ├── rubrics.py               # 問題固有採点ルール
+│   └── judge/
+│       └── {評価者}/{回答者}/   # 評価結果
+│           └── 001.json ～ 100.json
+└── 3mt/                     # ja-mt-bench-1shot関連ファイル
     ├── data/
-    │   └── 001.md ～ 100.md     # 評価プロンプト
-    ├── elyza-schema.json        # ベーススキーマ
-    ├── rubrics.py               # 問題固有採点ルール
+    │   └── 001.md ～ 060.md     # 評価プロンプト
+    ├── mt-schema.json           # ベーススキーマ
     └── judge/
         └── {評価者}/{回答者}/   # 評価結果
-            └── 001.json ～ 100.json
+            └── 001.json ～ 060.json
 ```
 
 ## ツール一覧
@@ -42,7 +49,7 @@ experimental/
 - [2elyza/](2elyza/) - ELYZA-tasks-100構造化出力評価システム（詳細はREADME参照）
 
 **ja-mt-bench-1shot 関連**
-- （今後実装予定）
+- [3mt/](3mt/) - ja-mt-bench-1shot構造化出力評価システム（詳細はREADME参照）
 
 **集計・分析**
 - **score_tool.py** - 評価結果からスコア統計を集計しYAML形式で出力（分散データの統合管理、list/add/remove サブコマンド対応）
@@ -87,7 +94,7 @@ uv run dump_questions.py
 
 ### 4. ja-mt-bench-1shot 関連
 
-*（今後実装予定）*
+詳細は[3mt/README.md](3mt/README.md)を参照してください。
 
 ### 5. 集計・分析
 
@@ -158,7 +165,7 @@ uv run get_answer.py input.jsonl -l 5 -o answer.txt
 
 ### 5. ja-mt-bench-1shot 構造化出力システム
 
-*（今後実装予定）*
+詳細は[3mt/README.md](3mt/README.md)を参照してください。
 
 ## 技術的な改善点
 
@@ -212,22 +219,23 @@ pip install tomli
 ## 実行結果
 
 ### 処理統計
-- **対象タスク**: 220件（Tengu Benchmark 120件 + ELYZA-tasks-100 100件）
+- **対象タスク**: 280件（Tengu Benchmark 120件 + ELYZA-tasks-100 100件 + ja-mt-bench-1shot 60件）
 - **成功率**: 100%
 - **形式分類**: 
   - Tengu: 単層構造（97件）+ 階層構造（23件）
   - ELYZA: 動的スキーマ生成（judge関数統合）
-- **スキーマ生成**: 全220件対応
+  - ja-mt-bench: 統一スキーマ（60件）
+- **スキーマ生成**: 全280件対応
 
 ### パフォーマンス
-- **高速処理**: 各ベンチマーク100件以上を効率的に処理
+- **高速処理**: 全ベンチマーク280件を効率的に処理
 - **メモリ効率**: ファイル単位での逐次処理
 - **エラー耐性**: 1件の失敗が全体に影響しない
 - **進捗管理**: tqdmによるリアルタイム進捗表示
 
 ## 今後の展開
 
-1. **他ベンチマーク対応**: ja-mt-benchへの適用（ELYZA完了済み）
+1. **ベンチマーク対応**: 3つのベンチマーク全て完了済み（Tengu、ELYZA、ja-mt-bench）
 2. **API統合拡張**: OpenAI、Anthropic対応
 3. **評価精度向上**: 温度調整、プロンプト改良
 4. **統計分析拡張**: タスク別難易度分析、項目別パフォーマンス分析

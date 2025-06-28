@@ -28,7 +28,8 @@ YYYYMMDD-{category}-{description}.md
 - [**20250625-structured-output.md**](20250625-structured-output.md): 構造化出力による評価品質向上の実証分析
 
 ### 実装ガイド・開発プロセス
-- [**20250626-dev-elyza-implementation.md**](20250626-dev-elyza-implementation.md): 従来型評価システムから構造化出力システムへの変換実装ガイド（ja-mt-bench-1shot等への適用手順）
+- [**20250626-dev-elyza-implementation.md**](20250626-dev-elyza-implementation.md): 従来型評価システムから構造化出力システムへの変換実装ガイド（7段階変換プロセス）
+- [**20250629-dev-mt-implementation.md**](20250629-dev-mt-implementation.md): ja-mt-bench-1shot構造化出力システムの実装記録（2段階簡素化プロセスと従来手法との比較分析）
 
 ### 開発・運用ガイド
 - [**20250620-git-exclude-files.md**](20250620-git-exclude-files.md): Gitの特定コミットからファイルを除外する手順
@@ -40,10 +41,12 @@ YYYYMMDD-{category}-{description}.md
 
 1. **技術仕様の記録**: 構造化出力移行の設計思想と実装方針
 2. **評価結果の分析**: 従来システムとの比較検証データ
-3. **実装ガイドの提供**: Tengu Bench手法を他ベンチマークに適用するための7段階変換プロセス
+3. **実装ガイドの提供**: 
+   - ELYZA: 7段階変換プロセス（複雑なベンチマーク向け）
+   - ja-mt-bench-1shot: 2段階簡素化プロセス（シンプルなベンチマーク向け）
 4. **開発プロセスの文書化**: 実装過程で得られた知見とベストプラクティス
 5. **運用ノウハウの蓄積**: Git操作やトラブルシューティングの手順
-6. **将来の拡張指針**: ja-mt-bench-1shot等への適用や改良の方向性
+6. **適用判断基準の確立**: ベンチマーク特性による構造化出力手法の選択指針
 
 ## 対象読者
 
