@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "reasoning": {
+          "type": "string",
+          "description": "評価の理由と根拠。有用性、関連性、正確性、深さ、創造性、詳細度、言語一致などの観点から総合的に説明"
+        },
+        "score": {
+          "type": "string",
+          "enum": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+          "description": "1から10までのスケールでの最終評価スコア"
+        }
+      },
+      "required": ["reasoning", "score"]
+    }
+  },
+  "required": ["evaluation"]
+}
