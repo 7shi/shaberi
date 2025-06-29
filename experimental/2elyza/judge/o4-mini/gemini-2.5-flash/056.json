@@ -1,0 +1,51 @@
+{
+  "answer": "抽出された客観的な事実は以下の通りです。\n\n*   今日は雨である。\n*   お菓子を買った。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答には要求された客観的事実（「今日は雨である」「お菓子を買った」）のみが適切に抽出されており、誤りはありません。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "抽出指示に従って不要な推測や感想を含まずに事実を列挙しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの意図に沿って、事実のみを抽出するタスクを正しく実行しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "課題の要件を満たしており、事実抽出として有用な回答です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現は自然で問題ありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "記載されている内容は文中の事実と完全に一致しています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過度配慮や不適切な回答拒否はありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "「今日は雨である」と出力しています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「お菓子を買った」と出力しています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "遠足中止を断言していません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "遠足中止の可能性が高いと述べていません。"
+    }
+  },
+  "summary": "両方の必須事実を正しく抽出しており、追加の誤りもないため、最高評価に値します。",
+  "score": 5
+}

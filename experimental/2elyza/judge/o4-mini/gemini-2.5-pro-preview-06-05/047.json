@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n1.  木曜日 (出発点)\n2.  金曜日 (1日後)\n3.  土曜日 (2日後)\n4.  日曜日 (3日後)\n5.  月曜日 (4日後)\n6.  **火曜日 (5日後)**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正しく、木曜日の5日後は火曜日であると説明しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、5段階で採点し、数字のみを出力している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "公正かつ正確に評価を行っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点の目的にかなった評価を提供している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に基づく誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮はない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "ユーザーの質問（採点）に正しく回答している。"
+    }
+  },
+  "summary": "回答は問題の正解であり、指示に従って5点を出力しているため正しく評価された。",
+  "score": 5
+}

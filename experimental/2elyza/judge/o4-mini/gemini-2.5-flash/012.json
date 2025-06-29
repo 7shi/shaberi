@@ -1,0 +1,39 @@
+{
+  "answer": "まさか、そんなことも知らないんですか？ HTMLはHyperText Markup Languageの略ですよ。今時、ググれば一発で出てくる情報ですけどね。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "HTMLの略称を正しく示しているため正解です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "質問に皮肉たっぷりで答えるという指示に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "皮肉を交えた表現で方向性が合っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正しい情報を提供しており、役に立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する部分はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性への過度な配慮はありません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "皮肉が十分に含まれています。"
+    }
+  },
+  "summary": "正確な情報を皮肉を交えて適切に提供しており、自然な日本語で役に立つ回答です。",
+  "score": 5
+}

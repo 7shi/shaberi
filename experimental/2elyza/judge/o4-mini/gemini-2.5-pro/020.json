@@ -1,0 +1,39 @@
+{
+  "answer": "正解は **C) 円柱** です。\n\n缶コーヒーは、底と上が同じ大きさの円で、側面がまっすぐな立体です。この形を「円柱（えんちゅう）」と呼びます。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解C) 円柱を明確に示しており、本問の解答として正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い5点満点で採点し、数字のみを出力する形式が守られている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "公平で検閲されていない適切な採点結果を提供している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は明確で有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な点はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過度配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "質問自体に対する誤解はない。"
+    }
+  },
+  "summary": "回答は正解かつ自然な日本語で記述されており、指示に従って適切に採点されています。",
+  "score": 5
+}

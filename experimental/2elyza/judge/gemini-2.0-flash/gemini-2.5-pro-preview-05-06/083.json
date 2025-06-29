@@ -1,0 +1,43 @@
+{
+  "answer": "キムがやってみようとしているのは「**1日に5分だけでいいから机で課題をすること**」です。\n\nそれをやろうとしている理由は、**大学の課題になかなかやる気が出ず先延ばしにしていたため、ティムから「短い時間でもいいから机で作業する習慣をつけることで、毎日続けやすくなり、いずれもっと長い時間できるようになる」とアドバイスされ、それなら自分にもできそうだと感じたから**です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文と正解例に沿っており、正確です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、回答は質問に答えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答の方向性は適切です。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は質問に対する有用な情報を提供しています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語の品質に問題はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答に事実と異なる記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「何をやろうとしているか」について正しく記述されています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「なぜやろうとしているか」について正しく記述されています。"
+    }
+  },
+  "summary": "回答は問題の質問に正確に答えており、指示にも従っています。日本語の品質も問題ありません。",
+  "score": 5
+}

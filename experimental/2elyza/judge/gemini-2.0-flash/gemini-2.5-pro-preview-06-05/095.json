@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。\n文章中の擬音語と擬態語をそれぞれリストアップします。\n\n**擬音語**（音や声を表す言葉）\n*   **パラパラ**：雨が降り始めた音\n*   **ビシャビシャ**：雨が激しく降る音\n\n**擬態語**（様子を表す言葉）\n*   **ぼんやり**：外を見ている様子\n*   **ワクワク**：気持ちの様子",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "全て正しく抽出されている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに擬音語と擬態語をリストアップしている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を理解し、適切な回答を生成している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解例として十分役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "全て正解である。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "抜け漏れはない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "余計な回答はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "2つ以上のミスはない。"
+    }
+  },
+  "summary": "完璧な回答です。擬音語と擬態語の抽出が正確で、指示にも忠実に従っています。",
+  "score": 5
+}

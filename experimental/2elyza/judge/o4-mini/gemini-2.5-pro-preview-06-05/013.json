@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。IMEとして機能します。\n\n---\n\n- じゅうぶん: 十分, 充分, 重文\n- の: の, ノ, 乃\n- しょせき: 書籍, 書跡, 初席",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "タスクのうち「ひらがな変換」は正しいが、「単語の分割」が誤っており（じゅうぶんと分割）、および「漢字候補提示」ではしょせきの3番目が不適切（初席）であるため、3タスク中2つ誤り。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "要求通りに5段階で採点し、数字のみを出力している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの指示に沿って採点を行っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "評価結果はユーザーの目的に即して有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な点はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にしていない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "ひらがな変換の元の意図（じゅうぶん）への変換は正しい。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "じゅうぶんと分割すべきところを誤っている。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "漢字候補提示はおおむね行われているが、一部不適切。"
+    },
+    "q4": {
+      "result": true,
+      "reasoning": "出力は「数字のみ」を遵守している。 合計2点が妥当。"
+    }
+  },
+  "summary": "3タスク中2つ誤り（単語分割と一部漢字候補）、従って2点。",
+  "score": 2
+}

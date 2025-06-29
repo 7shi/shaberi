@@ -1,0 +1,39 @@
+{
+  "answer": "最も相応しいページのタイトルは **3. 慣用表現一覧: 怒り・悲しみ** です。\n\n**理由:**\n検索クエリは「逆鱗（げきりん）に触れる」という、怒りを表す特定の慣用句について尋ねています。この慣用句は、感情（特に怒り）に関連する表現をまとめたページに含まれている可能性が最も高いからです。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "The answer correctly identifies the most suitable page title for the given search query."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The response followed all instructions and provided a clear and concise answer."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The response is perfectly aligned with the problem description and provides a relevant explanation."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The response is very helpful because it provides the correct answer and a clear explanation of why it is the best choice."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The Japanese is natural and fluent."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "The response does not contain any factual errors."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The response does not exhibit any signs of over-concern for safety."
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "The answer correctly identifies option 3 as the most appropriate page title."
+    }
+  },
+  "summary": "The response correctly identifies the most suitable page title and provides a clear and accurate explanation. The Japanese is natural and there are no factual errors or safety concerns.",
+  "score": 5
+}

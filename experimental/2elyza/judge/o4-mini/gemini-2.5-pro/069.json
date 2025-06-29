@@ -1,0 +1,59 @@
+{
+  "answer": "承知いたしました。お題に挑戦します。\n\nお題：初めてドラゴンを退治しに行くのですが、アドバイスをお願いします。\n\n<h3>回答</h3>\n\n最近は動物愛護の観点から色々うるさいので、退治しているところを動画に撮られたりしないよう、周囲に十分注意してください。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は大喜利としての捻りがあり、一般的にドラゴン退治では必要としない「動物愛護の観点から注意」という観点を示していて面白い。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、お題に対する面白いアドバイスを1文で回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "大喜利のコツである「共感を呼ぶ答えをひとひねりする」を守っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "ユーモラスでありながら意外性があり、大喜利としての完成度が高い。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で表現されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "フィクションの設定に基づくジョークのため、事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にする回答ではなく、ジョークとして適切。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "共感を呼ぶ一捻りがあるが、“共感を呼ぶ答えをひとひねり”という表現への同調呼びかけではないため。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "ドラゴン退治に必ず必要ではないことを示しており、大喜利としての捻りを含む。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "動物愛護や動画撮影への配慮という予想外の視点が面白い。"
+    },
+    "q4": {
+      "result": true,
+      "reasoning": "単純な退治アドバイスではなくユーモアを含んでいる。"
+    },
+    "q5": {
+      "result": true,
+      "reasoning": "3文未満で簡潔にまとめられている。"
+    },
+    "q6": {
+      "result": true,
+      "reasoning": "例題の回答をそのまま出力していない。"
+    }
+  },
+  "summary": "ユニークな視点を活かした面白い一言で、大喜利としての要件を満たしているため、最高評価。",
+  "score": 3
+}

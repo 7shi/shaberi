@@ -1,0 +1,59 @@
+{
+  "answer": "回復薬は多めに。あと、胃薬も忘れずに。緊張で胃がやられます。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "ドラゴン退治に行く状況で、回復薬や胃薬を持っていくというアドバイスは、ある意味で共感を呼ぶ可能性があります。特に胃薬という点が、緊張をほぐすという点で面白いです。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "大喜利のお題に対して、適切に回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "大喜利の方向性に沿った回答です。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "ドラゴン退治に行く人に、回復薬や胃薬のアドバイスは役立つ可能性があります。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にする内容ではありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "緊張で胃がやられるという点は、共感を呼ぶ可能性があります。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "胃薬は、一般的にドラゴン退治で必須とは言えないでしょう。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "胃薬というチョイスが面白いです。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "大喜利として成立しています。"
+    },
+    "q5": {
+      "result": false,
+      "reasoning": "3文ですが、短くまとまっており、文体も笑いを誘うもので、語感も悪くありません。"
+    },
+    "q6": {
+      "result": false,
+      "reasoning": "例題とは異なります。"
+    }
+  },
+  "summary": "大喜利のお題に対して、共感を呼ぶひねりを加え、面白い回答を生成しています。 回復薬と胃薬というアイテムの選択が、現実味とユーモアを加えています。",
+  "score": 5
+}

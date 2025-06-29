@@ -1,0 +1,43 @@
+{
+  "answer": "別の記事に変わった最初の文は以下の通りです。\n\n「猫は狩猟動物ですから、狩猟本能が満たされない欲求不満や運動不足も大きなストレス源となります。」",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正しい文を記述している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、1から5で採点し、数字のみを出力している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの方向性に沿って回答している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点結果として有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な点はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰な配慮はない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "“別の記事に変わった最初の文”の指示を正しく理解し、回答している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "その理由は記載していないが、必要ないと指示されている。"
+    }
+  },
+  "summary": "回答は正解の文を適切に述べており、追加の説明はないものの採点基準に合致するため4点と評価。",
+  "score": 5
+}

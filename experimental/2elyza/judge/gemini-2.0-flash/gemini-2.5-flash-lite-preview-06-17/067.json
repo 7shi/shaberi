@@ -1,0 +1,47 @@
+{
+  "answer": "昔はよく海に行っていたが、最近では滅多に泳がない。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と完全に一致しており、問題の指示に適切に従っています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、「滅多に」という言葉を使って文章を言い換えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正確に理解し、適切な回答を提供しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解例として非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で、違和感はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「滅多に」を使っており、意味も変わっていません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "意味が変わっていないため、該当しません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "漢字で適切に言い換えられています。"
+    }
+  },
+  "summary": "回答は問題の指示に完全に従い、「滅多に」という言葉を使って元の文章を適切に言い換えています。日本語の品質も高く、自然な表現です。正解例として申し分ありません。",
+  "score": 5
+}

@@ -1,0 +1,39 @@
+{
+  "answer": "RGB(200, 200, 0) は**黄色**に近い色です。\n\n赤 (R) と緑 (G) の値が高く、青 (B) の値が0なので、黄色系の色になります。\nRGB(255, 255, 0) が明るい純粋な黄色を表すのに対し、RGB(200, 200, 0) はそれよりも少し暗く、ややくすんだ黄色、あるいは黄土色に近い黄色と言えます。\n\n一般的には「黄色」と表現して差し支えないでしょう。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答はRGBの各成分の意味を正しく理解し、赤と緑の値が高く青が0であることから黄色に近い色であると正確に説明している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の質問に対して適切に色の名前を答えており、指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致し、RGB(200, 200, 0)が黄色に近い色であることを示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は色の説明を丁寧に行い、RGB値の違いによる色の違いも説明しているため、役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすく、特に問題はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "色の説明は事実に基づいており、誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "RGB(200, 200, 0)は黄色や黄土色に近い色であるため、問題固有の採点基準に該当する。"
+    }
+  },
+  "summary": "回答は問題の質問に正確に答えており、色の説明も丁寧でわかりやすい。日本語も自然で誤りがなく、問題固有の採点基準に基づき5点と評価できる。",
+  "score": 5
+}

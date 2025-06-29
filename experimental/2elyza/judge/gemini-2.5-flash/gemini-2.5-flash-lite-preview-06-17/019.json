@@ -1,0 +1,43 @@
+{
+  "answer": "1928年、三井財閥の重役の娘であるあきさんが、テノール歌手の藤原義江さんを追いかけてミラノへ旅立ったんだって。この出来事は「世紀の恋」として話題になったらしいよ！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "指示された内容を適切にパラフレーズしており、文体も指示通りにカジュアルになっています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "提示された例の文体（カジュアルな口語調）を理解し、それに沿ってパラフレーズを行っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "堅い文章をカジュアルな口語表現に変換するという方向性に完全に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "ユーザーが求めていたカジュアルなパラフレーズが提供されており、非常に有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で分かりやすい日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "提示された原文の内容を正確に反映しており、事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "倫理的な問題や安全性を過度に気にするような応答は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "プロンプティングの構造を理解し、源頼朝の文には手を加えていません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「こんな感じ」という指示を理解し、カジュアルな文体に言い換えられています。"
+    }
+  },
+  "summary": "モデルはプロンプティングの構造を正しく理解し、指示された部分のみをカジュアルな文体にパラフレーズしています。正解例と同様に、ユーザーの意図を汲み取った適切な回答であり、非常に有用です。",
+  "score": 5
+}

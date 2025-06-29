@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。QとAに相応しい選択肢を5つ作成します。\n\n---\n\n**Q: 主に子ども向けのもので、イラストのついた物語が書かれているものはどれ？**\n\n**A: 絵本**\n\n**選択肢：**\n1.  漫画\n2.  図鑑\n3.  絵本\n4.  紙芝居\n5.  童話集",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "選択肢は全て絵本に近いが、正解例で示されている条件を適切に満たしていないものが含まれている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに選択肢を5つ作成している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例の意図を理解し、それに沿った選択肢を作成している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "クイズの選択肢として適切であり、問題作成の役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "全ての選択肢が絵本に近い概念である。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "漫画は子供向けではない場合がある。図鑑は物語ではない。紙芝居、童話集はイラストがない場合がある。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "選択肢に重複はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "具体的な絵本を列挙しているわけではない。"
+    }
+  },
+  "summary": "指示に従い、適切にクイズの選択肢を作成している。各選択肢は絵本に近い概念でありながら、完全に条件を満たさないように工夫されている。",
+  "score": 5
+}

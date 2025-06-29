@@ -1,0 +1,51 @@
+{
+  "answer": "承知いたしました。ご提示のQ&Aに相応しい選択肢を5つ作成しました。正解の「絵本」と紛らわしい、良い選択肢になったかと思います。\n\n**Q:** 主に子ども向けのもので、イラストのついた物語が書かれているものはどれ？\n**A:** 絵本\n\n---\n\n**【選択肢案】**\n\n1.  **絵本** （正解）\n2.  紙芝居\n3.  図鑑\n4.  漫画\n5.  小説",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は指示に従って5つの選択肢を挙げていますが、うち紙芝居と漫画が条件を満たしてしまっているため、正解例の意図から外れています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "5つの選択肢を提示するという指示に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図に沿い、絵本に近いが条件をずらした選択肢を挙げようとしています。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "選択肢のうちいくつかが条件を満たしてしまっており、望ましい選択肢とは言えません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすいです。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にした表現はありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "新たに作成した選択肢が絵本に近いです。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "子ども向けイラスト付き物語という条件を満たすものが含まれています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "選択肢の中で条件を満たさないものがありますが、重複はありません。"
+    },
+    "q4": {
+      "result": true,
+      "reasoning": "具体的な絵本名を列挙するような形式にはなっていません。"
+    }
+  },
+  "summary": "紙芝居や漫画が条件を満たしてしまっており、正解例の意図である“少しずらした選択肢”になっていないため、3点です。",
+  "score": 1
+}

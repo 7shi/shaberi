@@ -1,0 +1,51 @@
+{
+  "answer": "表から抽出された科目名は以下の通りです。\n\n* 微積分学101\n* 美術史",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題の指示に従っており、表から必要な科目名「微積分学101」と「美術史」を正確に抽出しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "回答は採点対象の指示に従い、科目名のみを列挙している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "指示された採点手順や形式には触れていないが、採点対象の回答として方向性に沿っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の要件を満たし、ユーザーに必要な情報を提供している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然であり、不自然な表現はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「微積分学101」が抜けておらず正しく含まれているため。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「美術史」が抜けておらず正しく含まれているため。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "余計な科目名や要素は含まれていない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "表をそのまま出力せず、科目名のみを列挙している。"
+    }
+  },
+  "summary": "表から必要な科目名を正確に抽出しており、指示に完全に従っているため、満点（5点）です。",
+  "score": 5
+}

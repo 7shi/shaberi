@@ -1,0 +1,39 @@
+{
+  "answer": "正解は **C) 円柱** です。\n\n多くの缶コーヒーは、上下が円形で、側面がまっすぐな円柱の形をしています。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は缶コーヒーの形状が円柱であることを正しく述べており、正解例と一致している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "回答は問題の質問に対して適切に答えており、選択肢Cを明示している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の指示に沿っており、正しい選択肢を示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は正解を示すだけでなく、缶コーヒーの形状の特徴を説明しており、役に立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "缶コーヒーの形状について事実と異なる記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は不正解ではない。"
+    }
+  },
+  "summary": "回答は正解の選択肢Cを明確に示し、缶コーヒーの形状についての説明も加えているため、指示に従い正確で有用な内容である。日本語も自然で問題ない。よって最高評価に相当する。",
+  "score": 5
+}

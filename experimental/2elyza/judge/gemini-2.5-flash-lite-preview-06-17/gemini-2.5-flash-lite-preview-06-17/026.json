@@ -1,0 +1,43 @@
+{
+  "answer": "太郎くんは最初に5個のりんごを持っていました。\nさらに、2つのりんごの箱を買い、それぞれの箱には3つのりんごが入っているので、箱に入っているりんごの数は 2箱 × 3個/箱 = 6個 です。\n\nしたがって、太郎くんが持っているりんごの合計は、最初に持っていたりんごの数と箱に入っているりんごの数を合わせたものです。\n\n5個 + 6個 = 11個\n\n太郎くんは合計で **11個** のりんごを持っています。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "The answer correctly calculates the total number of apples."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The model followed all instructions, including providing a step-by-step explanation and the final answer."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The response is directly relevant to the question asked."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The response is helpful as it clearly explains the calculation process."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The Japanese used is natural and easy to understand."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "All calculations and statements are factually accurate."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The response does not exhibit any overconcern for safety."
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "The final answer is correct, so this criterion does not apply."
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "The final answer is correct, so this criterion does not apply."
+    }
+  },
+  "summary": "The model correctly answered the question and provided a clear, step-by-step explanation.",
+  "score": 5
+}

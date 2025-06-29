@@ -1,0 +1,51 @@
+{
+  "answer": "抽出された客観的な事実は以下の通りです。\n\n*   今日は雨である。\n*   お菓子を買った。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は文章から客観的な事実である「今日は雨である」と「お菓子を買った」を正しく抽出している。推測や感想は含まれていない。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、話者の推測や感想を除いた客観的な事実のみを抽出している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の要求に沿って、客観的な事実を抽出している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "抽出された事実は問題の要求に合致しており、役に立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実の抽出に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答に「今日は雨」とあるが、「雨が降った」という過去形ではなく現在形であり、雨が降っていることを示している。問題文の「今日は雨だから」からの事実抽出として適切である。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "回答に「お菓子を買った」とあり、問題文の「お菓子を買ったから」に対応している。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "回答に遠足の中止についての断言はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "遠足の中止の可能性についての言及もない。"
+    }
+  },
+  "summary": "回答は問題文から「今日は雨である」と「お菓子を買った」という客観的事実を正確に抽出しており、推測や感想を含まないため、指示に完全に従っている。日本語も自然で誤りがなく、役に立つ内容である。よって最高評価の5点が妥当である。",
+  "score": 4
+}

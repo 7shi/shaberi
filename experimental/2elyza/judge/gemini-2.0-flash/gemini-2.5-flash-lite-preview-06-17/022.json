@@ -1,0 +1,51 @@
+{
+  "answer": "分かりません。",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "回答が「分かりません」であるため、不正解ではあるものの、状況によっては正解とも言えるため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、質問に回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問応答ボットとして、質問に対して回答を試みている。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "質問に対して「分かりません」と答えているため、ユーザーにとって有用ではない。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にしている様子は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "40000kmのような的外れな回答ではない。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「分かりません」という回答である。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "視点の高さなどの情報が足りないため分かりません、という回答ではない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "およそ4-5km程度です、といった回答ではない。"
+    }
+  },
+  "summary": "回答が「分かりません」であるため、部分的に正しいと判断しました。質問応答としては不十分です。",
+  "score": 3
+}

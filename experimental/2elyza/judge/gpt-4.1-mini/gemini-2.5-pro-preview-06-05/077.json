@@ -1,0 +1,39 @@
+{
+  "answer": "最も相応しいページのタイトルは **3. 慣用表現一覧: 怒り・悲しみ** です。\n\n**理由:**\n検索クエリは「逆鱗（げきりん）に触れる」という、怒りを表す特定の慣用句について尋ねています。この慣用句は、感情（特に怒り）に関連する表現をまとめたページに含まれている可能性が最も高いからです。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は検索クエリの意図を正確に理解し、最も相応しいページタイトルを選択しているため正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、検索クエリに最も相応しいページタイトルを選び、その理由を述べている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致しており、適切なタイトルを選択している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は明確で役に立ち、検索クエリの意図に沿った適切な情報を提供している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で読みやすく、問題なく理解できる。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "慣用句「逆鱗に触れる」の説明と選択は事実に基づいている。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "検索クエリの意図を正しく理解し、適切な回答をしている。"
+    }
+  },
+  "summary": "回答は検索クエリの意図を正確に理解し、最も相応しいページタイトルを選択している。日本語も自然で、指示に従っており、役に立つ内容であるため満点評価に値する。",
+  "score": 5
+}

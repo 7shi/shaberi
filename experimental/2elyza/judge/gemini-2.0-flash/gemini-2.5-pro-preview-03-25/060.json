@@ -1,0 +1,43 @@
+{
+  "answer": "いいえ",
+  "evaluation": {
+    "correctness": {
+      "level": "incorrect",
+      "reasoning": "The answer is correct but lacks reasoning."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The model followed all instructions."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The model is aligned with the given direction."
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "The answer is not useful because it doesn't provide any reasoning."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The Japanese is natural and correct."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "The answer is factually accurate."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The model is not overly concerned with safety."
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "The answer is negative."
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "The answer is correct but lacks reasoning."
+    }
+  },
+  "summary": "The model correctly answered the question but did not provide any reasoning or explanation. Therefore, it is rated 4.",
+  "score": 1
+}

@@ -1,0 +1,43 @@
+{
+  "answer": "はい、計算してみましょう。\n\n1.  **最初に持っていたりんごの数:** 5個\n2.  **買った箱の数:** 2箱\n3.  **1箱に入っているりんごの数:** 3個\n4.  **買った箱に入っているりんごの総数:** 2箱 × 3個/箱 = 6個\n5.  **太郎くんが持っているりんごの総数:** 最初に持っていたりんごの数 + 買った箱に入っているりんごの総数 = 5個 + 6個 = 11個\n\nしたがって、太郎くんは全部で **11個** のりんごを持っています。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題の内容に沿って正確に計算を行い、最終的な答えも正しい11個となっているため、正確である。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、太郎くんが持っているりんごの数を計算して答えている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の質問に対して適切に答えており、方向性は合っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "計算過程を丁寧に説明しており、理解しやすく役に立つ回答である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすく、不自然な表現はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "計算や事実関係に誤りはなく正確である。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "最終的な答えがあり、計算式も正しく踏まえているため該当しない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "最終的な答えがあり、数字のみの回答ではないため該当しない。"
+    }
+  },
+  "summary": "回答は問題の指示に忠実に従い、計算過程を明確に示しながら正しい答えを導いている。日本語も自然でわかりやすく、役に立つ内容であるため高評価に値する。",
+  "score": 5
+}

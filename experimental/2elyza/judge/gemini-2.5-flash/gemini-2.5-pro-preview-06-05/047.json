@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n1.  木曜日 (出発点)\n2.  金曜日 (1日後)\n3.  土曜日 (2日後)\n4.  日曜日 (3日後)\n5.  月曜日 (4日後)\n6.  **火曜日 (5日後)**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "木曜日の5日後が火曜日であるという回答は正しいです。また、その計算過程も正確に示されています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題に対する直接的な回答を提供しており、指示に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問の意図に沿った回答が提供されています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正しい答えと、その答えに至るまでの分かりやすい手順が示されており、非常に有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で分かりやすい日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容に事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にするような応答はありませんでした。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "木曜日の5日後が火曜日であるという正解を導き出しています。問題固有の採点基準により、正解の場合は5点となります。"
+    }
+  },
+  "summary": "モデルは問題に対して正確に「火曜日」と回答し、その計算過程も分かりやすく示しています。日本語の品質も高く、事実誤認や過度な安全性配慮もありません。採点基準に照らして、非常に有用で正しい回答です。",
+  "score": 5
+}

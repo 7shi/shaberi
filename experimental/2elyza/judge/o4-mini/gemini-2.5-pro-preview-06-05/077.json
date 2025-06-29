@@ -1,0 +1,39 @@
+{
+  "answer": "最も相応しいページのタイトルは **3. 慣用表現一覧: 怒り・悲しみ** です。\n\n**理由:**\n検索クエリは「逆鱗（げきりん）に触れる」という、怒りを表す特定の慣用句について尋ねています。この慣用句は、感情（特に怒り）に関連する表現をまとめたページに含まれている可能性が最も高いからです。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "モデルの回答は正しい選択肢3を示しており、検索クエリの意図に合致しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、1～5の5段階で評価し、数字のみを出力する形式を理解しました。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの求める採点方針に沿った判断を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "適切な理由付けがあり、評価として有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な点はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "採点指示を正しく理解しています。"
+    }
+  },
+  "summary": "モデルの回答は正解の選択肢を示しており、理由も的確なため5点と評価します。",
+  "score": 5
+}

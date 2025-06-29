@@ -1,0 +1,43 @@
+{
+  "answer": "Q: **「ズボン」と「パンツ」は、どう違うのですか？**\n\nまたは\n\nQ: **「ズボン」と「パンツ」は同じ意味ですか？使い分けはありますか？**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は、ズボンとパンツの違いについて尋ねており、正解例のQと対応しているため正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、Aに対応するQを考えており、適切に回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致しており、ズボンとパンツの違いに関する質問を提示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "質問は明確で、回答の内容を理解するのに役立つため有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "質問文として事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮した表現はない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "Qは書けている。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "Qは書けており、Aと対応している。"
+    }
+  },
+  "summary": "回答はAに対応するQを適切に提示しており、自然な日本語で書かれている。指示に従っており、内容も正確で有用であるため、高評価に値する。",
+  "score": 5
+}

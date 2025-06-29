@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。\nご提示の文を四則演算の数式で表すと、以下のようになります。\n\n```\n((1 / 3) + 33) * 210 / 100\n```\n\nまたは、演算の順序をより明確にするために括弧を増やすと、以下のようにも書けます。\n\n```\n(((1 / 3) + 33) * 210) / 100\n```\n\nちなみに、この数式の計算結果は **70** です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正しく、(1/3+33)*210/100 と等価な数式を生成しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、自然言語で表現された数式を四則演算の数式として表現しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図と合致しており、正しい数式を生成しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "数式を正しく表現しており、有用です。計算結果の提示も役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "与えられた数式を正しく四則演算の数式で表現できています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "括弧のつけ忘れはありませんでした。"
+    }
+  },
+  "summary": "回答は問題文で与えられた数式を正しく四則演算の数式で表現しており、指示にも従っています。計算結果を提示している点も有用です。",
+  "score": 5
+}

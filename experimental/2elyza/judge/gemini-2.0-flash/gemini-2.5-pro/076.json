@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n\n私たちは、復旧作業に**全力**で取り組み、従業員の**安全**を第一に考え、最新技術を**活用**することで、作業に伴う負担を**軽減**します。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例に示された条件を満たしています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に沿って回答が生成されています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の意図と完全に一致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の解決に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "全ての単語が使用されています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "単語は指定された順番で使用されています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "文として自然です。"
+    }
+  },
+  "summary": "回答は全ての指示に従い、自然な日本語で記述されており、問題の意図に沿っています。したがって、最高評価の5を与えます。",
+  "score": 1
+}

@@ -1,0 +1,39 @@
+{
+  "answer": "はい、承知いたしました。「愛飲」を簡単な表現に言い換えると、以下のようになります。\n\n文脈に合わせて使い分けてみてください。\n\n### とてもシンプルな言い方\n*   **よく飲む**\n*   **いつも飲む**\n*   **大好きでよく飲む**\n\n### 「習慣」であることを伝えたい場合\n*   **毎日飲んでいる**\n*   **決まって飲んでいる**\n*   **（〜を飲むのが）日課です**\n\n### 「お気に入り」であることを伝えたい場合\n*   **お気に入りの（飲み物）**\n*   **大好きな（飲み物）**\n*   **〜にはまっている**\n\n---\n\n#### 具体的な例文\n\n**元の文：**「私は毎朝コーヒーを**愛飲**しています。」\n\n**言い換え例：**\n*   「私は毎朝コーヒーを**よく飲みます**。」\n*   「私は毎朝**決まって**コーヒーを**飲みます**。」\n*   「毎朝コーヒーを飲むのが**日課です**。」\n*   「私の**お気に入りの飲み物**はコーヒーで、毎朝飲んでいます。」",
+  "evaluation": {
+    "correctness": {
+      "level": "incorrect",
+      "reasoning": "正解例と回答が大きく異なるため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示には従っている。"
+    },
+    "direction_alignment": {
+      "aligned": false,
+      "reasoning": "方向性は合っていない。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "役に立たない。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にしていない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "不正解である。"
+    }
+  },
+  "summary": "不正解であるため、1点。",
+  "score": 1
+}

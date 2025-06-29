@@ -1,0 +1,43 @@
+{
+  "answer": "記事から抽出された日付は以下の通りです。\n\n*   あす\n*   24日\n*   26日 木曜日",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "24日と26日は正しく抽出されていますが、「26日 木曜日」のように余計な情報が含まれています。また、「あす」は問題文の指示により減点対象外ですが、正解例には含まれていません。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "日付を抽出するという指示には従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "日付抽出の方向性には合致しています。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "余計な情報が含まれているため、完全に有用とは言えません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "抽出された日付は記事内に存在します。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "正解例にある「24日」と「26日」は両方とも抽出されています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「26日 木曜日」の「木曜日」が余計な要素として含まれています。「あす」は減点対象外とされています。"
+    }
+  },
+  "summary": "回答は主要な日付を正しく抽出していますが、「26日 木曜日」のように余計な情報が含まれています。採点基準に基づき、基本スコア4点から余計な要素に対する2点減点を行い、最終スコアは2点と評価します。",
+  "score": 1
+}

@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。以下のように言い換えられます。\n\n**昔はよく海に行っていたが、最近では滅多に泳がない。**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例と回答が完全に一致しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に沿って回答しているため。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "指示された方向性と回答が一致しているため。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の意図を理解し、適切に言い換えを行っているため。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されているため。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する内容はないため。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られないため。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「滅多に」を使って適切に言い換えられているため。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "意味が変わっていないため。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "漢字で適切に記述されているため。"
+    }
+  },
+  "summary": "正解例と完全に一致しており、指示にも適切に従っているため、5点と評価します。",
+  "score": 5
+}

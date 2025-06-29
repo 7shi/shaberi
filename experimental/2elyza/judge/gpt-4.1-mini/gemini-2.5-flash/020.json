@@ -1,0 +1,39 @@
+{
+  "answer": "缶コーヒーの多くは**C) 円柱**の形をしています。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は缶コーヒーの形状について正しく、正解例と一致しているため正確である。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、最も近い形状を選択肢から選んで回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致しており、適切な形状を示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は質問に対して直接的かつ明確に答えており、役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "缶コーヒーの形状は一般的に円柱であるため、事実と合致している。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は不正解ではない。"
+    }
+  },
+  "summary": "回答は正確で指示に従っており、自然な日本語で明確に答えているため高評価に値する。",
+  "score": 5
+}

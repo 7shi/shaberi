@@ -1,0 +1,43 @@
+{
+  "answer": "`[-4, 2, 5, 5, 10, 92, 92, 101]`",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は完全に正しく、リストを昇順に並び替えており、正解例と一致している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに入力と同じフォーマットのリストのみを返しており、余計なことを喋っていない。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に完全に沿った回答である。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の要求に対して正確かつ適切な回答を提供しているため役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語の品質に問題はなく、指示も日本語で適切に理解されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はなく、正確に昇順に並べ替えられている。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "1つか2つ間違えているということはなく、完全に正しい。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "それ以上間違えているということもない。"
+    }
+  },
+  "summary": "回答は問題の指示に完全に従い、正確に昇順に並び替えられたリストを返している。余計な説明もなく、フォーマットも正しいため、満点評価に値する。",
+  "score": 5
+}

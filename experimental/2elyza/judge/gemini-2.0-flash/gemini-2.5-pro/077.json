@@ -1,0 +1,39 @@
+{
+  "answer": "正解は **3. 慣用表現一覧: 怒り・悲しみ** です。\n\n**解説**\n検索クエリは、特定の状況を表す「慣用表現（慣用句）」そのものを尋ねています。\n\n*   **1. 竜の生態について:** 竜という生物に関するページであり、慣用句を探す目的とは異なります。\n*   **2. 人を怒らせた時の対処方法:** 慣用句を知った後の行動に関するページであり、言葉そのものを探す目的とは異なります。\n*   **3. 慣用表現一覧: 怒り・悲しみ:** 「怒り」に関する慣用表現をまとめたページなので、探している答えが最も見つかりやすいタイトルです。\n\nちなみに、お探しの言葉は「**逆鱗に触れる（げきりんにふれる）**」です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "The answer correctly identifies the most suitable page title for the given search query."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The response provides a single number as requested."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The response aligns with the provided scoring criteria and example."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The response accurately assesses the answer based on the provided context."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The instructions are clear and use natural Japanese."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "The scoring criteria and example are factually accurate."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The response does not exhibit any undue safety concerns."
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "The correct answer is selected."
+    }
+  },
+  "summary": "The response accurately evaluates the answer based on the provided criteria and returns the correct score.",
+  "score": 5
+}

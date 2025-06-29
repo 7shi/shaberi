@@ -1,0 +1,51 @@
+{
+  "answer": "提供された表から抽出した科目名は以下の通りです。\n\n*   微積分学101\n*   美術史",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題で要求されたすべての科目名を正確に抽出しており、不足や余計な情報はありません。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示通り、表から科目名をすべて抽出しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "科目名を抽出するという問題の意図に完全に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題に対する直接的で正確な回答であり、非常に有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で適切な日本語が使用されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "提供された表の事実に基づき、正確な情報を提供しています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「微積分学101」は回答に含まれています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「美術史」は回答に含まれています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "科目名以外の余計な要素は含まれていません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "表をそのまま出力するのではなく、科目名のみを抽出して出力しています。"
+    }
+  },
+  "summary": "回答は問題の指示を完全に理解し、正確に科目名を抽出しています。日本語も自然で、非常に有用な回答です。すべての採点基準を満たしており、満点に値します。",
+  "score": 5
+}

@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。以下に、ご提示いただいた文章から擬音語と擬態語をそれぞれリストアップします。\n\n**擬音語:**\n\n*   パラパラ\n*   ビシャビシャ\n\n**擬態語:**\n\n*   ワクワク",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "擬音語はすべて正解ですが、擬態語の「ぼんやり」が抜け落ちています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示通り、擬音語と擬態語をリストアップするという形式で回答できています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正しく理解し、擬音語・擬態語を文中から抜き出すという方向性で回答できています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "1つ抜け漏れがあるものの、大部分は正解しており、ユーザーにとって有用な回答です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": true,
+      "reasoning": "正解である擬態語「ぼんやり」が回答に含まれていません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "擬態語の「ぼんやり」が抜けているため、全て正解ではありません。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "擬態語の「ぼんやり」が1つだけ抜け漏れています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "余計な回答はありません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "ミス（抜け漏れ）は1つのみです。"
+    }
+  },
+  "summary": "擬音語は正しく抽出できていますが、擬態語の「ぼんやり」が抜け漏れています。問題固有の採点基準である「抜け漏れが1つのみ」に該当するため、4点相当の回答です。",
+  "score": 3
+}

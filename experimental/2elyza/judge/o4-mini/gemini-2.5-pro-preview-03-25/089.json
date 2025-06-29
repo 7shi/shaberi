@@ -1,0 +1,43 @@
+{
+  "answer": "[-4, 2, 5, 5, 10, 92, 92, 101]",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は完全に正解例と一致し、ソートされたリストを正確に出力している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り余計な文言なくソート済みリストのみを返している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの要求に沿った適切な回答である。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "完全に正しい回答であり、問題解決に役立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語の不自然な表現はなく、フォーマットも適切である。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容は事実と齟齬なく正しい。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "1つか2つの間違いはないため該当しない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "それ以上の間違いもないため該当しない。"
+    }
+  },
+  "summary": "回答は完全に正解例と一致し、指示に忠実であるため最高評価の5点を付与できる。",
+  "score": 5
+}

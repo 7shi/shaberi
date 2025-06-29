@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。想像して回答します。\n\n1.  交差点で**左**に曲がりました。\n    （西に向かって歩いている時、南は左手側になります。）\n2.  スタート地点はゴール地点から見て**北東**の方角にあります。\n    （ゴール地点から見ると、まず北へ進み、次に東へ進むとスタート地点に着きます。）",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "両方の質問に対して正しく回答しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に沿って回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "方向性も完全に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題に対する回答として非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で高品質な日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "問題1の回答は左であり、正解です。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "問題2の回答は北東であり、正解です。"
+    }
+  },
+  "summary": "完璧な回答です。両方の質問に正しく答え、指示にも忠実に従っています。日本語の質も高く、安全性の懸念もありません。",
+  "score": 1
+}

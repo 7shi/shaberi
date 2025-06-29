@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。ご質問にお答えします。\n\n1.  **交差点で左右どちらに曲がりましたか？**\n    **左**です。\n    西を向いて立っているとき、左手が南、右手が北になります。そのため、南に曲がるということは左に曲がることになります。\n\n2.  **スタート地点はゴール地点から見てどの方角にありますか？**\n    **北東**です。\n    ゴール地点からスタート地点に戻る道のりを考えると、以下のようになります。\n    *   まず、南に来た道を北に戻ります。\n    *   次に、西に来た道を東に戻ります。\n    つまり、ゴール地点から見ると、スタート地点は「北」であり、かつ「東」の方向にあるため、「北東」となります。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "両方の質問に正しく回答しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "質問に直接回答しており、指示に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの質問に直接答え、問題解決に貢献しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "質問に対する回答が正確であり、説明も分かりやすいため有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で分かりやすい日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答内容に事実と異なる点はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "問題1の回答は「左」であり、正解です。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "問題2の回答は「北東」であり、正解です。"
+    }
+  },
+  "summary": "回答は両方の質問に対して完全に正しく、説明も明確で非常に有用です。日本語の品質も高く、指示に完全に従っています。",
+  "score": 1
+}

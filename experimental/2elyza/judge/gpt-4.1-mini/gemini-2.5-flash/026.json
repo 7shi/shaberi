@@ -1,0 +1,43 @@
+{
+  "answer": "太郎くんは合計で11個のりんごを持っています。\n\n計算方法：\n1.  箱に入っているりんごの数：2箱 × 3個/箱 = 6個\n2.  合計のりんごの数：5個（最初持っていた数）＋ 6個（箱に入っていた数）= 11個",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題の計算過程を正しく示しており、最終的な答えも正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、太郎くんのりんごの数を計算し答えている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の方向性に沿って、計算過程と答えを示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "計算過程を明示しており、理解しやすく役に立つ回答である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "計算や事実に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "最終的な答えがあり、計算式も正しく示されている。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "数字のみの回答ではなく、計算過程も含まれている。"
+    }
+  },
+  "summary": "回答は計算過程を正確に示し、最終的な答えも正しい。日本語も自然で指示に従っており、役に立つ内容であるため最高評価とする。",
+  "score": 5
+}

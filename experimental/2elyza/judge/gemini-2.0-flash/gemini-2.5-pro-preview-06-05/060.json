@@ -1,0 +1,43 @@
+{
+  "answer": "いいえ。\n\n**解説:**\n文1の「ガソリンを食う」は、「ガソリンの消費量が非常に多い（燃費が悪い）」という意味で使われる、慣用的な比喩表現です。焦点は消費の**量**にあります。\n\n一方、文2の「美味しそうにガソリンを食べる」は、車を擬人化し、ガソリンを消費する**様子**を描写しています。これは「消費量が多い」ことを必ずしも意味しません。\n\nしたがって、文2は文1の正しい言い換えではありません。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例と回答が一致しており、理由の説明も適切です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに採点基準と正解例を参考に回答を評価しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を理解し、適切な回答を生成しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "比喩表現の違いを明確に説明しており、非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で正確な日本語を使用しています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に基づいた正確な説明です。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "不正解ではありません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "理由と説明があります。"
+    }
+  },
+  "summary": "回答は正解であり、理由の説明も適切で、指示にも従っています。比喩表現の違いを明確に説明しており、非常に役立ちます。",
+  "score": 5
+}

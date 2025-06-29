@@ -1,0 +1,51 @@
+{
+  "answer": "分かりません。",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "回答は「分かりません」と答えているが、その理由として「視点の高さなどの情報が足りないため」という点が欠けているため、部分的に正しいと判断した。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "回答は「分かりません」と答えており、問題文の指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は質問に対して「分かりません」と答えており、方向性は合っている。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "回答は「分かりません」と答えているだけで、ユーザーが求めている情報を提供していないため、役に立たない。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で問題ない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答は「分かりません」と答えているため、事実と異なる内容はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "回答は安全性を過度に気にする内容ではない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は「分かりません」と答えており、的外れな回答ではない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "回答は「分かりません」と答えているが、その理由として「視点の高さなどの情報が足りないため」という点が欠けているため、完全に「分かりません」という回答とは言えない。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "回答は「分かりません」と答えているが、その理由として「視点の高さなどの情報が足りないため」という点が欠けているため、この基準に該当する。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "回答は「分かりません」と答えており、「およそ4-5km程度です」という回答ではない。"
+    }
+  },
+  "summary": "回答は「分かりません」と答えているが、その理由として「視点の高さなどの情報が足りないため」という点が欠けているため、部分的に正しいと判断した。採点基準のq3に該当するため、4点とする。",
+  "score": 4
+}

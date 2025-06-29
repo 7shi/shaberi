@@ -1,0 +1,43 @@
+{
+  "answer": "1928年に、三井財閥の偉い人、中上川彦次郎さんの娘さん、あきさんが、テノール歌手の藤原義江さんを追いかけてミラノに行っちゃったんだって！これが「世紀の恋」ってすごく話題になったんだよ！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "事実関係を正確に保持しつつ、指定の文をカジュアルに言い換えているため正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "採点基準と正解例に従って、ユーザーの指示通りにパラフレーズしている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "カジュアルな文体で言い換えるという指示に沿っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "カジュアルでわかりやすい表現となっており、目的に合致している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれており、不自然な表現は見られない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "元の内容を正確に反映しており、事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性について過度に気にした表現は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "余計な箇所を言い換えておらず、プロンプトの構造を正しく理解している。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "カジュアルな文体で適切に言い換えており、「こんな感じ」の意図を理解している。"
+    }
+  },
+  "summary": "事実を正確に保ちつつ、適切にカジュアルな文体で言い換えており、指示にも忠実なので高評価できる回答です。",
+  "score": 5
+}

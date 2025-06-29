@@ -1,0 +1,43 @@
+{
+  "answer": "映画タイトルに含まれる都市名は以下の通りです。\n\n*   バンクーバー\n*   ロンドン",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文の指示に沿って、映画タイトルに含まれる都市名をすべて正確に書き出しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに都市名を抽出しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を理解し、適切に回答しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "質問に対して過不足なく回答しています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "答えに抜けはありません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "余計な要素は含まれていません。"
+    }
+  },
+  "summary": "問題文の指示に従い、映画タイトルに含まれる都市名を正確に抽出しているため、5点と評価します。",
+  "score": 5
+}

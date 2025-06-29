@@ -1,0 +1,43 @@
+{
+  "answer": "太郎くんは合計で11個のりんごを持っています。\n\n計算方法：\n1.  箱に入っているりんごの数：2箱 × 3個/箱 = 6個\n2.  合計のりんごの数：5個（最初持っていた数）＋ 6個（箱に入っていた数）= 11個",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題で問われているりんごの総数を、計算過程を含めて正しく回答できています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題文の意図を汲み取り、正しく計算できています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題で問われている内容に対して、的確に回答しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "最終的な答えだけでなく、計算方法も示しているため、なぜその答えになるのかが分かりやすく、役に立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語は見られません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "計算結果は正しく、事実に即しています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する懸念事項はありません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "最終的な答えは合っています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "最終的な答えは合っています。"
+    }
+  },
+  "summary": "採点基準に基づき評価します。回答は正しく、計算過程も示されており、非常に分かりやすいです。これは採点基準の「役に立つ」に該当するため、5点と評価します。",
+  "score": 5
+}

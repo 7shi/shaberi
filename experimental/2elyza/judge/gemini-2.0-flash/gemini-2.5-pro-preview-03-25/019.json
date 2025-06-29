@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。こんな感じでどうでしょうか？\n\n1928年 - 三井財閥の大番頭・中上川彦次郎の娘・あきがテノール歌手・藤原義江を追ってミラノへ出発。「世紀の恋」と話題になる。\n言い換え:\n1928年にね、三井財閥の偉い人の娘さんだったあきさんが、好きなテノール歌手の藤原義江さんを追いかけて、なんとミラノまで行っちゃったんだって！これが「世紀の恋」だって、当時は大ニュースになったみたいだよ。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "内容に誤りはありません。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、歴史的な出来事をカジュアルな言い回しに変換しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "提示された例に沿って、文体を変更しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "歴史の出来事を現代風に言い換えることで、理解しやすくしています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で表現されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "余計な箇所を言い換えていません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "カジュアルな文体に変換できています。"
+    }
+  },
+  "summary": "指示に従い、歴史的な出来事をカジュアルな文体で言い換えることに成功しています。内容も正確で、自然な日本語で表現されています。",
+  "score": 5
+}

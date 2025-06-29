@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。質問にお答えします。\n\nまず、太郎くんが買った箱に入っているりんごの総数を計算します。\n2箱 × 3個/箱 = 6個\n\n次に、元々持っていたりんごの数と、新しく買った箱の中のりんごの数を足し合わせます。\n5個 + 6個 = 11個\n\nしたがって、太郎くんは全部で**11個**のりんごを持っています。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "計算手順と最終的な答えが正しく、正解例と一致しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題文に従い、手順を示して答えを導出しているため。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの意図であるりんごの総数を求める問いに正しく対応しているため。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正確な計算過程と結論を提示しており、学習にも役立つ回答内容であるため。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で分かりやすく記述されているため。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "数学的に誤りなく事実と一致しているため。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮は不要な内容のため問題ない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "最終的な答えがきちんと示されているため。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "数字のみでなく計算過程と文章で説明されているため。"
+    }
+  },
+  "summary": "正解例に忠実で完全に正しい回答。自然な日本語で手順を示し、最終解答も明示しているため満点評価に相当する。",
+  "score": 5
+}

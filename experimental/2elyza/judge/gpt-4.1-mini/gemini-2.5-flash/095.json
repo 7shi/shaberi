@@ -1,0 +1,51 @@
+{
+  "answer": "擬音語：\n*   パラパラ\n*   ビシャビシャ\n\n擬態語：\n*   ぼんやり\n*   ワクワク",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文の擬音語と擬態語を正確にリストアップしており、正解例と一致している。すべての擬音語と擬態語が正しく挙げられている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに擬音語と擬態語をそれぞれリストアップしている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に沿った回答であり、方向性に合っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の要求に的確に応えており、役に立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で理解しやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "擬音語と擬態語の区別とリストアップが正しく行われている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "抜け漏れや誤りはなく、すべての該当語が含まれている。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "余計な回答はなく、必要な語のみが挙げられている。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "ミスはなく、2つ以上のミスは存在しない。"
+    }
+  },
+  "summary": "回答は擬音語と擬態語を正確にリストアップしており、指示に完全に従っている。日本語も自然で誤りがなく、役に立つ内容であるため、最高評価の5点とする。",
+  "score": 5
+}

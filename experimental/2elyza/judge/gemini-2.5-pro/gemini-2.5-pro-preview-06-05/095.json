@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。\n文章中の擬音語と擬態語をそれぞれリストアップします。\n\n**擬音語**（音や声を表す言葉）\n*   **パラパラ**：雨が降り始めた音\n*   **ビシャビシャ**：雨が激しく降る音\n\n**擬態語**（様子を表す言葉）\n*   **ぼんやり**：外を見ている様子\n*   **ワクワク**：気持ちの様子",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題文中の擬音語と擬態語をすべて正しく抽出し、分類できているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "擬音語・擬態語をそれぞれリストアップするという指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正確に理解し、求められている回答を生成している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解であるだけでなく、それぞれの言葉が何を表しているかの説明も付記されており、学習者にとって非常に有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に基づいた正確な回答である。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "擬音語として「パラパラ」「ビシャビシャ」、擬態語として「ぼんやり」「ワクワク」を正しく抽出・分類しており、全て正解である。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "抜け漏れはない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "余計な回答はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "ミスはない。"
+    }
+  },
+  "summary": "問題で求められている擬音語と擬態語をすべて正しく抽出し、分類できています。問題固有の採点基準「全て正解: 5点」に該当するため、5点と評価します。それぞれの言葉が何を表しているかの補足説明も付いており、非常に丁寧で分かりやすい回答です。",
+  "score": 5
+}

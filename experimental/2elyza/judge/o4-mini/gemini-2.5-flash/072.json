@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。QとAに相応しい選択肢を5つ作成します。\n\n---\n\n**Q: 主に子ども向けのもので、イラストのついた物語が書かれているものはどれ？**\n\n**A: 絵本**\n\n**選択肢：**\n1.  漫画\n2.  図鑑\n3.  絵本\n4.  紙芝居\n5.  童話集",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "選択肢として5つ出しているが、「紙芝居」が本来の条件（主に子ども向け、イラストつき物語）を満たしてしまっており、採点基準に反しているため部分的に正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "5つの選択肢を出すという指示には従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "与えられたタスクに沿って選択肢を提示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "ほとんどの選択肢は適切な範囲のものであるが、一部条件を満たすものが含まれているため完璧ではない。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に不自然さはない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過度配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "「漫画」「紙芝居」「童話集」など、絵本に近い媒体が含まれている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「紙芝居」がオリジナル条件を満たしてしまっている。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "選択肢の重複はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "具体的な絵本のタイトルではなくカテゴリを5つ挙げている。"
+    }
+  },
+  "summary": "5つの選択肢を適切に列挙しているものの、「紙芝居」が条件を満たしてしまっている点で採点基準に反するため、3点と評価する。",
+  "score": 3
+}

@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。以下に、ご提示いただいた文章から擬音語と擬態語をそれぞれリストアップします。\n\n**擬音語:**\n\n*   パラパラ\n*   ビシャビシャ\n\n**擬態語:**\n\n*   ワクワク",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "擬音語として「パラパラ」と「ビシャビシャ」を正しく挙げているが、正解例では「ピシャピシャ」となっているため、表記の違いがあるものの意味は同じと判断できる。擬態語では「ワクワク」のみを挙げており、「ぼんやり」が抜けているため部分的に誤りがある。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、文章中の擬音語と擬態語をリストアップしている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に沿って擬音語と擬態語を分けて回答している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の要求に応じており、学習や理解に役立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で理解しやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容は事実に基づいており、誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮した表現はない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "擬音語と擬態語の区別を正しく理解している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "抜け漏れは「ぼんやり」のみであり、1つのみの抜け漏れである。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "余計な回答はなく、必要なものだけを挙げている。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "2つ以上のミスはなく、部分的な抜け漏れのみである。"
+    }
+  },
+  "summary": "擬音語と擬態語の区別は正しくできているが、擬態語の「ぼんやり」が抜けているため、抜け漏れが1つのみの状態である。表記の違いは意味的に問題ないため、4点が妥当である。",
+  "score": 5
+}

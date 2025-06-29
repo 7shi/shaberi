@@ -1,0 +1,43 @@
+{
+  "answer": "元の数式は以下のようになります。\n\n$${ \\left( \\left( \\frac{1}{3} \\right) + 33 \\right) \\times 210 } \\div 100$$",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は元の数式を正しく表現しており、(1/3+33)*210/100 と同等の式を示しているため正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、自然言語の数式を四則演算の数式として表現している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致しており、求められた数式を正しく示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の解決に役立つ正確な数式を提供している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で理解しやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "数式の表現に誤りはなく、事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "(1/3+33)*210/100 と正しく回答できている。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "括弧のつけ忘れはなく、正しく括弧がつけられている。"
+    }
+  },
+  "summary": "回答は問題文の数式を正確に表現しており、指示に従っている。日本語も自然で誤りがなく、役に立つ内容であるため最高評価の5点とする。",
+  "score": 5
+}

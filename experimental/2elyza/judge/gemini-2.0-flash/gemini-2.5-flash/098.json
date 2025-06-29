@@ -1,0 +1,47 @@
+{
+  "answer": "以下が対応するペアです。\n\n1.  1-A\n2.  2-D\n3.  3-B\n4.  4-E\n5.  5-C",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "すべて正しく対応するペアが示されています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに解答されています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図に沿った回答です。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解が明確に示されており、非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "3つ以上の間違いはありません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "1つまたは2つの間違いもありません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "数字とアルファベットのペアを明確に回答しています。"
+    }
+  },
+  "summary": "完璧な回答です。すべてのペアが正しく対応しており、指示にも正確に従っています。",
+  "score": 5
+}

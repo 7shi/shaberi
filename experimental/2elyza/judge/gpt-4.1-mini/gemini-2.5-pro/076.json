@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n\n私たちは、復旧作業に**全力**で取り組み、従業員の**安全**を第一に考え、最新技術を**活用**することで、作業に伴う負担を**軽減**します。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は与えられた4つの単語をすべて使い、順番も守っている。文として自然で意味も通じている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに4つの単語を順番に使って1つの文を作成している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に沿った回答であり、方向性は合っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は具体的で実用的な文であり、役に立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で違和感がない。文法的にも問題ない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮しているわけではない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "すべての単語を使っている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "単語は順番通りに使われている。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "文として自然である。"
+    }
+  },
+  "summary": "回答は問題の指示に完全に従い、自然で意味の通る文を作成している。全ての単語を順番に使い、文法的にも正しいため高評価に値する。",
+  "score": 1
+}

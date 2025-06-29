@@ -1,0 +1,47 @@
+{
+  "answer": "「**後の祭り**」\n\n彼は、もう告白しても意味がない、手遅れだと感じたのでしょう。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答された「後の祭り」は、正解例として挙げられている5点になることわざの一つであり、問題のシチュエーションに完全に合致しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題で問われていることわざを正しく提示しています。説明部分は採点対象外とされているため、指示に従っていると判断します。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "男性の後悔と機会を逃した状況に合致する適切なことわざを選んでいます。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題に対する直接的かつ正確な答えを提供しており、非常に有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で適切な日本語が使用されています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に関する誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にするような回答ではありません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「後の祭り」はことわざです。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「後の祭り」は、このシチュエーション（機会を逃したことへの後悔）に非常にふさわしいことわざです。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "「後の祭り」は、このシチュエーションに完璧に合致しており、惜しい点はありません。"
+    }
+  },
+  "summary": "回答は「後の祭り」であり、これは正解例として挙げられている5点に該当する完璧な答えです。問題の意図を正確に捉え、適切なことわざを提示しています。説明部分は採点対象外ですが、回答自体の質は非常に高いです。",
+  "score": 5
+}

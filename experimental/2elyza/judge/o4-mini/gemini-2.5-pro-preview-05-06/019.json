@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。こんな感じでいかがでしょうか。\n\n1928年、三井財閥のお嬢様あきさんが、テノール歌手の藤原義江さんを追いかけてミラノへ出発！「世紀の恋」だって、めちゃくちゃ話題になったんだって！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正しい歴史的事実をカジュアルに言い換えており、正解例と同等の内容を含んでいます。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りにカジュアルな言い換え文を作成しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "「こんな感じ」のカジュアルな口調を適切に再現しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "求められたパラフレーズとして十分に役立つ表現です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で、不自然さはありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはなく、正確に記述しています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性への過度な配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "プロンプト構造を理解し、余計な文を含めていません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「こんな感じ」の意味を正しく把握し、カジュアルな文体で記述しています。"
+    }
+  },
+  "summary": "5",
+  "score": 5
+}

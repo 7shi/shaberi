@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。\n映画タイトルに含まれる都市名は以下の通りです。\n\n*   **バンクーバー**\n*   **ロンドン**",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "タイトル『バンクーバーからの挑戦』と『ロンドンの夢』の都市名は正しく挙げられていますが、『織田信長の生涯』に都市名が含まれていないことを記載しておらず、回答が不完全です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従って都市名を列挙していますが、項目が抜けています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの指示（採点）に沿って評価を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答の不備を指摘し、採点として役立つ評価を提供しています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に問題はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": true,
+      "reasoning": "『織田信長の生涯』の都市名なしを回答に含める必要があるのに、記述がないため事実と異なります。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性への過度な配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答から一つの項目（『織田信長の生涯』の扱い）が抜けています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "余計な要素は含まれていませんが、必要な要素が欠けています。"
+    }
+  },
+  "summary": "モデルの回答は一部正解ですが、『織田信長の生涯』についての言及が抜けており、完全な回答とは言えません。",
+  "score": 1
+}

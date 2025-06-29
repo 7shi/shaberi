@@ -1,0 +1,47 @@
+{
+  "answer": "伊勢神宮は三重県にあります。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題「伊勢神宮は何県？」に対し、「三重県」と正しく回答しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "「伊勢神宮は何県？」という質問の意図を汲み取り、所在地を都道府県で答えるという指示に正しく従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問の意図を正確に理解し、求められている情報（都道府県名）を的確に回答している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "質問者が必要としている情報を、簡潔かつ正確に提供しており、非常に役立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "「伊勢神宮は三重県にあります。」という文は、文法的にも表現としても完全に自然な日本語である。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "伊勢神宮が三重県に存在するという事実は正確であり、内容に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "事実に関する質問に対してストレートに回答しており、過度な安全配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答文に「三重県」と明確に記載されている。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "回答は所在地に関する事実のみで、余計な情報や嘘の情報は一切含まれていない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "「何県？」という問いに対して、「三重県」と正しく県名で回答している。"
+    }
+  },
+  "summary": "問題に対し、正解例と同一の完璧な回答です。簡潔、正確、自然な日本語であり、利用者にとって非常に有用です。採点基準のどの減点項目にも該当しません。",
+  "score": 5
+}

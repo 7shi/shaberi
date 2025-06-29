@@ -1,0 +1,43 @@
+{
+  "answer": "適切な順序は以下の通りです。\n\n1.  昔、あるところに老人と孫がいました。\n2.  老人は、広い畑で色々な果物を育てていました。\n3.  ある日、孫が老人に『こんなに広い畑で、全ての果物を一人で育てるのは大変そうですね』と尋ねました。\n4.  老人は微笑みながら次のように答えました。\n5.  「果物だけではなく、人生も同じです。協力しなくては、全てをこなすことはできません。」",
+  "evaluation": {
+    "correctness": {
+      "level": "incorrect",
+      "reasoning": "ユーザーの指示は得点を1〜5の数字のみで出力することでしたが、回答は文の並び替えを示したため、指示に従っていません。"
+    },
+    "instruction_following": {
+      "followed": false,
+      "reasoning": "得点の数字のみを出力するよう指示されていましたが、行動せず並び替え結果を示しました。"
+    },
+    "direction_alignment": {
+      "aligned": false,
+      "reasoning": "指示の方向性（数字のみの出力）と異なる回答を行っています。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "ユーザーが求めている形式に沿っていないため、有用ではありません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に不自然な点はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "並べ替え自体は正しく行われています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度な配慮は含まれていません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "5つの文を全て正しい順序で並べています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "引用文は元のまま変更なく使用されています。"
+    }
+  },
+  "summary": "正しい順番を示していますが、得点を数字のみで出力する指示に従っていないため、誤りと評価します。",
+  "score": 1
+}

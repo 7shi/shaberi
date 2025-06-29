@@ -1,0 +1,51 @@
+{
+  "answer": "* 遠足は中止になるだろう。\n* お菓子を買った。",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "回答は「お菓子を買った」という事実は抽出していますが、「今日は雨」という事実が抽出されていません。また、「遠足は中止になるだろう」という推測を含んでしまっています。"
+    },
+    "instruction_following": {
+      "followed": false,
+      "reasoning": "客観的な事実のみを抽出するという指示に従っていません。「遠足は中止になるだろう」という推測を含んでいます。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答の方向性としては、客観的な事実を抽出するという点で問題ありません。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "推測を含んでいるため、客観的な事実のみを知りたい場合には役に立ちません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答に含まれる事実は正確です。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「今日は雨」という事実を出力していません。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「お菓子を買った」という事実を出力しています。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "「遠足は中止になるだろう」と断言しています。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "「遠足は中止になる可能性が高い」とは出力していません。"
+    }
+  },
+  "summary": "回答は部分的に正しく、指示に完全には従っていません。客観的な事実の抽出において、推測を含んでしまっている点が問題です。また、「今日は雨」という事実が抽出されていません。",
+  "score": 1
+}

@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n数え方は以下の通りです。\n\n*   木曜日の1日後：金曜日\n*   木曜日の2日後：土曜日\n*   木曜日の3日後：日曜日\n*   木曜日の4日後：月曜日\n*   **木曜日の5日後：火曜日**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "The answer is correct."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The model followed the instructions."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The model is aligned."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The model is useful."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The Japanese is natural."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "The model is factually accurate."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The model is not overconcerned."
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "The answer is correct."
+    }
+  },
+  "summary": "The model correctly answers the question and provides a clear explanation. Therefore, the rating is 5.",
+  "score": 5
+}

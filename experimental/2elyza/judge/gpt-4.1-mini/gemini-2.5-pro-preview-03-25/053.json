@@ -1,0 +1,39 @@
+{
+  "answer": "RGB(200, 200, 0) は**黄色**です。\n\nより詳しく説明すると、以下のようになります。\n\n*   **R (赤): 200**\n*   **G (緑): 200**\n*   **B (青): 0**\n\n赤と緑の成分が強く、青の成分が全くないため、黄色系の色になります。\nRGB(255, 255, 0) が非常に明るい純粋な黄色を表すのに対し、RGB(200, 200, 0) はそれよりも少し暗め、あるいは落ち着いた色合いの黄色になります。山吹色に近いかもしれません。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答はRGBの各成分の意味を正しく説明し、RGB(200, 200, 0)が黄色であることを正確に述べている。色の説明も正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の質問に対して適切に回答しており、指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致しており、黄色であることを明確に示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は色の成分の説明や色の特徴を詳しく述べており、理解に役立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすく、特に問題はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "色の説明やRGBの解釈に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "RGB(200, 200, 0)は黄色やそれに近い色であるため、問題固有の採点基準に該当する。"
+    }
+  },
+  "summary": "回答は正確かつ詳細であり、問題の指示に従っている。黄色であることを明確に示し、色の説明も丁寧で役に立つ。日本語も自然で誤りがないため、最高評価に値する。",
+  "score": 5
+}

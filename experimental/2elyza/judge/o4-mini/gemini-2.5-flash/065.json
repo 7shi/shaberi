@@ -1,0 +1,43 @@
+{
+  "answer": "一番老いているペンギンは**ヴィンセント**です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は最も年長のペンギンを正しくヴィンセントと特定しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "数値のみを出力する指示に従い、4を出力したため。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの採点タスクに沿って評価を行っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点基準に基づき適切なスコアを提供している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容に事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性への過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "9歳であることには触れていないため、満点条件を満たしていない。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "ヴィンセントであることは正しく特定しているため。"
+    }
+  },
+  "summary": "回答はヴィンセントを正しく特定しているものの、年齢の言及がないため、問題固有基準により4点と評価された。",
+  "score": 4
+}

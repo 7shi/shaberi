@@ -1,0 +1,51 @@
+{
+  "answer": "抽出された客観的な事実は以下の通りです。\n\n*   今日は雨である。\n*   話者がお菓子を買った。\n*   話者が遠足について言及している。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文から客観的な事実を正確に抽出しています。今日は雨であること、話者がお菓子を買ったことを正しく記述しています。また、遠足に言及しているという点も客観的な事実として適切です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "回答は指示に従い、話者の推測や感想を除いた客観的な事実のみを抽出しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の意図に沿って、客観的な事実を抽出するという方向性で適切に回答しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は客観的な事実を明確に示しており、問題の意図を理解する上で役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されており、特に問題ありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答は事実に基づいており、誤った情報は含まれていません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にするような記述はありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "今日は雨である、と出力しました。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "話者がお菓子を買った、と出力しました。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "遠足は中止になると断言していません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "遠足は中止になる可能性が高いとは出力していません。"
+    }
+  },
+  "summary": "回答は問題文から客観的な事実を正確に抽出し、指示に適切に従っています。日本語の品質も高く、有用な回答です。",
+  "score": 5
+}

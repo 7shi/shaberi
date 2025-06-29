@@ -1,0 +1,55 @@
+{
+  "answer": "はい、承知いたしました。それぞれの選択肢で「マウス」がどの意味で使われているか、以下に解説します。\n\n1.  **マウスウォッシュ**\n    *   **(B) 口**\n    *   英語の \"mouth\"（口）と \"wash\"（洗う）を組み合わせた言葉で、口内洗浄液を指します。\n\n2.  **マウスカーソル**\n    *   **(C) コンピュータの入力機器**\n    *   コンピュータの画面上で、マウスの動きに合わせて移動するポインタのことです。\n\n3.  **ミッキーマウス**\n    *   **(A) ネズミ**\n    *   ディズニーの有名なキャラクターで、ネズミ (mouse) を擬人化したものです。\n\n4.  **マウスパッド**\n    *   **(C) コンピュータの入力機器**\n    *   コンピュータのマウスを操作しやすくするために下に敷くマットです。\n\n5.  **マウスピース**\n    *   **(B) 口**\n    *   英語の \"mouth\"（口）と \"piece\"（部品）を組み合わせた言葉で、スポーツの保護具や楽器の吹き口など、口にはめるものを指します。\n\n6.  **マウスツーマウス法**\n    *   **(B) 口**\n    *   人工呼吸法の一つで、救助者が要救助者の口 (mouth) に直接息を吹き込む方法です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は全ての項目で正解でした。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、採点基準に基づいて回答を評価しました。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図と回答の評価方向は合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点結果は明確で、評価の根拠も示されています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で問題ありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答内容は事実と異なるところはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "全問正解のため、5点と評価します。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "全問正解のため、この項目は該当しません。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "全問正解のため、この項目は該当しません。"
+    },
+    "q4": {
+      "result": true,
+      "reasoning": "全問正解のため、この項目は該当しません。"
+    },
+    "q5": {
+      "result": true,
+      "reasoning": "全問正解のため、この項目は該当しません。"
+    }
+  },
+  "summary": "回答は全ての項目で正解しており、採点基準に基づき5点と評価します。",
+  "score": 5
+}

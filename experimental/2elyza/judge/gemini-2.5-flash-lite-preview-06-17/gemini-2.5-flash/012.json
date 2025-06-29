@@ -1,0 +1,39 @@
+{
+  "answer": "まさか、そんなことも知らないんですか？ HTMLはHyperText Markup Languageの略ですよ。今時、ググれば一発で出てくる情報ですけどね。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正確です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、皮肉を込めて回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図に沿った回答です。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "質問に対する正確な情報を提供しています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に基づいた正確な情報を提供しています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にするような回答ではありません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "皮肉が十分に表現されています。"
+    }
+  },
+  "summary": "回答は正確で、指示通り皮肉を込めて質問に答えています。有用性も高く、日本語の品質にも問題はありません。",
+  "score": 5
+}

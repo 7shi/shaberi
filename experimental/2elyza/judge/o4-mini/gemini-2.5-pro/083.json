@@ -1,0 +1,43 @@
+{
+  "answer": "キムがやってみようとしていることと、その理由は以下の通りです。\n\n*   **やってみようとしていること:**\n    1日に5分だけ机で課題をすること。\n\n*   **その理由:**\n    大学の課題を先延ばしにしていてやる気が出なかったが、5分という短い時間なら始めやすいと感じたから。また、短い時間でも毎日続けることで、将来的にはもっと長い時間できるようになるというティムの助言に納得したためです。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答はキムが1日5分だけ机で大学の課題をすることと、その理由（先延ばしを解消するために短時間から始めやすいから、毎日続ければ徐々に長時間できるようになるという助言に納得したため）を正確に述べている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、採点基準に基づいて評価を行っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザの指示（1～5の数字のみを出力）に沿っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の要点を整理しており、学習者にとってわかりやすい。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現は自然で明快である。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮した表現はない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "「何をやろうとしているか」を正しく記述している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「なぜやろうとしているか」を正しく記述している。"
+    }
+  },
+  "summary": "回答は完全に正確かつ明確であり、採点基準を満たしているため満点を与えるべきである。",
+  "score": 1
+}

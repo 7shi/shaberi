@@ -1,0 +1,51 @@
+{
+  "answer": "数字の範囲ごとにキーボードを叩く回数を計算しましょう。\n\n1.  **1桁の数字 (1～9):**\n    *   数字の数: 9個\n    *   各数字の打鍵数: 1回\n    *   合計打鍵数: 9 × 1 = 9回\n\n2.  **2桁の数字 (10～99):**\n    *   数字の数: 99 - 10 + 1 = 90個\n    *   各数字の打鍵数: 2回\n    *   合計打鍵数: 90 × 2 = 180回\n\n3.  **3桁の数字 (100～500):**\n    *   数字の数: 500 - 100 + 1 = 401個\n    *   各数字の打鍵数: 3回\n    *   合計打鍵数: 401 × 3 = 1203回\n\n**総打鍵数:**\n9回 + 180回 + 1203回 = 1392回\n\nしたがって、正解は **(b) 1392** です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例と回答が一致しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、回答を生成しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "指示通りに評価を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の採点に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "選択肢を選んでいません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "計算式を使っています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "3パターンに場合分けして考えています。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "選択肢を選んでいません。"
+    }
+  },
+  "summary": "正解例と回答が一致しており、すべての指示に適切に従っています。 したがって、5と評価します。",
+  "score": 5
+}

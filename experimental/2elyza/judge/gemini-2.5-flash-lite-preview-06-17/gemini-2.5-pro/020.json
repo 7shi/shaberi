@@ -1,0 +1,39 @@
+{
+  "answer": "正解は **C) 円柱** です。\n\n缶コーヒーは、底と上が同じ大きさの円で、側面がまっすぐな立体です。この形を「円柱（えんちゅう）」と呼びます。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と一致しており、缶コーヒーの形状を正しく円柱と特定しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題文の指示に従い、缶コーヒーの形状について回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の意図に沿っており、缶コーヒーの形状に関する質問に的確に答えています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "缶コーヒーの形状を円柱と説明し、その理由も簡潔に述べているため、有用な情報を提供しています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で、誤字脱字や文法的な誤りはありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "缶コーヒーの形状が円柱であるという事実は正確です。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "回答は安全性を過度に気にする内容を含んでいません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "採点基準の「不正解の場合、-4点」は適用されません。回答は正解であり、採点基準の「4点: 合っている」に該当します。"
+    }
+  },
+  "summary": "回答は正解であり、缶コーヒーの形状を円柱と正確に特定し、その理由も分かりやすく説明しています。採点基準に従い、4点と評価します。",
+  "score": 5
+}

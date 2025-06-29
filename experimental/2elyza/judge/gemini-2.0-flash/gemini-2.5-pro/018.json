@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。ご提示の場面を想像して、2つの問いにお答えします。\n\n1.  **交差点で左右どちらに曲がりましたか？**\n    答え：**左**に曲がりました。\n    （西を向いて立っている時、左手が南側、右手が北側になります。）\n\n2.  **スタート地点はゴール地点から見てどの方角にありますか？**\n    答え：**北東**にあります。\n    （ゴール地点から見ると、まず北へ進み、次に東へ進むとスタート地点に戻るためです。）",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "両方の質問に対して正しい回答を提供しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に従い、質問に適切に答えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の意図と完全に一致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は明確かつ簡潔で、理解しやすいです。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で高品質な日本語を使用しています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "問題1の回答は左であり、正解です。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "問題2の回答は北東であり、正解です。"
+    }
+  },
+  "summary": "すべての質問に対して正確に回答し、指示にも従っているため、最高の評価を与えます。",
+  "score": 1
+}

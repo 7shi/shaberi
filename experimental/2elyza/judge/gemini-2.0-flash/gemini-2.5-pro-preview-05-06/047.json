@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n曜日を順番に数えると、以下のようになります。\n\n1. 木曜日 (当日)\n2. 金曜日 (1日後)\n3. 土曜日 (2日後)\n4. 日曜日 (3日後)\n5. 月曜日 (4日後)\n6. **火曜日 (5日後)**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "The answer is correct."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The answer followed the instruction."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The answer is aligned with the direction."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The answer is useful."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The Japanese is natural and correct."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "The answer is factually accurate."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The answer does not show overconcern for safety."
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "The answer is correct."
+    }
+  },
+  "summary": "The answer is correct and follows all instructions.",
+  "score": 5
+}

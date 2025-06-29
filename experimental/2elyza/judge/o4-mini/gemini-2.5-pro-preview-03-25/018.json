@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。以下に回答します。\n\n1.  交差点で**左**に曲がりました。\n    （西に向かって進んでいる時、南は左手側になります。）\n\n2.  スタート地点はゴール地点から見て**北東**の方角にあります。\n    （ゴール地点から見ると、まず北へ進み、次に東へ進むとスタート地点に着きます。）",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は両方とも正しく、問題の正解例と一致しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "採点指示に従って、1～5の数値で評価します。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図に沿った正しい評価を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正しい回答であり、説明も含めて有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で明快です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にしていません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "1問目は左と述べており正解です。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "2問目は北東と述べており正解です。"
+    }
+  },
+  "summary": "回答は正確かつ有用な説明を含んでいるため、最高評価の5点です。",
+  "score": 1
+}

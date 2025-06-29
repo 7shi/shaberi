@@ -1,0 +1,43 @@
+{
+  "answer": "いいえ",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は文2が文1の正しい言い換えではないと明確に否定しており、問題の正解例と一致している。したがって正解である。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、文2が文1の正しい言い換えかどうかを『はい』か『いいえ』で答えている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に沿っており、適切に質問に答えている。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "回答は正しいが、理由や説明がなく、役に立つ情報を提供していないため有用とは言えない。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "回答は自然で正しい日本語で書かれている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答内容に事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は不正解ではない。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "回答は正しく指示に従っているが、理由や説明はない。"
+    }
+  },
+  "summary": "回答は問題の問いに対して正しく『いいえ』と答えており、指示にも従っている。しかし理由や説明がないため、採点基準に基づき満点ではなく4点と評価される。",
+  "score": 4
+}

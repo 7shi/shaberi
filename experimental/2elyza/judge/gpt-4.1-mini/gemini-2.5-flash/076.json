@@ -1,0 +1,47 @@
+{
+  "answer": "私たちは**全力**で**安全**対策に取り組み、そのノウハウを**活用**することで、事故のリスクを**軽減**しました。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は与えられた4つの単語をすべて使い、順番も守っている。文として自然で意味も通じているため正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに4つの単語を順番に使って1つの文を作成している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に沿った回答であり、方向性にずれはない。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "文として自然で、実用的な内容であるため役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で違和感がない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮した表現はない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "すべての単語を使用している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "単語は順番通りに使われている。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "文として自然である。"
+    }
+  },
+  "summary": "回答は全ての単語を順番に使い、自然な日本語で意味も通じている。指示に忠実で役に立つ内容であるため、満点の5点と評価する。",
+  "score": 1
+}

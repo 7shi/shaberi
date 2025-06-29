@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n数え方は以下の通りです。\n\n1. 木曜日の1日後：金曜日\n2. 木曜日の2日後：土曜日\n3. 木曜日の3日後：日曜日\n4. 木曜日の4日後：月曜日\n5. 木曜日の5日後：火曜日",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は木曜日の5日後が火曜日であることを正しく示しており、数え方も正確に説明しているため正解である。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、木曜日の5日後の曜日を答えている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の方向性に合致しており、正しい曜日を示している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は具体的な数え方を示しており、理解しやすく役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "曜日の数え方と結果に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "問題の問いに対して正確に答えている。"
+    }
+  },
+  "summary": "回答は問題の問いに正確に答えており、数え方の説明も明確でわかりやすい。日本語も自然で誤りがなく、役に立つ内容であるため最高評価とする。",
+  "score": 5
+}

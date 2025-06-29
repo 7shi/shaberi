@@ -1,0 +1,43 @@
+{
+  "answer": "コンピュータがクラッシュしたのは、**Aさん**がルールを破ったためです。\n\n理由は以下の通りです。\n\n*   会社のルールでは、午後はBさんだけがパソコンを使うことになっていました。\n*   AさんもBさんも13時（午後）にパソコンを使い始めました。\n*   二人が同時にログインするとクラッシュするという問題がありました。\n\nBさんは自分の許可された時間帯にログインしましたが、Aさんが午後にログインしたことがルール違反であり、結果的に二人が同時にログインしてクラッシュを引き起こしました。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答はAさんがルール違反をしたためクラッシュが起きたと正しく指摘しており、問題の状況を正確に理解している。理由も明確に述べられている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題文の質問に対して適切に回答しており、指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の趣旨に沿っており、方向性が合っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の解決に役立つ内容であり、理由も示しているため有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で読みやすく、特に問題はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはなく、問題文の内容に忠実である。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にした表現はなく、適切な回答である。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答は問題の問いに正しく答えている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "理由も明確に述べられており、回答として十分である。"
+    }
+  },
+  "summary": "回答は問題の問いに正確に答え、理由も明確に示している。日本語も自然で誤りがなく、指示に従っているため高評価に値する。",
+  "score": 5
+}

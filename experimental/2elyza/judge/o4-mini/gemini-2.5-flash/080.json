@@ -1,0 +1,51 @@
+{
+  "answer": "「ドライバー」という単語は、文脈によって以下の疑問詞タグを持つ可能性があります。\n\n*   **だれ**: 人としての「運転手」を指す場合。\n    *   例：「あのドライバーは運転がうまい。」→「だれが運転がうまいのか？」\n*   **なに**: 工具の「ねじ回し」、コンピュータの「ソフトウェア」、ゴルフの「クラブ」などを指す場合。\n    *   例：「このドライバーは使いやすい。」→「これはなに？」\n    *   例：「プリンターのドライバーを更新した。」→「なにを更新したのか？」\n    *   例：「新しいドライバーを買った。」→「なにを買ったのか？」\n\nしたがって、**だれ、なに** が該当します。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は「だれ」と「なに」を正しく挙げており、正答と一致しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り5段階で採点し、数字のみを出力する形式ですが、ここでは評価として指示通り算出しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの要求に沿って採点基準を適用しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点が適切に行われており、役に立つ評価です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で問題ありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容に事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "不要な安全配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "\"だれ\"のタグを正しく挙げています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "\"なに\"のタグも正しく挙げています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "\"だれ\"と\"なに\"以外のタグは挙げていません。"
+    },
+    "q4": {
+      "result": true,
+      "reasoning": "説明文の記載により-1点の減点が必要です。"
+    }
+  },
+  "summary": "両方正解（5点）から説明文の記載による-1点を行い、合計4点です。",
+  "score": 4
+}

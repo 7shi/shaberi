@@ -1,0 +1,43 @@
+{
+  "answer": "1928年、三井財閥の重役の娘であるあきさんが、テノール歌手の藤原義江さんを追いかけてミラノへ旅立ったんだって。この出来事は「世紀の恋」として話題になったらしいよ！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "内容に誤りはありません。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示にきちんと従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "方向性もあっています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "役に立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性への配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "源頼朝の文などの余計な箇所も言い換えてしまっているということはありません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "カジュアルな文体に直せています。"
+    }
+  },
+  "summary": "問題文の指示に適切に従い、正解例に沿った回答を生成しています。内容も正確で、自然な日本語で記述されています。プロンプティングの意図を理解し、適切に言い換えを行っています。",
+  "score": 5
+}

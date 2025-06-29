@@ -1,0 +1,43 @@
+{
+  "answer": "いいえ、スタート地点には戻っていません。\n\n指示を順に追って、最終的な位置を確認してみましょう。\n\n*   **スタート地点:** (0, 0) と仮定します。\n*   **1歩下がって:** (0, -1)\n*   **2歩左へ行って:** (-2, -1)\n*   **2歩下がって:** (-2, -3)\n*   **6歩前進して:** (-2, 3)\n*   **3歩、いや2歩右に進んで:** (0, 3)\n\n最終的な位置はスタート地点から「前」の方向に3歩進んだ場所になります。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "位置計算は問題の正解例と一致し、最終位置が(0,3)であることを正しく示している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "5段階で採点するよう指示に従っており、余計な出力をせず数字のみを出力している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に沿って、回答を採点している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "解答の正誤と適切な理由づけを提供しており、有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容は事実と一致している。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "採点方法の趣旨を正しく理解している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "評価理由を明確に述べている。"
+    }
+  },
+  "summary": "回答は正解かつ理由説明があるため、満点の5点とするのが妥当である。",
+  "score": 5
+}

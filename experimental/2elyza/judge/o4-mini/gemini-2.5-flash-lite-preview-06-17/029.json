@@ -1,0 +1,47 @@
+{
+  "answer": "いいえ、その文章は正しくありません。\n\n本田圭佑選手は高校時代に野球ではなくサッカーをしていました。そして、甲子園は高校野球の全国大会の名前です。\n\nしたがって、本田圭佑選手が高校生の時に甲子園で優勝したという記述は事実ではありません。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "モデルの回答は事実に合致し、誤りではないと正しく指摘しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い質問に対して適切に回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの要求に沿って評価を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "理由を示しつつ明確に回答しており、有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で読みやすいです。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "本田圭佑は野球ではなくサッカー選手であるという事実に基づいており、誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は間違っておらず、正しく否定しています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "回答に本田圭佑に関する誤情報は含まれていません。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "回答は適切に理由を示しています。"
+    }
+  },
+  "summary": "モデルの回答は正しく、理由も示されており、有用なため5点と評価できます。",
+  "score": 4
+}

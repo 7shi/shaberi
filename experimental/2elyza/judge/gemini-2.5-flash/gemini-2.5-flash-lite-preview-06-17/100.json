@@ -1,0 +1,43 @@
+{
+  "answer": "物語の文を適切な順に並べ替えると、以下のようになります。\n\n4. 昔、あるところに老人と孫がいました。\n2. 老人は、広い畑で色々な果物を育てていました。\n3. ある日、孫が老人に『こんなに広い畑で、全ての果物を一人で育てるのは大変そうですね』と尋ねました。\n5. 老人は微笑みながら次のように答えました。\n1. 「果物だけではなく、人生も同じです。協力しなくては、全てをこなすことはできません。」",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "提示された物語の文を全て正しい順序に並べ替えています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示通り、シャッフルされた文を適切な順に並べ替えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例と完全に一致する並び替えを提供しており、方向性は完全に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題に対する正しい解答を提供しており、非常に有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で分かりやすい日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "物語の並び替えであり、事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答は4, 2, 3, 5, 1と並べ替えており、これは正解例と完全に一致しています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "引用されている文（1と3）は、元の文から一切変更されていません。"
+    }
+  },
+  "summary": "回答は物語の文を全て適切に並べ替えており、正解例と完全に一致しています。引用文の変更もなく、指示に完全に従っています。日本語の品質も高く、非常に優れた回答です。",
+  "score": 5
+}

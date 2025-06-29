@@ -1,0 +1,51 @@
+{
+  "answer": "いいえ、ガラスは不燃性なので、使い捨てライターで炙っても燃えません。\n\nただし、ライターの炎でガラスを長時間熱すると、ガラスの種類や厚さによっては、熱で変形したり、割れたりする可能性はあります。特に急激な温度変化には弱いので注意が必要です。\n\n燃えることはありませんが、取り扱いには気をつけてください。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答はガラスが不燃で燃えないことを正しく指摘しており、追加で加熱による変形や割れの可能性にも触れているため正確である。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指定された採点基準に基づき、回答を評価してスコアを出力している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの指示通り、1~5のスコアのみを出力している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "ユーザーの疑問に的確に応え、追加の注意点も示しているため有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な表現はなく、読みやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "ガラスが不燃物であり、急激な温度変化で割れる可能性があることは事実である。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全を気にしすぎる記述はなく、適切な注意喚起のみ行っている。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "質問に対して正しく『燃えるか』を回答しているため、燃えるとは答えていない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "燃えないと答えつつ、なぜ燃えないのかや注意点を示しており、質問者の立場に立った回答となっている。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "誤った情報や曖昧な表現は含まれていない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "『答えられない』という回答形式ではない。"
+    }
+  },
+  "summary": "ガラスが不燃であることを明確に示し、加熱時の注意点や割れる可能性などの有用な情報も提供しているため、最高評価に値する。",
+  "score": 5
+}

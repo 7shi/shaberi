@@ -1,0 +1,43 @@
+{
+  "answer": "記事から抽出された日付は以下の通りです。\n\n*   あす\n*   24日\n*   26日 木曜日",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "24日と26日は正しく抽出されていますが、「あす」と「木曜日」は余計な要素です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い日付を抽出していますが、余計な要素を含んでいます。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "採点者としての視点で回答を評価できます。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "誤った要素を含むため正確な抽出結果としては役立ちません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語としては自然です。"
+    },
+    "factual_accuracy": {
+      "has_errors": true,
+      "reasoning": "「あす」と「木曜日」は記事中の日付表現として抽出すべきではありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に留意した結果ではありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "日付抽出の回答を出力しています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "回答は出力されていますが、余計な要素が含まれています。"
+    }
+  },
+  "summary": "24日と26日が正しく含まれていますが、「あす」と「木曜日」という不要な要素が含まれているため、部分的に誤った回答です。",
+  "score": 1
+}

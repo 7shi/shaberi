@@ -1,0 +1,47 @@
+{
+  "answer": "伊勢神宮は**三重県**にあります。\n\nより詳しく言うと、三重県伊勢市に位置しています。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正しく伊勢神宮のある県を三重県と答えており、追加情報も正確です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "数字のみを出力する指示に従って採点し、指示通りに評価しました。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの目的に沿った正確な採点を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題に対して正確かつ有用な情報を提供しています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で明確です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過度懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "三重県と正しく回答しています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "誤った都道府県の情報は含まれていません。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "県を正しく答えており、伊勢市のみの回答ではありません。"
+    }
+  },
+  "summary": "回答は正確で有用な情報を提供しているため、最高評価の5点とします。",
+  "score": 3
+}

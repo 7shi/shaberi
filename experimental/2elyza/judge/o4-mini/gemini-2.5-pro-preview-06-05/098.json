@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n漢字と意味の正しい組み合わせは以下の通りです。\n\n*   **1 - A**\n*   **2 - D**\n*   **3 - B**\n*   **4 - E**\n*   **5 - C**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "全ての数字とアルファベットの組み合わせが正解例と一致しているため完全に正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り数字とアルファベットのペアを明確に回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーのタスク（採点）に沿って適切に回答している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点作業において正確に対応しており有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で適切な日本語表現を用いている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "誤りや事実と異なる記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性への過度な配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "3つ以上の誤りはない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "1つまたは2つの誤りもない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "数字とアルファベットのペアを明確に回答しているため該当しない。"
+    }
+  },
+  "summary": "完全に正しい回答であり、採点基準に基づき5点と評価できます。",
+  "score": 5
+}

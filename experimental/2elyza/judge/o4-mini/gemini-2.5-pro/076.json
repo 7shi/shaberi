@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n\n私たちは、復旧作業に**全力**で取り組み、従業員の**安全**を第一に考え、最新技術を**活用**することで、作業に伴う負担を**軽減**します。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "全ての単語を順に正しく使用し、意味が一貫した文になっているため。”correct”と判断できます。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示通り、4つの単語を1文で順に使用しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの求める通り、採点を行うという方向性に沿っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "例題に対して適切に回答しており、評価に資するため有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に不自然さはなく、読みやすい文です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と矛盾する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にした表現はありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "全力、安全、活用、軽減の4単語をすべて使用しています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "出題された順番どおりに単語を配置しています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "文として自然であり、不自然な箇所はありません。"
+    }
+  },
+  "summary": "5",
+  "score": 1
+}

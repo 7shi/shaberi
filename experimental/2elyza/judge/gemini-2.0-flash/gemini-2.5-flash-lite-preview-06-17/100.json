@@ -1,0 +1,43 @@
+{
+  "answer": "物語の文を適切な順に並べ替えると、以下のようになります。\n\n4. 昔、あるところに老人と孫がいました。\n2. 老人は、広い畑で色々な果物を育てていました。\n3. ある日、孫が老人に『こんなに広い畑で、全ての果物を一人で育てるのは大変そうですね』と尋ねました。\n5. 老人は微笑みながら次のように答えました。\n1. 「果物だけではなく、人生も同じです。協力しなくては、全てをこなすことはできません。」",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は、物語の文の順番を適切に並べ替えています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に適切に従い、物語の文の順番を正しく並べ替えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "物語の文の順番を適切に並べ替えるという方向性に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "物語の文の順番を適切に並べ替えることで、物語の理解を助け、内容を把握する上で役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されており、特に問題は見当たりません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答の内容は事実に即しており、誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "順番を全て適切に並べ替えています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "文を引用する際に元の文から変化していません。"
+    }
+  },
+  "summary": "物語の文の順番を適切に並べ替えることができています。指示にも適切に従っており、全体として質の高い回答です。",
+  "score": 5
+}

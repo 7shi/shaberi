@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。\n文章中の擬音語と擬態語をそれぞれリストアップします。\n\n**擬音語**（音や声を表す言葉）\n*   **パラパラ**：雨が降り始めた音\n*   **ビシャビシャ**：雨が激しく降る音\n\n**擬態語**（様子を表す言葉）\n*   **ぼんやり**：外を見ている様子\n*   **ワクワク**：気持ちの様子",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文の指示に従い、文章中の擬音語と擬態語を正しくリストアップしている。擬音語として「パラパラ」と「ビシャビシャ」、擬態語として「ぼんやり」と「ワクワク」を挙げており、正解例とほぼ一致している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題文の指示通りに擬音語と擬態語をそれぞれリストアップしている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の趣旨に沿って、擬音語と擬態語を正しく分類し説明している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の要求に的確に応えており、学習や理解に役立つ内容である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすく、説明も丁寧である。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "擬音語と擬態語の分類や例示に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "擬音語と擬態語の区別と例示を正しく理解している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "抜け漏れはなく、余計な回答もない。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "回答は必要な情報のみを含み、余計な説明はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "ミスはなく、全て正解であるため該当しない。"
+    }
+  },
+  "summary": "回答は擬音語と擬態語を正確にリストアップしており、指示に完全に従っている。日本語も自然で説明も適切であるため、最高評価に値する。",
+  "score": 5
+}

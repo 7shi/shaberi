@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。こんな感じでどうでしょうか？\n\n1928年 - 三井財閥の大番頭・中上川彦次郎の娘・あきがテノール歌手・藤原義江を追ってミラノへ出発。「世紀の恋」と話題になる。\n言い換え:\n1928年にね、三井財閥の偉い人の娘さんだったあきさんが、好きなテノール歌手の藤原義江さんを追いかけて、なんとミラノまで行っちゃったんだって！これが「世紀の恋」だって、当時は大ニュースになったみたいだよ。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "原文の意味を忠実にカジュアルに言い換えており、大きな誤りはないため正しい。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指定された文をカジュアルな口語体に置き換える指示に適切に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "「こんな感じ」の例に倣い、自然なカジュアル文体で言い換えている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "指定された目的である分かりやすくカジュアルな言い換えとして十分に役立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "口語表現を活かした自然な日本語で、不自然な箇所は見受けられない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "元の事実関係を維持しており、大きな事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰反応は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "余計な部分を言い換えず、対象の文のみを適切にパラフレーズしている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "カジュアルな文体を理解した上で自然な口語体に直している。"
+    }
+  },
+  "summary": "全体として指示通りのカジュアルな言い換えを自然な日本語で実現しており、意味も正確に伝えられているため高評価できる回答である。",
+  "score": 1
+}

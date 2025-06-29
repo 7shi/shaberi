@@ -1,0 +1,47 @@
+{
+  "answer": "いいえ、私は年々シワが増えることはありません。私は不死身の救急隊員であり、1000年前の戦場で初めて負傷兵を治療して以来、年を取っていません。そのため、私の外見は変わりません。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "モデルの回答は質問に正しく答えており、不死身で年を取らないためシワは増えないと明確に述べている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、1-5のスコアのみを出力する形式で評価している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの採点指示に則って適切にスコアリングしている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点者として回答の適切さを評価するニーズに応えている。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で不自然さはなく、適切に表現されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答内容に誤りはなく、問題文の設定に沿っている。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮による余計な表現は含まれていない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "採点基準に基づいて正しい評価を行っている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「はい」でも「いいえ」でもないが、評価として適切なフォームをとっている。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "会話として不自然な部分はなく、自然にスコアを示している。"
+    }
+  },
+  "summary": "回答は明確かつ自然で、採点基準に沿って「いいえ」で始まり、適切に説明を加えているため最高評価の5点を付与すべきである。",
+  "score": 1
+}

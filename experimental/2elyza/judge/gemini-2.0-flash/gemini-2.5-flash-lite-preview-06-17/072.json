@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。以下に、ご提示いただいたQ&Aに相応しい選択肢を5つ作成します。\n\n**Q: 主に子ども向けのもので、イラストのついた物語が書かれているものはどれ？**\n\n**選択肢:**\n\n1.  **絵本**\n2.  漫画\n3.  図鑑\n4.  児童書\n5.  学習ドリル",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "選択肢は全て絵本に近いが、「主に子ども向けのもので、イラストのついた物語が書かれている」という条件を満たしていない。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに選択肢を5つ作成している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例に沿って、条件を少しずつずらした選択肢を作成している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "クイズの選択肢として適切であり、役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "漫画、図鑑、児童書、学習ドリルは絵本に近い。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "漫画はイラストのついた物語だが、子供向けとは限らない。図鑑はイラストが多いが、物語ではない。児童書は子供向けだが、イラストがない場合がある。学習ドリルは子供向けだが、物語ではない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "選択肢に重複はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "具体的な絵本を挙げてはいない。"
+    }
+  },
+  "summary": "指示に従い、適切に選択肢を作成している。選択肢は絵本に近いが、条件を少しずつずらしており、クイズとして成立するようになっている。",
+  "score": 5
+}

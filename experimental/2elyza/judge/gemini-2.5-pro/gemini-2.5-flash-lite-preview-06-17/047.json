@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n数え方は以下の通りです。\n\n*   木曜日 + 1日 = 金曜日\n*   木曜日 + 2日 = 土曜日\n*   木曜日 + 3日 = 日曜日\n*   木曜日 + 4日 = 月曜日\n*   木曜日 + 5日 = 火曜日",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題「木曜日の5日後は何曜日でしょう？」に対し、正解である「火曜日」と回答できています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題で問われている曜日の計算に正しく答えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正しく理解し、曜日を計算するという方向性で回答しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "結論だけでなく、正解例のように計算過程も示しているため、なぜその答えになるのかが分かりやすく、役に立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語は見られません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "曜日の計算は正確であり、事実に反する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "単純な計算問題であり、安全性を過度に配慮するような回答はしていません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答は正解であり、採点基準の「正解の場合: 5点になる」という項目に合致するため、5点と評価しました。"
+    }
+  },
+  "summary": "問題に対して「火曜日」と正しく回答できています。また、正解例と同様に、1日ずつ曜日を数える計算過程も示されており、非常に分かりやすいです。採点基準の「正解の場合: 5点になる」という項目に基づき、5点と評価します。",
+  "score": 5
+}

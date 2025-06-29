@@ -1,0 +1,51 @@
+{
+  "answer": "表から抽出された科目名は以下の通りです。\n\n*   微積分学101\n*   美術史",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と同様に、表から「微積分学101」と「美術史」の2つの科目名を正確に抽出しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "与えられた採点基準と指示に従い、回答を評価しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの要求に沿って適切に評価を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "評価結果は採点者の意図に沿っており、有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な表現はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にする表現はありません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「微積分学101」は回答から除外されていません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "「美術史」は回答から除外されていません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "科目名以外の余計な要素（講師名など）は含まれていません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "表をそのまま出力する形にはなっていません。"
+    }
+  },
+  "summary": "回答は正解例と一致し、すべての評価項目を満たしているため、最高得点の「5点」と判断します。",
+  "score": 5
+}

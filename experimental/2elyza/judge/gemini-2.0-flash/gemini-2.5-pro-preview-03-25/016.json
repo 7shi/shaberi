@@ -1,0 +1,51 @@
+{
+  "answer": "件名：Re: 本日の到着時刻について\n\n〇〇様\n\nお疲れ様です。\nご連絡いただき、ありがとうございます。\n\n体調不良とのこと、どうぞご無理なさらないでください。\n到着時刻の件、承知いたしました。13時過ぎとのこと、お待ちしております。\n\n道中お気をつけてお越しください。\nお大事になさってください。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題文の状況と正解例を考慮すると、回答は適切です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に適切に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例に沿った、適切な方向性です。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "状況を理解し、相手を気遣う内容で、非常に役に立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれており、問題ありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "メールとして成立しています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "返信メールとして成立しています。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "丁寧な文体で書かれています。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "時刻に関する誤りはありません。"
+    }
+  },
+  "summary": "問題文の状況、指示、正解例を考慮すると、非常に適切な回答です。 5点と評価します。",
+  "score": 5
+}

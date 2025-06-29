@@ -1,0 +1,51 @@
+{
+  "answer": "抽出された客観的な事実は以下の通りです。\n\n*   今日は雨である。\n*   話者がお菓子を買った。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題文から抽出すべき客観的な事実をすべて正確に抽出しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "客観的な事実のみを抽出するという指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図である客観的事実の抽出という方向性に合致している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の要求に対して、正確な情報を提供しており有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "抽出された事実はすべて問題文に記載されている客観的な事実であり、誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にするような表現は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答に「今日は雨である」と明記されているため。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "回答に「話者がお菓子を買った」と明記されており、これは「お菓子を買っていた」と同義であるため。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "回答は遠足の中止について言及しておらず、断言もしていないため。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "回答は遠足の中止について言及しておらず、可能性についても述べていないため。"
+    }
+  },
+  "summary": "採点基準に基づき、モデルは「今日は雨である」と「話者がお菓子を買った」の両方の客観的事実を正確に抽出しており、減点項目にも該当しないため、5点と評価します。",
+  "score": 5
+}

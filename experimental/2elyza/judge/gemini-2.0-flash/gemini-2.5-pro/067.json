@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n「滅多に」を使って言い換えると、以下のようになります。\n\n**昔はよく海に行っていたが、最近では滅多に泳がない。**\n\n---\n\n他にも、少しニュアンスを変えた言い方もできます。\n\n*   **昔はよく海に行っていたが、最近では滅多に泳がなくなった。**\n    *   （変化したことを強調する言い方です）\n*   **昔はよく海に行っていたものだが、最近では滅多に泳ぐこともない。**\n    *   （過去を懐かしむような、少し感傷的な響きがあります）",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と完全に一致しており、指示通り「滅多に」という言葉を使って文章を言い換えています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に沿って回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "指示された方向性に完全に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の意図を理解し、適切に言い換えを行っているので、非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で、違和感はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「滅多に」を使って適切に言い換えられています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "意味が変わっていません"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "漢字で適切に言い換えられています。"
+    }
+  },
+  "summary": "回答は問題の指示に完全に従い、正解例と一致する適切な言い換えを提供しています。日本語の品質も高く、有用な回答です。",
+  "score": 5
+}

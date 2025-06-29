@@ -1,0 +1,43 @@
+{
+  "answer": "適切な順序は以下の通りです。\n\n1.  昔、あるところに老人と孫がいました。\n2.  老人は、広い畑で色々な果物を育てていました。\n3.  ある日、孫が老人に『こんなに広い畑で、全ての果物を一人で育てるのは大変そうですね』と尋ねました。\n4.  老人は微笑みながら次のように答えました。\n5.  「果物だけではなく、人生も同じです。協力しなくては、全てをこなすことはできません。」",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と完全に一致しており、文の順番が適切に並べ替えられている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに文の順番を適切に並べ替えて回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の指示に沿った回答であり、方向性に合致している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正しい順序で並べ替えられており、問題の要求に対して役に立つ回答である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で問題なく理解できる。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "文の内容は事実と異なる部分はなく、正確である。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "全ての文が適切な順番で並べ替えられている。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "元の文からの変化はなく、正確に引用されている。"
+    }
+  },
+  "summary": "回答は正解例と完全に一致しており、指示に従って適切に文の順番を並べ替えている。日本語も自然で、内容に誤りはないため、最高評価の5点とする。",
+  "score": 5
+}

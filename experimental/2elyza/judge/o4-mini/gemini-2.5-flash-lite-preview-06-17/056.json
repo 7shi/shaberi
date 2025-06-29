@@ -1,0 +1,51 @@
+{
+  "answer": "* 遠足は中止になるだろう。\n* お菓子を買った。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "評価基準に基づき、基礎得点4点から遠足の中止を推測として述べたため1点減点し、最終スコア3となるため正しい算出です。"
+    },
+    "instruction_following": {
+      "followed": false,
+      "reasoning": "客観的事実のみの抽出という指示に対し、遠足中止を推測として含めてしまっています。"
+    },
+    "direction_alignment": {
+      "aligned": false,
+      "reasoning": "ユーザーの意図である事実抽出ではなく、推測を含んでおり方向性に合っていません。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "部分的に事実を抽出していますが、推測を含んでいるためタスクに十分役立つとは言えません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語として自然であり問題はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": true,
+      "reasoning": "「遠足は中止になるだろう」という推測を事実として含めています。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「今日は雨である」の事実を出力していません。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "「お菓子を買った」という事実を正しく出力しています。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "「遠足は中止になるだろう」と断言に近い表現を用いています。"
+    },
+    "q4": {
+      "result": true,
+      "reasoning": "「〜だろう」と推測を示す表現を用いています。"
+    }
+  },
+  "summary": "基底得点4から推測表現である「遠足は中止になるだろう」による1点減点で、正しいスコアは3点です。",
+  "score": 1
+}

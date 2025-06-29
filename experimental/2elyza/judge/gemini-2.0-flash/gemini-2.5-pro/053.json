@@ -1,0 +1,39 @@
+{
+  "answer": "RGB(200, 200, 0)は**黄色系の色**です。\n\n具体的には、**マスタード色（からし色）**や、少し暗めの黄色に近い色合いです。\n\n【解説】\nRGBは、赤（Red）、緑（Green）、青（Blue）の光の三原色を混ぜて色を表現します。\n\n*   **RGB(200, 200, 0)** の場合\n    *   赤(R)と緑(G)が200と高い値で混ざっています。赤と緑を混ぜると黄色になります。\n    *   青(B)が0なので、青みは全くありません。\n    *   赤と緑の値が最大値の255よりも少し低いため、鮮やかな黄色（RGB(255, 255, 0)）よりは少し暗く、落ち着いた色合いになります。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "RGB(200, 200, 0)は黄色系の色であり、記述も適切です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに回答されています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例と方向性が一致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "RGBに関する知識がなくても、回答を読んで理解できます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語です。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性への配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "RGB(200, 200, 0)は黄色やそれに近い色（黄土色）です。"
+    }
+  },
+  "summary": "問題で問われている色を正確に答えられており、回答として適切です。 5点と評価します。",
+  "score": 5
+}

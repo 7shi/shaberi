@@ -1,0 +1,47 @@
+{
+  "answer": "「**後の祭り**」\n\n彼は、もう告白しても意味がない、手遅れだと感じたのでしょう。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は「後の祭り」であり、採点基準で5点とされる正解例の一つです。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、数字ではなく該当することわざを提示し評価しました。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "公平かつ適切に採点を行っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点基準に基づいて正しく評価できています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な点はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮はありません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答はことわざとして適切です。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "内容は問題に関連しており、見当違いではありません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "シチュエーションに合った適切な表現であり、失望する要素はありません。"
+    }
+  },
+  "summary": "回答は5点相当の適切なことわざ「後の祭り」を使用しており、採点基準に完全に合致しています。",
+  "score": 5
+}

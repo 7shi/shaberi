@@ -1,0 +1,43 @@
+{
+  "answer": "与えられた映画タイトルに含まれる都市名は以下の通りです。\n\n*   バンクーバー\n*   ロンドン",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "バンクーバーとロンドンは正しく抽出されていますが、織田信長の生涯について「都市名は含まれていません」との記述が欠けているため不完全です。"
+    },
+    "instruction_following": {
+      "followed": false,
+      "reasoning": "指示通りに3つのタイトルすべてについて回答すべきところ、3つ目を省略しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "採点要件に対して適切に内容を評価しています。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "回答が不完全なため、利用者の目的に完全には応えられていません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な部分はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "抽出された都市名自体は正しいですが、抜けがあるだけです。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮した表現は含まれていません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "「織田信長の生涯」の回答が抜けています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "余計な要素は含まれていません。"
+    }
+  },
+  "summary": "バンクーバーとロンドンは正しく抽出されていますが、3つ目のタイトルへの言及が抜けているため、-2点の減点で総合評価は2点となります。",
+  "score": 1
+}

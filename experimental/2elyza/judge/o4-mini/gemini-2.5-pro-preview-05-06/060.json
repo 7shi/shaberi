@@ -1,0 +1,43 @@
+{
+  "answer": "いいえ",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題に対して正しい答え（いいえ）を出しているため正確である"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "数字のみを出力するという指示に従っている"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの求める形式（数字のみ）で回答している"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "適切な点数を示しており、求められた採点として有用である"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然さはない"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はない"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性への過度な配慮は見られない"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "不正解ではない"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "正解しているが理由や説明がない"
+    }
+  },
+  "summary": "正解を示しているが解説がないため、問題固有の採点基準に基づき4点と評価される",
+  "score": 4
+}

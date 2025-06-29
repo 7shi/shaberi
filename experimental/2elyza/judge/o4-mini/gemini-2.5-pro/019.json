@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。こんな言い換えはいかがでしょうか。\n\n**言い換え:**\n1928年に、三井財閥のお偉いさんの娘さん（あきさん）が、大好きなテノール歌手の藤原義江さんを追いかけて、イタリアのミラノまで行っちゃったんだ。この出来事は「世紀の恋」って呼ばれて、すごく話題になったらしいよ！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正確に元の内容を伝えており、事実と異なる記述はない。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題に従って2番目の文章をカジュアルに言い換えている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "カジュアルな口語体で要望通りの言い換えを行っている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "読みやすく、内容を分かりやすく伝える役に立つ言い換えである。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で違和感がない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係を正しく伝えている。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性の配慮過剰な表現はない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "プロンプティング構造を正しく理解し、不要な部分は言い換えていない。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "口語的・カジュアルな文体で自然に言い換えている。"
+    }
+  },
+  "summary": "問題およびガイドラインに正しく従い、カジュアルで分かりやすい言い換えがなされているため、満点の評価とした。",
+  "score": 1
+}

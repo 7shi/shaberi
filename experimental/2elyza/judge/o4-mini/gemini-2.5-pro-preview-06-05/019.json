@@ -1,0 +1,43 @@
+{
+  "answer": "はい、承知いたしました。こんな言い換えはいかがでしょうか。\n\n1928年、三井財閥の偉い人の娘さんだったあきさんが、テノール歌手の藤原義江さんを追いかけてミラノへ出発！これが「世紀の恋」だって、当時ものすごく話題になったんだって。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "元の内容を適切に簡略化して言い換えており、大きな事実誤認はないため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りにカジュアルな文体で言い換えており、追加・削除も不要な部分に手を加えていないため。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "「こんな感じ」のカジュアルな口語表現に沿った回答となっているため。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "指定の言い換え形式を理解しており、実用的に使える表現になっているため。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "やや口語的だが、不自然な日本語ではなく読みやすい表現のため。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "「偉い人の娘さん」と簡略化しているが、事実を大きく歪めてはいないため。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰配慮の表現はなく、問題ないため。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "不要な箇所（源頼朝の文など）を言い換えておらず、第二文のみを適切に処理しているため。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "カジュアルな文体で「こんな感じ」を正しく反映しているため。"
+    }
+  },
+  "summary": "元の主旨を損なわずにカジュアルな口語文体で適切に言い換えており、大きな誤りも見られないため、4点と評価します。",
+  "score": 5
+}

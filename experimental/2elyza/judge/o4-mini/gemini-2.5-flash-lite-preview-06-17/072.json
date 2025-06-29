@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。以下に、ご提示いただいたQ&Aに相応しい選択肢を5つ作成します。\n\n**Q: 主に子ども向けのもので、イラストのついた物語が書かれているものはどれ？**\n\n**選択肢:**\n\n1.  **絵本**\n2.  漫画\n3.  図鑑\n4.  児童書\n5.  学習ドリル",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "モデルの回答は4つの選択肢すべてが正解条件を満たさず、絵本に近いが条件を外したものになっており、重複もなく採点基準に合致しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題文どおりに5つの選択肢を提示している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの意図である選択肢作成のタスクに沿った回答。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "条件に則った妥当な選択肢を示しており、実用的。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で読みやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "誤った事実や不正確な情報を含んでいない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮はみられない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "すべて絵本に近しい形式の出版形態を選んでいる。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "絵本以外の選択肢は正解条件をいずれも満たしていない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "重複した選択肢はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "具体的な絵本名を列挙していない。"
+    }
+  },
+  "summary": "選択肢が正解例と採点基準に沿って適切に作成され、重複や過不足もないため最高評価。",
+  "score": 5
+}

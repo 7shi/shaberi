@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。\n\n文章中の擬音語と擬態語は以下の通りです。\n\n*   **擬音語:**\n    *   パラパラ\n    *   ビシャビシャ\n\n*   **擬態語:**\n    *   ぼんやり\n    *   ワクワク",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文に記載されている擬音語・擬態語を正確にリストアップしており、正解例と照らし合わせても「ビシャビシャ」は問題文の記述通りであるため、回答は正しいです。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "擬音語と擬態語をそれぞれリストアップするという指示に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの意図通り、擬音語と擬態語を分類して提示しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "質問に対する直接的で正確な回答を提供しており、有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "提示された情報に事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にするような表現はありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "擬音語「パラパラ」「ビシャビシャ」、擬態語「ぼんやり」「ワクワク」の全てが正しく抽出されています。正解例の「ピシャピシャ」は問題文では「ビシャビシャ」と書かれているため、回答が正しいです。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "全て正解しているため、抜け漏れはありません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "余計な回答はしていません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "ミスは2つ以上ありません。"
+    }
+  },
+  "summary": "回答は問題文から擬音語と擬態語を正確に抽出し、適切に分類しています。正解例と一部表記が異なりますが、これは問題文の記述に忠実であるため、回答が正しいと判断できます。指示にも完全に従っており、非常に質の高い回答です。",
+  "score": 5
+}

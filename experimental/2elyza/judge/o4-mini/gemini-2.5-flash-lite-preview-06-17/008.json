@@ -1,0 +1,51 @@
+{
+  "answer": "表から抽出された科目名は以下の通りです。\n\n*   微積分学101\n*   美術史",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例と照らして、全ての科目名（微積分学101、 美術史）が正しく抽出されているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り表から科目名を抜き出してリスト化しているため。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの評価依頼に沿って適切に回答を行っているため。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "求められた情報を過不足なく提供しており、実用的であるため。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で正しい日本語で記述されているため。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認や余計な情報の混入がないため。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮や拒否は見られないため。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "微積分学101は回答に含まれているため抜けていない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "美術史は回答に含まれているため抜けていない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "田中教授など余計な要素は含まれていない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "表をそのまま出力しておらず、科目名のみをリスト化している。"
+    }
+  },
+  "summary": "回答は指示に従い、微積分学101と美術史の両方を正確に抽出して列挙しており、余計な要素もなく日本語も自然であるため、満点の5点と評価できます。",
+  "score": 5
+}

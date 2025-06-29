@@ -1,0 +1,51 @@
+{
+  "answer": "はい、承知いたしました。Q&Aに合うような選択肢を5つ作成しますね。\n\n**Q: 主に子ども向けのもので、イラストのついた物語が書かれているものはどれ？**\n**A: 絵本**\n\n【選択肢案】\n\n1.  漫画\n2.  図鑑\n3.  児童文学\n4.  小説\n5.  絵本\n\nいかがでしょうか？ これらの選択肢は、正解である「絵本」を含みつつ、他の選択肢も「子ども向け」「イラスト」「物語」といった要素を部分的に持っていたり、関連性が高かったりするため、クイズとして機能すると思います。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "選択肢は全て異なり、問題文と回答文に沿ったものが生成されている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに選択肢を5つ作成している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例に沿って、条件を少しずらした選択肢が提案されている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "クイズとして成り立つ選択肢が提示されており、有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語は見られない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "提示された選択肢は全て絵本に近い。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "提示された選択肢は、「主に子ども向けのもので、イラストのついた物語が書かれている」という条件を完全に満たしているわけではない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "選択肢に重複はない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "具体的な絵本を列挙しているわけではない。"
+    }
+  },
+  "summary": "指示に沿って、適切な選択肢が生成されている。クイズとして成立するように、正解の絵本を含みつつ、他の選択肢も関連性を持たせている点が評価できる。",
+  "score": 5
+}

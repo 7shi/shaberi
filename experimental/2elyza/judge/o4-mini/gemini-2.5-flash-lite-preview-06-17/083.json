@@ -1,0 +1,43 @@
+{
+  "answer": "キムは大学の課題をやろうとしていますが、やる気が出ないため先延ばしにしています。",
+  "evaluation": {
+    "correctness": {
+      "level": "incorrect",
+      "reasoning": "回答は『何をやろうとしているか』に関する具体的情報（1日5分だけ課題をする）を示しておらず、『なぜやろうとしているか』もティムの勧めによるものという点を欠いています。両方とも誤りです。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、5段階で採点を行いました。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問意図に沿って回答を評価しています。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "回答は不十分で、質問に対する正確な情報を提供できていません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に不自然さはありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": true,
+      "reasoning": "会話内容に反し、キムが実際に試そうとしている具体的手法を示していません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に対する過度な懸念はありません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "『何をやろうとしているか』の具体的答え（1日5分だけ課題をする）が欠けています。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "『なぜやろうとしているか』の理由（ティムの勧めによる）は示されていません。"
+    }
+  },
+  "summary": "具体的な行動（1日5分だけ課題をする）とその理由（ティムの勧めという動機付け）が両方とも抜けており、回答として不正確です。",
+  "score": 1
+}

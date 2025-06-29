@@ -1,0 +1,47 @@
+{
+  "answer": "「**後の祭り**」\n\n彼は、もう告白しても意味がない、手遅れだと感じたのでしょう。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例に示されたことわざであり、シチュエーションにも合致している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に沿って回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "提示された問題の意図と完全に合致している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "与えられた状況において適切なことわざを提示している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「後の祭り」はことわざである。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "このシチュエーションにふさわしいことわざである。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "適切であり、惜しい点はない。"
+    }
+  },
+  "summary": "提示された問題に対して、適切かつ正確な回答を提供している。ことわざの選択もシチュエーションに合致しており、全体として非常に質の高い回答である。",
+  "score": 5
+}

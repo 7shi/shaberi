@@ -1,0 +1,51 @@
+{
+  "answer": "抽出された客観的な事実は以下の通りです。\n\n*   今日は雨である。\n*   話者がお菓子を買った。\n*   話者が遠足について言及している。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "モデルは『今日は雨である』『話者がお菓子を買った』の両方を正しく抽出しており、誤った断定や不適切な推測を含んでいないため、正しい評価となる。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り客観的事実のみを抽出し、余計な推測や感想を避けている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "採点者として1～5の数値のみを出力すべきところを保持している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は明確で採点に直結するため有用である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で問題ない日本語である。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "特に過剰な安全配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "本日の天気や出力自体の質問ではないため該当しない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "お菓子を買ったという出力ではあるが、『買っていた』という質問ではないので該当しない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "遠足に関する出力はあるが、中断を断言していないので該当しない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "過度に予防的な断言はしていない。"
+    }
+  },
+  "summary": "モデルは必要な二つの事実を正しく抽出し、誤った断定もないため、基準に従い最高評価の5点となる。",
+  "score": 1
+}

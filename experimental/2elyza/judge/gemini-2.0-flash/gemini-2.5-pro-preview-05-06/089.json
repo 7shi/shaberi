@@ -1,0 +1,43 @@
+{
+  "answer": "`[-4, 2, 5, 5, 10, 92, 92, 101]`",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "The answer is completely correct."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The answer followed all instructions."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The direction is aligned."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The answer is useful."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "There are no Japanese quality issues."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "The answer is factually accurate."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "The answer is not overconcerned about safety."
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "The answer is completely correct."
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "The answer is completely correct."
+    }
+  },
+  "summary": "The answer is completely correct and follows all instructions.",
+  "score": 5
+}

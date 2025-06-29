@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n数え方は以下の通りです。\n\n*   木曜日の1日後：金曜日\n*   木曜日の2日後：土曜日\n*   木曜日の3日後：日曜日\n*   木曜日の4日後：月曜日\n*   **木曜日の5日後：火曜日**",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は「火曜日」と正しく、その導出過程も正確に示されています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示に従い、木曜日の5日後の曜日を正確に回答しています。また、正解例と同様に数え方も示しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問に対して直接的かつ正確な回答を提供しており、方向性は完全に合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正しい答えと、その答えに至るまでの分かりやすい説明が提供されており、非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で分かりやすい日本語で書かれており、不自然な点はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "曜日の数え方、および最終的な答えに事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られず、直接的に質問に答えています。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答は「火曜日」であり、これは木曜日の5日後として正しい曜日です。数え方も正確です。"
+    }
+  },
+  "summary": "回答は完全に正しく、その導出過程も明確に示されており、採点基準の「正解の場合: 5点になる」に合致するため、5点と評価します。",
+  "score": 5
+}

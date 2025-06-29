@@ -1,0 +1,47 @@
+{
+  "answer": "これは古典的ななぞなぞですね！\n\nあなたの正体は**ひまわり**です。\n\n* **目は黒い**: ひまわりの中心部分（種ができるところ）\n* **髪は明るい黄色**: ひまわりの花びら\n* **足元はしっかりと地面に根ざしています**: ひまわりの茎と根\n* **太陽の光を顔に浴びるのが好き**: ひまわりが太陽の方向を向いて咲く性質（向日性）",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例と回答が一致しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、回答を生成している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例に沿った回答をしている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "なぞなぞの答えとして適切。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "ひまわりと正解している。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "植物、花であるとは答えていない。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "擬人法を見抜けている。"
+    }
+  },
+  "summary": "問題に対して正しく回答できています。また、回答の内容も妥当です。",
+  "score": 5
+}

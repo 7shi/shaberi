@@ -1,0 +1,51 @@
+{
+  "answer": "擬音語：\n*   パラパラ\n*   ビシャビシャ\n\n擬態語：\n*   ぼんやり\n*   ワクワク",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題文中の擬音語（パラパラ、ビシャビシャ）と擬態語（ぼんやり、ワクワク）をすべて正しく抽出しているため、正解とみなせる。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに5段階で評価し、数字のみを出力する形式に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの意図する採点タスクに沿った回答を提供している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "求められた採点結果を的確に示している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然さはなく、明確に記述されている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容に事実誤認はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "すべて正しく理解して評価している。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "不要な情報は含まれていない。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "回答は簡潔に数字のみを提示している。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "特に2つ以上のミスはないため、該当せず。"
+    }
+  },
+  "summary": "ユーザーの回答はすべて揃っており、正確であるため最高点の5点を付与するのが適切です。",
+  "score": 5
+}

@@ -1,0 +1,43 @@
+{
+  "answer": "**選択肢1: 男が刑務所に行ったのは、ガソリンスタンドを襲ったからだ。**\n\nこちらの方が意味が通じます。\n\n**理由:**\n\n*   **選択肢1**は「ガソリンスタンドを襲う（原因）→ 刑務所に行く（結果）」という、一般的な因果関係を示しています。犯罪を犯した結果として刑務所に入る、という流れです。\n*   **選択肢2**は「刑務所に入る（原因）→ ガソリンスタンドに強盗に入る（結果）」という逆の因果関係を示しています。通常、犯罪を犯した後に刑務所に入るのであって、刑務所に入ったことが原因で犯罪を犯すわけではありません。論理的に成り立ちません。\n\nしたがって、出来事の順序と因果関係が正しく表現されているのは「選択肢1」です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "正解例と回答の内容が一致している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、問題に回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例の意図と回答の方向性が一致している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解例に沿って、詳しく回答しているので役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然な日本語で書かれている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性への配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "不正解ではない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "正解で理由がある。"
+    }
+  },
+  "summary": "問題文に対して適切に回答できています。正解例に沿って詳しく理由を説明しており、非常に質の高い回答です。",
+  "score": 5
+}

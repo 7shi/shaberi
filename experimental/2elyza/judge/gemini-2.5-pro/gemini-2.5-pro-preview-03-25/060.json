@@ -1,0 +1,43 @@
+{
+  "answer": "いいえ",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題に対する答えは「いいえ」であり、正解です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題の指示通り、はいかいいえで答えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "正解例と同じく「いいえ」と回答しており、方向性は合っています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解ではありますが、理由の説明がないため、有用性は限定的です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性への配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は「いいえ」であり、正解です。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "回答は「いいえ」と正解ですが、なぜそうなるのかの理由や説明がありません。"
+    }
+  },
+  "summary": "採点基準に基づき評価します。回答は「いいえ」であり、正解です。しかし、問題固有の採点基準である「正解しているが理由や説明がない場合: 4点」に該当するため、4点と評価します。理由の説明があれば5点でした。",
+  "score": 4
+}

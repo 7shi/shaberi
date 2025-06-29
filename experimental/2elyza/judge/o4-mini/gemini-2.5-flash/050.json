@@ -1,0 +1,43 @@
+{
+  "answer": "元の数式は以下のようになります。\n\n$${ \\left( \\left( \\frac{1}{3} \\right) + 33 \\right) \\times 210 } \\div 100$$",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と同じ (1/3+33)*210/100 の数式を正しく表現しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "自然言語の数式表現を四則演算の数式に正しく変換しているため。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "指示に沿い、公平かつ明瞭に回答しているため。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "問題の要件を満たし、適切な解答を提供しているため。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に不自然な点はないため。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "数式表現に誤りはないため。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性過剰配慮などはないため。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "(1/3+33)*210/100 と正しく回答している。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "括弧を忘れた回答ではない。"
+    }
+  },
+  "summary": "モデルの回答は正確に数式を表現しており、採点基準に沿って最高点が妥当です。",
+  "score": 5
+}

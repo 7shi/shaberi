@@ -1,0 +1,51 @@
+{
+  "answer": "抽出された客観的な事実は以下の通りです。\n\n*   今日は雨である。\n*   話者がお菓子を買った。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題文から話者の推測や感想を除いた客観的な事実のみを正しく抽出できているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "「話者の推測や感想を除いた客観的な事実のみを抽出してください」という指示に正しく従えている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正確に理解し、求められている回答を生成できている。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解例とほぼ同じ内容であり、問題に対する完璧な回答となっている。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実と異なる内容は含まれていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性への配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答に「今日は雨である。」と含まれているため。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "回答に「話者がお菓子を買った。」と含まれているため。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "回答には遠足が中止になるとの断定的な記述は含まれていない。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "回答には遠足が中止になる可能性が高いとの記述は含まれていない。"
+    }
+  },
+  "summary": "採点基準に基づき評価します。回答は「今日は雨である」「話者がお菓子を買った」という2つの客観的な事実を正しく抽出できています。これは採点基準の「今日は雨, お菓子を買っていた の両方を出力した場合: 5点」に該当します。また、減点項目である「遠足は中止になる」という推測に関する記述も含まれていません。したがって、満点の5点と評価します。",
+  "score": 5
+}

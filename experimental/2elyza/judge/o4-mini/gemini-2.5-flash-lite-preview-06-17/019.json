@@ -1,0 +1,43 @@
+{
+  "answer": "1928年、三井財閥の重役の娘であるあきさんが、テノール歌手の藤原義江さんを追いかけてミラノへ旅立ったんだって。この出来事は「世紀の恋」として話題になったらしいよ！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "元の事実関係を正確に保持しつつ、自然なカジュアル文に言い換えているため正しいです。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "1～5の数字のみを出力するという指示に従って採点結果を示しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザの要求通り、回答を採点し数字で提示しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "採点結果を迅速かつ適切に提供しており、ユーザの目的に沿っています。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "文法・表現ともに自然な日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "三井財閥の娘がテノール歌手を追ってミラノへ行ったという事実関係を損なっていません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度に安全性を気にした表現は含まれていません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "余計な文や源頼朝のエピソードを言い換えておらず、必要以上の情報は扱っていません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "カジュアルな文体への言い換えを正しく行っており、「こんな感じ」を理解しています。"
+    }
+  },
+  "summary": "回答は元の内容を忠実に保ちつつ自然なカジュアル文に仕上げられており、5点が適切です。",
+  "score": 5
+}

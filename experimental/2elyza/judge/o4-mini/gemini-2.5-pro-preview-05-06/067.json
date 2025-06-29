@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n\n「昔はよく海に行っていたが、最近では**滅多に**泳がない。」\n\nこのように言い換えられます。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "『滅多に』を正しく使い、意味も問題文と合致しているため正しい回答です。"
+    },
+    "instruction_following": {
+      "followed": false,
+      "reasoning": "採点者として1～5の数字のみを出力するよう指示があったにもかかわらず、採点をせずに回答例の提示のみを行っています。"
+    },
+    "direction_alignment": {
+      "aligned": false,
+      "reasoning": "ユーザーの求める役割（採点）に従わず、再言換例を提示するのみで採点を行っていません。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "採点としての出力がないため、ユーザーの要求を満たしておらず役に立ちません。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "文章は自然な日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認や不適切な表現は含まれていません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に過度に配慮した表現は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "漢字の『滅多に』を正しく使用しています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "意味が変わるような書き換えは行われていません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "ひらがなの『めったに』は使用されていません。"
+    }
+  },
+  "summary": "回答例としては正しいが、採点を行わずに言い換え例のみを提示しているため、指示に従っておらず役に立っていません。",
+  "score": 1
+}

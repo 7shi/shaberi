@@ -1,0 +1,43 @@
+{
+  "answer": "1928年、三井財閥の重役の娘であるあきさんが、テノール歌手の藤原義江さんを追いかけてミラノへ旅立ったんだって。この出来事は「世紀の恋」として話題になったらしいよ！",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は1928年に三井財閥の重役の娘あきがテノール歌手藤原義江を追ってミラノに行ったことを正確に述べており、事実関係に誤りはない。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、1928年の出来事をカジュアルで分かりやすい言い換えで表現している。源頼朝の文は言い換えず、問題の指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "カジュアルな文体で話題性を伝えており、出題意図に沿った方向性である。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "歴史的事実を分かりやすく伝えており、学習や理解に役立つ表現である。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で流暢な日本語で書かれている。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはなく、正確に記述されている。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "プロンプティングの構造を理解しており、余計な箇所を言い換えていない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "カジュアルな文体で適切に言い換えている。"
+    }
+  },
+  "summary": "回答は指示に忠実で、カジュアルな言い換えとして自然かつ正確に表現されている。日本語も良好で、出題意図に合致しているため高評価に値する。",
+  "score": 5
+}

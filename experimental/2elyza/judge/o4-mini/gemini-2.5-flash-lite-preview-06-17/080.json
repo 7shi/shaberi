@@ -1,0 +1,51 @@
+{
+  "answer": "「ドライバー」という単語は、文脈によっていくつかの疑問詞タグを持つ可能性があります。\n\n*   **だれ**: 「誰がドライバーですか？」のように、特定の人物を指す場合。\n*   **なに**: 「何のドライバーですか？」のように、道具やソフトウェアなどを指す場合。\n\nしたがって、考えられる疑問詞タグは **だれ** と **なに** です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "モデルの回答は正解例と一致し、“だれ”と“なに”のみを挙げており、正しいタグを示しているため正確です。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通り、適切な疑問詞タグを選択しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "ユーザーの求める採点に対する回答として適切に応じています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "求められた内容（正答のタグ）が明確に示されており、判定に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語に不自然な点はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実関係に誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮は見られません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "“だれ”に対する回答が正しいです。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "“なに”に対する回答が正しいです。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "だれ、なに以外のタグは出力していません。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "正しくない理由や説明を書いていないため該当しません。"
+    }
+  },
+  "summary": "モデルの回答は正しい2つのタグ（だれ、なに）を示しており、余計なタグもなく問題文に完全に適合しているため、満点の5点です。",
+  "score": 5
+}

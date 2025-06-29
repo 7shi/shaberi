@@ -1,0 +1,47 @@
+{
+  "answer": "安全を最優先に、全力で技術を**活用**し、リスクを**軽減**します。",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "The response uses all required words but not in the specified order, so it is only partially correct."
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "The assistant provided a single-digit score as requested."
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "The response aligns with the user’s instruction to grade the answer numerically."
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "The evaluation yields a clear and appropriate numerical grade."
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "The sentence is grammatically correct and natural."
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "No factual content is presented that could be incorrect."
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "No undue safety concerns were raised."
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "All four target words are included in the response."
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "The words appear in the order 安全, 全力, 活用, 軽減 instead of 全力, 安全, 活用, 軽減."
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "The sentence is natural and coherent."
+    }
+  },
+  "summary": "All required words are used but in the wrong order, leading to a partial score of 3.",
+  "score": 1
+}

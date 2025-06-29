@@ -1,0 +1,39 @@
+{
+  "answer": "正解は **C) 円柱** です。\n\n缶コーヒーは、上下が円形で、側面がまっすぐな筒状の形をしています。これを立体図形として最も正確に表す言葉が「円柱」です。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題に正しく回答し、正解であるC) 円柱を選択しているため。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題で問われていることに、的確に回答できています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を汲み取り、適切な回答を生成しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解を提示するだけでなく、なぜその形が円柱と呼ばれるのかを分かりやすく説明しており、有用性が高いです。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語は見られません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する内容はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "回答は正解です。"
+    }
+  },
+  "summary": "回答は正解であり、採点基準の5点に該当します。正解の選択肢を提示するだけでなく、なぜそれが正解なのかという理由も明確に説明されており、非常に分かりやすく有用な回答です。日本語も自然で、減点要素はありません。",
+  "score": 5
+}

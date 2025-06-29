@@ -1,0 +1,47 @@
+{
+  "answer": "伊勢神宮は**三重県**にあります。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と一致しており、問題に対する正確な情報を提供しています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "回答は問題文の指示に従い、伊勢神宮の所在地について正確に答えています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "回答は問題の意図に沿っており、伊勢神宮が何県にあるかという質問に直接答えています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答はユーザーが求めている情報（伊勢神宮の所在地）を簡潔かつ正確に提供しており、非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で、文法的な誤りや不自然な表現はありません。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "回答に含まれる情報は事実に基づいており、誤りはありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "回答は安全性を過度に気にするような表現を含んでいません。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答は「三重県」と正しく答えています。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "回答には三重県以外の嘘の情報は含まれていません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "回答は「三重県」と県名を正しく答えており、伊勢市のように県を答えていないわけではありません。"
+    }
+  },
+  "summary": "回答は問題に対して正確であり、指示にも従っています。日本語も自然で、事実に基づいた有用な情報を提供しています。したがって、満点の評価となります。",
+  "score": 5
+}

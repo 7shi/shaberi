@@ -1,0 +1,43 @@
+{
+  "answer": "映画タイトルに含まれる都市名は以下の通りです。\n\n*   バンクーバー\n*   ロンドン",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "2つの都市名は正しく列挙されているが、3つ目のタイトル（織田信長の生涯）について「都市名は含まれていません」と明記していないため不完全。"
+    },
+    "instruction_following": {
+      "followed": false,
+      "reasoning": "全ての映画タイトルについて回答するよう指示されているが、3番目について回答が欠落している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "都市名の列挙という問いには沿っているが、回答が不完全である。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "一部の情報は提供されているものの、3つ目について回答がないため完全な解答としては役立たない。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語表現に不自然な点はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": true,
+      "reasoning": "織田信長の生涯に都市名が含まれていない旨が欠落しており、出題内容を完全に満たしていない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "3つ目のタイトルについて回答が抜けている。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "余計な要素は含まれていない。"
+    }
+  },
+  "summary": "第三のタイトルについて「都市名は含まれていません」と明記せず回答が不完全なため、方向性は合っているが減点対象となり、2点相当。",
+  "score": 1
+}

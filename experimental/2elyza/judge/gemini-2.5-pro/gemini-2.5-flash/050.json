@@ -1,0 +1,43 @@
+{
+  "answer": "元の数式は以下のようになります。\n\n$${ \\left( \\left( \\frac{1}{3} \\right) + 33 \\right) \\times 210 } \\div 100$$",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "問題文で指示された計算の順序を正しく理解し、括弧を用いて優先順位を明確にした上で、完全に正しい数式を立てることができている。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "「元の数式を四則演算の数式として表してください」という指示に正しく従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正確に汲み取り、求められている数式を回答している。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "正解をLaTeX形式で美しく表現しており、非常に分かりやすく役に立つ。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "不自然な日本語はない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "数式は問題文の記述と完全に一致しており、事実に反する点はない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過度な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答はLaTeX形式で表現されているが、数式としては「(1/3+33)*210/100」と等価であり、正解である。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "括弧は正しく使用されており、計算の優先順位が正しく表現されている。"
+    }
+  },
+  "summary": "採点基準に基づき評価します。問題固有の採点基準である「(1/3+33)*210/100 と正しく回答できた場合: 5点」に該当します。回答はLaTeX形式で表現されていますが、数式としては完全に正しく、括弧の使い方も適切です。よって、5点と評価します。",
+  "score": 5
+}

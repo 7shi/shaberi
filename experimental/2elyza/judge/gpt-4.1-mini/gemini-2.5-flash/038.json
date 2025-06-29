@@ -1,0 +1,47 @@
+{
+  "answer": "「**後の祭り**」\n\n彼は、もう告白しても意味がない、手遅れだと感じたのでしょう。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は問題の条件に合致しており、ことわざ『後の祭り』を正しく提示している。意味も文脈に適している。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示通りに問題に対して適切なことわざを回答している。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題のシチュエーションに合ったことわざを選んでいる。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は問題の解決に役立つ適切なことわざを示している。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然でわかりやすい。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "ことわざの意味と使い方に誤りはない。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "安全性に関する過剰な配慮は見られない。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答はことわざであり、問題の条件を満たしている。"
+    },
+    "q2": {
+      "result": true,
+      "reasoning": "ことわざの選択はシチュエーションに適している。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "ことわざとして適切であり、シチュエーションにふさわしい。"
+    }
+  },
+  "summary": "回答は問題の条件に合致した適切なことわざ『後の祭り』を示しており、文脈にも合っている。日本語も自然で、指示に従っているため高評価に値する。",
+  "score": 1
+}

@@ -1,0 +1,51 @@
+{
+  "answer": "分かりません。",
+  "evaluation": {
+    "correctness": {
+      "level": "partially_correct",
+      "reasoning": "回答は質問に対して『分かりません』と答えており、質問の条件に合致しているが、視点の高さによって距離が変わることを説明していないため部分的に正しいと判断される。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に従い、明確な答えがない場合は『分かりません』と答えているため、指示に従っている。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問に対して適切に答えており、方向性は合っている。"
+    },
+    "usefulness": {
+      "useful": false,
+      "reasoning": "回答は役に立つ情報を提供しておらず、単に『分かりません』と答えているため有用性は低い。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "日本語は自然で問題ない。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実誤認はない。単に情報が不足しているだけである。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全配慮は見られない。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "的外れな回答ではない。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "不明回答として適切であるため、分かりません回答としては正しい。"
+    },
+    "q3": {
+      "result": true,
+      "reasoning": "視点の高さなどの情報が不足しているため、分かりませんと答えている点は妥当である。"
+    },
+    "q4": {
+      "result": false,
+      "reasoning": "具体的な距離の提示はないため、およそ4-5km程度という回答ではない。"
+    }
+  },
+  "summary": "回答は質問の条件に従い『分かりません』と答えているため指示には従っているが、視点の高さによって距離が変わることの説明がなく、情報としては不十分である。よって部分的に正しいが有用性は低い。採点基準に基づき3点と評価する。",
+  "score": 4
+}

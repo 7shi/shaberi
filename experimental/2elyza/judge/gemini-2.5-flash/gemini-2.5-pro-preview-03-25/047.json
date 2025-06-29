@@ -1,0 +1,39 @@
+{
+  "answer": "木曜日の5日後は**火曜日**です。\n\n数え方は以下の通りです。\n\n1. 木曜日の1日後：金曜日\n2. 木曜日の2日後：土曜日\n3. 木曜日の3日後：日曜日\n4. 木曜日の4日後：月曜日\n5. 木曜日の5日後：火曜日",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "木曜日の5日後が火曜日であるという回答は正しいです。また、その導出過程も正確に記述されています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "問題に対する直接的な回答が提供されており、指示に従っています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "質問に対して直接的に回答し、その導出過程も明確に示されており、方向性は合致しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "回答は正しく、その導出過程も分かりやすく説明されており、非常に有用です。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で分かりやすい日本語で書かれています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "内容に事実誤認はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "倫理的な懸念から回答を拒否するような挙動は見られませんでした。"
+    },
+    "q1": {
+      "result": true,
+      "reasoning": "回答は「火曜日」であり、これは正解です。問題固有の採点基準により、正解の場合は5点となります。"
+    }
+  },
+  "summary": "回答は完全に正しく、正解例と同様に導出過程も丁寧に説明されています。日本語も自然で、指示に完全に従っています。問題固有の採点基準に基づき、5点と評価します。",
+  "score": 5
+}

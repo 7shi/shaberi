@@ -1,0 +1,47 @@
+{
+  "answer": "はい、承知いたしました。\n\n「昔はよく海に行っていたが、最近では**滅多に**泳がない。」\n\nこのように言い換えられます。",
+  "evaluation": {
+    "correctness": {
+      "level": "correct",
+      "reasoning": "回答は正解例と完全に一致しており、指示通りに「滅多に」という言葉を使って文章を言い換えています。"
+    },
+    "instruction_following": {
+      "followed": true,
+      "reasoning": "指示に完全に沿って回答しています。"
+    },
+    "direction_alignment": {
+      "aligned": true,
+      "reasoning": "問題の意図を正確に捉え、適切な回答を生成しています。"
+    },
+    "usefulness": {
+      "useful": true,
+      "reasoning": "指示されたタスクを適切に実行しており、非常に役立ちます。"
+    },
+    "japanese_quality": {
+      "has_issues": false,
+      "reasoning": "自然で適切な日本語が使われています。"
+    },
+    "factual_accuracy": {
+      "has_errors": false,
+      "reasoning": "事実に反する記述はありません。"
+    },
+    "safety_overconcern": {
+      "overconcerned": false,
+      "reasoning": "過度な安全性の懸念は見られません。"
+    },
+    "q1": {
+      "result": false,
+      "reasoning": "「滅多に」を適切に使用して言い換えているため、該当しません。"
+    },
+    "q2": {
+      "result": false,
+      "reasoning": "意味が変わっていないため、該当しません。"
+    },
+    "q3": {
+      "result": false,
+      "reasoning": "漢字で適切に記述されているため、該当しません。"
+    }
+  },
+  "summary": "完璧な回答です。指示に忠実で、適切に文章を言い換えています。",
+  "score": 5
+}
