@@ -1,0 +1,8 @@
+{
+  "answer": "はい、承知いたしました。\n提供された株価データから、2022年の各月の最高および最低の終値を抽出し、CSV文字列として以下に示します。\n\n```csv\n月,最高終値,最低終値\n2022-01,156.25,153.80\n2022-02,163.90,161.80\n2022-03,168.20,166.80\n```",
+  "evaluation": {
+    "reasoning": "The assistant correctly extracts the requested information and returns it in the correct format. The response is well-formatted and easy to read. The language used by the assistant matches the language used by the user.",
+    "score": "10"
+  },
+  "score": 10
+}

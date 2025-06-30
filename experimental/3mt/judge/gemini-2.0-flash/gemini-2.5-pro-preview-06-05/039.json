@@ -1,0 +1,8 @@
+{
+  "answer": "もちろんです。ここに、√2が無理数であることの証明を詩で表します。\n\nもし√2が比で表せるとしよう、\na/b、これ以上分けられぬよう。\n二乗すれば 2b² は a² となり、\naは偶数、疑いの余地なし。\n\naを2kと置き、元に戻せば、\n今度はbの番、偶数となる運命。\naもbも偶数、最初の仮定に背く、\n故に√2は、有理の域を超越す。",
+  "evaluation": {
+    "reasoning": "The answer is well-written and follows all the instructions. The poem is a valid proof that the square root of 2 is irrational. The poem is also well-written and respects the length constraint. The language is also correct.",
+    "score": "10"
+  },
+  "score": 10
+}

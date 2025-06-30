@@ -1,0 +1,8 @@
+{
+  "answer": "これは面白いなぞなぞですね。\n\n答えは **1人** です。\n\n【解説】\n三人の姉は姉妹です。したがって、彼女たちの「兄」は全員同じ人物を指します。\n\n*   一番上の姉にとっての兄\n*   二番目の姉にとっての兄\n*   三番目の姉にとっての兄\n\nこの3人が指している兄は、たった一人の共通の兄です。\n\nその兄は姉たちよりも年上であり、姉たちは大石さんよりも年上なので、その兄は大石さんにとっても年上の兄ということになります。\n\nしたがって、大石さんの兄は1人です。",
+  "evaluation": {
+    "reasoning": "The AI correctly identified the answer to the riddle and provided a clear, step-by-step explanation. The reasoning is logical and easy to follow, addressing the core of the riddle which is that the older brothers are shared among the sisters. The language used is appropriate and matches the user's language.",
+    "score": "10"
+  },
+  "score": 10
+}

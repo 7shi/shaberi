@@ -1,0 +1,8 @@
+{
+  "answer": "アマゾン、8\n川、7\n生物、2",
+  "evaluation": {
+    "reasoning": "The assistant correctly identified the number of occurrences of each word in the provided text. The format is also correct, with each word and its count on a new line, and the lines are ordered by the frequency of occurrence. The response is accurate and follows the instructions precisely.",
+    "score": "10"
+  },
+  "score": 10
+}

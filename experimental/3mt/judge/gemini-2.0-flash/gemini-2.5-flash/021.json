@@ -1,0 +1,8 @@
+{
+  "answer": "もし私が人々と一緒にレースをしていて、ちょうど2番目の人を追い越したとしたら、\n\n*   私の現在の位置は**2番目**です。\n*   私が追い越した人の位置は**3番目**になります。",
+  "evaluation": {
+    "reasoning": "The answer is not correct. If you overtake the second person, you are in the second position. The person you overtook was in the second position and is now in the third position.",
+    "score": "1"
+  },
+  "score": 1
+}

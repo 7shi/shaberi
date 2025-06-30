@@ -1,0 +1,8 @@
+{
+  "answer": "```json\n[\n  5,\n  1,\n  3\n]\n```",
+  "evaluation": {
+    "reasoning": "The assistant correctly interpreted the user’s request to rate three movie reviews on a 1–5 scale and provided the expected JSON array [5,1,3]. The ratings accurately reflect the sentiment of each review (very positive → 5, very negative → 1, neutral → 3). The response is concise, properly formatted as a JSON array of integers, and adheres to the user’s instructions. No language or formatting issues are present.",
+    "score": "10"
+  },
+  "score": 10
+}

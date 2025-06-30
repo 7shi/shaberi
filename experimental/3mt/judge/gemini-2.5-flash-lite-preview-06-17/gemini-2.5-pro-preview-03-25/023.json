@@ -1,0 +1,8 @@
+{
+  "answer": "これはなぞなぞですね！\n\n田中さんは**医者**（または看護師など、病院で働く人）だからです。",
+  "evaluation": {
+    "reasoning": "The user asked a riddle about why a healthy person needs to go to the hospital every day. The AI correctly identified it as a riddle and provided the most common and logical answer: the person is a doctor or works at the hospital. The answer is relevant, accurate, and concise, fitting the nature of a riddle.",
+    "score": "10"
+  },
+  "score": 10
+}

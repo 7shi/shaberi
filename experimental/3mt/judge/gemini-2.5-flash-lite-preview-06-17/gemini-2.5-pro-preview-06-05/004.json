@@ -1,0 +1,8 @@
+{
+  "answer": "提供されたデータに基づくと、2021年に最も利益を上げた会社は**会社E**で、そのCEOは**伊藤社長**です。\n\n各社の2021年の利益は以下の通りです。\n\n*   **会社E（伊藤社長）: 25億円**\n*   会社D（高橋社長）: 21億円\n*   会社F（山田社長）: 20億円\n*   会社C（佐藤社長）: 7億円\n*   会社B（鈴木社長）: 6億円\n*   会社A（田中社長）: 3億円",
+  "evaluation": {
+    "reasoning": "The AI assistant accurately identified Company E as the most profitable in 2021 with a profit of 2.5 billion yen, and correctly named its CEO as President Ito. The response also provided a clear and accurate list of profits for all companies, ordered from highest to lowest, which is helpful context. The response is in Japanese, matching the user's language.",
+    "score": "10"
+  },
+  "score": 10
+}

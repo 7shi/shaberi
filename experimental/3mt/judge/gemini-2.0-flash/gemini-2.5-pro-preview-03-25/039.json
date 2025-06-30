@@ -1,0 +1,8 @@
+{
+  "answer": "はい、承知いたしました。√2の無理性の証明を、短い詩でお届けします。\n\nもし √2 が *a/b* ならば、\n既約の分数、美しく。\n二乗すれば *a*² = *2b*² となり、\n故に *a* は偶数、疑いなく。\nならば *a = 2k*、代入すれば、\n*b*² = *2k*²、*b* もまた偶数なり。\n共に偶数、最初の仮定に反し、\n√2 は無理数、これぞ真理。",
+  "evaluation": {
+    "reasoning": "The answer is correct and follows the instructions. The poem is short and proves that the square root of 2 is an irrational number. The poem is also well-written and easy to understand. The language is consistent with the user's language.",
+    "score": "10"
+  },
+  "score": 10
+}

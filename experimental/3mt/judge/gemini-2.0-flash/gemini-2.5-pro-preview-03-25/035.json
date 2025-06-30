@@ -1,0 +1,8 @@
+{
+  "answer": "承知いたしました。お任せください。\nご提示いただいたのは、宋代の詞人・柳永の「蝶恋花・佇倚危楼風細細」の一節ですね。深い情愛を詠んだ名句です。\n\nこれを洗練された日本語で表現すると、以下のようになります。\n\n「恋い慕うあまりに痩せ細り、衣の紐（ひも）が緩んでしまっても、決して後悔はいたしません。それもすべて、愛しいあの方のため。この身がやつれ果てることになろうとも、本望にございます。」",
+  "evaluation": {
+    "reasoning": "The AI assistant correctly identified the language and provided a refined Japanese translation of the given text. The translation maintains the original meaning while using eloquent and sophisticated expressions, as requested. The response is relevant, accurate, and demonstrates a good understanding of the source material and the desired tone.",
+    "score": "10"
+  },
+  "score": 10
+}

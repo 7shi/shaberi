@@ -1,0 +1,8 @@
+{
+  "answer": "大石さんには兄はいません。\n\n解説：\n\n*   大石さんには3人の年上の姉がいます。\n*   それぞれの姉には、自分より1歳年上の兄が1人ずついます。\n*   これは、大石さんの3人の姉が、それぞれ同じ1人の兄を共有していることを意味します。\n*   つまり、大石さんの姉たちには、1人の兄がいるということです。\n*   しかし、この兄は姉たちにとっての兄であり、大石さんにとっての兄ではありません。大石さんより年上のお姉さんがいるということは、大石さんはそのお姉さんたちより年下ということになります。\n*   したがって、大石さんには兄はいません。",
+  "evaluation": {
+    "reasoning": "The user asks a riddle about the number of brothers a person named Oishi has. The assistant correctly deduces that Oishi has no brothers. The explanation is clear and logical, breaking down the riddle step-by-step. The language matches the user's request.",
+    "score": "10"
+  },
+  "score": 10
+}

@@ -1,0 +1,8 @@
+{
+  "answer": "これは古典的ななぞなぞですね！\n\nもしあなたが2番目の人を追い越したなら：\n\n*   **あなたの現在の位置は2番目です。**\n*   **あなたが追い越した人の位置は3番目です。**\n\nあなたは元々3番目にいて、2番目の人を追い越したことでその人の位置に入ったわけです。1番目の人はまだあなたの前にいます。",
+  "evaluation": {
+    "reasoning": "The AI assistant correctly identified the riddle and provided accurate answers for both parts of the question, along with a clear and logical explanation. The response is relevant, detailed, and matches the user's language.",
+    "score": "10"
+  },
+  "score": 10
+}

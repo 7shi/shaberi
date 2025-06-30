@@ -1,0 +1,8 @@
+{
+  "answer": "このなぞなぞの答えは、**1人**です。\n\n【解説】\n三人の姉が**三つ子**であれば、この条件は成り立ちます。\n\n*   三人の姉が三つ子で同じ年齢だとします。\n*   その三つ子の姉たちにとって「自分より一歳年上の兄」は、共通の**一人の兄**ということになります。\n*   その兄は、大石さんにとっても兄なので、大石さんの兄は1人です。",
+  "evaluation": {
+    "reasoning": "The AI correctly identifies the answer to the riddle and provides a clear, logical explanation. The explanation addresses the potential ambiguity by considering the scenario where the sisters are triplets, which is the most logical interpretation for the riddle to have a single answer. The language matches the user's request.",
+    "score": "10"
+  },
+  "score": 10
+}
